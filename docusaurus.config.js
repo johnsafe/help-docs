@@ -105,6 +105,10 @@ const config = {
           },
         ],
       },
+      metadata: [
+        {name: 'keywords', content: 'gitlab,github'},
+        {name: 'keywords', content: 'git,api'}
+      ],
       footer: {
         style: 'dark',
         links: [
