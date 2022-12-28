@@ -1,0 +1,15 @@
+{
+  "title": "Tutorial - Extras",
+  "slug": "/category/tutorial---extras-1",
+  "permalink": "/docs/category/tutorial---extras-1",
+  "navigation": {
+    "previous": {
+      "title": "Congratulations!",
+      "permalink": "/docs/i18n/en/tutorial-basics/congratulations"
+    },
+    "next": {
+      "title": "Manage Docs Versions",
+      "permalink": "/docs/i18n/en/tutorial-extras/manage-docs-versions"
+    }
+  }
+}
