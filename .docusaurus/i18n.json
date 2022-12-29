@@ -17,7 +17,7 @@
     "en": {
       "label": "English",
       "direction": "ltr",
-      "htmlLang": "en-GB",
+      "htmlLang": "en",
       "calendar": "gregory",
       "path": "en"
     }

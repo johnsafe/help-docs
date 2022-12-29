@@ -20,12 +20,12 @@ export default {
       "en"
     ],
     "localeConfigs": {
-      "en": {
-        "htmlLang": "en-GB",
-        "direction": "ltr"
-      },
       "zh-Hans": {
         "htmlLang": "zh-Hans",
+        "direction": "ltr"
+      },
+      "en": {
+        "htmlLang": "en",
         "direction": "ltr"
       }
     },
@@ -37,11 +37,18 @@ export default {
       {
         "docs": {
           "sidebarPath": "/Users/lishaohui/node/johnsafe.github.io/sidebars.js",
-          "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          "docLayoutComponent": "@theme/DocPage",
+          "docItemComponent": "@theme/DocItem",
+          "rehypePlugins": [],
+          "beforeDefaultRemarkPlugins": [],
+          "beforeDefaultRehypePlugins": [],
+          "showLastUpdateAuthor": false,
+          "showLastUpdateTime": false,
+          "disableVersioning": false,
+          "includeCurrentVersion": true
         },
         "blog": {
-          "showReadingTime": true,
-          "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          "showReadingTime": true
         },
         "theme": {
           "customCss": "/Users/lishaohui/node/johnsafe.github.io/src/css/custom.css"
@@ -73,7 +80,7 @@ export default {
       "items": [
         {
           "type": "doc",
-          "docId": "intro",
+          "docId": "introduction",
           "position": "left",
           "label": "帮助文档"
         },
@@ -101,6 +108,16 @@ export default {
       ],
       "hideOnScroll": false
     },
+    "metadata": [
+      {
+        "name": "keywords",
+        "content": "gitlab,github"
+      },
+      {
+        "name": "keywords",
+        "content": "git,api"
+      }
+    ],
     "footer": {
       "style": "dark",
       "links": [
@@ -109,15 +126,15 @@ export default {
           "items": [
             {
               "label": "帮助文档",
-              "to": "/docs/intro"
+              "to": "/docs/introduction"
             },
             {
               "label": "API",
-              "to": "/docs/intro"
+              "to": "/docs/introduction"
             },
             {
               "label": "OAuth2",
-              "to": "/docs/intro"
+              "to": "/docs/introduction"
             }
           ]
         },
@@ -370,7 +387,6 @@ export default {
         "autoCollapseCategories": false
       }
     },
-    "metadata": [],
     "tableOfContents": {
       "minHeadingLevel": 2,
       "maxHeadingLevel": 3

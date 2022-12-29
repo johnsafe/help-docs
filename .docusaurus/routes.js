@@ -58,6 +58,31 @@ export default [
     exact: true
   },
   {
+    path: '/en/docs/tags',
+    component: ComponentCreator('/en/docs/tags', '867'),
+    exact: true
+  },
+  {
+    path: '/en/docs/tags/上手',
+    component: ComponentCreator('/en/docs/tags/上手', 'ba1'),
+    exact: true
+  },
+  {
+    path: '/en/docs/tags/演示',
+    component: ComponentCreator('/en/docs/tags/演示', '175'),
+    exact: true
+  },
+  {
+    path: '/en/docs/tags/用户-ssh-密钥设置',
+    component: ComponentCreator('/en/docs/tags/用户-ssh-密钥设置', '5a3'),
+    exact: true
+  },
+  {
+    path: '/en/docs/tags/用户认证',
+    component: ComponentCreator('/en/docs/tags/用户认证', '601'),
+    exact: true
+  },
+  {
     path: '/en/markdown-page',
     component: ComponentCreator('/en/markdown-page', '174'),
     exact: true
@@ -69,137 +94,41 @@ export default [
   },
   {
     path: '/en/docs',
-    component: ComponentCreator('/en/docs', 'e23'),
+    component: ComponentCreator('/en/docs', '66e'),
     routes: [
       {
-        path: '/en/docs/category/tutorial---basics',
-        component: ComponentCreator('/en/docs/category/tutorial---basics', '47e'),
+        path: '/en/docs/category/用户',
+        component: ComponentCreator('/en/docs/category/用户', 'b07'),
         exact: true,
         sidebar: "tutorialSidebar"
       },
       {
-        path: '/en/docs/category/tutorial---basics-1',
-        component: ComponentCreator('/en/docs/category/tutorial---basics-1', '3cf'),
+        path: '/en/docs/category/组织',
+        component: ComponentCreator('/en/docs/category/组织', 'dc8'),
         exact: true,
         sidebar: "tutorialSidebar"
       },
       {
-        path: '/en/docs/category/tutorial---extras',
-        component: ComponentCreator('/en/docs/category/tutorial---extras', '134'),
+        path: '/en/docs/introduction',
+        component: ComponentCreator('/en/docs/introduction', 'a6e'),
         exact: true,
         sidebar: "tutorialSidebar"
       },
       {
-        path: '/en/docs/category/tutorial---extras-1',
-        component: ComponentCreator('/en/docs/category/tutorial---extras-1', 'cfe'),
+        path: '/en/docs/orgnization/congratulations',
+        component: ComponentCreator('/en/docs/orgnization/congratulations', '922'),
         exact: true,
         sidebar: "tutorialSidebar"
       },
       {
-        path: '/en/docs/i18n/en/intro',
-        component: ComponentCreator('/en/docs/i18n/en/intro', '8fb'),
+        path: '/en/docs/user/sshkey',
+        component: ComponentCreator('/en/docs/user/sshkey', '9ed'),
         exact: true,
         sidebar: "tutorialSidebar"
       },
       {
-        path: '/en/docs/i18n/en/tutorial-basics/congratulations',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-basics/congratulations', '3a6'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/i18n/en/tutorial-basics/create-a-blog-post',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-basics/create-a-blog-post', '383'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/i18n/en/tutorial-basics/create-a-document',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-basics/create-a-document', '1ef'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/i18n/en/tutorial-basics/create-a-page',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-basics/create-a-page', 'd5a'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/i18n/en/tutorial-basics/deploy-your-site',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-basics/deploy-your-site', '936'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/i18n/en/tutorial-basics/markdown-features',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-basics/markdown-features', '953'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/i18n/en/tutorial-extras/manage-docs-versions',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-extras/manage-docs-versions', 'de8'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/i18n/en/tutorial-extras/translate-your-site',
-        component: ComponentCreator('/en/docs/i18n/en/tutorial-extras/translate-your-site', '4a8'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/intro',
-        component: ComponentCreator('/en/docs/intro', 'fb4'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-basics/congratulations',
-        component: ComponentCreator('/en/docs/tutorial-basics/congratulations', '8bb'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-basics/create-a-blog-post',
-        component: ComponentCreator('/en/docs/tutorial-basics/create-a-blog-post', '5c2'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-basics/create-a-document',
-        component: ComponentCreator('/en/docs/tutorial-basics/create-a-document', 'e5b'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-basics/create-a-page',
-        component: ComponentCreator('/en/docs/tutorial-basics/create-a-page', '3b3'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-basics/deploy-your-site',
-        component: ComponentCreator('/en/docs/tutorial-basics/deploy-your-site', '50b'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-basics/markdown-features',
-        component: ComponentCreator('/en/docs/tutorial-basics/markdown-features', '590'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-extras/manage-docs-versions',
-        component: ComponentCreator('/en/docs/tutorial-extras/manage-docs-versions', 'd3c'),
-        exact: true,
-        sidebar: "tutorialSidebar"
-      },
-      {
-        path: '/en/docs/tutorial-extras/translate-your-site',
-        component: ComponentCreator('/en/docs/tutorial-extras/translate-your-site', '7c7'),
+        path: '/en/docs/user/verify',
+        component: ComponentCreator('/en/docs/user/verify', '5e5'),
         exact: true,
         sidebar: "tutorialSidebar"
       }

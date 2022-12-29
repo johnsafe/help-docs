@@ -28,12 +28,12 @@ const config = {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans','en'],
     localeConfigs: {
-      en: {
-        htmlLang: 'en-GB'
-      },
       'zh-Hans': {
         htmlLang: 'zh-Hans'
-      }
+      },
+      'en': {
+        htmlLang: 'en'
+      },
     }
   },
 
@@ -44,17 +44,26 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          docLayoutComponent: '@theme/DocPage',
+          docItemComponent: '@theme/DocItem',
+          rehypePlugins: [],
+          beforeDefaultRemarkPlugins: [],
+          beforeDefaultRehypePlugins: [],
+          showLastUpdateAuthor: false,
+          showLastUpdateTime: false,
+          disableVersioning: false,
+          includeCurrentVersion: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // editUrl:
+          //   'https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/blob/master/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // editUrl:
+          //   'https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/blob/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -88,7 +97,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'introduction',
             position: 'left',
             label: '帮助文档',
           },
@@ -117,15 +126,15 @@ const config = {
             items: [
               {
                 label: '帮助文档',
-                to: '/docs/intro',
+                to: '/docs/introduction',
               },
               {
                 label: 'API',
-                to: '/docs/intro',
+                to: '/docs/introduction',
               },
               {
                 label: 'OAuth2',
-                to: '/docs/intro',
+                to: '/docs/introduction',
               },
             ],
           },

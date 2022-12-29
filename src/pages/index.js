@@ -1,3 +1,4 @@
+// 首页
 import React from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
@@ -17,8 +18,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            to="/docs/introduction">
+            开启 AtomGit 的学习之旅
           </Link>
         </div>
       </div>
