@@ -12,7 +12,7 @@ const config = {
   tagline: '使用文档  接口文档  第三方接入文档',
   url: 'https://atomgit.com',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',//throw
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
@@ -26,14 +26,11 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans','en'],
+    locales: ['zh-Hans'],
     localeConfigs: {
       'zh-Hans': {
         htmlLang: 'zh-Hans'
-      },
-      'en': {
-        htmlLang: 'en'
-      },
+      }
     }
   },
 
