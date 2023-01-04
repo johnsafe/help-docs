@@ -47,6 +47,7 @@ const config = {
           docLayoutComponent: '@theme/DocPage',
           docItemComponent: '@theme/DocItem',
           rehypePlugins: [],
+          routeBasePath: "/" ,
           beforeDefaultRemarkPlugins: [],
           beforeDefaultRehypePlugins: [],
           showLastUpdateAuthor: false,
@@ -70,6 +71,21 @@ const config = {
         },
       }),
     ],
+  ],
+  plugins: [
+    [
+      'content-docs',
+      /** @type {import('@docusaurus/plugin-content-docs').Options} */
+      ({
+        id: 'api',
+        path: 'api',
+        routeBasePath: 'api',
+        editCurrentVersion: true,
+        sidebarPath: require.resolve('./sidebarsAPI.js'),
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+      }),
+    ]
   ],
   themes: [
     [
@@ -101,8 +117,9 @@ const config = {
             position: 'left',
             label: '帮助文档',
           },
-          {to: '/blog', label: 'API', position: 'left'},
-          {to: '/blog', label: 'OAuth2', position: 'left'},
+          {to: '/api/', label: 'API文档', position: 'left'},
+          {to: '/oauth/', label: '第三方接入', position: 'left'},
+          {to: '/blog', label: '博客', position: 'left'},
           {
             type: 'localeDropdown',
             position: 'right'
@@ -130,7 +147,7 @@ const config = {
               },
               {
                 label: 'API',
-                to: '/docs/introduction',
+                to: '/api/',
               },
               {
                 label: 'OAuth2',

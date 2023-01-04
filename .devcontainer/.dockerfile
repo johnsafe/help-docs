@@ -1,13 +1,13 @@
 FROM awesometic/docusaurus
 
-WORKDIR /docusaurus
+WORKDIR /workspaces
 
 COPY package.json ./
 COPY yarn.lock ./
 
 RUN npm install
 
-VOLUME /docusaurus
+VOLUME /workspaces
 
 COPY . .
 
