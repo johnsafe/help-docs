@@ -89,11 +89,15 @@ const config = {
       // @ts-ignore
       '@easyops-cn/docusaurus-search-local',
       /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
+      // require.resolve("@easyops-cn/docusaurus-search-local"),
       // @ts-ignore
       ({
         hashed: true,
         language: ["en", "zh"],
         highlightSearchTermsOnTargetPage: true,
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: true,
         explicitSearchResultPath: true,
       }),
     ],
