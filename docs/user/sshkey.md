@@ -4,6 +4,7 @@ slug: /user/sshkey # URL(最多三级结构，便于seo 和理解，遵循doc/�
 sidebar_position: 2 #侧边栏位置（不设置则按照ID排序）
 description: 用户 ssh 密钥设置 # 描述
 title: 配置SSH密钥 # 页面标题
+hide_title: true
 tags:
   - 用户 ssh 密钥设置
 ---

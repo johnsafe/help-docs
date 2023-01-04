@@ -7,6 +7,7 @@ description: 账号认证操作帮助 # 描述
 title: 账号认证 # 页面标题
 tags:
   - 用户认证
+hide_title: true
 ---
 
 ## 账号

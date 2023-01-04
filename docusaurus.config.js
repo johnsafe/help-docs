@@ -51,7 +51,7 @@ const config = {
           beforeDefaultRemarkPlugins: [],
           beforeDefaultRehypePlugins: [],
           showLastUpdateAuthor: false,
-          showLastUpdateTime: false,
+          showLastUpdateTime: true,
           disableVersioning: false,
           includeCurrentVersion: true,
           // Please change this to your repo.
@@ -82,7 +82,7 @@ const config = {
         routeBasePath: 'api',
         editCurrentVersion: true,
         sidebarPath: require.resolve('./sidebarsAPI.js'),
-        showLastUpdateAuthor: true,
+        showLastUpdateAuthor: false,
         showLastUpdateTime: true,
       }),
     ]
@@ -153,6 +153,10 @@ const config = {
                 label: 'OAuth2',
                 to: '/docs/introduction',
               },
+              {
+                label: 'Git 入门',
+                to: '/category/git',
+              }
             ],
           },
           {

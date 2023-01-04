@@ -39,3 +39,8 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+
+## API 文档
+
+API 使用文档找到了一个 `docusaurus` 的插件项目，可参考： <https://gitcode.net/mirrors/PaloAltoNetworks/docusaurus-openapi-docs>
