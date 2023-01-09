@@ -153,7 +153,7 @@ const config = {
         {name: 'keywords', content: 'git,api'}
       ],
       footer: {
-        style: 'dark',
+        style: 'light',//[dark, light]
         links: [
           {
             title: '文档',
@@ -169,10 +169,6 @@ const config = {
               {
                 label: 'OAuth2',
                 to: '/docs/introduction',
-              },
-              {
-                label: 'Git 入门',
-                to: '/category/git',
               }
             ],
           },
@@ -197,13 +193,26 @@ const config = {
             title: '友情链接',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: '开放原子开源基金会',
+                href: 'https://openatom.cn/home',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'CSDN',
+                href: 'https://www.csdn.net/',
               },
+              {
+                label: '阿里云',
+                href: 'https://developer.aliyun.com/',
+              },
+            ],
+          },
+          {
+            title: '学习资料',
+            items: [
+              {
+                label: 'Git 入门',
+                to: '/category/git',
+              }
             ],
           },
         ],
