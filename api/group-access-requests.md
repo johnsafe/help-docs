@@ -74,7 +74,7 @@ POST /projects/:id/access_requests
 
 | Attribute | Type           | Required | Description                                                                             |
 | --------- | -------------- | -------- |-----------------------------------------------------------------------------------------|
-| `id`      | integer/string | yes      | The ID or [URL-encoded path of the group or project](index.md#namespaced-path-encoding) |
+| `id`      | integer/string | yes      | The ID or [URL-encoded path of the group or project](index#namespaced-path-encoding) |
 
 Example request:
 

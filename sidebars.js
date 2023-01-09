@@ -8,6 +8,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: '用户',
+        slug: 'user',
         description:
           "帮助用户快速完成个人设置",
         keywords: ['users'],
@@ -22,6 +23,7 @@ const sidebars = {
           link: {
             type: 'generated-index',
             title: 'Git 入门',
+            slug: 'git',
             keywords: ['git'],
           },
           items: [
@@ -39,6 +41,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: '代码库',
+        slug: 'repo',
         description:
           "代码库使用及设置",
         keywords: ['repos'],
@@ -53,6 +56,7 @@ const sidebars = {
           link: {
             type: 'generated-index',
             title: '提交',
+            slug: 'commit',
             keywords: ['commit'],
           },
           items: [
@@ -61,8 +65,23 @@ const sidebars = {
             'repo/revert',
           ],
         },
-        'repo/pull-request',
-        'repo/issue',
+        'repo/change-request',
+        // 'repo/issue',
+        {
+          type: 'category',
+          label: 'Issue',
+          link: {
+            type: 'generated-index',
+            title: 'Issue',
+            slug: 'issue',
+            keywords: ['issue'],
+          },
+          items: [
+            'repo/issue',
+            'repo/label',
+            'repo/milestone',
+          ],
+        },
         'user/repo-members',
         'permission',
         {
@@ -71,6 +90,7 @@ const sidebars = {
           link: {
             type: 'generated-index',
             title: '代码库设置',
+            slug: 'repo-config',
             keywords: ['config'],
           },
           items: [
@@ -89,6 +109,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: '组织',
+        slug: 'group',
         description:
           "组织使用及设置",
         keywords: ['orgs'],
@@ -105,6 +126,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: '用户协议',
+        slug: 'terms',
         description:
           "AtomGit 平台用户使用协议",
         keywords: ['agreements'],

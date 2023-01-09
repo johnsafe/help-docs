@@ -144,7 +144,7 @@ const config = {
             items: [
               {
                 label: '帮助文档',
-                to: '/docs/introduction',
+                to: '/',
               },
               {
                 label: 'API',
@@ -156,7 +156,7 @@ const config = {
               },
               {
                 label: 'Git 入门',
-                to: '/category/git',
+                to: '/git',
               }
             ],
           },
