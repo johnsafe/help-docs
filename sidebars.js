@@ -8,6 +8,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: '用户',
+        slug: '/user',
         description:
           "帮助用户快速完成个人设置",
         keywords: ['users'],

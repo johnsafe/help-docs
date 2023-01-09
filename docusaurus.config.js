@@ -51,6 +51,7 @@ const config = {
           showLastUpdateTime: true,
           disableVersioning: false,
           includeCurrentVersion: true,
+          breadcrumbs: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -133,9 +134,9 @@ const config = {
             position: 'left',
             label: '帮助文档',
           },
-          {to: '/api/', label: 'API文档', position: 'left'},
-          {to: '/oauth/', label: '第三方接入', position: 'left'},
-          {to: '/blog', label: '博客', position: 'left'},
+          // {to: '/api/', label: 'API文档', position: 'left'},
+          // {to: '/oauth/', label: '第三方接入', position: 'left'},
+          // {to: '/blog', label: '博客', position: 'left'},
           {
             type: 'localeDropdown',
             position: 'right'
@@ -207,6 +208,11 @@ const config = {
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} AtomGit, Inc. Built with Docusaurus.`,
+      },
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
       },
       prism: {
         theme: lightCodeTheme,
