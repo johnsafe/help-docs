@@ -33,6 +33,7 @@ const sidebars = {
             'user/git-advanced',
           ],
         },
+        'user/pats',
       ],
     },
     {

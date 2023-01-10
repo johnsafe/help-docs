@@ -118,9 +118,9 @@ const config = {
             position: 'left',
             label: '帮助文档',
           },
-          {to: '/api/', label: 'API文档', position: 'left'},
-          {to: '/oauth/', label: '第三方接入', position: 'left'},
-          {to: '/blog', label: '博客', position: 'left'},
+          // {to: '/api/', label: 'API文档', position: 'left'},
+          // {to: '/oauth/', label: '第三方接入', position: 'left'},
+          // {to: '/blog', label: '博客', position: 'left'},
           {
             type: 'localeDropdown',
             position: 'right'
@@ -152,7 +152,7 @@ const config = {
               },
               {
                 label: 'OAuth2',
-                to: '/docs/introduction',
+                to: '/oauth/',
               },
               {
                 label: 'Git 入门',
@@ -161,19 +161,15 @@ const config = {
             ],
           },
           {
-            title: '社区',
+            title: '官方社区',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: '开放原子基金会',
+                href: 'https://www.openatom.org/',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'AtomGit',
+                href: 'https://atomgit.com/OpenAtomFoundation/',
               },
             ],
           },
@@ -181,12 +177,16 @@ const config = {
             title: '友情链接',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: '阿里云',
+                href: 'https://www.aliyun.com/',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'CSDN',
+                href: 'https://www.csdn.net/',
+              },
+              {
+                label: 'GitCode',
+                href: 'https://gitcode.net/',
               },
             ],
           },
@@ -196,6 +196,11 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      colorMode: {
+        defaultMode: 'dark',
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
       },
     }),
 };

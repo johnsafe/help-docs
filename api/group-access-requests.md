@@ -13,12 +13,12 @@ The access levels are defined in the `Gitlab::Access` module, and the
 following levels are recognized:
 
 - No access (`0`)
-- Minimal access (`5`) ([Introduced](https://gitlab.com/gitlab-org/gitlab/-/issues/220203) in GitLab 13.5.)
+- Minimal access (`5`) (Introduced in GitLab 13.5.)
 - Guest (`10`)
 - Reporter (`20`)
 - Developer (`30`)
 - Maintainer (`40`)
-- Owner (`50`). Valid for projects in [GitLab 14.9 and later](https://gitlab.com/gitlab-org/gitlab/-/issues/21432).
+- Owner (`50`). Valid for projects in GitLab 14.9 and later.
 
 ## List access requests for a group or project
 
@@ -31,7 +31,7 @@ GET /projects/:id/access_requests
 
 | Attribute | Type           | Required | Description |
 | --------- | -------------- | -------- | ----------- |
-| `id`      | integer/string | yes      | The ID or [URL-encoded path of the project](index.md#namespaced-path-encoding) owned by the authenticated user |
+| `id`      | integer/string | yes      | The ID or URL-encoded path of the project owned by the authenticated user |
 
 Example request:
 
@@ -107,7 +107,7 @@ PUT /projects/:id/access_requests/:user_id/approve
 
 | Attribute      | Type           | Required | Description |
 | -------------- | -------------- | -------- | ----------- |
-| `id`           | integer/string | yes      | The ID or [URL-encoded path of the project](index.md#namespaced-path-encoding) owned by the authenticated user |
+| `id`           | integer/string | yes      | The ID or [URL-encoded path of the project](index#namespaced-path-encoding) owned by the authenticated user |
 | `user_id`      | integer        | yes      | The user ID of the access requester                                                                             |
 | `access_level` | integer        | no       | A valid access level (defaults: `30`, the Developer role)                                                   |
 
@@ -142,7 +142,7 @@ DELETE /projects/:id/access_requests/:user_id
 
 | Attribute | Type           | Required | Description |
 | --------- | -------------- | -------- | ----------- |
-| `id`      | integer/string | yes      | The ID or [URL-encoded path of the project](index.md#namespaced-path-encoding) owned by the authenticated user |
+| `id`      | integer/string | yes      | The ID or [URL-encoded path of the project](index#namespaced-path-encoding) owned by the authenticated user |
 | `user_id` | integer        | yes      | The user ID of the access requester                                                                             |
 
 Example request:
