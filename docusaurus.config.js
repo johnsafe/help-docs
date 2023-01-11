@@ -10,8 +10,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'AtomGit 帮助文档',
   tagline: '使用文档  接口文档  第三方接入文档',
-  url: 'https://atomgit.com',
-  baseUrl: '/',
+  url: 'https://docs.atomgit.com',
+  baseUrl: '/docs/',
   onBrokenLinks: 'warn',//throw
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
