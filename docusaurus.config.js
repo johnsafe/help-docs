@@ -142,7 +142,7 @@ const config = {
             position: 'right'
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues',
             label: '反馈',
             position: 'right',
           },
