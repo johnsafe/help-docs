@@ -15,6 +15,9 @@ const config = {
   onBrokenLinks: 'warn',//throw
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  scripts: [
+    {src: 'https://hm.baidu.com/hm.js?50231b00e27e8e594a2fbdc78c246cea',  async: true}
+  ],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
