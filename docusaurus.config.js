@@ -11,7 +11,7 @@ const config = {
   title: 'AtomGit 帮助文档',
   tagline: '使用文档  接口文档  第三方接入文档',
   url: 'https://docs.atomgit.com',
-  baseUrl: '/docs/',
+  baseUrl: '/',
   onBrokenLinks: 'warn',//throw
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
