@@ -16,7 +16,10 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   scripts: [
-    {src: 'https://hm.baidu.com/hm.js?dd6bceaa31549c06f7b0488133c25b7b',  async: true}
+    {
+      src: 'https://hm.baidu.com/hm.js?dd6bceaa31549c06f7b0488133c25b7b',
+      async: true,
+    },
   ],
 
   // GitHub pages deployment config.
