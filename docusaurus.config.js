@@ -10,11 +10,17 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'AtomGit 帮助文档',
   tagline: '使用文档  接口文档  第三方接入文档',
-  url: 'https://atomgit.com',
+  url: 'https://docs.atomgit.com',
   baseUrl: '/',
   onBrokenLinks: 'warn',//throw
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  scripts: [
+    {
+      src: 'https://hm.baidu.com/hm.js?dd6bceaa31549c06f7b0488133c25b7b',
+      async: true,
+    },
+  ],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -121,7 +127,7 @@ const config = {
             position: 'right'
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues',
             label: '反馈',
             position: 'right',
           },
