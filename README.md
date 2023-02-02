@@ -2,6 +2,11 @@
 
 基于开源框架 [Docusaurus 2](https://docusaurus.io/), 生成静态网站.
 
+### node 环境
+```
+>=18.0.0 
+```
+
 ### 安装
 
 ```
