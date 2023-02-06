@@ -16,6 +16,7 @@ $ yarn
 ### 本地开发环境
 
 ```
+// 如要包含 openAPI 文档，需提前执行：yarn gen-all，生成 API 的 markdown 文档
 $ yarn start
 ```
 
@@ -24,6 +25,7 @@ $ yarn start
 ### 编译
 
 ```
+// 如要包含 openAPI 文档，需提前执行：yarn gen-all，生成 API 的 markdown 文档
 $ yarn build
 ```
 

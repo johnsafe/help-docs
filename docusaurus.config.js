@@ -78,20 +78,76 @@ const config = {
         id: 'api',
         path: 'api',
         routeBasePath: 'api',
-        editCurrentVersion: true,
+        editCurrentVersion: false,
         sidebarPath: require.resolve('./sidebarsAPI.js'),
         showLastUpdateAuthor: false,
         showLastUpdateTime: true,
       }),
     ],
+    [
+      "docusaurus-plugin-openapi-docs",
+      {
+        id: "openapi",
+        docsPluginId: "classic",
+        config: {
+          // petstore_versioned: {
+          //   specPath: "openAPI/petstore.yaml",
+          //   outputDir: "docs/openAPI/petstore_versioned", // No trailing slash
+          //   sidebarOptions: {
+          //     groupPathsBy: "tag",
+          //     categoryLinkSource: "tag",
+          //   },
+          //   version: "2.0.0", // Current version
+          //   label: "v2.0.0", // Current version label
+          //   baseUrl: "/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
+          //   versions: {
+          //     "1.0.0": {
+          //       specPath: "openAPI/petstore-1.0.0.yaml",
+          //       outputDir: "docs/openAPI/petstore_versioned/1.0.0", // No trailing slash
+          //       label: "v1.0.0",
+          //       baseUrl: "/petstore_versioned/1.0.0/swagger-petstore-yaml", // Leading slash is important
+          //     },
+          //   },
+          // },
+          petstore: {
+            specPath: "openAPI/petstore.yaml",
+            proxy: "https://cors.pan.dev",
+            outputDir: "docs/openAPI/petstore",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+              categoryLinkSource: "tag",
+            },
+            template: "api.mustache", // Customize API MDX with mustache template
+            downloadUrl:
+              "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-openapi-docs/main/demo/openAPI/petstore.yaml",
+          },
+          cos: {
+            specPath: "openAPI/openapi-cos.json",
+            outputDir: "docs/openAPI/cos",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+            },
+          },
+          burgers: {
+            specPath: "openAPI/food/burgers/openapi.yaml",
+            outputDir: "docs/openAPI/food/burgers",
+          },
+          yogurt: {
+            specPath: "openAPI/food/yogurtstore/openapi.yaml",
+            outputDir: "docs/openAPI/food/yogurtstore",
+          },
+        },
+      },
+    ],
   ],
   themes: [
     [
       // @ts-ignore
-      '@easyops-cn/docusaurus-search-local',
+      // '@easyops-cn/docusaurus-search-local',
       /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
       // require.resolve("@easyops-cn/docusaurus-search-local"),
       // @ts-ignore
+      "docusaurus-theme-openapi-docs",
       ({
         hashed: true,
         language: ["en", "zh"],
@@ -102,6 +158,7 @@ const config = {
         explicitSearchResultPath: true,
       }),
     ],
+    // ["docusaurus-theme-openapi-docs"]
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -119,7 +176,26 @@ const config = {
             position: 'left',
             label: '帮助文档',
           },
-          // {to: '/api/', label: 'API文档', position: 'left'},
+          // {
+          //   to: '/api/', 
+          //   label: 'API文档',
+          //   position: 'left'
+          // },
+          {
+            type: "dropdown",
+            label: "Demos",
+            position: "left",
+            items: [
+              {
+                label: "API Zoo",
+                to: "/category/petstore-api",
+              },
+              {
+                label: "Petstore (versioned)",
+                to: "/category/petstore-versioned-api",
+              },
+            ],
+          },
           // {to: '/oauth/', label: '第三方接入', position: 'left'},
           // {to: '/blog', label: '博客', position: 'left'},
           {
