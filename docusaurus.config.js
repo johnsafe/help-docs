@@ -15,17 +15,15 @@ const config = {
   onBrokenLinks: 'warn',//throw
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  organizationName: 'johnsafe', // Usually your GitHub org/user name.
+  projectName: 'johnsafe.github.io', // Usually your repo name.
+  // 百度统计脚本
   scripts: [
     {
       src: 'https://hm.baidu.com/hm.js?dd6bceaa31549c06f7b0488133c25b7b',
       async: true,
     },
   ],
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'johnsafe', // Usually your GitHub org/user name.
-  projectName: 'johnsafe.github.io', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -69,6 +67,23 @@ const config = {
         },
       }),
     ],
+    [
+      "redocusaurus",
+      {
+        // Plugin Options for loading OpenAPI files
+        // specs: [
+        //   {
+        //     spec: "https://redocly.github.io/redoc/openapi.yaml",
+        //     route: "/api/",
+        //   },
+        // ],
+        // Theme Options for modifying how redoc renders them
+        theme: {
+          // Change with your site colors
+          primaryColor: "#1890ff",
+        },
+      },
+    ]
   ],
   plugins: [
     [
@@ -90,25 +105,25 @@ const config = {
         id: "openapi",
         docsPluginId: "classic",
         config: {
-          // petstore_versioned: {
-          //   specPath: "openAPI/petstore.yaml",
-          //   outputDir: "docs/openAPI/petstore_versioned", // No trailing slash
-          //   sidebarOptions: {
-          //     groupPathsBy: "tag",
-          //     categoryLinkSource: "tag",
-          //   },
-          //   version: "2.0.0", // Current version
-          //   label: "v2.0.0", // Current version label
-          //   baseUrl: "/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
-          //   versions: {
-          //     "1.0.0": {
-          //       specPath: "openAPI/petstore-1.0.0.yaml",
-          //       outputDir: "docs/openAPI/petstore_versioned/1.0.0", // No trailing slash
-          //       label: "v1.0.0",
-          //       baseUrl: "/petstore_versioned/1.0.0/swagger-petstore-yaml", // Leading slash is important
-          //     },
-          //   },
-          // },
+          petstore_versioned: {
+            specPath: "openAPI/petstore.yaml",
+            outputDir: "docs/openAPI/petstore_versioned", // No trailing slash
+            sidebarOptions: {
+              groupPathsBy: "tag",
+              categoryLinkSource: "tag",
+            },
+            version: "2.0.0", // Current version
+            label: "v2.0.0", // Current version label
+            baseUrl: "/openAPI/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
+            versions: {
+              "1.0.0": {
+                specPath: "openAPI/petstore-1.0.0.yaml",
+                outputDir: "docs/openAPI/petstore_versioned/1.0.0", // No trailing slash
+                label: "v1.0.0",
+                baseUrl: "/openAPI/petstore_versioned/1.0.0/swagger-petstore-yaml", // Leading slash is important
+              },
+            },
+          },
           petstore: {
             specPath: "openAPI/petstore.yaml",
             proxy: "https://cors.pan.dev",
@@ -143,11 +158,10 @@ const config = {
   themes: [
     [
       // @ts-ignore
-      // '@easyops-cn/docusaurus-search-local',
+      '@easyops-cn/docusaurus-search-local',
       /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
       // require.resolve("@easyops-cn/docusaurus-search-local"),
       // @ts-ignore
-      "docusaurus-theme-openapi-docs",
       ({
         hashed: true,
         language: ["en", "zh"],
@@ -158,7 +172,7 @@ const config = {
         explicitSearchResultPath: true,
       }),
     ],
-    // ["docusaurus-theme-openapi-docs"]
+    "docusaurus-theme-openapi-docs"
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
