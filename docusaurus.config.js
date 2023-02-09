@@ -46,7 +46,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           docLayoutComponent: '@theme/DocPage',
-          docItemComponent: '@theme/DocItem',
+          docItemComponent: "@theme/ApiItem",
           rehypePlugins: [],
           routeBasePath: "/" ,
           beforeDefaultRemarkPlugins: [],
@@ -97,6 +97,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsAPI.js'),
         showLastUpdateAuthor: false,
         showLastUpdateTime: true,
+        docItemComponent: "@theme/ApiItem",
       }),
     ],
     [
