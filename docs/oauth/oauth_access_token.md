@@ -1,7 +1,7 @@
 ---
 slug: /oauth/access_token
 title: 'OAuth2 获取AccessToken'
-sidebar_position: 5
+sidebar_position: 4
 hide_title: true
 ---
 ## OAuth2 获取AccessToken

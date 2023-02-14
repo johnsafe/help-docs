@@ -1,7 +1,7 @@
 ---
 slug: /oauth/process
 title: 'OAuth2 认证基本流程'
-sidebar_position: 4
+sidebar_position: 3
 hide_title: true
 ---
 
