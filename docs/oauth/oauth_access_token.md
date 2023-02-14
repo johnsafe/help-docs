@@ -34,7 +34,7 @@ E. AtomGit认证服务器返回 access_token,应用通过 access_token 访问 Op
 
 F. 当 access_token 过期后（有效期为一天），你可以通过以下 refresh_token 方式重新获取 access_token（ **POST请求** ）
 ```
-https://atomgit.com/oauth/token?grant_type=refresh_token&refresh_token={refresh_token}
+https://atomgit.com/oauth/token?grant_type=refresh_token&refresh_token={refresh_token}&client_id={client_id}&client_secret={client_secret}
 ```
 
 
