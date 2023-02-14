@@ -7,6 +7,6 @@ hide_title: true
 
 ## OAuth2 认证基本流程
 
-![OAuth 认证流程](./img/oauth2-process.png)
+![OAuth 认证流程](./img/oauth-proces.png)
 
 
