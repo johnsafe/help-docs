@@ -751,6 +751,38 @@ paths:
               $ref: "#/components/schemas/User"
         description: Created user object
         required: true
+# 获取用户个人信息
+  /user/info:
+    get:
+      tags:
+        - user
+      summary: Get the authenticated user info
+      description: This can only be done by the logged in userinfo.
+      operationId: getTheAuthenticatedUser
+      parameters:
+        - name: Authorization
+          in: header
+          description: "The Oauth2 token"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"           
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"         
   "/user/{username}":
     get:
       tags:
@@ -1112,6 +1144,17 @@ components:
           minLength: 1
       xml:
         name: Tag
+    InvalidToken:
+      type: object
+      properties:
+        error:
+          description: error
+          type: string
+          example: invalid_token
+        error_description:
+          description: error description
+          type: string  
+          example: Invalid token, please provide correct token        
     User:
       type: object
       properties:
