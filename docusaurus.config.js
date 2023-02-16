@@ -113,7 +113,7 @@ const config = {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
             },
-            version: "2.0.0", // Current version
+            version: "1.0.0", // Current version
             label: "v2.0.0", // Current version label
             baseUrl: "/openAPI/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
             versions: {
@@ -125,10 +125,11 @@ const config = {
               },
             },
           },
-         /* petstore: {
-            specPath: "openAPI/petstore.yaml",
+
+          api: {
+            specPath: "openAPI/api.yaml",
             proxy: "https://cors.pan.dev",
-            outputDir: "docs/openAPI/petstore",
+            outputDir: "docs/openAPI/api_versioned",
             sidebarOptions: {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
@@ -137,13 +138,13 @@ const config = {
             downloadUrl:
               "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-openapi-docs/main/demo/openAPI/petstore.yaml",
           },
-          cos: {
-            specPath: "openAPI/openapi-cos.json",
-            outputDir: "docs/openAPI/cos",
-            sidebarOptions: {
-              groupPathsBy: "tag",
-            },
-          },*/
+          /* cos: {
+             specPath: "openAPI/openapi-cos.json",
+             outputDir: "docs/openAPI/cos",
+             sidebarOptions: {
+               groupPathsBy: "tag",
+             },
+           },*/
        /*   burgers: {
             specPath: "openAPI/food/burgers/openapi.yaml",
             outputDir: "docs/openAPI/food/burgers",
@@ -192,7 +193,7 @@ const config = {
             label: '帮助文档',
           },
           {to: '/oauth/', label: 'OAuth2', position: 'left'},
-          {to: '/category/petstore-versioned-api', label: 'Api文档', position: 'left'},
+          {to: '/category/api', label: 'Api文档', position: 'left'},
           // {
           //   to: '/api/',
           //   label: 'API文档',

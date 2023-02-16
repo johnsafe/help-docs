@@ -144,7 +144,19 @@ const sidebars = {
       ],
     },
   ],
-  petstore: [
+  api: [
+    {
+      type: "category",
+      label: "Open Api",
+      link: {
+        type: "generated-index",
+        title: "AtomGit OPEN API",
+        description:
+            "为了构建更好的AtomGit生态环境，我们推出了基于OAuth2的API版本。API接口使用方式以及Url都参照GitHub，为了各位开发者更好的兼容已经存在的第三方应用。",
+        slug: "/category/api",
+      },
+      items: require("./docs/openAPI/api_versioned/sidebar.js"),
+    },
    /* {
       type: "category",
       label: "Petstore",

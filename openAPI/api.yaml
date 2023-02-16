@@ -6,48 +6,36 @@ servers:
     description: test
 info:
   description: |
-    This is a sample server Petstore server.
-    You can find out more about Swagger at
-    [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
-    For this sample, you can use the api key `special-key` to test the authorization filters.
+    AtomGit 提供了REST API,您可以使用 Git CLI、curl、官方 Octokit 库和第三方库与此API进行交互。
 
-    ## Introduction
-    This API is documented in **OpenAPI format** and is based on
-    [Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.
-    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
-    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
-    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).
+    ## API 版本
+    每当您向 REST API 发出请求时，您都必须指定要使用的 REST API 版本，您应该使用X-Api-Version标头来指定 API 版本。例如：
+    ```
+    $ curl --header "X-Api-Version:2023-02-21" https://api.atomgit.com/user/info
+    ```
+    没有标头的请求X-Api-Version将默认使用该2023-02-21版本。
+    如果您指定不再受支持的 API 版本，您将收到400错误消息。
+    ## token 验证
+    AtomGit提供的REST API支持Oauth2令牌和私人令牌两种验证方式：
+    1. OAuth2令牌（在标头中发送）
+    ```
+      $ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.atomgit.com
+    ```
+    2. 私人令牌令牌 （在标头中发送）
+    ```
+      $ curl -H "Authorization: Bearer PERSONAL-TOKEN" https://api.atomgit.com
+    ```
 
-    ## OpenAPI Specification
-    This API is documented in **OpenAPI format** and is based on
-    [Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.
-    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
-    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
-    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).
-
-    ## Cross-Origin Resource Sharing
-    This API features Cross-Origin Resource Sharing (CORS) implemented in compliance with  [W3C spec](https://www.w3.org/TR/cors/).
-    And that allows cross-domain communication from the browser.
-    All responses have a wildcard same-origin which makes them completely public and accessible to everyone, including any code on any site.
-
-    ## Authentication
-
-    Petstore offers two forms of authentication:
-      - API Key
-      - OAuth2
-    OAuth2 - an open protocol to allow secure authorization in a simple
-    and standard method from web, mobile and desktop applications.
-
-  version: 1.0.0
-  title: Swagger Petstore YAML
-  termsOfService: "http://swagger.io/terms/"
+  version: 2023-02-21
+  title: 关于AtomGit API
+  termsOfService: "https://api.atomgit.com"
   contact:
     name: API Support
-    email: apiteam@swagger.io
+    email: lish@csdn.net
     url: https://github.com/Redocly/redoc
   x-logo:
     url: "https://file.atomgit.com/uploads/assets/logo-footer.png"
-    altText: Petstore logo
+    altText: AtomGit logo
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -282,181 +270,10 @@ components:
           type: string
         message:
           type: string
-    Cat:
-      title: cat
-      description: A representation of a cat
-      allOf:
-        - $ref: "#/components/schemas/Pet"
-        - type: object
-          properties:
-            huntingSkill:
-              type: string
-              description: The measured skill for hunting
-              default: lazy
-              example: adventurous
-              enum:
-                - clueless
-                - lazy
-                - adventurous
-                - aggressive
-          required:
-            - huntingSkill
-    Category:
-      type: object
-      properties:
-        id:
-          description: Category ID
-          allOf:
-            - $ref: "#/components/schemas/Id"
-        name:
-          description: Category name
-          type: string
-          minLength: 1
-        sub:
-          description: Test Sub Category
-          type: object
-          properties:
-            prop1:
-              type: string
-              description: Dumb Property
-      xml:
-        name: Category
-    Dog:
-      title: dog
-      description: A representation of a dog
-      allOf:
-        - $ref: "#/components/schemas/Pet"
-        - type: object
-          properties:
-            packSize:
-              type: integer
-              format: int32
-              description: The size of the pack the dog is from
-              default: 1
-              minimum: 1
-          required:
-            - packSize
-    HoneyBee:
-      title: bee
-      description: A representation of a honey bee
-      allOf:
-        - $ref: "#/components/schemas/Pet"
-        - type: object
-          properties:
-            honeyPerDay:
-              type: number
-              description: Average amount of honey produced per day in ounces
-              example: 3.14
-              multipleOf: .01
-          required:
-            - honeyPerDay
     Id:
       type: integer
       format: int64
       readOnly: true
-    Order:
-      type: object
-      properties:
-        id:
-          description: Order ID
-          allOf:
-            - $ref: "#/components/schemas/Id"
-        petId:
-          description: Pet ID
-          allOf:
-            - $ref: "#/components/schemas/Id"
-        quantity:
-          type: integer
-          format: int32
-          minimum: 1
-          default: 1
-        shipDate:
-          description: Estimated ship date
-          type: string
-          format: date-time
-        status:
-          type: string
-          description: Order Status
-          enum:
-            - placed
-            - approved
-            - delivered
-        complete:
-          description: Indicates whenever order was completed or not
-          type: boolean
-          default: false
-          readOnly: true
-        requestId:
-          description: Unique Request Id
-          type: string
-          writeOnly: true
-      xml:
-        name: Order
-    Pet:
-      type: object
-      required:
-        - name
-        - photoUrls
-      discriminator:
-        propertyName: petType
-        mapping:
-          cat: "#/components/schemas/Cat"
-          dog: "#/components/schemas/Dog"
-          bee: "#/components/schemas/HoneyBee"
-      properties:
-        id:
-          externalDocs:
-            description: "Find more info here"
-            url: "https://example.com"
-          description: Pet ID
-          allOf:
-            - $ref: "#/components/schemas/Id"
-        category:
-          description: Categories this pet belongs to
-          allOf:
-            - $ref: "#/components/schemas/Category"
-        name:
-          description: The name given to a pet
-          type: string
-          example: Guru
-        photoUrls:
-          description: The list of URL to a cute photos featuring pet
-          type: array
-          maxItems: 20
-          xml:
-            name: photoUrl
-            wrapped: true
-          items:
-            type: string
-            format: url
-        friend:
-          allOf:
-            - $ref: "#/components/schemas/Pet"
-        tags:
-          description: Tags attached to the pet
-          type: array
-          minItems: 1
-          xml:
-            name: tag
-            wrapped: true
-          items:
-            $ref: "#/components/schemas/Tag"
-        status:
-          type: string
-          description: Pet status in the store
-          enum:
-            - available
-            - pending
-            - sold
-        petType:
-          description: Type of a pet
-          type: string
-          oneOf:
-            - $ref: "#/components/schemas/Cat"
-            - $ref: "#/components/schemas/Dog"
-            - $ref: "#/components/schemas/HoneyBee"
-      xml:
-        name: Pet
     Tag:
       type: object
       properties:
@@ -486,10 +303,6 @@ components:
       properties:
         id:
           $ref: "#/components/schemas/Id"
-        pet:
-          oneOf:
-            - $ref: "#/components/schemas/Pet"
-            - $ref: "#/components/schemas/Tag"
         username:
           description: User supplied username
           type: string
@@ -531,23 +344,6 @@ components:
       xml:
         name: User
   requestBodies:
-    Pet:
-      content:
-        application/json:
-          schema:
-            allOf:
-              - description: My Pet
-                title: Pettie
-              - $ref: "#/components/schemas/Pet"
-        application/xml:
-          schema:
-            type: "object"
-            properties:
-              name:
-                type: string
-                description: hooray
-      description: Pet object that needs to be added to the store
-      required: true
     UserArray:
       content:
         application/json:
@@ -557,25 +353,6 @@ components:
               $ref: "#/components/schemas/User"
       description: List of user object
       required: true
-  securitySchemes:
-    petstore_auth:
-      description: |
-        Get access to data while protecting your account credentials.
-        OAuth2 is also a safer and more secure way to give you access.
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: "http://petstore.swagger.io/api/oauth/dialog"
-          scopes:
-            "write:pets": modify pets in your account
-            "read:pets": read your pets
-    api_key:
-      description: >
-        For this sample, you can use the api key `special-key` to test the
-        authorization filters.
-      type: apiKey
-      name: api_key
-      in: header
   examples:
     Order:
       value:
