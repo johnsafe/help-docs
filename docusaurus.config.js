@@ -125,7 +125,7 @@ const config = {
               },
             },
           },
-          petstore: {
+         /* petstore: {
             specPath: "openAPI/petstore.yaml",
             proxy: "https://cors.pan.dev",
             outputDir: "docs/openAPI/petstore",
@@ -143,15 +143,15 @@ const config = {
             sidebarOptions: {
               groupPathsBy: "tag",
             },
-          },
-          burgers: {
+          },*/
+       /*   burgers: {
             specPath: "openAPI/food/burgers/openapi.yaml",
             outputDir: "docs/openAPI/food/burgers",
           },
           yogurt: {
             specPath: "openAPI/food/yogurtstore/openapi.yaml",
             outputDir: "docs/openAPI/food/yogurtstore",
-          },
+          },*/
         },
       },
     ],
@@ -192,12 +192,13 @@ const config = {
             label: '帮助文档',
           },
           {to: '/oauth/', label: 'OAuth2', position: 'left'},
+          {to: '/category/petstore-versioned-api', label: 'Api文档', position: 'left'},
           // {
           //   to: '/api/',
           //   label: 'API文档',
           //   position: 'left'
           // },
-          {
+          /*{
             type: "dropdown",
             label: "Demos",
             position: "left",
@@ -211,7 +212,7 @@ const config = {
                 to: "/category/petstore-versioned-api",
               },
             ],
-          },
+          },*/
           // {to: '/oauth/', label: '第三方接入', position: 'left'},
           // {to: '/blog', label: '博客', position: 'left'},
           {

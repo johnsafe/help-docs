@@ -1,11 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: https://petstore.swagger.io/v2
-    description: Default server
-  - url: https://petstore.swagger.io/sandbox
-    description: Sandbox server
-  - url: http://127.0.0.1:4010
-    description: Prism Mock API (local)
+  - url: https://api.atomgit.com
+    description: prod
+  - url: https://test-api.atomgit.com
+    description: test
+
 info:
   description: |
     This is a sample server Petstore server.
@@ -773,7 +772,7 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
             application/xml:
               schema:
-                $ref: "#/components/schemas/InvalidToken"           
+                $ref: "#/components/schemas/InvalidToken"
         200:
           description: successful operation
           content:
@@ -782,7 +781,7 @@ paths:
                 $ref: "#/components/schemas/User"
             application/xml:
               schema:
-                $ref: "#/components/schemas/User"         
+                $ref: "#/components/schemas/User"
   "/user/{username}":
     get:
       tags:
@@ -1153,8 +1152,8 @@ components:
           example: invalid_token
         error_description:
           description: error description
-          type: string  
-          example: Invalid token, please provide correct token        
+          type: string
+          example: Invalid token, please provide correct token
     User:
       type: object
       properties:
@@ -1203,19 +1202,19 @@ components:
           type: string
           example: https://test.atomgit.com/mrpuatomgit
         public_repos:
-          description: User's public repostory count 
+          description: User's public repostory count
           type: Integer
           example: 3
         total_private_repos:
-          description: User's private repostory count 
+          description: User's private repostory count
           type: Integer
           example: 2
         owned_private_repos:
-          description: User's self private repostory count 
+          description: User's self private repostory count
           type: Integer
           example: 1
         created_at:
-          description: User's register time 
+          description: User's register time
           type: string
           example: '2023-02-02 09:31:24'
         updated_at:

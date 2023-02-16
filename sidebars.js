@@ -145,7 +145,7 @@ const sidebars = {
     },
   ],
   petstore: [
-    {
+   /* {
       type: "category",
       label: "Petstore",
       link: {
@@ -156,8 +156,8 @@ const sidebars = {
         slug: "/category/petstore-api",
       },
       items: require("./docs/openAPI/petstore/sidebar.js"),
-    },
-    {
+    },*/
+ /*   {
       type: "category",
       label: "Cloud Object Storage",
       link: {
@@ -181,8 +181,8 @@ const sidebars = {
           dirName: "openAPI/food/burgers", // '.' means the current docs folder
         },
       ],
-    },
-    {
+    },*/
+/*    {
       type: "category",
       label: "Yogurt Store",
       link: {
@@ -196,7 +196,7 @@ const sidebars = {
           dirName: "openAPI/food/yogurtstore", // '.' means the current docs folder
         },
       ],
-    },
+    },*/
   ],
   "petstore-2.0.0": [
     {
@@ -238,10 +238,10 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "Petstore",
+      label: "AtomGit-Api文档",
       link: {
         type: "generated-index",
-        title: "Petstore API (v1.0.0)",
+        title: "AtomGit-Api文档(v1.0.0)",
         description:
           "This is a sample server Petstore server. You can find out more about Swagger at http://swagger.io or on irc.freenode.net, #swagger. For this sample, you can use the api key special-key to test the authorization filters.",
         slug: "/category/petstore-api-1.0.0",
