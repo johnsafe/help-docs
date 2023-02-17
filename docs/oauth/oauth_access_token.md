@@ -56,7 +56,7 @@ B. AtomGit认证服务器返回 access_token
 ![AtomGit认证服务器返回 access_token](./img/password_token.jpg)
 >  通过OAuth获取的accessToken以'ato'前缀开头,有效期为一天,refreshToken以'atr'前缀开头，有效期为七天。
 
-C.应用通过 access_token 访问 Open API 使用用户数据。
+C.应用通过 access_token 访问 Open API 的[用户信息](/openAPI/api_versioned/get-the-authenticated-user)接口，获取用户数据。
 
 
 
