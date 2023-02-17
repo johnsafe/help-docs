@@ -128,7 +128,7 @@ const config = {
 
           api: {
             specPath: "openAPI/api.yaml",
-            proxy: "https://cors.pan.dev",
+            //proxy: "https://cors.pan.dev",
             outputDir: "docs/openAPI/api_versioned",
             sidebarOptions: {
               groupPathsBy: "tag",
