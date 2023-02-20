@@ -51,23 +51,23 @@ x-tagGroups:
     tags:
       - user
 paths:
-  /user:
-    post:
-      tags:
-        - user
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: createUser
-      responses:
-        default:
-          description: successful operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-        description: Created user object
-        required: true
+  # /user:
+  #   post:
+  #     tags:
+  #       - user
+  #     summary: Create user
+  #     description: This can only be done by the logged in user.
+  #     operationId: createUser
+  #     responses:
+  #       default:
+  #         description: successful operation
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/User"
+  #       description: Created user object
+  #       required: true
   # 获取用户个人信息
   /user/info:
     get:
@@ -81,6 +81,45 @@ paths:
           in: header
           description: "The Oauth2 token"
           required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"
+  # 更新用户个人信息
+  /user:
+    patch:
+      tags:
+        - user
+      summary: Update the authenticated user
+      description: This can only be done by the logged in userinfo.
+      operationId: updateTheAuthenticatedUser
+      parameters:
+        - name: Authorization
+          in: header
+          description: "The Oauth2 token"
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAuthenticatedUserDTO"
+        description: update user object
+        required: true
       responses:
         401:
           description: 'Invalid token, please provide correct token'
@@ -298,6 +337,29 @@ components:
           description: error description
           type: string
           example: Invalid token, please provide correct token
+    UpdateAuthenticatedUserDTO:
+      type: object
+      properties:
+        name:
+          description: The current user's nickname is between 1 and 20 characters in length
+          type: string
+          example: 这就是我的昵称
+        blog:
+          description: The blog address of the current user is between 1 and 100 characters
+          type: string
+          example: https://youboke.com
+        company:
+          description: The company name of the current user is between 1 and 50 characters
+          type: string
+          example: atom
+        location:
+          description: The current user's location is between 1 and 20 characters
+          type: string
+          example: beijing
+        bio:
+          description: The current user's profile is between 1 and 200 characters
+          type: string
+          example: hello i am putianyang
     User:
       type: object
       properties:
