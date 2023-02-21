@@ -46,7 +46,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           docLayoutComponent: '@theme/DocPage',
-          docItemComponent: '@theme/DocItem',
+          docItemComponent: "@theme/ApiItem",
           rehypePlugins: [],
           routeBasePath: "/" ,
           beforeDefaultRemarkPlugins: [],
@@ -97,6 +97,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsAPI.js'),
         showLastUpdateAuthor: false,
         showLastUpdateTime: true,
+        docItemComponent: "@theme/ApiItem",
       }),
     ],
     [
@@ -112,7 +113,7 @@ const config = {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
             },
-            version: "2.0.0", // Current version
+            version: "1.0.0", // Current version
             label: "v2.0.0", // Current version label
             baseUrl: "/openAPI/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
             versions: {
@@ -124,10 +125,11 @@ const config = {
               },
             },
           },
-          petstore: {
-            specPath: "openAPI/petstore.yaml",
-            proxy: "https://cors.pan.dev",
-            outputDir: "docs/openAPI/petstore",
+
+          api: {
+            specPath: "openAPI/api.yaml",
+            //proxy: "https://cors.pan.dev",
+            outputDir: "docs/openAPI/api_versioned",
             sidebarOptions: {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
@@ -136,21 +138,21 @@ const config = {
             downloadUrl:
               "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-openapi-docs/main/demo/openAPI/petstore.yaml",
           },
-          cos: {
-            specPath: "openAPI/openapi-cos.json",
-            outputDir: "docs/openAPI/cos",
-            sidebarOptions: {
-              groupPathsBy: "tag",
-            },
-          },
-          burgers: {
+          /* cos: {
+             specPath: "openAPI/openapi-cos.json",
+             outputDir: "docs/openAPI/cos",
+             sidebarOptions: {
+               groupPathsBy: "tag",
+             },
+           },*/
+       /*   burgers: {
             specPath: "openAPI/food/burgers/openapi.yaml",
             outputDir: "docs/openAPI/food/burgers",
           },
           yogurt: {
             specPath: "openAPI/food/yogurtstore/openapi.yaml",
             outputDir: "docs/openAPI/food/yogurtstore",
-          },
+          },*/
         },
       },
     ],
@@ -190,12 +192,14 @@ const config = {
             position: 'left',
             label: '帮助文档',
           },
+          {to: '/oauth/', label: 'OAuth2', position: 'left'},
+          {to: '/category/api', label: 'Api文档', position: 'left'},
           // {
-          //   to: '/api/', 
+          //   to: '/api/',
           //   label: 'API文档',
           //   position: 'left'
           // },
-          {
+          /*{
             type: "dropdown",
             label: "Demos",
             position: "left",
@@ -209,7 +213,7 @@ const config = {
                 to: "/category/petstore-versioned-api",
               },
             ],
-          },
+          },*/
           // {to: '/oauth/', label: '第三方接入', position: 'left'},
           // {to: '/blog', label: '博客', position: 'left'},
           {

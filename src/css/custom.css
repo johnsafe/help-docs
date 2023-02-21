@@ -5,6 +5,7 @@
  */
 
 /* You can override the default Infima variables here. */
+
 :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
@@ -27,4 +28,89 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Override --ifm text-decoration */
+a:any-link:hover {
+  text-decoration: none;
+}
+
+/* Sidebar Method labels */
+.api-method > .menu__link {
+  align-items: center;
+  justify-content: start;
+}
+
+.api-method > .menu__link::before {
+  width: 50px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  border: 1px solid;
+  margin-right: var(--ifm-spacing-horizontal);
+  text-align: center;
+  flex-shrink: 0;
+  border-color: transparent;
+  color: white;
+}
+
+.get > .menu__link::before {
+  content: "get";
+  background-color: var(--ifm-color-primary);
+}
+
+.post > .menu__link::before {
+  content: "post";
+  background-color: var(--openapi-code-green);
+}
+
+.delete > .menu__link::before {
+  content: "del";
+  background-color: var(--openapi-code-red);
+}
+
+.put > .menu__link::before {
+  content: "put";
+  background-color: var(--openapi-code-blue);
+}
+
+.patch > .menu__link::before {
+  content: "patch";
+  background-color: var(--openapi-code-orange);
+}
+
+.head > .menu__link::before {
+  content: "head";
+  background-color: var(--ifm-color-secondary-darkest);
+}
+
+.event > .menu__link::before {
+  content: "event";
+  background-color: var(--ifm-color-secondary-darkest);
+}
+
+/* api文档-语言选项卡 */
+.tabs .code__tab--bash::after {
+  background: url(../../static/img/openapi/linux-original.svg);
+}
+.tabs .code__tab--python::after {
+  background: url(../../static/img/openapi/python-original.svg);
+}
+.tabs .code__tab--go::after {
+  background: url(../../static/img/openapi/go-original.svg);
+}
+.tabs .code__tab--nodejs::after {
+  background: url(../../static/img/openapi/nodejs-original.svg);
+}
+.tabs .code__tab--ruby::after {
+  background: url(../../static/img/openapi/ruby-original.svg);
+}
+.tabs .code__tab--csharp::after {
+  background: url(../../static/img/openapi/csharp-original.svg);
+}
+.tabs .code__tab--php::after {
+  background: url(../../static/img/openapi/php-original.svg);
 }

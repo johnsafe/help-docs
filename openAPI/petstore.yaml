@@ -1,11 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: https://petstore.swagger.io/v2
-    description: Default server
-  - url: https://petstore.swagger.io/sandbox
-    description: Sandbox server
-  - url: http://127.0.0.1:4010
-    description: Prism Mock API (local)
+  - url: https://api.atomgit.com
+    description: prod
+  - url: https://test-api.atomgit.com
+    description: test
+
 info:
   description: |
     This is a sample server Petstore server.
@@ -751,6 +750,38 @@ paths:
               $ref: "#/components/schemas/User"
         description: Created user object
         required: true
+# 获取用户个人信息
+  /user/info:
+    get:
+      tags:
+        - user
+      summary: Get the authenticated user info
+      description: This can only be done by the logged in userinfo.
+      operationId: getTheAuthenticatedUser
+      parameters:
+        - name: Authorization
+          in: header
+          description: "The Oauth2 token"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"
   "/user/{username}":
     get:
       tags:
@@ -1112,53 +1143,84 @@ components:
           minLength: 1
       xml:
         name: Tag
+    InvalidToken:
+      type: object
+      properties:
+        error:
+          description: error
+          type: string
+          example: invalid_token
+        error_description:
+          description: error description
+          type: string
+          example: Invalid token, please provide correct token
     User:
       type: object
       properties:
+        login:
+          description: this user name
+          type: string
+          example: mrpuatomgit
         id:
-          $ref: "#/components/schemas/Id"
-        pet:
-          oneOf:
-            - $ref: "#/components/schemas/Pet"
-            - $ref: "#/components/schemas/Tag"
-        username:
-          description: User supplied username
+          description: this user id
           type: string
-          minLength: 4
-          example: John78
-        firstName:
-          description: User first name
+          example: 63db126c0566d2f7d2c9498c
+        url:
+          description: return personal information interface in json format
           type: string
-          minLength: 1
-          example: John
-        lastName:
-          description: User last name
+          example: https://test-api.atomgit.com/users/mrpuatomgit
+        name:
+          description: User's nisckname
           type: string
-          minLength: 1
-          example: Smith
+          example: 这就是我的昵称
+        company:
+          description: User's company
+          type: string
+          example: atom
+        blog:
+          description: User's personal website or blog
+          type: string
+          example: https://youboke.com
+        location:
+          description: User's location
+          type: string
+          example: beijing
         email:
-          description: User email address
+          description: User's email
           type: string
-          format: email
-          example: john.smith@example.com
-        password:
+          example: 2214882769@qq.com
+        bio:
+          description: User's brief introduction
           type: string
-          description: >-
-            User password, MUST contain a mix of upper and lower case letters,
-            as well as digits
-          format: password
-          minLength: 8
-          pattern: "/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/"
-          example: drowssaP123
-        phone:
-          description: User phone number in international format
+          example: hello i am putianyang
+        avatar_url:
+          description: User's avatar
           type: string
-          pattern: '/^\+(?:[0-9]-?){6,14}[0-9]$/'
-          example: +1-202-555-0192
-        userStatus:
-          description: User status
-          type: integer
-          format: int32
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+        html_url:
+          description: User's personal homepage
+          type: string
+          example: https://test.atomgit.com/mrpuatomgit
+        public_repos:
+          description: User's public repostory count
+          type: Integer
+          example: 3
+        total_private_repos:
+          description: User's private repostory count
+          type: Integer
+          example: 2
+        owned_private_repos:
+          description: User's self private repostory count
+          type: Integer
+          example: 1
+        created_at:
+          description: User's register time
+          type: string
+          example: '2023-02-02 09:31:24'
+        updated_at:
+          description: User's update personal information time
+          type: string
+          example: '2023-02-15 18:20:50'
       xml:
         name: User
   requestBodies:
