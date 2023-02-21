@@ -91,3 +91,26 @@ a:any-link:hover {
   content: "event";
   background-color: var(--ifm-color-secondary-darkest);
 }
+
+/* api文档-语言选项卡 */
+.tabs .code__tab--bash::after {
+  background: url(../../static/img/openapi/linux-original.svg);
+}
+.tabs .code__tab--python::after {
+  background: url(../../static/img/openapi/python-original.svg);
+}
+.tabs .code__tab--go::after {
+  background: url(../../static/img/openapi/go-original.svg);
+}
+.tabs .code__tab--nodejs::after {
+  background: url(../../static/img/openapi/nodejs-original.svg);
+}
+.tabs .code__tab--ruby::after {
+  background: url(../../static/img/openapi/ruby-original.svg);
+}
+.tabs .code__tab--csharp::after {
+  background: url(../../static/img/openapi/csharp-original.svg);
+}
+.tabs .code__tab--php::after {
+  background: url(../../static/img/openapi/php-original.svg);
+}
