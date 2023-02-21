@@ -2,6 +2,11 @@
 
 基于开源框架 [Docusaurus 2](https://docusaurus.io/), 生成静态网站.
 
+### node 环境
+```
+>=18.0.0 
+```
+
 ### 安装
 
 ```
@@ -11,6 +16,9 @@ $ yarn
 ### 本地开发环境
 
 ```
+// 生成 API 的 markdown 文档
+yarn gen-all
+// 启动
 $ yarn start
 ```
 
@@ -19,6 +27,9 @@ $ yarn start
 ### 编译
 
 ```
+//根据根目录中的 openAPI 文件夹，生成 API 的 markdown 文档到 docs/openAPI 文件夹
+yarn gen-all
+// 编译
 $ yarn build
 ```
 

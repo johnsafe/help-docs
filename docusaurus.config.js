@@ -10,16 +10,20 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'AtomGit 帮助文档',
   tagline: '使用文档  接口文档  第三方接入文档',
-  url: 'https://atomgit.com',
+  url: 'https://docs.atomgit.com',
   baseUrl: '/',
   onBrokenLinks: 'warn',//throw
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
   organizationName: 'johnsafe', // Usually your GitHub org/user name.
   projectName: 'johnsafe.github.io', // Usually your repo name.
+  // 百度统计脚本
+  scripts: [
+    {
+      src: 'https://hm.baidu.com/hm.js?dd6bceaa31549c06f7b0488133c25b7b',
+      async: true,
+    },
+  ],
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -42,7 +46,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           docLayoutComponent: '@theme/DocPage',
-          docItemComponent: '@theme/ApiItem',//'@theme/DocItem'
+          docItemComponent: "@theme/ApiItem",
           rehypePlugins: [],
           routeBasePath: "/" ,
           beforeDefaultRemarkPlugins: [],
@@ -63,6 +67,23 @@ const config = {
         },
       }),
     ],
+    [
+      "redocusaurus",
+      {
+        // Plugin Options for loading OpenAPI files
+        // specs: [
+        //   {
+        //     spec: "https://redocly.github.io/redoc/openapi.yaml",
+        //     route: "/api/",
+        //   },
+        // ],
+        // Theme Options for modifying how redoc renders them
+        theme: {
+          // Change with your site colors
+          primaryColor: "#1890ff",
+        },
+      },
+    ]
   ],
   plugins: [
     [
@@ -72,32 +93,69 @@ const config = {
         id: 'api',
         path: 'api',
         routeBasePath: 'api',
-        editCurrentVersion: true,
+        editCurrentVersion: false,
         sidebarPath: require.resolve('./sidebarsAPI.js'),
         showLastUpdateAuthor: false,
         showLastUpdateTime: true,
+        docItemComponent: "@theme/ApiItem",
       }),
     ],
     [
-      'docusaurus-plugin-openapi-docs',
+      "docusaurus-plugin-openapi-docs",
       {
-        id: "apiDocs",
+        id: "openapi",
         docsPluginId: "classic",
         config: {
-          petstore: { // Note: petstore key is treated as the <id> and can be used to specify an API doc instance when using CLI commands
-            specPath: "examples/petstore.yaml", // Path to designated spec file
-            outputDir: "api/petstore", // Output directory for generated .mdx docs
+          petstore_versioned: {
+            specPath: "openAPI/petstore.yaml",
+            outputDir: "docs/openAPI/petstore_versioned", // No trailing slash
             sidebarOptions: {
               groupPathsBy: "tag",
+              categoryLinkSource: "tag",
+            },
+            version: "1.0.0", // Current version
+            label: "v2.0.0", // Current version label
+            baseUrl: "/openAPI/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
+            versions: {
+              "1.0.0": {
+                specPath: "openAPI/petstore-1.0.0.yaml",
+                outputDir: "docs/openAPI/petstore_versioned/1.0.0", // No trailing slash
+                label: "v1.0.0",
+                baseUrl: "/openAPI/petstore_versioned/1.0.0/swagger-petstore-yaml", // Leading slash is important
+              },
             },
           },
-          burgers: {
-            specPath: "examples/food/burgers/openapi.yaml",
-            outputDir: "api/food/burgers",
-          }
-        }
+
+          api: {
+            specPath: "openAPI/api.yaml",
+            //proxy: "https://cors.pan.dev",
+            outputDir: "docs/openAPI/api_versioned",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+              categoryLinkSource: "tag",
+            },
+            template: "api.mustache", // Customize API MDX with mustache template
+            downloadUrl:
+              "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-openapi-docs/main/demo/openAPI/petstore.yaml",
+          },
+          /* cos: {
+             specPath: "openAPI/openapi-cos.json",
+             outputDir: "docs/openAPI/cos",
+             sidebarOptions: {
+               groupPathsBy: "tag",
+             },
+           },*/
+       /*   burgers: {
+            specPath: "openAPI/food/burgers/openapi.yaml",
+            outputDir: "docs/openAPI/food/burgers",
+          },
+          yogurt: {
+            specPath: "openAPI/food/yogurtstore/openapi.yaml",
+            outputDir: "docs/openAPI/food/yogurtstore",
+          },*/
+        },
       },
-    ]
+    ],
   ],
   themes: [
     [
@@ -134,7 +192,28 @@ const config = {
             position: 'left',
             label: '帮助文档',
           },
-          // {to: '/api/', label: 'API文档', position: 'left'},
+          {to: '/oauth/', label: 'OAuth2', position: 'left'},
+          {to: '/category/api', label: 'Api文档', position: 'left'},
+          // {
+          //   to: '/api/',
+          //   label: 'API文档',
+          //   position: 'left'
+          // },
+          /*{
+            type: "dropdown",
+            label: "Demos",
+            position: "left",
+            items: [
+              {
+                label: "API Zoo",
+                to: "/category/petstore-api",
+              },
+              {
+                label: "Petstore (versioned)",
+                to: "/category/petstore-versioned-api",
+              },
+            ],
+          },*/
           // {to: '/oauth/', label: '第三方接入', position: 'left'},
           // {to: '/blog', label: '博客', position: 'left'},
           {
@@ -142,7 +221,7 @@ const config = {
             position: 'right'
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues',
             label: '反馈',
             position: 'right',
           },
@@ -228,7 +307,7 @@ const config = {
         darkTheme: darkCodeTheme,
       },
       colorMode: {
-        defaultMode: 'dark',
+        defaultMode: 'light',
         disableSwitch: false,
         respectPrefersColorScheme: false,
       },
