@@ -150,9 +150,9 @@ const sidebars = {
       label: "开放接口",
       link: {
         type: "generated-index",
-        title: "AtomGit OPEN API",
+        title: "AtomGit OpenAPI 文档",
         description:
-            "为了构建更好的AtomGit生态环境，我们推出了基于OAuth2的API版本。API接口使用方式以及Url都参照GitHub，为了各位开发者更好的兼容已经存在的第三方应用。",
+            "欢迎使用 AtomGit OpenAPI 开发者帮助文档，为了降低开发者的学习、使用成本，也为了更好的帮助各位开发者将自己的第三方应用 API 接口集成到 AtomGit 上，AtomGit OpenAPI接口的使用方式、Url、接口参数及返回值均与主流代码托管平台（eg：GitHub）保持一致。",
         slug: "/category/api",
       },
       items: require("./docs/openAPI/api_versioned/sidebar.js"),

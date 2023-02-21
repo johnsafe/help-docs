@@ -9,39 +9,38 @@ info:
     AtomGit 提供了REST API,您可以使用 Git CLI、curl、官方 Octokit 库和第三方库与此API进行交互。
 
     ## API 版本
+
     每当您向 REST API 发出请求时，您都必须指定要使用的 REST API 版本，您应该使用X-Api-Version标头来指定 API 版本。例如：
-    ```
+
+    ```bash
     $ curl --header "X-Api-Version:2023-02-21" https://api.atomgit.com/user/info
     ```
     没有标头的请求X-Api-Version将默认使用该2023-02-21版本。
+
     如果您指定不再受支持的 API 版本，您将收到400错误消息。
+
     ## token 验证
+
     AtomGit提供的REST API支持Oauth2令牌和私人令牌两种验证方式：
+
     1. OAuth2令牌（在标头中发送）
-    ```
+
+    ```bash
       $ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.atomgit.com
     ```
+
     2. 私人令牌令牌 （在标头中发送）
-    ```
+
+    ```bash
       $ curl -H "Authorization: Bearer PERSONAL-TOKEN" https://api.atomgit.com
     ```
+    ## 联系我们
+    - 联系人： API技术支持
+    - 邮箱： lish#csdn.net (请将 # 换成 @)
+    - Issue 反馈地址： https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues
 
   version: 2023-02-21
-  title: 关于AtomGit API
-  termsOfService: "https://api.atomgit.com"
-  contact:
-    name: API Support
-    email: lish@csdn.net
-    url: https://github.com/Redocly/redoc
-  x-logo:
-    url: "https://file.atomgit.com/uploads/assets/logo-footer.png"
-    altText: AtomGit logo
-  license:
-    name: Apache 2.0
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-externalDocs:
-  description: Find out how to create Github repo for your OpenAPI spec.
-  url: "https://github.com/Rebilly/generator-openapi-repo"
+  title: "关于AtomGit OpenAPI"
 tags:
   - name: user
     description: Operations about user
@@ -183,7 +182,7 @@ paths:
                 $ref: "#/components/schemas/User"
             application/xml:
               schema:
-                $ref: "#/components/schemas/User"     
+                $ref: "#/components/schemas/User"
  # 获取当前用户的邮箱列表
   /user/emails:
     get:
@@ -215,7 +214,7 @@ paths:
                 $ref: "#/components/schemas/UserEmailVO"
             application/xml:
               schema:
-                $ref: "#/components/schemas/UserEmailVO"     
+                $ref: "#/components/schemas/UserEmailVO"
 #  # 获取当前用户的粉丝列表
 #   /user/followers:
 #     get:
@@ -252,7 +251,7 @@ paths:
 #                 $ref: "#/components/schemas/UserEmailVO"
 #             application/xml:
 #               schema:
-#                 $ref: "#/components/schemas/UserEmailVO"     
+#                 $ref: "#/components/schemas/UserEmailVO"
 components:
   schemas:
     ApiResponse:
@@ -298,13 +297,13 @@ components:
           type: string
           example: 用户昵称不合法（长度不能小于1且不能大于20个字符）
         trace_id:
-          description:  trace id   
+          description:  trace id
           type: string
-          example: trace_id   
+          example: trace_id
         code:
           description: response code
           type: Integer
-          example: 1000      
+          example: 1000
     InvalidToken:
       type: object
       properties:
