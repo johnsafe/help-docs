@@ -147,7 +147,7 @@ const sidebars = {
   api: [
     {
       type: "category",
-      label: "Open Api",
+      label: "开放接口",
       link: {
         type: "generated-index",
         title: "AtomGit OPEN API",

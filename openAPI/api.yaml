@@ -45,7 +45,7 @@ externalDocs:
 tags:
   - name: user
     description: Operations about user
-    x-displayName: Users
+    x-displayName: 用户账号
 x-tagGroups:
   - name: User Management
     tags:
