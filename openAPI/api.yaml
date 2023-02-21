@@ -101,202 +101,53 @@ paths:
               schema:
                 $ref: "#/components/schemas/User"
   # 更新用户个人信息
-  /user:
-    patch:
-      tags:
-        - user
-      summary: Update the authenticated user
-      description: This can only be done by the logged in userinfo.
-      operationId: updateTheAuthenticatedUser
-      parameters:
-        - name: Authorization
-          in: header
-          description: "The Oauth2 token"
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateAuthenticatedUserDTO"
-        description: update user object
-        required: true
-      responses:
-        401:
-          description: 'Invalid token, please provide correct token'
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidToken"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/InvalidToken"
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/User"
-  "/user/{username}":
-    get:
-      tags:
-        - user
-      summary: Get user by user name
-      description: ""
-      operationId: getUserByName
-      parameters:
-        - name: username
-          in: path
-          description: "The name that needs to be fetched. Use user1 for testing. "
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/User"
-        "400":
-          description: Invalid username supplied
-        "404":
-          description: User not found
-    put:
-      tags:
-        - user
-      summary: Updated user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: name that need to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        "400":
-          description: Invalid user supplied
-        "404":
-          description: User not found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-        description: Updated user object
-        required: true
-    delete:
-      tags:
-        - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        "400":
-          description: Invalid username supplied
-        "404":
-          description: User not found
-  /user/createWithArray:
-    post:
-      tags:
-        - user
-      summary: Creates list of users with given input array
-      description: ""
-      operationId: createUsersWithArrayInput
-      responses:
-        default:
-          description: successful operation
-      requestBody:
-        $ref: "#/components/requestBodies/UserArray"
-  /user/createWithList:
-    post:
-      tags:
-        - user
-      summary: Creates list of users with given input list
-      description: ""
-      operationId: createUsersWithListInput
-      responses:
-        default:
-          description: successful operation
-      requestBody:
-        $ref: "#/components/requestBodies/UserArray"
-  /user/login:
-    get:
-      tags:
-        - user
-      summary: Logs user into the system
-      description: ""
-      operationId: loginUser
-      parameters:
-        - name: username
-          in: query
-          description: The user name for login
-          required: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              schema:
-                type: string
-                format: date-time
-          content:
-            application/json:
-              schema:
-                type: string
-              examples:
-                response:
-                  value: OK
-            application/xml:
-              schema:
-                type: string
-              examples:
-                response:
-                  value: <Message> OK </Message>
-            text/plain:
-              examples:
-                response:
-                  value: OK
-        "400":
-          description: Invalid username/password supplied
-  /user/logout:
-    get:
-      tags:
-        - user
-      summary: Logs out current logged in user session
-      description: ""
-      operationId: logoutUser
-      responses:
-        default:
-          description: successful operation
+  # /user:
+  #   patch:
+  #     tags:
+  #       - user
+  #     summary: Update the authenticated user
+  #     description: This can only be done by the logged in userinfo.
+  #     operationId: updateTheAuthenticatedUser
+  #     parameters:
+  #       - name: Authorization
+  #         in: header
+  #         description: "The Oauth2 token"
+  #         required: true
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/UpdateAuthenticatedUserDTO"
+  #       description: update user object
+  #       required: true
+  #     responses:
+  #       401:
+  #         description: 'Invalid token, please provide correct token'
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/InvalidToken"
+  #           application/xml:
+  #             schema:
+  #               $ref: "#/components/schemas/InvalidToken"
+  #       200:
+  #         description: successful operation
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/User"
+  #           application/xml:
+  #             schema:
+  #               $ref: "#/components/schemas/User"
+  #       400:
+  #         description: paramter error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/ParamterError"
+  #           application/xml:
+  #             schema:
+  #               $ref: "#/components/schemas/ParamterError"      
 components:
   schemas:
     ApiResponse:
@@ -326,6 +177,29 @@ components:
           minLength: 1
       xml:
         name: Tag
+    ParamterError:
+      type: object
+      properties:
+        cause:
+          description: error cause
+          type: string
+          example: MESSAGE.PARAMETER_ERROR
+        error_code:
+          description: PARAMETER_ERROR
+          type: string
+          example: error code
+        error_message:
+          description: PARAMETER_ERROR
+          type: string
+          example: 用户昵称不合法（长度不能小于1且不能大于20个字符）
+        trace_id:
+          description:  trace id   
+          type: string
+          example: trace_id   
+        code:
+          description: response code
+          type: Integer
+          example: 1000      
     InvalidToken:
       type: object
       properties:
