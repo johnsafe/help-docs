@@ -147,7 +147,75 @@ paths:
   #               $ref: "#/components/schemas/ParamterError"
   #           application/xml:
   #             schema:
-  #               $ref: "#/components/schemas/ParamterError"      
+  #               $ref: "#/components/schemas/ParamterError"
+  # 根据用户名查询用户信息
+  /users/{username}:
+    get:
+      tags:
+        - user
+      summary: Get user by username
+      description: Get user by username
+      operationId: getUserByUsername
+      parameters:
+        - name: Authorization
+          in: header
+          description: "The Oauth2 token"
+          required: true
+        - name: username
+          in: path
+          description: "username"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"     
+ # 获取当前用户的邮箱列表
+  /user/emails:
+    get:
+      tags:
+        - user
+      summary: List email addresses for the authenticated user
+      description: List email addresses for the authenticated user
+      operationId: listEmail
+      parameters:
+        - name: Authorization
+          in: header
+          description: "The Oauth2 token"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserEmailVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/UserEmailVO"     
 components:
   schemas:
     ApiResponse:
@@ -234,6 +302,21 @@ components:
           description: The current user's profile is between 1 and 200 characters
           type: string
           example: hello i am putianyang
+    UserEmailVO:
+      type: object
+      properties:
+        email:
+          description: email
+          type: string
+          example: 2xas@qq.com
+        verified:
+          description: the email is verified
+          type: boolean
+          example: false
+        visibility:
+          description: visibility(public or private)
+          type: string
+          example: public
     User:
       type: object
       properties:
