@@ -73,17 +73,17 @@ paths:
     get:
       tags:
         - user
-      summary: Get the authenticated user info
-      description: This can only be done by the logged in userinfo.
+      summary: 获取用户个人信息
+      description: 获取用户个人信息
       operationId: getTheAuthenticatedUser
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 token"
+          description: "Oauth2 token"
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: 'token不合法、请检查token是否正确'
           content:
             application/json:
               schema:
@@ -153,21 +153,21 @@ paths:
     get:
       tags:
         - user
-      summary: Get user by username
-      description: Get user by username
+      summary: 根据用户名查询用户信息
+      description: 根据用户名查询用户信息
       operationId: getUserByUsername
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 token"
+          description: "Oauth2 token"
           required: true
         - name: username
           in: path
-          description: "username"
+          description: "用户名"
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: 'token不合法、请检查token是否正确'
           content:
             application/json:
               schema:
@@ -189,17 +189,17 @@ paths:
     get:
       tags:
         - user
-      summary: List email addresses for the authenticated user
-      description: List email addresses for the authenticated user
+      summary: 获取当前用户的邮箱列表
+      description: 获取当前用户的邮箱列表
       operationId: listEmail
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 token"
+          description: "Oauth2 token"
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: 'token不合法、请检查token是否正确'
           content:
             application/json:
               schema:
@@ -216,6 +216,43 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/UserEmailVO"     
+#  # 获取当前用户的粉丝列表
+#   /user/followers:
+#     get:
+#       tags:
+#         - user
+#       summary: List email addresses for the authenticated user
+#       description: List email addresses for the authenticated user
+#       operationId: listEmail
+#       parameters:
+#         - name: page
+#           in: param
+#           description: "the page number(default 1)"
+#           required: false
+#       parameters:
+#         - name: per_page
+#           in: param
+#           description: "the page number(default 30,max 100)"
+#           required: false
+#       responses:
+#         401:
+#           description: 'Invalid token, please provide correct token'
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: "#/components/schemas/InvalidToken"
+#             application/xml:
+#               schema:
+#                 $ref: "#/components/schemas/InvalidToken"
+#         200:
+#           description: successful operation
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: "#/components/schemas/UserEmailVO"
+#             application/xml:
+#               schema:
+#                 $ref: "#/components/schemas/UserEmailVO"     
 components:
   schemas:
     ApiResponse:
@@ -272,11 +309,11 @@ components:
       type: object
       properties:
         error:
-          description: error
+          description: 错误名称
           type: string
           example: invalid_token
         error_description:
-          description: error description
+          description: 错误描述
           type: string
           example: Invalid token, please provide correct token
     UpdateAuthenticatedUserDTO:
@@ -306,82 +343,82 @@ components:
       type: object
       properties:
         email:
-          description: email
+          description: 邮箱
           type: string
           example: 2xas@qq.com
         verified:
-          description: the email is verified
+          description: 是否经过验证
           type: boolean
           example: false
         visibility:
-          description: visibility(public or private)
+          description: 邮箱是否公开(public为公开、 private为私有)
           type: string
           example: public
     User:
       type: object
       properties:
         login:
-          description: this user name
+          description: 用户名
           type: string
           example: mrpuatomgit
         id:
-          description: this user id
+          description: 用户id
           type: string
           example: 63db126c0566d2f7d2c9498c
         url:
-          description: return personal information interface in json format
+          description: 根据获取用户名获取用户信息的接口路径
           type: string
           example: https://test-api.atomgit.com/users/mrpuatomgit
         name:
-          description: User's nisckname
+          description: 昵称
           type: string
           example: 这就是我的昵称
         company:
-          description: User's company
+          description: 公司
           type: string
           example: atom
         blog:
-          description: User's personal website or blog
+          description: 博客
           type: string
           example: https://youboke.com
         location:
-          description: User's location
+          description: 地址
           type: string
           example: beijing
         email:
-          description: User's email
+          description: 邮箱
           type: string
           example: 2214882769@qq.com
         bio:
-          description: User's brief introduction
+          description: 简介
           type: string
           example: hello i am putianyang
         avatar_url:
-          description: User's avatar
+          description: 头像
           type: string
           example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
         html_url:
-          description: User's personal homepage
+          description: 主页地址
           type: string
           example: https://test.atomgit.com/mrpuatomgit
         public_repos:
-          description: User's public repostory count
+          description: 公开仓库数量
           type: Integer
           example: 3
         total_private_repos:
-          description: User's private repostory count
+          description: 私有仓库总数量
           type: Integer
           example: 2
         owned_private_repos:
-          description: User's self private repostory count
+          description: 本人创建的私有仓库数量
           type: Integer
           example: 1
         created_at:
-          description: User's register time
+          description: 注册时间
           type: string
           example: '2023-02-02 09:31:24'
         updated_at:
-          description: User's update personal information time
+          description: 更新时间
           example: '2023-02-02 09:31:24'
   requestBodies:
     UserArray:
