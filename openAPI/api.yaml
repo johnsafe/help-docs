@@ -9,43 +9,42 @@ info:
     AtomGit 提供了REST API,您可以使用 Git CLI、curl、官方 Octokit 库和第三方库与此API进行交互。
 
     ## API 版本
+
     每当您向 REST API 发出请求时，您都必须指定要使用的 REST API 版本，您应该使用X-Api-Version标头来指定 API 版本。例如：
-    ```
+
+    ```bash
     $ curl --header "X-Api-Version:2023-02-21" https://api.atomgit.com/user/info
     ```
     没有标头的请求X-Api-Version将默认使用该2023-02-21版本。
+
     如果您指定不再受支持的 API 版本，您将收到400错误消息。
+
     ## token 验证
+
     AtomGit提供的REST API支持Oauth2令牌和私人令牌两种验证方式：
+
     1. OAuth2令牌（在标头中发送）
-    ```
+
+    ```bash
       $ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.atomgit.com
     ```
+
     2. 私人令牌令牌 （在标头中发送）
-    ```
+
+    ```bash
       $ curl -H "Authorization: Bearer PERSONAL-TOKEN" https://api.atomgit.com
     ```
+    ## 联系我们
+    - 联系人： API技术支持
+    - 邮箱： lish#csdn.net (请将 # 换成 @)
+    - Issue 反馈地址： https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues
 
   version: 2023-02-21
-  title: 关于AtomGit API
-  termsOfService: "https://api.atomgit.com"
-  contact:
-    name: API Support
-    email: lish@csdn.net
-    url: https://github.com/Redocly/redoc
-  x-logo:
-    url: "https://file.atomgit.com/uploads/assets/logo-footer.png"
-    altText: AtomGit logo
-  license:
-    name: Apache 2.0
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-externalDocs:
-  description: Find out how to create Github repo for your OpenAPI spec.
-  url: "https://github.com/Rebilly/generator-openapi-repo"
+  title: "关于AtomGit OpenAPI"
 tags:
   - name: user
     description: Operations about user
-    x-displayName: Users
+    x-displayName: 用户账号
   - name: org
     description: Operations about org
     x-displayName: Orgs
@@ -57,39 +56,39 @@ x-tagGroups:
     tags:
       - org
 paths:
-  /user:
-    post:
-      tags:
-        - user
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: createUser
-      responses:
-        default:
-          description: successful operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-        description: Created user object
-        required: true
+  # /user:
+  #   post:
+  #     tags:
+  #       - user
+  #     summary: Create user
+  #     description: This can only be done by the logged in user.
+  #     operationId: createUser
+  #     responses:
+  #       default:
+  #         description: successful operation
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/User"
+  #       description: Created user object
+  #       required: true
   # 获取用户个人信息
   /user/info:
     get:
       tags:
         - user
-      summary: Get the authenticated user info
-      description: This can only be done by the logged in userinfo.
+      summary: 获取用户个人信息
+      description: 获取用户个人信息
       operationId: getTheAuthenticatedUser
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 token"
+          description: "Oauth2 token"
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: 'token不合法、请检查token是否正确'
           content:
             application/json:
               schema:
@@ -106,22 +105,82 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/User"
-  "/user/{username}":
+  # 更新用户个人信息
+  # /user:
+  #   patch:
+  #     tags:
+  #       - user
+  #     summary: Update the authenticated user
+  #     description: This can only be done by the logged in userinfo.
+  #     operationId: updateTheAuthenticatedUser
+  #     parameters:
+  #       - name: Authorization
+  #         in: header
+  #         description: "The Oauth2 token"
+  #         required: true
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/UpdateAuthenticatedUserDTO"
+  #       description: update user object
+  #       required: true
+  #     responses:
+  #       401:
+  #         description: 'Invalid token, please provide correct token'
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/InvalidToken"
+  #           application/xml:
+  #             schema:
+  #               $ref: "#/components/schemas/InvalidToken"
+  #       200:
+  #         description: successful operation
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/User"
+  #           application/xml:
+  #             schema:
+  #               $ref: "#/components/schemas/User"
+  #       400:
+  #         description: paramter error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/ParamterError"
+  #           application/xml:
+  #             schema:
+  #               $ref: "#/components/schemas/ParamterError"
+  # 根据用户名查询用户信息
+  /users/{username}:
     get:
       tags:
         - user
-      summary: Get user by user name
-      description: ""
-      operationId: getUserByName
+      summary: 根据用户名查询用户信息
+      description: 根据用户名查询用户信息
+      operationId: getUserByUsername
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: username
           in: path
-          description: "The name that needs to be fetched. Use user1 for testing. "
+          description: "用户名"
           required: true
-          schema:
-            type: string
       responses:
-        "200":
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
           description: successful operation
           content:
             application/json:
@@ -130,140 +189,75 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/User"
-        "400":
-          description: Invalid username supplied
-        "404":
-          description: User not found
-    put:
-      tags:
-        - user
-      summary: Updated user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: name that need to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        "400":
-          description: Invalid user supplied
-        "404":
-          description: User not found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-        description: Updated user object
-        required: true
-    delete:
-      tags:
-        - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        "400":
-          description: Invalid username supplied
-        "404":
-          description: User not found
-  /user/createWithArray:
-    post:
-      tags:
-        - user
-      summary: Creates list of users with given input array
-      description: ""
-      operationId: createUsersWithArrayInput
-      responses:
-        default:
-          description: successful operation
-      requestBody:
-        $ref: "#/components/requestBodies/UserArray"
-  /user/createWithList:
-    post:
-      tags:
-        - user
-      summary: Creates list of users with given input list
-      description: ""
-      operationId: createUsersWithListInput
-      responses:
-        default:
-          description: successful operation
-      requestBody:
-        $ref: "#/components/requestBodies/UserArray"
-  /user/login:
+ # 获取当前用户的邮箱列表
+  /user/emails:
     get:
       tags:
         - user
-      summary: Logs user into the system
-      description: ""
-      operationId: loginUser
+      summary: 获取当前用户的邮箱列表
+      description: 获取当前用户的邮箱列表
+      operationId: listEmail
       parameters:
-        - name: username
-          in: query
-          description: The user name for login
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
           required: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: true
-          schema:
-            type: string
       responses:
-        "200":
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              schema:
-                type: string
-                format: date-time
+        401:
+          description: 'token不合法、请检查token是否正确'
           content:
             application/json:
               schema:
-                type: string
-              examples:
-                response:
-                  value: OK
+                $ref: "#/components/schemas/InvalidToken"
             application/xml:
               schema:
-                type: string
-              examples:
-                response:
-                  value: <Message> OK </Message>
-            text/plain:
-              examples:
-                response:
-                  value: OK
-        "400":
-          description: Invalid username/password supplied
-  /user/logout:
-    get:
-      tags:
-        - user
-      summary: Logs out current logged in user session
-      description: ""
-      operationId: logoutUser
-      responses:
-        default:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
           description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserEmailVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/UserEmailVO"
+#  # 获取当前用户的粉丝列表
+#   /user/followers:
+#     get:
+#       tags:
+#         - user
+#       summary: List email addresses for the authenticated user
+#       description: List email addresses for the authenticated user
+#       operationId: listEmail
+#       parameters:
+#         - name: page
+#           in: param
+#           description: "the page number(default 1)"
+#           required: false
+#       parameters:
+#         - name: per_page
+#           in: param
+#           description: "the page number(default 30,max 100)"
+#           required: false
+#       responses:
+#         401:
+#           description: 'Invalid token, please provide correct token'
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: "#/components/schemas/InvalidToken"
+#             application/xml:
+#               schema:
+#                 $ref: "#/components/schemas/InvalidToken"
+#         200:
+#           description: successful operation
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: "#/components/schemas/UserEmailVO"
+#             application/xml:
+#               schema:
+#                 $ref: "#/components/schemas/UserEmailVO"
   /organizations:
     get:
       tags:
@@ -390,37 +384,37 @@ paths:
           description: Unauthorized
         "403":
           description: Forbidden,OAuth requests with insufficient scope receive a 403 Forbidden response.
-#  /users/{username}/orgs:
-#    get:
-#    tags:
-#        - org
-#      summary: list organizations by username
-#      description: "List public organization memberships for the specified user."
-#      operationId: userOrgByUserNamePageList
-#      parameters:
-#        - name: since
-#          in: query
-#          description: The number of results page num
-#          required: false
-#          schema:
-#            type: integer
-#        - name: per_page
-#          in: query
-#          description: The number of results per page (max 50).
-#          required: false
-#          schema:
-#            type: integer
-#      responses:
-#        "200":
-#          description: successful operation
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: "#/components/schemas/UserOrgPage"
-#        "400":
-#          description: username is not exist
+  #  /users/{username}/orgs:
+  #    get:
+  #    tags:
+  #        - org
+  #      summary: list organizations by username
+  #      description: "List public organization memberships for the specified user."
+  #      operationId: userOrgByUserNamePageList
+  #      parameters:
+  #        - name: since
+  #          in: query
+  #          description: The number of results page num
+  #          required: false
+  #          schema:
+  #            type: integer
+  #        - name: per_page
+  #          in: query
+  #          description: The number of results per page (max 50).
+  #          required: false
+  #          schema:
+  #            type: integer
+  #      responses:
+  #        "200":
+  #          description: successful operation
+  #          content:
+  #            application/json:
+  #              schema:
+  #                type: array
+  #                items:
+  #                  $ref: "#/components/schemas/UserOrgPage"
+  #        "400":
+  #          description: username is not exist
   /orgs/{org}/invitations:
     post:
       tags:
@@ -564,82 +558,143 @@ components:
           minLength: 1
       xml:
         name: Tag
+    ParamterError:
+      type: object
+      properties:
+        cause:
+          description: error cause
+          type: string
+          example: MESSAGE.PARAMETER_ERROR
+        error_code:
+          description: PARAMETER_ERROR
+          type: string
+          example: error code
+        error_message:
+          description: PARAMETER_ERROR
+          type: string
+          example: 用户昵称不合法（长度不能小于1且不能大于20个字符）
+        trace_id:
+          description:  trace id
+          type: string
+          example: trace_id
+        code:
+          description: response code
+          type: Integer
+          example: 1000
     InvalidToken:
       type: object
       properties:
         error:
-          description: error
+          description: 错误名称
           type: string
           example: invalid_token
         error_description:
-          description: error description
+          description: 错误描述
           type: string
           example: Invalid token, please provide correct token
+    UpdateAuthenticatedUserDTO:
+      type: object
+      properties:
+        name:
+          description: The current user's nickname is between 1 and 20 characters in length
+          type: string
+          example: 这就是我的昵称
+        blog:
+          description: The blog address of the current user is between 1 and 100 characters
+          type: string
+          example: https://youboke.com
+        company:
+          description: The company name of the current user is between 1 and 50 characters
+          type: string
+          example: atom
+        location:
+          description: The current user's location is between 1 and 20 characters
+          type: string
+          example: beijing
+        bio:
+          description: The current user's profile is between 1 and 200 characters
+          type: string
+          example: hello i am putianyang
+    UserEmailVO:
+      type: object
+      properties:
+        email:
+          description: 邮箱
+          type: string
+          example: 2xas@qq.com
+        verified:
+          description: 是否经过验证
+          type: boolean
+          example: false
+        visibility:
+          description: 邮箱是否公开(public为公开、 private为私有)
+          type: string
+          example: public
     User:
       type: object
       properties:
         login:
-          description: this user name
+          description: 用户名
           type: string
           example: mrpuatomgit
         id:
-          description: this user id
+          description: 用户id
           type: string
           example: 63db126c0566d2f7d2c9498c
         url:
-          description: return personal information interface in json format
+          description: 根据获取用户名获取用户信息的接口路径
           type: string
           example: https://test-api.atomgit.com/users/mrpuatomgit
         name:
-          description: User's nisckname
+          description: 昵称
           type: string
           example: 这就是我的昵称
         company:
-          description: User's company
+          description: 公司
           type: string
           example: atom
         blog:
-          description: User's personal website or blog
+          description: 博客
           type: string
           example: https://youboke.com
         location:
-          description: User's location
+          description: 地址
           type: string
           example: beijing
         email:
-          description: User's email
+          description: 邮箱
           type: string
           example: 2214882769@qq.com
         bio:
-          description: User's brief introduction
+          description: 简介
           type: string
           example: hello i am putianyang
         avatar_url:
-          description: User's avatar
+          description: 头像
           type: string
           example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
         html_url:
-          description: User's personal homepage
+          description: 主页地址
           type: string
           example: https://test.atomgit.com/mrpuatomgit
         public_repos:
-          description: User's public repostory count
+          description: 公开仓库数量
           type: Integer
           example: 3
         total_private_repos:
-          description: User's private repostory count
+          description: 私有仓库总数量
           type: Integer
           example: 2
         owned_private_repos:
-          description: User's self private repostory count
+          description: 本人创建的私有仓库数量
           type: Integer
           example: 1
         created_at:
-          description: User's register time
+          description: 注册时间
           type: string
           example: '2023-02-02 09:31:24'
         updated_at:
-          description: User's update personal information time
+          description: 更新时间
           example: '2023-02-02 09:31:24'
     OrgPage:
       type: object

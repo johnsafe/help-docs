@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "docusaurus clean-api-docs all && docusaurus clean-api-docs:version petstore_versioned:all;docusaurus gen-api-docs all && docusaurus gen-api-docs:version petstore_versioned:all;docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
