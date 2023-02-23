@@ -47,7 +47,7 @@ tags:
     x-displayName: 用户账号
   - name: org
     description: Operations about org
-    x-displayName: Orgs
+    x-displayName: 组织相关
 x-tagGroups:
   - name: User Management
     tags:
@@ -297,7 +297,7 @@ paths:
       parameters:
         - name: org
           in: path
-          description: "the organization name. The name is case sensitive. "
+          description: "组织名称. The name is case sensitive. "
           required: true
           schema:
             type: string
@@ -323,7 +323,7 @@ paths:
           required: true
         - name: org
           in: path
-          description: "the organization name. The name is case sensitive. "
+          description: "组织名称. The name is case sensitive. "
           required: true
           schema:
             type: string
@@ -429,7 +429,7 @@ paths:
           required: true
         - name: org
           in: path
-          description: "the organization name. The name is case sensitive. "
+          description: "组织名称. The name is case sensitive. "
           required: true
           schema:
             type: string
@@ -471,7 +471,7 @@ paths:
       parameters:
         - name: org
           in: path
-          description: "the organization name. The name is case sensitive. "
+          description: "组织名称. The name is case sensitive. "
           required: true
           schema:
             type: string
@@ -512,7 +512,7 @@ paths:
           required: true
         - name: org
           in: path
-          description: "the organization name. The name is case sensitive. "
+          description: "组织名称. The name is case sensitive. "
           required: true
           schema:
             type: string
@@ -529,6 +529,73 @@ paths:
           description: Response if requester is not an organization member
         "404":
           description: Not Found if requester is an organization member and user is not a member
+    delete:
+      tags:
+        - org
+      summary: 移除组织成员
+      description: "根据用户名移除组织成员，当前操作人必须是组织管理员，否则移除失败"
+      operationId: orgMemberDelete
+      parameters:
+        - name: Authorization
+          in: header
+          description: "The Oauth2 Token or Personal Token"
+          required: true
+        - name: org
+          in: path
+          description: "组织名称. The name is case sensitive. "
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: The handle for the AtomGit user account.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+        "400":
+          description: 操作失败，参数username有误！
+        "401":
+          description: 操作失败，当前操作者非组织管理员，暂无权限
+  /orgs/{org}/memberships/{username}:
+    get:
+      tags:
+        - org
+      summary: 查询组织成员角色信息
+      description: "根据用户名查询该用户在组织下的角色信息"
+      operationId: orgMemberRole
+      parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 Token or Personal Token"
+          required: true
+        - name: org
+          in: path
+          description: "组织命名空间 "
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: "要查询用户的用户名"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+          "400":
+            description: parameter is error
+          "401":
+            description: Unauthorized
+          "403":
+            description: Forbidden,the authenticated user is not organization owner.
 components:
   schemas:
     ApiResponse:
@@ -700,94 +767,94 @@ components:
       type: object
       properties:
         login:
-          description: the organization name
+          description: 组织名称
           type: string
           example: csdn
         id:
-          description: the organization id
+          description: 组织id
           type: string
           example: 62b59720cbcaeffdff0148ce
         url:
-          description: the organization's information url
+          description: 组织的OepnApi地址
           type: string
           example: https://api.atomgit.com/orgs/csdn
         repos_url:
-          description: the organization's repos url
+          description: 组织的repos地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/repos
         events_url:
-          description: the organization's events url
+          description: 组织的event地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/events
         hooks_url:
-          description: the organization's hooks url
+          description: 组织的hooks地址
           type: string
           example:  https://api.atomgit.com/orgs/csdn/hooks
         issues_url:
-          description: the organization's issue url
+          description: 组织的issue地址
           type: string
           example: https://test-api.atomgit.com/orgs/csdn_test2/issues
         members_url:
-          description: the organization's members url
+          description: 组织的members地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/members/{/member}
         public_members_url:
-          description: the organization's public members url
+          description: 组织的public members地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
         avatar_url:
-          description: the organization's avatar
+          description: 组织头像地址
           type: string
           example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
         description:
-          description: the organization's description
+          description: 组织的描述
           type: string
           example: csdn is a goog website
     OrgDetail:
       type: object
       properties:
         login:
-          description: the organization name
+          description: 组织名称
           type: string
           example: csdn
         id:
-          description: the organization id
+          description: 组织id
           type: string
           example: 62b59720cbcaeffdff0148ce
         url:
-          description: the organization's information url
+          description: 组织的OepnApi地址
           type: string
           example: https://api.atomgit.com/orgs/csdn
         repos_url:
-          description: the organization's repos url
+          description: 组织的repos地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/repos
         events_url:
-          description: the organization's events url
+          description: 组织的event地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/events
         hooks_url:
-          description: the organization's hooks url
+          description: 组织的hooks地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/hooks
         issues_url:
-          description: the organization's issue url
+          description: 组织的issue地址
           type: string
           example: https://test-api.atomgit.com/orgs/csdn_test2/issues
         members_url:
-          description: the organization's members url
+          description: 组织的members地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/members/{/member}
         public_members_url:
-          description: the organization's public members url
+          description: 组织的public members地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
         avatar_url:
-          description: the organization's avatar
+          description: 组织头像地址
           type: string
           example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
         description:
-          description: the organization's description
+          description: 组织的描述
           type: string
           example: csdn is a goog website
         name:
@@ -842,7 +909,7 @@ components:
       type: object
       properties:
         description:
-          description: the organization's description
+          description: 组织的描述
           type: string
           example: csdn is a goog website
         name:
@@ -861,47 +928,47 @@ components:
       type: object
       properties:
         login:
-          description: the organization name
+          description: 组织名称
           type: string
           example: csdn
         id:
-          description: the organization id
+          description: 组织id
           type: string
           example: 62b59720cbcaeffdff0148ce
         url:
-          description: the organization's information url
+          description: 组织的OepnApi地址
           type: string
           example: https://api.atomgit.com/orgs/csdn
         repos_url:
-          description: the organization's repos url
+          description: 组织的repos地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/repos
         events_url:
-          description: the organization's events url
+          description: 组织的event地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/events
         hooks_url:
-          description: the organization's hooks url
+          description: 组织的hooks地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/hooks
         issues_url:
-          description: the organization's issue url
+          description: 组织的issue地址
           type: string
           example: https://test-api.atomgit.com/orgs/csdn_test2/issues
         members_url:
-          description: the organization's members url
+          description: 组织的members地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/members/{/member}
         public_members_url:
-          description: the organization's public members url
+          description: 组织的public members地址
           type: string
           example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
         avatar_url:
-          description: the organization's avatar
+          description: 组织头像地址
           type: string
           example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
         description:
-          description: the organization's description
+          description: 组织的描述
           type: string
           example: csdn is a goog website
     UserOrgInvition:
@@ -1062,6 +1129,141 @@ components:
           description: the org member's is a site_admin
           type: string
           example: false
+    OrgMemberRole:
+      type: object
+      properties:
+        url:
+          description: 组织成员详细信息的openApi地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        state:
+          description: 组织状态
+          type: string
+          example: active
+        role:
+          description: 要查询组织成员角色
+          type: string
+          example: maintainer
+        organization_url:
+          description: 组织详细信息的openApi地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        user:
+          description: 被查询用户名详细信息
+          type: object
+          properties:
+            login:
+              description: 被查询的用户名
+              type: string
+              example: mrpuatomgit
+            id:
+              description: 被查询的用户id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: 被查询的用户头像
+              type: string
+              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+            url:
+              description: 被查询的用户详细信息的openApi地址
+              type: string
+              example: https://test-api.atomgit.com/users/leige
+            html_url:
+              description: 被查询的用户在atomgit访问地址
+              type: string
+              example: https://test.atomgit.com/mrpuatomgit
+            followers_url:
+              description: 被查询的用户followers地址
+              type: string
+              example:
+            followering_url:
+              description: 被查询的用户followering地址
+              type: string
+              example:
+            gists_url:
+              description: 被查询的用户gists地址
+              type: string
+              example:
+            starred_url:
+              description: 被查询的用户starred地址
+              type: string
+              example:
+            subscriptions_url:
+              description: 被查询的用户subscriptions地址
+              type: string
+              example:
+            organizations_url:
+              description: 被查询的用户organizations地址
+              type: string
+              example:
+            repos_url:
+              description: 被查询的用户repos地址
+              type: string
+              example:
+            events_url:
+              description: 被查询的用户events地址
+              type: string
+              example:
+            received_events_url:
+              description: 被查询的用户received events地址
+              type: string
+              example:
+            type:
+              description: 被查询的用户类型
+              type: string
+              example: user
+            site_admin:
+              description: 被查询的用户是管理员
+              type: string
+              example: false
+        organization:
+          description: 当前操作的组织信息
+          type: object
+          properties:
+            login:
+              description: 组织名称
+              type: string
+              example: csdn
+            id:
+              description: 组织id
+              type: string
+              example: 62b59720cbcaeffdff0148ce
+            url:
+              description: 组织的OepnApi地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn
+            repos_url:
+              description: 组织的repos地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/repos
+            events_url:
+              description: 组织的event地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/events
+            hooks_url:
+              description: 组织的hooks地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/hooks
+            issues_url:
+              description: 组织的issue地址
+              type: string
+              example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+            members_url:
+              description: 组织的members地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/members/{/member}
+            public_members_url:
+              description: 组织的public members地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+            avatar_url:
+              description: 组织头像地址
+              type: string
+              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+            description:
+              description: 组织的描述
+              type: string
+              example: csdn is a goog website
   requestBodies:
     UserArray:
       content:
