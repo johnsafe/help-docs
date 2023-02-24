@@ -56,23 +56,6 @@ x-tagGroups:
     tags:
       - org
 paths:
-  # /user:
-  #   post:
-  #     tags:
-  #       - user
-  #     summary: Create user
-  #     description: This can only be done by the logged in user.
-  #     operationId: createUser
-  #     responses:
-  #       default:
-  #         description: successful operation
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: "#/components/schemas/User"
-  #       description: Created user object
-  #       required: true
   # 获取用户个人信息
   /user/info:
     get:
@@ -105,54 +88,7 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/User"
-  # 更新用户个人信息
-  # /user:
-  #   patch:
-  #     tags:
-  #       - user
-  #     summary: Update the authenticated user
-  #     description: This can only be done by the logged in userinfo.
-  #     operationId: updateTheAuthenticatedUser
-  #     parameters:
-  #       - name: Authorization
-  #         in: header
-  #         description: "The Oauth2 token"
-  #         required: true
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: "#/components/schemas/UpdateAuthenticatedUserDTO"
-  #       description: update user object
-  #       required: true
-  #     responses:
-  #       401:
-  #         description: 'Invalid token, please provide correct token'
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: "#/components/schemas/InvalidToken"
-  #           application/xml:
-  #             schema:
-  #               $ref: "#/components/schemas/InvalidToken"
-  #       200:
-  #         description: successful operation
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: "#/components/schemas/User"
-  #           application/xml:
-  #             schema:
-  #               $ref: "#/components/schemas/User"
-  #       400:
-  #         description: paramter error
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: "#/components/schemas/ParamterError"
-  #           application/xml:
-  #             schema:
-  #               $ref: "#/components/schemas/ParamterError"
+
   # 根据用户名查询用户信息
   /users/{username}:
     get:
@@ -217,47 +153,385 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserEmailVO"
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserEmailVO"
             application/xml:
               schema:
-                $ref: "#/components/schemas/UserEmailVO"
-#  # 获取当前用户的粉丝列表
-#   /user/followers:
-#     get:
-#       tags:
-#         - user
-#       summary: List email addresses for the authenticated user
-#       description: List email addresses for the authenticated user
-#       operationId: listEmail
-#       parameters:
-#         - name: page
-#           in: param
-#           description: "the page number(default 1)"
-#           required: false
-#       parameters:
-#         - name: per_page
-#           in: param
-#           description: "the page number(default 30,max 100)"
-#           required: false
-#       responses:
-#         401:
-#           description: 'Invalid token, please provide correct token'
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: "#/components/schemas/InvalidToken"
-#             application/xml:
-#               schema:
-#                 $ref: "#/components/schemas/InvalidToken"
-#         200:
-#           description: successful operation
-#           content:
-#             application/json:
-#               schema:
-#                 $ref: "#/components/schemas/UserEmailVO"
-#             application/xml:
-#               schema:
-#                 $ref: "#/components/schemas/UserEmailVO"
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserEmailVO"
+ # 获取当前用户的粉丝列表
+  /user/followers:
+    get:
+      tags:
+        - user
+      summary: 获取当前用户的粉丝列表
+      description: 获取当前用户的粉丝列表
+      operationId: getUserFollowers
+      parameters:
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 获取指定用户的粉丝列表
+  /users/{username}/followers:
+    get:
+      tags:
+        - user
+      summary: 获取指定用户的粉丝列表
+      description: 获取指定用户的粉丝列表
+      operationId: getUserFollowersByUsername
+      parameters:
+        - name: username
+          in: path
+          description: "需要获取粉丝列表的指定用户名"
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 列出当前用户的关注列表
+  /user//following:
+    get:
+      tags:
+        - user
+      summary: 列出当前用户的关注列表
+      description: 列出当前用户的关注列表
+      operationId: getUserFollowing
+      parameters:
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 获取指定用户的关注列表
+  /users/{username}/following:
+    get:
+      tags:
+        - user
+      summary: 获取指定用户的关注列表
+      description: 获取指定用户的关注列表
+      operationId: getTheFollowing
+      parameters:
+        - name: username
+          in: path
+          description: "需要获取粉丝列表的指定用户名"
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 关注指定用户
+  /user/following/{username}:
+    put:
+      tags:
+        - user
+      summary: 关注指定用户
+      description: 关注指定用户
+      operationId: addFans
+      parameters:
+        - name: username
+          in: path
+          description: "关注的用户名"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+        400:
+          description: 不能重复关注
+ # 移除某个已关注用户
+    delete:
+      tags:
+        - user
+      summary: 移除某个已关注用户
+      description: 移除某个已关注用户
+      operationId: delFans
+      parameters:
+        - name: username
+          in: path
+          description: "被移除用户的用户名"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+ # 检查当前用户是否关注了某个用户
+    get:
+      tags:
+        - user
+      summary: 检查当前用户是否关注了某个用户
+      description: 检查当前用户是否关注了某个用户
+      operationId: hasThisFans
+      parameters:
+        - name: username
+          in: path
+          description: "判断是否关注的用户名"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 返回true或false，true为关注，false为未关注
+
+ # 检查用户是否关注了指定用户
+  /users/{username}/following/{targetUsername}:
+    get:
+      tags:
+        - user
+      summary: 检查用户是否关注了指定用户
+      description: 检查用户是否关注了指定用户
+      operationId: hasTheFans
+      parameters:
+        - name: username
+          in: path
+          description: "关注的用户名"
+          required: true
+        - name: targetUsername
+          in: path
+          description: "被关注的用户名"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+        400:
+          description: 不能重复关注
+ # 获取当前登录用户的 SSH 公钥列表
+  /user/keys:
+    get:
+      tags:
+        - user
+      summary: 获取当前登录用户的 SSH 公钥列表
+      description: 获取当前登录用户的 SSH 公钥列表
+      operationId: listKey
+      parameters:
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+  #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
+    post:
+      tags:
+        - user
+      summary: 为当前登录用户创建一个新的 SSH 公钥
+      description: 为当前登录用户创建一个新的 SSH 公钥
+      operationId: addKey
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"   
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+        400:
+          description: 标题不能为空/SSH Key格式错误/该密钥已被添加为用户密钥或部署密钥，添加失败
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddSSHKeyDTO"
+        description: add ssh key request body
+        required: true
+ # 移除指定的 SSH 公钥
+  /user/keys/{keyId}:
+    delete:
+      tags:
+        - user
+      summary: 移除指定的 SSH 公钥
+      description: 移除指定的 SSH 公钥
+      operationId: delKey
+      parameters:
+        - name: keyId
+          in: path
+          description: "指定SSH公钥id"
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please provide correct token'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+
   /organizations:
     get:
       tags:
@@ -763,6 +1037,71 @@ components:
         updated_at:
           description: 更新时间
           example: '2023-02-02 09:31:24'
+    AuthenticatedUserListVO:
+      type: object
+      properties:
+        login:
+          description: 用户名
+          type: string
+          example: mrpuatomgit
+        id:
+          description: 用户id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        avatar_url:
+          description: 头像
+          type: string
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+        url:
+          description: 根据获取用户名获取用户信息的接口路径
+          type: string
+          example: https://test-api.atomgit.com/users/mrpuatomgit
+        html_url:
+          description: 主页地址
+          type: string
+          example: https://test.atomgit.com/mrpuatomgit
+        organizations_url:
+          description: 组织url
+          type: string
+          example: https://test.atomgit.com/users/zhangzhe/starred
+        repos_url:
+          description: 仓库url
+          type: string
+          example: https://test.atomgit.com/users/zhangzhe/projects
+    SSHKeyVO:
+      type: object
+      properties:
+        key:
+          description: 公钥
+          type: string
+          example: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPE6tiarA4AR0asd33dklfjf87R6TE9BJAfkdBpqHi9zWfRhloJ 323467712@qq.com
+        id:
+          description: 公钥id
+          type: string
+          example: 207003
+        title:
+          description: 公钥名称
+          type: string
+          example: ssh-1
+        createdAt:
+          description: 创建时间
+          type: string
+          example: "2023-02-24T04:31:36.000+00:00"
+        readOnly:
+          description: 是否只读
+          type: boolean
+          example: false
+    AddSSHKeyDTO:
+      type: object
+      properties:
+        title:
+          description: 标题
+          type: string
+          example: 标题
+        key:
+          description: ssh公钥
+          type: string
+          example: ssh公钥
     OrgPage:
       type: object
       properties:
