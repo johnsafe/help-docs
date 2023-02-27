@@ -170,6 +170,10 @@ paths:
       description: 获取当前用户的粉丝列表
       operationId: getUserFollowers
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: page
           in: query
           description: "页码(默认为1)"
@@ -210,6 +214,10 @@ paths:
       description: 获取指定用户的粉丝列表
       operationId: getUserFollowersByUsername
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: username
           in: path
           description: "需要获取粉丝列表的指定用户名"
@@ -254,6 +262,10 @@ paths:
       description: 列出当前用户的关注列表
       operationId: getUserFollowing
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: page
           in: query
           description: "页码(默认为1)"
@@ -293,6 +305,10 @@ paths:
       description: 获取指定用户的关注列表
       operationId: getTheFollowing
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: username
           in: path
           description: "需要获取粉丝列表的指定用户名"
@@ -337,6 +353,10 @@ paths:
       description: 关注指定用户
       operationId: addFans
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: username
           in: path
           description: "关注的用户名"
@@ -363,6 +383,10 @@ paths:
       description: 移除某个已关注用户
       operationId: delFans
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: username
           in: path
           description: "被移除用户的用户名"
@@ -387,6 +411,10 @@ paths:
       description: 检查当前用户是否关注了某个用户
       operationId: hasThisFans
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: username
           in: path
           description: "判断是否关注的用户名"
@@ -413,6 +441,10 @@ paths:
       description: 检查用户是否关注了指定用户
       operationId: hasTheFans
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: username
           in: path
           description: "关注的用户名"
@@ -444,6 +476,10 @@ paths:
       description: 获取当前登录用户的 SSH 公钥列表
       operationId: listKey
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: page
           in: query
           description: "页码(默认为1)"
@@ -478,6 +514,11 @@ paths:
       summary: 为当前登录用户创建一个新的 SSH 公钥
       description: 为当前登录用户创建一个新的 SSH 公钥
       operationId: addKey
+      parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
       responses:
         401:
           description: 'Invalid token, please provide correct token'
@@ -515,6 +556,10 @@ paths:
       description: 移除指定的 SSH 公钥
       operationId: delKey
       parameters:
+        - name: Authorization
+          in: header
+          description: "Oauth2 token"
+          required: true
         - name: keyId
           in: path
           description: "指定SSH公钥id"
