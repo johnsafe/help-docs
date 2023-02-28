@@ -67,7 +67,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
       responses:
         401:
@@ -80,7 +80,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidToken"
         200:
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -100,7 +100,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: username
           in: path
@@ -117,7 +117,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidToken"
         200:
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -136,7 +136,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
       responses:
         401:
@@ -149,7 +149,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidToken"
         200:
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -172,7 +172,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: page
           in: query
@@ -193,7 +193,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidToken"
         200:
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -216,7 +216,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: username
           in: path
@@ -241,7 +241,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidToken"
         200:
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -254,7 +254,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
  # 列出当前用户的关注列表
-  /user//following:
+  /user/following:
     get:
       tags:
         - user
@@ -264,7 +264,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: page
           in: query
@@ -276,7 +276,7 @@ paths:
           required: false
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -285,7 +285,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidToken"
         200:
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
                 type: array
@@ -307,7 +307,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: username
           in: path
@@ -332,7 +332,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidToken"
         200:
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -355,7 +355,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: username
           in: path
@@ -385,7 +385,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: username
           in: path
@@ -413,7 +413,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: username
           in: path
@@ -443,7 +443,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: username
           in: path
@@ -478,7 +478,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: page
           in: query
@@ -517,7 +517,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
       responses:
         401:
@@ -534,7 +534,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SSHKeyVO"   
+                $ref: "#/components/schemas/SSHKeyVO"
             application/xml:
               schema:
                 $ref: "#/components/schemas/SSHKeyVO"
@@ -558,7 +558,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 token"
+          description: Oauth2 token或者私人token
           required: true
         - name: keyId
           in: path
@@ -581,84 +581,84 @@ paths:
     get:
       tags:
         - org
-      summary: Lists all organizations
-      description: "Lists all organizations, in the order that they were created on AtomGit."
+      summary: 列出所有组织
+      description: 按照创建日期，分页列出所有在AtomGit上组织。
       operationId: orgPageList
       parameters:
         - name: since
           in: query
-          description: The number of results page num
+          description: 起始页
           required: false
           schema:
             type: integer
         - name: per_page
           in: query
-          description: The number of results per page (max 50).
+          description: 每页最大数量，最大限制为50
           required: false
           schema:
             type: integer
       responses:
         "200":
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/OrgPage"
-  "/orgs/{org}":
+  /orgs/{org}:
     get:
       tags:
         - org
-      summary: organization detail
-      description: "To get the organization detail info"
+      summary: 查询组织详情
+      description: 根据组织命名空间查询组织详细信息
       operationId: orgDetail
       parameters:
         - name: org
           in: path
-          description: "组织名称. The name is case sensitive. "
+          description: 组织命名空间
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/OrgDetail"
         "404":
-          description: org not found
+          description: 组织不存在
     patch:
       tags:
         - org
-      summary: update organization
-      description: Enables an authenticated organization owner with the admin:org scope to update the organization's info.
+      summary: 更新组织基本信息
+      description: 更新组织的基本信息，当前操作人必须是组织管理员。
       operationId: updateOrg
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 Token or Personal Token"
+          description: Oauth2 token或者私人token
           required: true
         - name: org
           in: path
-          description: "组织名称. The name is case sensitive. "
+          description: 组织命名空间
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/OrgDetail"
         "401":
-          description: Unauthorized
+          description: 操作失败，暂未登录
         "403":
-          description: Forbidden,OAuth requests with insufficient scope receive a 403 Forbidden response.
+          description: 暂无权限，操作失败
         "404":
-          description: org not found
+          description: 组织不存在
       requestBody:
         content:
           application/json:
@@ -670,29 +670,29 @@ paths:
     get:
       tags:
         - org
-      summary: list organizations of user
-      description: "List organizations for the authenticated user,this API requires at least user or read:org scope. OAuth requests with insufficient scope receive a 403 Forbidden response."
+      summary: 列出当前用户加入的组织
+      description: 列出当前用户所有组织，此接口必须有user 或者 read:org 的scope权限，否则返回403
       operationId: userOrgPageList
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 Token or Personal Token"
+          description: Oauth2 token或者私人token
           required: true
         - name: since
           in: query
-          description: The number of results page num
+          description: 起始页
           required: false
           schema:
             type: integer
         - name: per_page
           in: query
-          description: The number of results per page (max 50).
+          description: 每页大小，最大限制50
           required: false
           schema:
             type: integer
       responses:
         "200":
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -700,9 +700,9 @@ paths:
                 items:
                   $ref: "#/components/schemas/UserOrgPage"
         "401":
-          description: Unauthorized
+          description: 操作失败，暂未登录
         "403":
-          description: Forbidden,OAuth requests with insufficient scope receive a 403 Forbidden response.
+          description: 操作失败，暂无权限
   #  /users/{username}/orgs:
   #    get:
   #    tags:
@@ -713,19 +713,19 @@ paths:
   #      parameters:
   #        - name: since
   #          in: query
-  #          description: The number of results page num
+  #          description: 起始页
   #          required: false
   #          schema:
   #            type: integer
   #        - name: per_page
   #          in: query
-  #          description: The number of results per page (max 50).
+  #          description: 每页大小，最大限制50
   #          required: false
   #          schema:
   #            type: integer
   #      responses:
   #        "200":
-  #          description: successful operation
+  #          description: 操作成功
   #          content:
   #            application/json:
   #              schema:
@@ -738,33 +738,33 @@ paths:
     post:
       tags:
         - org
-      summary: Create an organization invitation
+      summary: 创建组织邀请
       description: "Invite people to an organization by using their AtomGit user ID or their email address. In order to create invitations in an organization, the authenticated user must be an organization owner."
       operationId: userOrgInvitation
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 Token or Personal Token"
+          description: Oauth2 token或者私人token
           required: true
         - name: org
           in: path
-          description: "组织名称. The name is case sensitive. "
+          description: 组织命名空间
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserOrgInvition"
         "400":
-          description: parameter is error
+          description: 参数有误
         "401":
-          description: Unauthorized
+          description: 操作失败，暂未登录
         "403":
-          description: Forbidden,the authenticated user is not organization owner.
+          description: 操作失败，暂无权限
       requestBody:
         content:
           application/json:
@@ -772,43 +772,43 @@ paths:
               type: json
               properties:
                 invitee_id:
-                  description: Required unless you provide email. GitHub user ID for the person you are inviting.
+                  description: 除非您提供电子邮件，否则必填。您邀请的人的AtomGit用户ID。
                   type: string
                 email:
-                  description: Required unless you provide email. GitHub user ID for the person you are inviting.
+                  description: 除非您提供电子邮件，否则必填。您邀请的人的AtomGit用户ID。
                   type: string
                 role:
-                  description: The role for the new member:maintainer、developer、guest.
+                  description: 新成员的角色:maintainer、developer、guest。
                   type: string
   /orgs/{org}/members:
     get:
       tags:
         - org
-      summary: List organization members
-      description: "List all users who are members of an organization."
+      summary: 查询组织成员
+      description: 列出组织成员的所有用户
       operationId: orgMembers
       parameters:
         - name: org
           in: path
-          description: "组织名称. The name is case sensitive. "
+          description: 组织命名空间
           required: true
           schema:
             type: string
         - name: since
           in: query
-          description: The number of results page num
+          description: 起始页
           required: false
           schema:
             type: integer
         - name: per_page
           in: query
-          description: The number of results per page (max 50).
+          description: 每页大小，最大限制50
           required: false
           schema:
             type: integer
       responses:
         "200":
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
@@ -816,38 +816,38 @@ paths:
                 items:
                   $ref: "#/components/schemas/OrgMember"
         "400":
-          description: org is not exist
+          description: 参数有误，组织不存在
   /orgs/{org}/members/{username}:
     get:
       tags:
         - org
-      summary: Check organization membership for a user
-      description: "Check if a user is a member of the organization."
+      summary: 验证用户是否是组织成员
+      description: 根据用户名验用户是否是组织的成员
       operationId: orgMemberCheck
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 Token or Personal Token"
+          description: Oauth2 token或者私人token
           required: true
         - name: org
           in: path
-          description: "组织名称. The name is case sensitive. "
+          description: 组织命名空间
           required: true
           schema:
             type: string
         - name: username
           in: path
-          description: The handle for the AtomGit user account.
+          description:  AtomGit用户的用户名
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: Response if requester is an organization member and user is a member
+          description: 如果请求者是组织成员，并且要查询的用户名是此组织的成员，则响应此状态码
         "401":
-          description: Response if requester is not an organization member
+          description: 如果请求者不是盖组织成员，则响应此状态码
         "404":
-          description: Not Found if requester is an organization member and user is not a member
+          description: 如果请求者是组织成员而用户而要查询的用户名不是组织的成员，则响应此状态码
     delete:
       tags:
         - org
@@ -857,17 +857,17 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: "The Oauth2 Token or Personal Token"
+          description: Oauth2 token或者私人token
           required: true
         - name: org
           in: path
-          description: "组织名称. The name is case sensitive. "
+          description: 组织命名空间
           required: true
           schema:
             type: string
-        - name: username
+        - name: 用户名
           in: path
-          description: The handle for the AtomGit user account.
+          description: AtomGit用户的用户名
           required: true
           schema:
             type: string
@@ -882,39 +882,75 @@ paths:
     get:
       tags:
         - org
-      summary: 查询组织成员角色信息
-      description: "根据用户名查询该用户在组织下的角色信息"
+      summary: 根据用户名查询组织中的角色
+      description: 根据用户名查询该用户在组织下的角色
       operationId: orgMemberRole
       parameters:
         - name: Authorization
           in: header
-          description: "Oauth2 Token or Personal Token"
+          description: Oauth2 token或者私人token
           required: true
         - name: org
           in: path
-          description: "组织命名空间 "
+          description: 组织命名空间
           required: true
           schema:
             type: string
         - name: username
           in: path
-          description: "要查询用户的用户名"
+          description: 要查询用户的用户名
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: successful operation
+          description: 操作成功
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/OrgMemberRole"
           "400":
-            description: parameter is error
+            description: 参数有误
           "401":
-            description: Unauthorized
+            description: 操作失败，暂未登录
           "403":
-            description: Forbidden,the authenticated user is not organization owner.
+            description: 操作失败，当前操作人非组织成员
+    put:
+      tags:
+        - org
+      summary: 设置组织成员角色
+      description: 根据用户名设置该用户在组织下的角色
+      operationId: SetOrgMemberRole
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: 要操作的用户的用户名
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
 components:
   schemas:
     ApiResponse:
@@ -1246,47 +1282,47 @@ components:
           type: string
           example: 创新乐知
         company:
-          description: the organization's website
+          description: 组织官网
           type: string
           example: http://www.csdn.net
         blog:
-          description: the organization's blog
+          description: 组织的blog
           type: string
           example: http://www.csdn.net
         location:
-          description: the organization's location
+          description: 组织位置
           type: string
           example: 北京市朝阳区
         public_repos:
-          description: the organization's public repos count
+          description: 组织的公共仓库数量
           type: Integer
           example: 1
         followers:
-          description: the organization's followers
+          description: 组织的粉丝数量
           type: Integer
           example: 10
         following:
-          description: the organization's following
+          description: 组织的关注人数量
           type: Integer
           example: 0
         email:
-          description: the organization's email
+          description: 组织的电子邮箱
           type: string
           example: admin@csdn.net
         html_url:
-          description: the organization's url on atomgit
+          description: 组织的url
           type: string
           example: https://atomgit.com/csdn
         created_at:
-          description: the organization's created time
+          description: 组织的创建时间
           type: string
           example: 2022-12-21T15:45:17+08:00
         updated_at:
-          description: the organization's updated time
+          description: 组织的更新时间
           type: string
           example: 2022-12-21T15:45:17+08:00
         type:
-          description: the organization's type
+          description: 组织的类型
           type: string
           example: Organization
     UpdateOrg:
@@ -1297,15 +1333,15 @@ components:
           type: string
           example: csdn is a goog website
         name:
-          description: the organization's name
+          description: 组织的名称
           type: string
           example: 创新乐知
         company:
-          description: the organization's website
+          description: 组织官网
           type: string
           example: http://www.csdn.net
         location:
-          description: the organization's location
+          description: 组织位置
           type: string
           example: 北京市朝阳区
     UserOrgPage:
@@ -1359,158 +1395,158 @@ components:
       type: object
       properties:
         login:
-          description: The authenticated user's username
+          description: 被邀请人用户名
           type: string
           example: csdn
         id:
-          description: The authenticated user's id
+          description: 被邀请人用户id
           type: string
           example: 62b59720cbcaeffdff0148ce
         role:
-          description:  The authenticated user's role
+          description:  被邀请人用户角色
           type: string
           example: maintainer
         email:
-          description:  The authenticated user's email
+          description:  被邀请人的电子邮箱
           type: string
           example: admin@csdn.net
         created_at:
-          description: The authenticated user's created time
+          description: 操作时间
           type: string
           example: 2022-12-21T15:45:17+08:00
         inviter:
-          description: The inviter's info
+          description: 邀请人信息
           type: object
           properties:
             login:
-              description: inviter's username
+              description: 邀请人用户名
               type: string
               example: mrpuatomgit
             id:
-              description: inviter's id
+              description: 邀请人用户id
               type: string
               example: 63db126c0566d2f7d2c9498c
             avatar_url:
-              description: inviter's avatar
+              description: 邀请人用户头像
               type: string
               example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
             url:
-              description: the inviter's url
+              description: 邀请人信息api地址
               type: string
               example: https://test-api.atomgit.com/users/leige
             html_url:
-              description: User's personal homepage
+              description: 邀请人主页地址
               type: string
               example: https://test.atomgit.com/mrpuatomgit
             followers_url:
-              description: the inviter's followers url
+              description: 邀请人的followers url
               type: string
               example:
             followering_url:
-              description: the inviter's followering url
+              description: 邀请人的followering url
               type: string
               example:
             gists_url:
-              description: the inviter's gists url
+              description: 邀请人的 gists url
               type: string
               example:
             starred_url:
-              description: the inviter's starred url
+              description: 邀请人的 starred url
               type: string
               example:
             subscriptions_url:
-              description: the inviter's subscriptions url
+              description: 邀请人的 subscriptions url
               type: string
               example:
             organizations_url:
-              description: the inviter's organizations url
+              description: 邀请人的 organizations url
               type: string
               example:
             repos_url:
-              description: the inviter's repos url
+              description: 邀请人的 repos url
               type: string
               example:
             events_url:
-              description: the inviter's events url
+              description: 邀请人的 events url
               type: string
               example:
             received_events_url:
-              description: the inviter's received events url
+              description: 邀请人的 received events url
               type: string
               example:
             type:
-              description: the inviter's user type
+              description: 邀请人的 user type
               type: string
               example: user
             site_admin:
-              description: the inviter is a site_admin
+              description: 邀请人的是否是管理员
               type: string
               example: false
     OrgMember:
       type: object
       properties:
         login:
-          description: Org Member's username
+          description: 组织成员的用户名
           type: string
           example: mrpuatomgit
         id:
-          description: Org Member's id
+          description: 组织成员的用户id
           type: string
           example: 63db126c0566d2f7d2c9498c
         avatar_url:
-          description: Org Member's avatar
+          description: 组织成员的头像
           type: string
           example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
         url:
-          description: the org member's url
+          description: 组织成员的详细信息url
           type: string
           example: https://test-api.atomgit.com/users/leige
         html_url:
-          description: Org Member's personal homepage
+          description: 组织成员的主页url
           type: string
           example: https://test.atomgit.com/mrpuatomgit
         followers_url:
-          description: the org member's followers url
+          description: 组织成员的 followers url
           type: string
           example:
         followering_url:
-          description: the org member's followering url
+          description: 组织成员的 followering url
           type: string
           example:
         gists_url:
-          description: the org member's gists url
+          description: 组织成员的 gists url
           type: string
           example:
         starred_url:
-          description: the org member's starred url
+          description: 组织成员的 starred url
           type: string
           example:
         subscriptions_url:
-          description: the org member's subscriptions url
+          description: 组织成员的 subscriptions url
           type: string
           example:
         organizations_url:
-          description: the org member's organizations url
+          description: 组织成员的 organizations url
           type: string
           example:
         repos_url:
-          description: the org member's repos url
+          description: 组织成员的 repos url
           type: string
           example:
         events_url:
-          description: the org member's events url
+          description: 组织成员的 events url
           type: string
           example:
         received_events_url:
-          description: the org member's received events url
+          description: 组织成员的 received events url
           type: string
           example:
         type:
-          description: the org member's user type
+          description: 类型
           type: string
           example: user
         site_admin:
-          description: the org member's is a site_admin
+          description: 组织成员是否是管理员
           type: string
           example: false
     OrgMemberRole:
