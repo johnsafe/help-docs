@@ -184,7 +184,7 @@ paths:
           required: false
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -232,7 +232,7 @@ paths:
           required: false
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -323,7 +323,7 @@ paths:
           required: false
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -363,7 +363,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -393,7 +393,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -421,7 +421,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -455,7 +455,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -490,7 +490,7 @@ paths:
           required: false
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -521,7 +521,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -566,7 +566,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please provide correct token'
+          description: token无效
           content:
             application/json:
               schema:
@@ -739,7 +739,7 @@ paths:
       tags:
         - org
       summary: 创建组织邀请
-      description: "Invite people to an organization by using their AtomGit user ID or their email address. In order to create invitations in an organization, the authenticated user must be an organization owner."
+      description: 使用AtomGit用户的ID或电子邮件地址邀请用户加入组织。当前发起操作用户必须是组织所有者。
       operationId: userOrgInvitation
       parameters:
         - name: Authorization
