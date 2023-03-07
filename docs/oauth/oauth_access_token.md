@@ -49,7 +49,7 @@ curl -X POST --data-urlencode "grant_type=password" --data-urlencode "username={
 scope表示权限范围，有以下选项，请求时使用空格隔开
 
 ```
-user_info projects pull_requests issues notes keys hook groups gists enterprises
+user repo admin:repo_issues admin:org delete_repo admin:ssh_signing_key project admin:repo_hook workflow
 ```
 
 B. AtomGit认证服务器返回 access_token
