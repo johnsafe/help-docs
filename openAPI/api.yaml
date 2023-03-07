@@ -951,6 +951,15 @@ paths:
             description: 操作失败，暂未登录
           "403":
             description: 操作失败，当前操作人非组织管理员
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                role:
+                  description: 设定用户的角色:maintainer、developer、guest。
+                  type: string
 components:
   schemas:
     ApiResponse:
