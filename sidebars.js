@@ -86,6 +86,7 @@ const sidebars = {
             'repo/issue',
             'repo/label',
             'repo/milestone',
+            'repo/issue_template',
           ],
         },
         'user/repo-members',
