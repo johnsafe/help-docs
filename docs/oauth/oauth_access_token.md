@@ -43,7 +43,7 @@ https://atomgit.com/oauth/token?grant_type=refresh_token&refresh_token={refresh_
 A. 用户向客户端提供邮箱地址和密码。客户端将邮箱地址和密码发给AtomGit认证服务器，并向AtomGit认证服务器请求令牌。（ **POST请求。Content-Type: application/x-www-form-urlencoded** ）
 
 ```
-curl -X POST --data-urlencode "grant_type=password" --data-urlencode "username={email}" --data-urlencode "password={password}" --data-urlencode "client_id={client_id}" --data-urlencode "client_secret={client_secret}" --data-urlencode "scope=projects user_info issues notes" https://atomgit.com/oauth/token
+curl -X POST --data-urlencode "grant_type=password" --data-urlencode "username={email}" --data-urlencode "password={password}" --data-urlencode "client_id={client_id}" --data-urlencode "client_secret={client_secret}" --data-urlencode "scope=projects read:user issues notes" https://atomgit.com/oauth/token
 ```
 
 scope表示权限范围，有以下选项，请求时使用空格隔开
