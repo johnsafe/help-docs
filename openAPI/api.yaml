@@ -865,7 +865,7 @@ paths:
           required: true
           schema:
             type: string
-        - name: 用户名
+        - name: username
           in: path
           description: AtomGit用户的用户名
           required: true
