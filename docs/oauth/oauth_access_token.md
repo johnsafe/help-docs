@@ -16,10 +16,10 @@ https://atomgit.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect
 
 B. 用户对应用进行授权（注：如果用户未登录，则会先跳转到登录页，登录完成后跳转到授权页面）
 ![用户授权中间页](./img/user-authorize.png) 
-注意: 如果之前已经授权过的需要跳过授权页面，需要在上面第一步的 URL 加上 scope 参数，且 scope 的值需要和用户上次授权的勾选的一致。如用户在上次授权了user_info、projects以及pull_requests。则步骤A 中 GET 请求应为：
+注意: 如果之前已经授权过的需要跳过授权页面，需要在上面第一步的 URL 加上 scope 参数，且 scope 的值需要和用户上次授权的勾选的一致。如用户在上次授权了read:user。则步骤A 中 GET 请求应为：
 
 ```
-https://atomgit.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=user_info%20projects%20pull_requests
+https://atomgit.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=read:user
 ```
 
 C. AtomGit认证服务器通过回调地址{redirect_uri}将 用户授权码 传递给 应用服务器 或者直接在 Webview 中跳转到携带 用户授权码的回调地址上，Webview 直接获取code即可（{redirect_uri}?code=abc&state=xyz)
