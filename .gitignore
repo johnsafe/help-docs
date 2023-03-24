@@ -3,3 +3,6 @@ yarn-error.log
 build/
 node_modules/
 .docusaurus/
+### IntelliJ IDEA ###
+.idea
+docs/openAPI/

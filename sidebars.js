@@ -86,6 +86,7 @@ const sidebars = {
             'repo/issue',
             'repo/label',
             'repo/milestone',
+            'repo/issue_template',
           ],
         },
         'user/repo-members',
@@ -144,8 +145,20 @@ const sidebars = {
       ],
     },
   ],
-  petstore: [
+  api: [
     {
+      type: "category",
+      label: "开放接口",
+      link: {
+        type: "generated-index",
+        title: "AtomGit OpenAPI 文档",
+        description:
+            "欢迎使用 AtomGit OpenAPI 开发者帮助文档，为了降低开发者的学习、使用成本，也为了更好的帮助各位开发者将自己的第三方应用 API 接口集成到 AtomGit 上，AtomGit OpenAPI接口的使用方式、Url、接口参数及返回值均与主流代码托管平台（eg：GitHub）保持一致。",
+        slug: "/category/api",
+      },
+      items: require("./docs/openAPI/api_versioned/sidebar.js"),
+    },
+   /* {
       type: "category",
       label: "Petstore",
       link: {
@@ -156,8 +169,8 @@ const sidebars = {
         slug: "/category/petstore-api",
       },
       items: require("./docs/openAPI/petstore/sidebar.js"),
-    },
-    {
+    },*/
+ /*   {
       type: "category",
       label: "Cloud Object Storage",
       link: {
@@ -181,8 +194,8 @@ const sidebars = {
           dirName: "openAPI/food/burgers", // '.' means the current docs folder
         },
       ],
-    },
-    {
+    },*/
+/*    {
       type: "category",
       label: "Yogurt Store",
       link: {
@@ -196,7 +209,7 @@ const sidebars = {
           dirName: "openAPI/food/yogurtstore", // '.' means the current docs folder
         },
       ],
-    },
+    },*/
   ],
   "petstore-2.0.0": [
     {
@@ -238,10 +251,10 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "Petstore",
+      label: "AtomGit-Api文档",
       link: {
         type: "generated-index",
-        title: "Petstore API (v1.0.0)",
+        title: "AtomGit-Api文档(v1.0.0)",
         description:
           "This is a sample server Petstore server. You can find out more about Swagger at http://swagger.io or on irc.freenode.net, #swagger. For this sample, you can use the api key special-key to test the authorization filters.",
         slug: "/category/petstore-api-1.0.0",

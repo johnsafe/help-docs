@@ -1,0 +1,1714 @@
+openapi: 3.0.0
+servers:
+  - url: https://api.atomgit.com
+    description: prod
+  - url: https://test-api.atomgit.com
+    description: test
+info:
+  description: |
+    AtomGit 提供了REST API,您可以使用 Git CLI、curl、官方 Octokit 库和第三方库与此API进行交互。
+
+    ## API 版本
+
+    每当您向 REST API 发出请求时，您都必须指定要使用的 REST API 版本，您应该使用X-Api-Version标头来指定 API 版本。例如：
+
+    ```bash
+    $ curl --header "X-Api-Version:2023-02-21" https://api.atomgit.com/user/info
+    ```
+    没有标头的请求X-Api-Version将默认使用该2023-02-21版本。
+
+    如果您指定不再受支持的 API 版本，您将收到400错误消息。
+
+    ## token 验证
+
+    AtomGit提供的REST API支持Oauth2令牌和私人令牌两种验证方式：
+
+    1. OAuth2令牌（在标头中发送）
+
+    ```bash
+      $ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.atomgit.com
+    ```
+
+    2. 私人令牌令牌 （在标头中发送）
+
+    ```bash
+      $ curl -H "Authorization: Bearer PERSONAL-TOKEN" https://api.atomgit.com
+    ```
+    ## 联系我们
+    - 联系人： API技术支持
+    - 邮箱： lish#csdn.net (请将 # 换成 @)
+    - Issue 反馈地址： https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues
+
+  version: 2023-02-21
+  title: "关于AtomGit OpenAPI"
+tags:
+  - name: user
+    description: Operations about user
+    x-displayName: 用户账号
+  - name: org
+    description: Operations about org
+    x-displayName: 组织相关
+x-tagGroups:
+  - name: User Management
+    tags:
+      - user
+  - name: Org Management
+    tags:
+      - org
+paths:
+  # 获取用户个人信息
+  /user/info:
+    get:
+      tags:
+        - user
+      summary: 获取用户个人信息
+      description: 获取用户个人信息
+      operationId: getTheAuthenticatedUser
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  # 根据用户名查询用户信息
+  /users/{username}:
+    get:
+      tags:
+        - user
+      summary: 根据用户名查询用户信息
+      description: 根据用户名查询用户信息
+      operationId: getUserByUsername
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: username
+          in: path
+          description: "用户名"
+          required: true
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"
+ # 获取当前用户的邮箱列表
+  /user/emails:
+    get:
+      tags:
+        - user
+      summary: 获取当前用户的邮箱列表
+      description: 获取当前用户的邮箱列表
+      operationId: listEmail
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserEmailVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserEmailVO"
+ # 获取当前用户的粉丝列表
+  /user/followers:
+    get:
+      tags:
+        - user
+      summary: 获取当前用户的粉丝列表
+      description: 获取当前用户的粉丝列表
+      operationId: getUserFollowers
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 获取指定用户的粉丝列表
+  /users/{username}/followers:
+    get:
+      tags:
+        - user
+      summary: 获取指定用户的粉丝列表
+      description: 获取指定用户的粉丝列表
+      operationId: getUserFollowersByUsername
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: username
+          in: path
+          description: "需要获取粉丝列表的指定用户名"
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 列出当前用户的关注列表
+  /user/following:
+    get:
+      tags:
+        - user
+      summary: 列出当前用户的关注列表
+      description: 列出当前用户的关注列表
+      operationId: getUserFollowing
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 获取指定用户的关注列表
+  /users/{username}/following:
+    get:
+      tags:
+        - user
+      summary: 获取指定用户的关注列表
+      description: 获取指定用户的关注列表
+      operationId: getTheFollowing
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: username
+          in: path
+          description: "需要获取粉丝列表的指定用户名"
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 关注指定用户
+  /user/following/{username}:
+    put:
+      tags:
+        - user
+      summary: 关注指定用户
+      description: 关注指定用户
+      operationId: addFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: username
+          in: path
+          description: "关注的用户名"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+        400:
+          description: 不能重复关注
+ # 移除某个已关注用户
+    delete:
+      tags:
+        - user
+      summary: 移除某个已关注用户
+      description: 移除某个已关注用户
+      operationId: delFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: username
+          in: path
+          description: "被移除用户的用户名"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+ # 检查当前用户是否关注了某个用户
+    get:
+      tags:
+        - user
+      summary: 检查当前用户是否关注了某个用户
+      description: 检查当前用户是否关注了某个用户
+      operationId: hasThisFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: username
+          in: path
+          description: "判断是否关注的用户名"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 返回true或false，true为关注，false为未关注
+
+ # 检查用户是否关注了指定用户
+  /users/{username}/following/{targetUsername}:
+    get:
+      tags:
+        - user
+      summary: 检查用户是否关注了指定用户
+      description: 检查用户是否关注了指定用户
+      operationId: hasTheFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: username
+          in: path
+          description: "关注的用户名"
+          required: true
+        - name: targetUsername
+          in: path
+          description: "被关注的用户名"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+        400:
+          description: 不能重复关注
+ # 获取当前登录用户的 SSH 公钥列表
+  /user/keys:
+    get:
+      tags:
+        - user
+      summary: 获取当前登录用户的 SSH 公钥列表
+      description: 获取当前登录用户的 SSH 公钥列表
+      operationId: listKey
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+  #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
+    post:
+      tags:
+        - user
+      summary: 为当前登录用户创建一个新的 SSH 公钥
+      description: 为当前登录用户创建一个新的 SSH 公钥
+      operationId: addKey
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+        400:
+          description: 标题不能为空/SSH Key格式错误/该密钥已被添加为用户密钥或部署密钥，添加失败
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddSSHKeyDTO"
+        description: add ssh key request body
+        required: true
+ # 移除指定的 SSH 公钥
+  /user/keys/{keyId}:
+    delete:
+      tags:
+        - user
+      summary: 移除指定的 SSH 公钥
+      description: 移除指定的 SSH 公钥
+      operationId: delKey
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: keyId
+          in: path
+          description: "指定SSH公钥id"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+
+  /organizations:
+    get:
+      tags:
+        - org
+      summary: 列出所有组织
+      description: 按照创建日期，分页列出所有在AtomGit上组织。
+      operationId: orgPageList
+      parameters:
+        - name: since
+          in: query
+          description: 起始页
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: 每页最大数量，最大限制为50
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrgPage"
+  /orgs/{org}:
+    get:
+      tags:
+        - org
+      summary: 查询组织详情
+      description: 根据组织命名空间查询组织详细信息
+      operationId: orgDetail
+      parameters:
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgDetail"
+        "404":
+          description: 组织不存在
+    patch:
+      tags:
+        - org
+      summary: 更新组织基本信息
+      description: 更新组织的基本信息，当前操作人必须是组织管理员。
+      operationId: updateOrg
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgDetail"
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
+        "404":
+          description: 组织不存在
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateOrg"
+        description: Update org request body
+        required: true
+  /user/orgs:
+    get:
+      tags:
+        - org
+      summary: 列出当前用户加入的组织
+      description: 列出当前用户所有组织，此接口必须有user 或者 read:org 的scope权限，否则返回403
+      operationId: userOrgPageList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: since
+          in: query
+          description: 起始页
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: 每页大小，最大限制50
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserOrgPage"
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，暂无权限
+  #  /users/{username}/orgs:
+  #    get:
+  #    tags:
+  #        - org
+  #      summary: list organizations by username
+  #      description: "List public organization memberships for the specified user."
+  #      operationId: userOrgByUserNamePageList
+  #      parameters:
+  #        - name: since
+  #          in: query
+  #          description: 起始页
+  #          required: false
+  #          schema:
+  #            type: integer
+  #        - name: per_page
+  #          in: query
+  #          description: 每页大小，最大限制50
+  #          required: false
+  #          schema:
+  #            type: integer
+  #      responses:
+  #        "200":
+  #          description: 操作成功
+  #          content:
+  #            application/json:
+  #              schema:
+  #                type: array
+  #                items:
+  #                  $ref: "#/components/schemas/UserOrgPage"
+  #        "400":
+  #          description: username is not exist
+  /orgs/{org}/invitations:
+    post:
+      tags:
+        - org
+      summary: 创建组织邀请
+      description: 使用AtomGit用户的ID或电子邮件地址邀请用户加入组织。当前发起操作用户必须是组织所有者。
+      operationId: userOrgInvitation
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserOrgInvition"
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，暂无权限
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                invitee_id:
+                  description: 除非您提供电子邮件，否则必填。您邀请的人的AtomGit用户ID。
+                  type: string
+                email:
+                  description: 除非您提供电子邮件，否则必填。您邀请的人的AtomGit用户ID。
+                  type: string
+                role:
+                  description: 新成员的角色:maintainer、developer、guest。
+                  type: string
+  /orgs/{org}/members:
+    get:
+      tags:
+        - org
+      summary: 查询组织成员
+      description: 列出组织成员的所有用户
+      operationId: orgMembers
+      parameters:
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 起始页
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: 每页大小，最大限制50
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrgMember"
+        "400":
+          description: 参数有误，组织不存在
+  /orgs/{org}/members/{username}:
+    get:
+      tags:
+        - org
+      summary: 验证用户是否是组织成员
+      description: 根据用户名验用户是否是组织的成员
+      operationId: orgMemberCheck
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description:  AtomGit用户的用户名
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 如果请求者是组织成员，并且要查询的用户名是此组织的成员，则响应此状态码
+        "401":
+          description: 如果请求者不是盖组织成员，则响应此状态码
+        "404":
+          description: 如果请求者是组织成员而用户而要查询的用户名不是组织的成员，则响应此状态码
+    delete:
+      tags:
+        - org
+      summary: 移除组织成员
+      description: "根据用户名移除组织成员，当前操作人必须是组织管理员，否则移除失败"
+      operationId: orgMemberDelete
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: AtomGit用户的用户名
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+        "400":
+          description: 操作失败，参数username有误！
+        "401":
+          description: 操作失败，当前操作者非组织管理员，暂无权限
+  /orgs/{org}/memberships/{username}:
+    get:
+      tags:
+        - org
+      summary: 根据用户名查询组织中的角色
+      description: 根据用户名查询该用户在组织下的角色
+      operationId: orgMemberRole
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: 要查询用户的用户名
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织成员
+    put:
+      tags:
+        - org
+      summary: 设置组织成员角色
+      description: 根据用户名设置该用户在组织下的角色
+      operationId: SetOrgMemberRole
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: 要操作的用户的用户名
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                role:
+                  description: 设定用户的角色:maintainer、developer、guest。
+                  type: string
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+    Id:
+      type: integer
+      format: int64
+      readOnly: true
+    Tag:
+      type: object
+      properties:
+        id:
+          description: Tag ID
+          allOf:
+            - $ref: "#/components/schemas/Id"
+        name:
+          description: Tag name
+          type: string
+          minLength: 1
+      xml:
+        name: Tag
+    ParamterError:
+      type: object
+      properties:
+        cause:
+          description: error cause
+          type: string
+          example: MESSAGE.PARAMETER_ERROR
+        error_code:
+          description: PARAMETER_ERROR
+          type: string
+          example: error code
+        error_message:
+          description: PARAMETER_ERROR
+          type: string
+          example: 用户昵称不合法（长度不能小于1且不能大于20个字符）
+        trace_id:
+          description:  trace id
+          type: string
+          example: trace_id
+        code:
+          description: response code
+          type: Integer
+          example: 1000
+    InvalidToken:
+      type: object
+      properties:
+        error:
+          description: 错误名称
+          type: string
+          example: invalid_token
+        error_description:
+          description: 错误描述
+          type: string
+          example: Invalid token, please provide correct token
+    UpdateAuthenticatedUserDTO:
+      type: object
+      properties:
+        name:
+          description: The current user's nickname is between 1 and 20 characters in length
+          type: string
+          example: 这就是我的昵称
+        blog:
+          description: The blog address of the current user is between 1 and 100 characters
+          type: string
+          example: https://youboke.com
+        company:
+          description: The company name of the current user is between 1 and 50 characters
+          type: string
+          example: atom
+        location:
+          description: The current user's location is between 1 and 20 characters
+          type: string
+          example: beijing
+        bio:
+          description: The current user's profile is between 1 and 200 characters
+          type: string
+          example: hello i am putianyang
+    UserEmailVO:
+      type: object
+      properties:
+        email:
+          description: 邮箱
+          type: string
+          example: 2xas@qq.com
+        verified:
+          description: 是否经过验证
+          type: boolean
+          example: false
+        visibility:
+          description: 邮箱是否公开(public为公开、 private为私有)
+          type: string
+          example: public
+    User:
+      type: object
+      properties:
+        login:
+          description: 用户名
+          type: string
+          example: mrpuatomgit
+        id:
+          description: 用户id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        url:
+          description: 根据获取用户名获取用户信息的接口路径
+          type: string
+          example: https://test-api.atomgit.com/users/mrpuatomgit
+        name:
+          description: 昵称
+          type: string
+          example: 这就是我的昵称
+        company:
+          description: 公司
+          type: string
+          example: atom
+        blog:
+          description: 博客
+          type: string
+          example: https://youboke.com
+        location:
+          description: 地址
+          type: string
+          example: beijing
+        email:
+          description: 邮箱
+          type: string
+          example: 2214882769@qq.com
+        bio:
+          description: 简介
+          type: string
+          example: hello i am putianyang
+        avatar_url:
+          description: 头像
+          type: string
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+        html_url:
+          description: 主页地址
+          type: string
+          example: https://test.atomgit.com/mrpuatomgit
+        public_repos:
+          description: 公开仓库数量
+          type: Integer
+          example: 3
+        total_private_repos:
+          description: 私有仓库总数量
+          type: Integer
+          example: 2
+        owned_private_repos:
+          description: 本人创建的私有仓库数量
+          type: Integer
+          example: 1
+        created_at:
+          description: 注册时间
+          type: string
+          example: '2023-02-02 09:31:24'
+        updated_at:
+          description: 更新时间
+          example: '2023-02-02 09:31:24'
+    AuthenticatedUserListVO:
+      type: object
+      properties:
+        login:
+          description: 用户名
+          type: string
+          example: mrpuatomgit
+        id:
+          description: 用户id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        avatar_url:
+          description: 头像
+          type: string
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+        url:
+          description: 根据获取用户名获取用户信息的接口路径
+          type: string
+          example: https://test-api.atomgit.com/users/mrpuatomgit
+        html_url:
+          description: 主页地址
+          type: string
+          example: https://test.atomgit.com/mrpuatomgit
+        organizations_url:
+          description: 组织url
+          type: string
+          example: https://test.atomgit.com/users/zhangzhe/starred
+        repos_url:
+          description: 仓库url
+          type: string
+          example: https://test.atomgit.com/users/zhangzhe/projects
+    SSHKeyVO:
+      type: object
+      properties:
+        key:
+          description: 公钥
+          type: string
+          example: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPE6tiarA4AR0asd33dklfjf87R6TE9BJAfkdBpqHi9zWfRhloJ 323467712@qq.com
+        id:
+          description: 公钥id
+          type: string
+          example: 207003
+        title:
+          description: 公钥名称
+          type: string
+          example: ssh-1
+        createdAt:
+          description: 创建时间
+          type: string
+          example: "2023-02-24T04:31:36.000+00:00"
+        readOnly:
+          description: 是否只读
+          type: boolean
+          example: false
+    AddSSHKeyDTO:
+      type: object
+      properties:
+        title:
+          description: 标题
+          type: string
+          example: 标题
+        key:
+          description: ssh公钥
+          type: string
+          example: ssh公钥
+    OrgPage:
+      type: object
+      properties:
+        login:
+          description: 组织名称
+          type: string
+          example: csdn
+        id:
+          description: 组织id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        url:
+          description: 组织的OepnApi地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        repos_url:
+          description: 组织的repos地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/repos
+        events_url:
+          description: 组织的event地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/events
+        hooks_url:
+          description: 组织的hooks地址
+          type: string
+          example:  https://api.atomgit.com/orgs/csdn/hooks
+        issues_url:
+          description: 组织的issue地址
+          type: string
+          example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+        members_url:
+          description: 组织的members地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/members/{/member}
+        public_members_url:
+          description: 组织的public members地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+        avatar_url:
+          description: 组织头像地址
+          type: string
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+        description:
+          description: 组织的描述
+          type: string
+          example: csdn is a goog website
+    OrgDetail:
+      type: object
+      properties:
+        login:
+          description: 组织名称
+          type: string
+          example: csdn
+        id:
+          description: 组织id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        url:
+          description: 组织的OepnApi地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        repos_url:
+          description: 组织的repos地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/repos
+        events_url:
+          description: 组织的event地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/events
+        hooks_url:
+          description: 组织的hooks地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/hooks
+        issues_url:
+          description: 组织的issue地址
+          type: string
+          example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+        members_url:
+          description: 组织的members地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/members/{/member}
+        public_members_url:
+          description: 组织的public members地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+        avatar_url:
+          description: 组织头像地址
+          type: string
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+        description:
+          description: 组织的描述
+          type: string
+          example: csdn is a goog website
+        name:
+          description: the organization's name
+          type: string
+          example: 创新乐知
+        company:
+          description: 组织官网
+          type: string
+          example: http://www.csdn.net
+        blog:
+          description: 组织的blog
+          type: string
+          example: http://www.csdn.net
+        location:
+          description: 组织位置
+          type: string
+          example: 北京市朝阳区
+        public_repos:
+          description: 组织的公共仓库数量
+          type: Integer
+          example: 1
+        followers:
+          description: 组织的粉丝数量
+          type: Integer
+          example: 10
+        following:
+          description: 组织的关注人数量
+          type: Integer
+          example: 0
+        email:
+          description: 组织的电子邮箱
+          type: string
+          example: admin@csdn.net
+        html_url:
+          description: 组织的url
+          type: string
+          example: https://atomgit.com/csdn
+        created_at:
+          description: 组织的创建时间
+          type: string
+          example: 2022-12-21T15:45:17+08:00
+        updated_at:
+          description: 组织的更新时间
+          type: string
+          example: 2022-12-21T15:45:17+08:00
+        type:
+          description: 组织的类型
+          type: string
+          example: Organization
+    UpdateOrg:
+      type: object
+      properties:
+        description:
+          description: 组织的描述
+          type: string
+          example: csdn is a goog website
+        name:
+          description: 组织的名称
+          type: string
+          example: 创新乐知
+        company:
+          description: 组织官网
+          type: string
+          example: http://www.csdn.net
+        location:
+          description: 组织位置
+          type: string
+          example: 北京市朝阳区
+    UserOrgPage:
+      type: object
+      properties:
+        login:
+          description: 组织名称
+          type: string
+          example: csdn
+        id:
+          description: 组织id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        url:
+          description: 组织的OepnApi地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        repos_url:
+          description: 组织的repos地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/repos
+        events_url:
+          description: 组织的event地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/events
+        hooks_url:
+          description: 组织的hooks地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/hooks
+        issues_url:
+          description: 组织的issue地址
+          type: string
+          example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+        members_url:
+          description: 组织的members地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/members/{/member}
+        public_members_url:
+          description: 组织的public members地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+        avatar_url:
+          description: 组织头像地址
+          type: string
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+        description:
+          description: 组织的描述
+          type: string
+          example: csdn is a goog website
+    UserOrgInvition:
+      type: object
+      properties:
+        login:
+          description: 被邀请人用户名
+          type: string
+          example: csdn
+        id:
+          description: 被邀请人用户id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        role:
+          description:  被邀请人用户角色
+          type: string
+          example: maintainer
+        email:
+          description:  被邀请人的电子邮箱
+          type: string
+          example: admin@csdn.net
+        created_at:
+          description: 操作时间
+          type: string
+          example: 2022-12-21T15:45:17+08:00
+        inviter:
+          description: 邀请人信息
+          type: object
+          properties:
+            login:
+              description: 邀请人用户名
+              type: string
+              example: mrpuatomgit
+            id:
+              description: 邀请人用户id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: 邀请人用户头像
+              type: string
+              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+            url:
+              description: 邀请人信息api地址
+              type: string
+              example: https://test-api.atomgit.com/users/leige
+            html_url:
+              description: 邀请人主页地址
+              type: string
+              example: https://test.atomgit.com/mrpuatomgit
+            followers_url:
+              description: 邀请人的followers url
+              type: string
+              example:
+            followering_url:
+              description: 邀请人的followering url
+              type: string
+              example:
+            gists_url:
+              description: 邀请人的 gists url
+              type: string
+              example:
+            starred_url:
+              description: 邀请人的 starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: 邀请人的 subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: 邀请人的 organizations url
+              type: string
+              example:
+            repos_url:
+              description: 邀请人的 repos url
+              type: string
+              example:
+            events_url:
+              description: 邀请人的 events url
+              type: string
+              example:
+            received_events_url:
+              description: 邀请人的 received events url
+              type: string
+              example:
+            type:
+              description: 邀请人的 user type
+              type: string
+              example: user
+            site_admin:
+              description: 邀请人的是否是管理员
+              type: string
+              example: false
+    OrgMember:
+      type: object
+      properties:
+        login:
+          description: 组织成员的用户名
+          type: string
+          example: mrpuatomgit
+        id:
+          description: 组织成员的用户id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        avatar_url:
+          description: 组织成员的头像
+          type: string
+          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+        url:
+          description: 组织成员的详细信息url
+          type: string
+          example: https://test-api.atomgit.com/users/leige
+        html_url:
+          description: 组织成员的主页url
+          type: string
+          example: https://test.atomgit.com/mrpuatomgit
+        followers_url:
+          description: 组织成员的 followers url
+          type: string
+          example:
+        followering_url:
+          description: 组织成员的 followering url
+          type: string
+          example:
+        gists_url:
+          description: 组织成员的 gists url
+          type: string
+          example:
+        starred_url:
+          description: 组织成员的 starred url
+          type: string
+          example:
+        subscriptions_url:
+          description: 组织成员的 subscriptions url
+          type: string
+          example:
+        organizations_url:
+          description: 组织成员的 organizations url
+          type: string
+          example:
+        repos_url:
+          description: 组织成员的 repos url
+          type: string
+          example:
+        events_url:
+          description: 组织成员的 events url
+          type: string
+          example:
+        received_events_url:
+          description: 组织成员的 received events url
+          type: string
+          example:
+        type:
+          description: 类型
+          type: string
+          example: user
+        site_admin:
+          description: 组织成员是否是管理员
+          type: string
+          example: false
+    OrgMemberRole:
+      type: object
+      properties:
+        url:
+          description: 组织成员详细信息的openApi地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        state:
+          description: 组织状态
+          type: string
+          example: active
+        role:
+          description: 要查询组织成员角色
+          type: string
+          example: maintainer
+        organization_url:
+          description: 组织详细信息的openApi地址
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        user:
+          description: 被查询用户名详细信息
+          type: object
+          properties:
+            login:
+              description: 被查询的用户名
+              type: string
+              example: mrpuatomgit
+            id:
+              description: 被查询的用户id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: 被查询的用户头像
+              type: string
+              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+            url:
+              description: 被查询的用户详细信息的openApi地址
+              type: string
+              example: https://test-api.atomgit.com/users/leige
+            html_url:
+              description: 被查询的用户在atomgit访问地址
+              type: string
+              example: https://test.atomgit.com/mrpuatomgit
+            followers_url:
+              description: 被查询的用户followers地址
+              type: string
+              example:
+            followering_url:
+              description: 被查询的用户followering地址
+              type: string
+              example:
+            gists_url:
+              description: 被查询的用户gists地址
+              type: string
+              example:
+            starred_url:
+              description: 被查询的用户starred地址
+              type: string
+              example:
+            subscriptions_url:
+              description: 被查询的用户subscriptions地址
+              type: string
+              example:
+            organizations_url:
+              description: 被查询的用户organizations地址
+              type: string
+              example:
+            repos_url:
+              description: 被查询的用户repos地址
+              type: string
+              example:
+            events_url:
+              description: 被查询的用户events地址
+              type: string
+              example:
+            received_events_url:
+              description: 被查询的用户received events地址
+              type: string
+              example:
+            type:
+              description: 被查询的用户类型
+              type: string
+              example: user
+            site_admin:
+              description: 被查询的用户是管理员
+              type: string
+              example: false
+        organization:
+          description: 当前操作的组织信息
+          type: object
+          properties:
+            login:
+              description: 组织名称
+              type: string
+              example: csdn
+            id:
+              description: 组织id
+              type: string
+              example: 62b59720cbcaeffdff0148ce
+            url:
+              description: 组织的OepnApi地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn
+            repos_url:
+              description: 组织的repos地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/repos
+            events_url:
+              description: 组织的event地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/events
+            hooks_url:
+              description: 组织的hooks地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/hooks
+            issues_url:
+              description: 组织的issue地址
+              type: string
+              example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+            members_url:
+              description: 组织的members地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/members/{/member}
+            public_members_url:
+              description: 组织的public members地址
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+            avatar_url:
+              description: 组织头像地址
+              type: string
+              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+            description:
+              description: 组织的描述
+              type: string
+              example: csdn is a goog website
+  requestBodies:
+    UserArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/User"
+      description: List of user object
+      required: true
+  examples:
+    Order:
+      value:
+        quantity: 1
+        shipDate: "2018-10-19T16:46:45Z"
+        status: placed
+        complete: false
+
+
