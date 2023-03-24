@@ -1,9 +1,3 @@
-FROM node:16.18.1-alpine3.15
-
-WORKDIR /code
-
-ADD . /code
-RUN npm install && npm run build 
-
-CMD npm run serve
-EXPOSE 3000 
+FROM nginx:1.23.3-alpine
+ADD ./build /usr/share/nginx/html
+EXPOSE 80 
