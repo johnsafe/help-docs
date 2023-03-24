@@ -1,3 +1,3 @@
 FROM nginx:1.23.3-alpine
-ADD ./build /usr/share/nginx/html
+ADD ${buildFiles} /usr/share/nginx/html
 EXPOSE 80 
