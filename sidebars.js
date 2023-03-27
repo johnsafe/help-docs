@@ -125,6 +125,7 @@ const sidebars = {
         'org/new-org',
         'org/org-members',
         'org/org-settings',
+        'org/org-relation',
       ],
     },
     {
