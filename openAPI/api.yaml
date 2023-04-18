@@ -1289,7 +1289,7 @@ components:
         name:
           description: the organization's name
           type: string
-          example: 创新乐知
+          example: 测试组织
         company:
           description: 组织官网
           type: string
@@ -1344,7 +1344,7 @@ components:
         name:
           description: 组织的名称
           type: string
-          example: 创新乐知
+          example: 测试组织
         company:
           description: 组织官网
           type: string
