@@ -22,6 +22,7 @@ const sidebars = {
       items: [
         'user/user-sshkey',
         'user/user-verify',
+        'repo/repo-migrate',
         {
           type: 'category',
           label: 'Git',
