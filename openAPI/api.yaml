@@ -48,6 +48,24 @@ tags:
   - name: org
     description: Operations about org
     x-displayName: 组织相关
+  - name: branches
+    description: Operations about branches
+    x-displayName: 分支相关
+  - name: commits
+    description: Operations about commits
+    x-displayName: 提交相关
+  - name: commit statuses
+    description: Operations about commit statuses
+    x-displayName: 提交状态相关
+  - name: repositories
+    description: Operations about repositories
+    x-displayName: 仓库数据相关
+  - name: repository contents
+    description: Operations about repository contents
+    x-displayName: 仓库文本相关
+  - name: check-runs
+    description: Operations about check-runs
+    x-displayName: 评审三方检测相关
 x-tagGroups:
   - name: User Management
     tags:
@@ -55,6 +73,24 @@ x-tagGroups:
   - name: Org Management
     tags:
       - org
+  - name: branches
+    tags:
+      - branches
+  - name: commits
+    tags:
+      - commits
+  - name: commit statuses
+    tags:
+      - commits statuses
+  - name: repositories
+    tags:
+      - repositories
+  - name: repository contents
+    tags:
+      - repository contents
+  - name: check-runs
+    tags:
+      - check-runs
 paths:
   # 获取用户个人信息
   /user/info:
@@ -960,6 +996,1352 @@ paths:
                 role:
                   description: 设定用户的角色:maintainer、developer、guest。
                   type: string
+  ############ 分支接口（Branches API）############
+  # 获取分支信息
+  /repos/{owner}/{repo}/branches/{branch}:
+    get:
+      tags:
+        - branches
+      summary: 获取分支信息
+      description: 获取分支信息
+      operationId: getBranch
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: branch
+          in: path
+          description: "The name of the branch. Cannot contain wildcard characters."
+          required: true
+      responses:
+        404:
+          description: Resource not found
+        200:
+          description: OK
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  name:
+                    type: string
+                    required: true
+                    description: The name of the branch.
+                  commit:
+                    type: object
+                    description: The tip commit of the branch.
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "The person that committed the file. Default: the authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                          email:
+                            type: string
+                            required: true
+                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: "The person that authored the file. Default: the authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                          email:
+                            type: string
+                            required: true
+                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: The message of the commit
+                      sha:
+                        type: string
+                        required: true
+                        description: The SHA value of the commit.
+                      parents:
+                        type: array
+                        required: true
+                        items:
+                          type: object
+                          properties:
+                            sha:
+                              type: string
+                              required: true
+                              description: The SHA value of the commit.
+  # 获取分支列表
+  /repos/{owner}/{repo}/branches:
+    get:
+      tags:
+        - branches
+      summary: 获取分支列表
+      description: 获取分支列表
+      operationId: getBranchList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: per_page
+          in: query
+          description: "The number of results per page."
+          required: false
+        - name: page
+          in: query
+          description: "Page number of the results to fetch."
+          required: false
+      responses:
+        200:
+          description: OK
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: The name of the branch.
+                    commit:
+                      type: object
+                      required: true
+                      description: The tip commit of the branch.
+                      properties:
+                        sha:
+                          type: string
+                          required: true
+                          description: The SHA value of the commit.
+                    protected:
+                      type: boolean
+                      required: true
+                      description: The protected flag of the branch in repository.
+  # ############ 提交接口（Commits API）############
+  # # 获取分支提交
+  /repos/{owner}/{repo}/commits/{ref}:
+    get:
+      tags:
+        - commits
+      summary: 获取提交信息
+      description: 获取提交信息
+      operationId: getRefCommit
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: ref
+          in: path
+          description: "ref parameter"
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Resource not found
+        500:
+          description: Internal Error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    required: true
+                    description: The name of the reference.
+                  commit:
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "The person that committed the file. Default: the authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                          email:
+                            type: string
+                            required: true
+                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: "The person that authored the file. Default: the authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                          email:
+                            type: string
+                            required: true
+                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: The commit message.
+                  sha:
+                    type: string
+                    required: true
+                    description: The SHA value of the commit.
+                  parents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        sha:
+                          type: string
+                          required: true
+                          description: The SHA value of the commit.
+                    required: true
+                  stats:
+                    type: object
+                    required: true
+                    properties:
+                      additions:
+                        type: integer
+                        required: true
+                      deletions:
+                        type: integer
+                        required: true
+                      total:
+                        type: integer
+                        required: true
+  # # 获取联合提交状态
+  /repos/{owner}/{repo}/commits/status/{ref}:
+    get:
+      tags:
+        - commit statuses
+      summary: 获取联合提交状态
+      description: 获取联合提交状态
+      operationId: getCombinedCommitStatuses
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: ref
+          in: path
+          description: "ref parameter"
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  state:
+                    type: string
+                    required: true
+                    description: "The state of the status. Can be one of: error, failure, pending, success"
+                  sha:
+                    type: string
+                    required: true
+                    description: The SHA value of the commit.
+                  total_count:
+                    type: integer
+                    required: true
+                  statuses:
+                    type: array
+                    required: true
+                    items:
+                      type: object
+                      properties:
+                        state:
+                          description: |
+                            "The state of the status.
+                            Can be one of: error, failure, pending, success"
+                          type: string
+                          required: true
+                        target_url:
+                          type: string
+                          required: false
+                          description: |
+                            The target URL to associate with this status. This URL will be linked from the UI to allow users to easily see the source of the status.
+                            For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
+                            http://ci.example.com/user/repo/build/sha
+                        description:
+                          type: string
+                          required: false
+                          description: A short description of the status.
+                        context:
+                          type: string
+                          required: false
+                          description: |
+                            A string label to differentiate this status from the status of other systems. This field is case-insensitive.
+                            Default: default
+  # # 创建提交状态
+  /repos/{owner}/{repo}/statuses/{sha}:
+    post:
+      tags:
+        - commit statuses
+      summary: 创建提交状态
+      description: 创建提交状态
+      operationId: CreateCommitStatuses
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: sha
+          in: path
+          description: ""
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                state:
+                  description: |
+                    "The state of the status.
+                    Can be one of: error, failure, pending, success"
+                  type: string
+                  required: true
+                target_url:
+                  type: string
+                  required: false
+                  description: |
+                    The target URL to associate with this status. This URL will be linked from the UI to allow users to easily see the source of the status.
+                    For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
+                    http://ci.example.com/user/repo/build/sha
+                description:
+                  type: string
+                  required: false
+                  description: A short description of the status.
+                context:
+                  type: string
+                  required: false
+                  description: |
+                    A string label to differentiate this status from the status of other systems. This field is case-insensitive.
+                    Default: default
+      responses:
+        201:
+          description: Created
+        500:
+          description: Internal Error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  context:
+                    type: string
+                    required: true
+                    description: |
+                      A string label to differentiate this status from the status of other systems. This field is case-insensitive.
+                      Default: default
+                  created_at:
+                    type: string
+                    required: true
+                    description: "The time that the status be created. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  description:
+                    type: string
+                    required: false
+                    description: A short description of the status.
+                  required:
+                    type: boolean
+                    required: true
+                  id:
+                    type: integer
+                    required: true
+                  state:
+                    type: string
+                    required: true
+                    description: |
+                      The state of the status.
+
+                      Can be one of: error, failure, pending, success
+                  target_url:
+                    type: string
+                    required: false
+                    description: |
+                      The target URL to associate with this status. This URL will be linked from the UI to allow users to easily see the source of the status.
+                      For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
+                      http://ci.example.com/user/repo/build/sha
+  # ############ Check-runs接口 ############
+  # # 创建自动化检查
+  /repos/{owner}/{repo}/check-runs:
+    post:
+      tags:
+        - check-runs
+      summary: 创建自动化检查
+      description: 创建自动化检查
+      operationId: CreateCheckRun
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                name:
+                  description: The name of the check. For example, "code-coverage".
+                  type: string
+                  required: true
+                head_sha:
+                  type: string
+                  required: true
+                  description: The SHA of the commit.
+                status:
+                  type: string
+                  required: false
+                  description: |
+                    The current status.
+
+                    Default: queued
+                    Can be one of: queued, in_progress, completed
+                started_at:
+                  type: string
+                  required: false
+                  description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                conclusion:
+                  type: string
+                  required: false
+                  description: |
+                    Required if you provide completed_at or a status of completed. The final conclusion of the check. Note: Providing conclusion will automatically set the status parameter to completed. You cannot change a check run conclusion to stale, only platform can set this.
+                    Can be one of: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
+                completed_at:
+                  type: string
+                  required: false
+                  description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                action:
+                  type: object
+                  required: false
+                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  properties:
+                    label:
+                      type: string
+                      required: true
+                      description: "The text to be displayed on a button in the web UI. The maximum size is 20 characters."
+                    description:
+                      type: string
+                      required: true
+                      description: "A short explanation of what this action would do. The maximum size is 40 characters."
+                    identifier:
+                      type: string
+                      required: true
+                      description: "A reference for the action on the integrator's system. The maximum size is 20 characters."
+                output:
+                  type: object
+                  required: false
+                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  properties:
+                    title:
+                      type: string
+                      required: true
+                      description: "The title of the check run."
+                    summary:
+                      type: string
+                      required: true
+                      description: "The summary of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                    text:
+                      type: string
+                      required: false
+                      description: "The details of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                    annotations:
+                      type: object
+                      required: false
+                      description: |
+                        Adds information from your analysis to specific lines of code.
+                        Annotations are visible on platform in the Checks and Files changed tab of the change request.
+                        The Checks API limits the number of annotations to a maximum of 50 per API request.
+                        To create more than 50 annotations, you have to make multiple requests to the Update a check run endpoint.
+                        Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run.
+                      properties:
+                        path:
+                          type: string
+                          required: true
+                          description: "The path of the file to add an annotation to. For example, assets/css/main.css."
+                        start_line:
+                          type: int
+                          required: true
+                          description: "The start line of the annotation. Line numbers start at 1."
+                        end_line:
+                          type: int
+                          required: false
+                          description: "The end line of the annotation."
+                        start_column:
+                          type: int
+                          required: false
+                          description: "The start column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values. Column numbers start at 1."
+                        end_column:
+                          type: int
+                          required: false
+                          description: "The end column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values."
+                        annotation_level:
+                          type: string
+                          required: true
+                          description: |
+                            The level of the annotation.
+
+                            Can be one of: notice, warning, failure
+                        message:
+                          type: string
+                          required: true
+                          description: "A short description of the feedback for these lines of code. The maximum size is 64 KB."
+                        title:
+                          type: string
+                          required: false
+                          description: "The title that represents the annotation. The maximum size is 255 characters."
+                        raw_details:
+                          type: string
+                          required: false
+                          description: "Details about this annotation. The maximum size is 64 KB."
+                    images:
+                      type: object
+                      required: false
+                      description: "Adds images to the output displayed in the change request UI."
+                      properties:
+                        alt:
+                          type: string
+                          required: true
+                          description: "The alternative text for the image."
+                        image_url:
+                          type: string
+                          required: true
+                          description: "The full URL of the image."
+                        caption:
+                          type: string
+                          required: false
+                          description: "A short image description."
+      responses:
+        201:
+          description: Created
+        500:
+          description: Internal Error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: integer
+                    required: true
+                  head_sha:
+                    type: string
+                    required: true
+                  external_id:
+                    type: integer
+                    required: true
+                  status:
+                    type: string
+                    required: true
+                  conclusion:
+                    type: string
+                    required: false
+                  started_at:
+                    type: string
+                    required: true
+                    description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  completed_at:
+                    type: string
+                    required: false
+                    description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  name:
+                    type: string
+                    required: true
+                  app:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        required: true
+                      slug:
+                        type: string
+                        required: true
+                      name:
+                        type: string
+                        required: true
+                      description:
+                        type: string
+                        required: true
+  # # 更新自动化检查
+  /repos/{owner}/{repo}/check-runs/{check_run_id}:
+    get:
+      tags:
+        - check-runs
+      summary: 查询自动化检查
+      description: 查询自动化检查
+      operationId: CreateCheckRun
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: check_run_id
+          in: path
+          description: The unique identifier of the check run.
+      responses:
+        200:
+          description: Created
+    patch:
+      tags:
+        - check-runs
+      summary: 更新自动化检查
+      description: 更新自动化检查
+      operationId: CreateCheckRun
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                name:
+                  description: The name of the check. For example, "code-coverage".
+                  type: string
+                  required: true
+                head_sha:
+                  type: string
+                  required: true
+                  description: The SHA of the commit.
+                status:
+                  type: string
+                  required: false
+                  description: |
+                    The current status.
+
+                    Default: queued
+                    Can be one of: queued, in_progress, completed
+                started_at:
+                  type: string
+                  required: false
+                  description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                conclusion:
+                  type: string
+                  required: false
+                  description: |
+                    Required if you provide completed_at or a status of completed. The final conclusion of the check. Note: Providing conclusion will automatically set the status parameter to completed. You cannot change a check run conclusion to stale, only platform can set this.
+                    Can be one of: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
+                completed_at:
+                  type: string
+                  required: false
+                  description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                action:
+                  type: object
+                  required: false
+                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  properties:
+                    label:
+                      type: string
+                      required: true
+                      description: "The text to be displayed on a button in the web UI. The maximum size is 20 characters."
+                    description:
+                      type: string
+                      required: true
+                      description: "A short explanation of what this action would do. The maximum size is 40 characters."
+                    identifier:
+                      type: string
+                      required: true
+                      description: "A reference for the action on the integrator's system. The maximum size is 20 characters."
+                output:
+                  type: object
+                  required: false
+                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  properties:
+                    title:
+                      type: string
+                      required: true
+                      description: "The title of the check run."
+                    summary:
+                      type: string
+                      required: true
+                      description: "The summary of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                    text:
+                      type: string
+                      required: false
+                      description: "The details of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                    annotations:
+                      type: object
+                      required: false
+                      description: |
+                        Adds information from your analysis to specific lines of code.
+                        Annotations are visible on platform in the Checks and Files changed tab of the pull request.
+                        The Checks API limits the number of annotations to a maximum of 50 per API request.
+                        To create more than 50 annotations, you have to make multiple requests to the Update a check run endpoint.
+                        Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run.
+                      properties:
+                        path:
+                          type: string
+                          required: true
+                          description: "The path of the file to add an annotation to. For example, assets/css/main.css."
+                        start_line:
+                          type: int
+                          required: true
+                          description: "The start line of the annotation. Line numbers start at 1."
+                        end_line:
+                          type: int
+                          required: false
+                          description: "The end line of the annotation."
+                        start_column:
+                          type: int
+                          required: false
+                          description: "The start column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values. Column numbers start at 1."
+                        end_column:
+                          type: int
+                          required: false
+                          description: "The end column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values."
+                        annotation_level:
+                          type: string
+                          required: true
+                          description: |
+                            The level of the annotation.
+
+                            Can be one of: notice, warning, failure
+                        message:
+                          type: string
+                          required: true
+                          description: "A short description of the feedback for these lines of code. The maximum size is 64 KB."
+                        title:
+                          type: string
+                          required: false
+                          description: "The title that represents the annotation. The maximum size is 255 characters."
+                        raw_details:
+                          type: string
+                          required: false
+                          description: "Details about this annotation. The maximum size is 64 KB."
+                    images:
+                      type: object
+                      required: false
+                      description: "Adds images to the output displayed in the change request UI."
+                      properties:
+                        alt:
+                          type: string
+                          required: true
+                          description: "The alternative text for the image."
+                        image_url:
+                          type: string
+                          required: true
+                          description: "The full URL of the image."
+                        caption:
+                          type: string
+                          required: false
+                          description: "A short image description."
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: integer
+                    required: true
+                  head_sha:
+                    type: string
+                    required: true
+                    description: The SHA of the commit.
+                  external_id:
+                    type: integer
+                    required: true
+                    description: A reference for the run on the integrator's system.
+                  status:
+                    type: string
+                    required: true
+                    description: |
+                      The current status.
+
+                      Default: queued
+
+                      Can be one of: queued, in_progress, completed
+                  conclusion:
+                    type: string
+                    required: false
+                  started_at:
+                    type: string
+                    required: true
+                    description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  completed_at:
+                    type: string
+                    required: false
+                    description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  name:
+                    type: string
+                    required: true
+                    description: The name of the check. For example, "code-coverage".
+                  app:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        required: true
+                      slug:
+                        type: string
+                        required: true
+                        description: The slug of the Atomgit App
+                      name:
+                        type: string
+                        required: true
+                        description: The name of the Atomgit App
+                      description:
+                        type: string
+                        required: true
+  # # 获取仓库content
+  /repos/{owner}/{repo}/contents/{path}:
+    get:
+      tags:
+        - repository contents
+      summary: 获取仓库content
+      description: 获取仓库content
+      operationId: GetRepoConent
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: path
+          in: path
+          description: path parameter.
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  encoding:
+                    type: string
+                    required: true
+                  name:
+                    type: string
+                    required: true
+                  path:
+                    type: string
+                    required: true
+                  sha:
+                    type: string
+                    required: true
+                  size:
+                    type: integer
+                    required: true
+                  type:
+                    type: string
+                    required: true
+                  entries:
+                    type: array
+                    required: false
+                    items:
+                      type: object
+                      properties:
+                        encoding:
+                          type: string
+                          required: true
+                        name:
+                          type: string
+                          required: true
+                        path:
+                          type: string
+                          required: true
+                        sha:
+                          type: string
+                          required: true
+                        size:
+                          type: integer
+                          required: true
+                        type:
+                          type: string
+                          required: true
+    # 创建或更新content
+    put:
+      tags:
+        - repository contents
+      summary: 创建或更新仓库content
+      description: 创建或更新仓库content
+      operationId: SaveRepoConent
+      parameter:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: path
+          in: path
+          description: path parameter.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                message:
+                  type: string
+                  required: true
+                  description: The commit message.
+                content:
+                  type: string
+                  required: true
+                  description: The new file content, using Base64 encoding.
+                sha:
+                  type: string
+                  required: false
+                  description: Required if you are updating a file. The blob SHA of the file being replaced.
+                branch:
+                  type: string
+                  required: false
+                  description: "The branch name. Default: the repository’s default branch."
+                committer:
+                  type: object
+                  required: false
+                  description: "The person that committed the file. Default: the authenticated user."
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                    email:
+                      type: string
+                      required: true
+                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                    date:
+                      type: string
+                      required: false
+                author:
+                  type: object
+                  required: false
+                  description: "The person that committed the file. Default: the authenticated user."
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                    email:
+                      type: string
+                      required: true
+                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                    date:
+                      type: string
+                      required: false
+      responses:
+        200:
+          description: OK
+        201:
+          description: Created
+        403:
+          description: Forbidden
+        409:
+          description: Conflict
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      encoding:
+                        type: string
+                        required: true
+                      name:
+                        type: string
+                        required: true
+                      path:
+                        type: string
+                        required: true
+                      sha:
+                        type: string
+                        required: true
+                      size:
+                        type: integer
+                        required: true
+                      type:
+                        type: string
+                        required: true
+                      entries:
+                        type: array
+                        required: false
+                        items:
+                          type: object
+                          properties:
+                            encoding:
+                              type: string
+                              required: true
+                            name:
+                              type: string
+                              required: true
+                            path:
+                              type: string
+                              required: true
+                            sha:
+                              type: string
+                              required: true
+                            size:
+                              type: integer
+                              required: true
+                            type:
+                              type: string
+                              required: true
+                  commit:
+                      type: object
+                      properties:
+                        committer:
+                          type: object
+                          required: true
+                          description: "The person that committed the file. Default: the authenticated user."
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            email:
+                              type: string
+                              required: true
+                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            date:
+                              type: string
+                              required: false
+                        author:
+                          type: object
+                          required: true
+                          description: "The person that authored the file. Default: the authenticated user."
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            email:
+                              type: string
+                              required: true
+                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            date:
+                              type: string
+                              required: false
+                        message:
+                          type: string
+                          required: true
+                        sha:
+                          type: string
+                          required: true
+                        parents:
+                          type: array
+                          required: true
+                          items:
+                            type: object
+                            properties:
+                              sha:
+                                type: string
+                                required: true
+    # 删除content
+    delete:
+      tags:
+        - repository contents
+      summary: 删除仓库content
+      description: 删除仓库content
+      operationId: DeleteRepoConent
+      parameter:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: path
+          in: path
+          description: path parameter.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                message:
+                  type: string
+                  required: true
+                  description: The commit message.
+                content:
+                  type: string
+                  required: true
+                  description: The new file content, using Base64 encoding.
+                sha:
+                  type: string
+                  required: true
+                  description: Required if you are updating a file. The blob SHA of the file being replaced.
+                branch:
+                  type: string
+                  required: false
+                  description: "The branch name. Default: the repository’s default branch."
+                committer:
+                  type: object
+                  required: false
+                  description: "The person that committed the file. Default: the authenticated user."
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                    email:
+                      type: string
+                      required: true
+                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                    date:
+                      type: string
+                      required: false
+                author:
+                  type: object
+                  required: false
+                  description: "The person that committed the file. Default: the authenticated user."
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                    email:
+                      type: string
+                      required: true
+                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                    date:
+                      type: string
+                      required: false
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        409:
+          description: Conflict
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      encoding:
+                        type: string
+                        required: true
+                      name:
+                        type: string
+                        required: true
+                      path:
+                        type: string
+                        required: true
+                      sha:
+                        type: string
+                        required: true
+                      size:
+                        type: integer
+                        required: true
+                      type:
+                        type: string
+                        required: true
+                      entries:
+                        type: array
+                        required: false
+                        items:
+                          type: object
+                          properties:
+                            encoding:
+                              type: string
+                              required: true
+                            name:
+                              type: string
+                              required: true
+                            path:
+                              type: string
+                              required: true
+                            sha:
+                              type: string
+                              required: true
+                            size:
+                              type: integer
+                              required: true
+                            type:
+                              type: string
+                              required: true
+                  commit:
+                      type: object
+                      properties:
+                        committer:
+                          type: object
+                          required: true
+                          description: "The person that committed the file. Default: the authenticated user."
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            email:
+                              type: string
+                              required: true
+                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            date:
+                                type: string
+                                required: false
+                        author:
+                          type: object
+                          required: true
+                          description: "The person that authored the file. Default: the authenticated user."
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            email:
+                              type: string
+                              required: true
+                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            date:
+                                type: string
+                                required: false
+                        message:
+                          type: string
+                          required: true
+                        sha:
+                          type: string
+                          required: true
+                        parents:
+                          type: array
+                          required: true
+                          properties:
+                            sha:
+                              type: string
+                              required: true
 components:
   schemas:
     ApiResponse:
