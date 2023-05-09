@@ -2,7 +2,7 @@ openapi: 3.0.0
 servers:
   - url: https://api.atomgit.com
     description: prod
-  - url: https://test-api.atomgit.com
+  - url: https://api.atomgit.com
     description: test
 
 info:
@@ -1168,7 +1168,7 @@ components:
         url:
           description: return personal information interface in json format
           type: string
-          example: https://test-api.atomgit.com/users/mrpuatomgit
+          example: https://api.atomgit.com/users/mrpuatomgit
         name:
           description: User's nisckname
           type: string
@@ -1196,11 +1196,11 @@ components:
         avatar_url:
           description: User's avatar
           type: string
-          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+          example: https://img-host/uploads/user/1656318880150_5104.png
         html_url:
           description: User's personal homepage
           type: string
-          example: https://test.atomgit.com/mrpuatomgit
+          example: https://atomgit.com/mrpuatomgit
         public_repos:
           description: User's public repostory count
           type: Integer

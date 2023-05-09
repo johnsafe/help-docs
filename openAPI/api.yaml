@@ -2,7 +2,7 @@ openapi: 3.0.0
 servers:
   - url: https://api.atomgit.com
     description: prod
-  - url: https://test-api.atomgit.com
+  - url: https://api.atomgit.com
     description: test
 info:
   description: |
@@ -1075,7 +1075,7 @@ components:
         url:
           description: 根据获取用户名获取用户信息的接口路径
           type: string
-          example: https://test-api.atomgit.com/users/mrpuatomgit
+          example: https://api.atomgit.com/users/mrpuatomgit
         name:
           description: 昵称
           type: string
@@ -1095,7 +1095,7 @@ components:
         email:
           description: 邮箱
           type: string
-          example: 2214882769@qq.com
+          example: example@atomgit.com
         bio:
           description: 简介
           type: string
@@ -1103,11 +1103,11 @@ components:
         avatar_url:
           description: 头像
           type: string
-          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+          example: https://img-host/uploads/user/1656318880150_5104.png
         html_url:
           description: 主页地址
           type: string
-          example: https://test.atomgit.com/mrpuatomgit
+          example: https://atomgit.com/mrpuatomgit
         public_repos:
           description: 公开仓库数量
           type: Integer
@@ -1141,23 +1141,23 @@ components:
         avatar_url:
           description: 头像
           type: string
-          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+          example: https://img-host/uploads/user/1656318880150_5104.png
         url:
           description: 根据获取用户名获取用户信息的接口路径
           type: string
-          example: https://test-api.atomgit.com/users/mrpuatomgit
+          example: https://api.atomgit.com/users/mrpuatomgit
         html_url:
           description: 主页地址
           type: string
-          example: https://test.atomgit.com/mrpuatomgit
+          example: https://atomgit.com/mrpuatomgit
         organizations_url:
           description: 组织url
           type: string
-          example: https://test.atomgit.com/users/zhangzhe/starred
+          example: https://atomgit.com/users/zhangzhe/starred
         repos_url:
           description: 仓库url
           type: string
-          example: https://test.atomgit.com/users/zhangzhe/projects
+          example: https://atomgit.com/users/zhangzhe/projects
     SSHKeyVO:
       type: object
       properties:
@@ -1222,7 +1222,7 @@ components:
         issues_url:
           description: 组织的issue地址
           type: string
-          example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+          example: https://api.atomgit.com/orgs/csdn_test2/issues
         members_url:
           description: 组织的members地址
           type: string
@@ -1234,7 +1234,7 @@ components:
         avatar_url:
           description: 组织头像地址
           type: string
-          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+          example: https://img-host/uploads/org/1656042927816_7741.png
         description:
           description: 组织的描述
           type: string
@@ -1269,7 +1269,7 @@ components:
         issues_url:
           description: 组织的issue地址
           type: string
-          example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+          example: https://api.atomgit.com/orgs/csdn_test2/issues
         members_url:
           description: 组织的members地址
           type: string
@@ -1281,7 +1281,7 @@ components:
         avatar_url:
           description: 组织头像地址
           type: string
-          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+          example: https://img-host/uploads/org/1656042927816_7741.png
         description:
           description: 组织的描述
           type: string
@@ -1383,7 +1383,7 @@ components:
         issues_url:
           description: 组织的issue地址
           type: string
-          example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+          example: https://api.atomgit.com/orgs/csdn_test2/issues
         members_url:
           description: 组织的members地址
           type: string
@@ -1395,7 +1395,7 @@ components:
         avatar_url:
           description: 组织头像地址
           type: string
-          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+          example: https://img-host/uploads/org/1656042927816_7741.png
         description:
           description: 组织的描述
           type: string
@@ -1438,15 +1438,15 @@ components:
             avatar_url:
               description: 邀请人用户头像
               type: string
-              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+              example: https://img-host/uploads/user/1656318880150_5104.png
             url:
               description: 邀请人信息api地址
               type: string
-              example: https://test-api.atomgit.com/users/leige
+              example: https://api.atomgit.com/users/leige
             html_url:
               description: 邀请人主页地址
               type: string
-              example: https://test.atomgit.com/mrpuatomgit
+              example: https://atomgit.com/mrpuatomgit
             followers_url:
               description: 邀请人的followers url
               type: string
@@ -1505,15 +1505,15 @@ components:
         avatar_url:
           description: 组织成员的头像
           type: string
-          example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+          example: https://img-host/uploads/user/1656318880150_5104.png
         url:
           description: 组织成员的详细信息url
           type: string
-          example: https://test-api.atomgit.com/users/leige
+          example: https://api.atomgit.com/users/leige
         html_url:
           description: 组织成员的主页url
           type: string
-          example: https://test.atomgit.com/mrpuatomgit
+          example: https://atomgit.com/mrpuatomgit
         followers_url:
           description: 组织成员的 followers url
           type: string
@@ -1592,15 +1592,15 @@ components:
             avatar_url:
               description: 被查询的用户头像
               type: string
-              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/user/1656318880150_5104.png
+              example: https://img-host/uploads/user/1656318880150_5104.png
             url:
               description: 被查询的用户详细信息的openApi地址
               type: string
-              example: https://test-api.atomgit.com/users/leige
+              example: https://api.atomgit.com/users/leige
             html_url:
               description: 被查询的用户在atomgit访问地址
               type: string
-              example: https://test.atomgit.com/mrpuatomgit
+              example: https://atomgit.com/mrpuatomgit
             followers_url:
               description: 被查询的用户followers地址
               type: string
@@ -1676,7 +1676,7 @@ components:
             issues_url:
               description: 组织的issue地址
               type: string
-              example: https://test-api.atomgit.com/orgs/csdn_test2/issues
+              example: https://api.atomgit.com/orgs/csdn_test2/issues
             members_url:
               description: 组织的members地址
               type: string
@@ -1688,7 +1688,7 @@ components:
             avatar_url:
               description: 组织头像地址
               type: string
-              example: https://atomgit.oss-cn-beijing.aliyuncs.com/uploads/org/1656042927816_7741.png
+              example: https://img-host/uploads/org/1656042927816_7741.png
             description:
               description: 组织的描述
               type: string
