@@ -34,6 +34,54 @@ info:
     ```bash
       $ curl -H "Authorization: Bearer PERSONAL-TOKEN" https://api.atomgit.com
     ```
+
+    ## 访问限制
+
+    1.针对不同的授权,限流配置信息
+
+    | 授权类型 | 每秒限制 | 每小时限制 |
+    | -------- | -------- | ---------- |
+    | 未授权   | 2        | 600        |
+    | 普通用户 | 10       | 5000       |
+    | APP      | 10       | 5000       |
+
+    2.限流信息响应头说明：
+
+    对于每个请求，都会响应以下以x-ratelimit开头的响应头描述当前接口限流的状态：eg
+
+    ```shell
+    $ curl -i https://api.github.com/users/octocat
+    > HTTP/2 200
+    > x-ratelimit-limit: 60
+    > x-ratelimit-remaining: 56
+    > x-ratelimit-used: 4
+    > x-ratelimit-reset: 1372700873
+    ```
+
+    | Header name             | Description                                                  |
+    | :---------------------- | :----------------------------------------------------------- |
+    | `x-ratelimit-limit`     | 每小时请求最大的限制                                         |
+    | `x-ratelimit-remaining` | 在当前时间窗口剩余的请求次数                                 |
+    | `x-ratelimit-used`      | 在当前时间窗口已经发出的请求次数                             |
+    | `x-ratelimit-reset`     | 当前时间窗口重置的 [UTC epoch seconds](http://en.wikipedia.org/wiki/Unix_time)。 |
+
+    3.当请求超过限流限制，会根据授权的情况的不同，返回以下信息：
+
+    如果您当前未登录，则影响的http status：403，并且响应头里的x-ratelimit-remaining将为0；
+
+    ```
+    > HTTP/2 403
+    > Date: Tue, 20 Aug 2013 14:50:41 GMT
+    > x-ratelimit-limit: 60
+    > x-ratelimit-remaining: 0
+    > x-ratelimit-used: 60
+    > x-ratelimit-reset: 1377013266
+    
+    > {
+    >    "message": "API rate limit exceeded for xxx.xxx.xxx.xxx. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.) , documentation_url": "https://docs.atomgit.com"
+    > }
+    ```
+
     ## 联系我们
     - 联系人： API技术支持
     - 邮箱： lish#csdn.net (请将 # 换成 @)
