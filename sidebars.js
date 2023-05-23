@@ -127,6 +127,7 @@ const sidebars = {
         'org/org-members',
         'org/org-settings',
         'org/org-relation',
+        'org/cla',
       ],
     },
     {
