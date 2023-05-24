@@ -1066,21 +1066,21 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: "代码仓库名称。该名称不区分大小写。"
           required: true
         - name: branch
           in: path
-          description: "The name of the branch. Cannot contain wildcard characters."
+          description: "分支名称，不能包含通配符。"
           required: true
       responses:
         404:
-          description: Resource not found
+          description: 资源未找到
         200:
-          description: OK
+          description: 成功
         responseBody:
           content:
             application/json:
@@ -1090,51 +1090,51 @@ paths:
                   name:
                     type: string
                     required: true
-                    description: The name of the branch.
+                    description: 分支名称.
                   commit:
                     type: object
-                    description: The tip commit of the branch.
+                    description: 提交ID
                     properties:
                       committer:
                         type: object
                         required: true
-                        description: "The person that committed the file. Default: the authenticated user."
+                        description: 提交者。默认值：当前认证的用户。
                         properties:
                           name:
                             type: string
                             required: true
-                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            description: 提交者的名称。如果省略该字段，您将收到 422 状态码。
                           email:
                             type: string
                             required: true
-                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
                           date:
                             type: string
                             required: false
                       author:
                         type: object
                         required: true
-                        description: "The person that authored the file. Default: the authenticated user."
+                        description: "提交作者。默认值：当前认证的用户。"
                         properties:
                           name:
                             type: string
                             required: true
-                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            description: "提交作者的名称。如果省略该字段，您将收到 422 状态码。"
                           email:
                             type: string
                             required: true
-                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            description: 提交作者的电子邮件。如果省略电子邮件，您将收到422状态码。
                           date:
                             type: string
                             required: false
                       message:
                         type: string
                         required: true
-                        description: The message of the commit
+                        description: 提交信息
                       sha:
                         type: string
                         required: true
-                        description: The SHA value of the commit.
+                        description: 提交 SHA 值.
                       parents:
                         type: array
                         required: true
@@ -1144,7 +1144,7 @@ paths:
                             sha:
                               type: string
                               required: true
-                              description: The SHA value of the commit.
+                              description: 提交 SHA 值.
   # 获取分支列表
   /repos/{owner}/{repo}/branches:
     get:
@@ -1160,25 +1160,25 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: per_page
           in: query
-          description: "The number of results per page."
+          description: 分页结果数
           required: false
         - name: page
           in: query
-          description: "Page number of the results to fetch."
+          description: 分页页码
           required: false
       responses:
         200:
-          description: OK
+          description: 成功
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -1190,20 +1190,20 @@ paths:
                     name:
                       type: string
                       required: true
-                      description: The name of the branch.
+                      description: 分支名称，不能包含通配符
                     commit:
                       type: object
                       required: true
-                      description: The tip commit of the branch.
+                      description: 提交ID
                       properties:
                         sha:
                           type: string
                           required: true
-                          description: The SHA value of the commit.
+                          description: 提交 SHA 值
                     protected:
                       type: boolean
                       required: true
-                      description: The protected flag of the branch in repository.
+                      description: 是否为保护分支。
   # ############ 提交接口（Commits API）############
   # # 获取分支提交
   /repos/{owner}/{repo}/commits/{ref}:
@@ -1220,23 +1220,23 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: "代码仓库名称。该名称不区分大小写。"
           required: true
         - name: ref
           in: path
-          description: "ref parameter"
+          description: "引用"
           required: true
       responses:
         200:
-          description: OK
+          description: 成功
         404:
-          description: Resource not found
+          description: 资源未找到
         500:
-          description: Internal Error
+          description: 内部错误
         responseBody:
           content:
             application/json:
@@ -1246,50 +1246,50 @@ paths:
                   name:
                     type: string
                     required: true
-                    description: The name of the reference.
+                    description: 引用名称。
                   commit:
                     type: object
                     properties:
                       committer:
                         type: object
                         required: true
-                        description: "The person that committed the file. Default: the authenticated user."
+                        description: 提交者。默认值：当前认证的用户。
                         properties:
                           name:
                             type: string
                             required: true
-                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            description: 提交者的名称。如果省略该字段，您将收到 422 状态码。
                           email:
                             type: string
                             required: true
-                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
                           date:
                             type: string
                             required: false
                       author:
                         type: object
                         required: true
-                        description: "The person that authored the file. Default: the authenticated user."
+                        description: "提交作者。默认值：当前认证的用户。"
                         properties:
                           name:
                             type: string
                             required: true
-                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            description: 提交作者的名称。如果省略该字段，您将收到 422 状态码。
                           email:
                             type: string
                             required: true
-                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            description: 提交作者的电子邮件。如果省略电子邮件，您将收到422状态码。
                           date:
                             type: string
                             required: false
                       message:
                         type: string
                         required: true
-                        description: The commit message.
+                        description: 提交信息。
                   sha:
                     type: string
                     required: true
-                    description: The SHA value of the commit.
+                    description: 提交 SHA 值
                   parents:
                     type: array
                     items:
@@ -1298,7 +1298,7 @@ paths:
                         sha:
                           type: string
                           required: true
-                          description: The SHA value of the commit.
+                          description: 提交 SHA 值
                     required: true
                   stats:
                     type: object
@@ -1328,21 +1328,21 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: ref
           in: path
-          description: "ref parameter"
+          description: 引用
           required: true
       responses:
         200:
-          description: OK
+          description: 成功
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -1352,11 +1352,11 @@ paths:
                   state:
                     type: string
                     required: true
-                    description: "The state of the status. Can be one of: error, failure, pending, success"
+                    description: "状态枚举，枚举值为: error, failure, pending, success"
                   sha:
                     type: string
                     required: true
-                    description: The SHA value of the commit.
+                    description: 提交 SHA 值。
                   total_count:
                     type: integer
                     required: true
@@ -1367,28 +1367,23 @@ paths:
                       type: object
                       properties:
                         state:
-                          description: |
-                            "The state of the status.
-                            Can be one of: error, failure, pending, success"
+                          description: "状态枚举，枚举值为: error, failure, pending, success"
                           type: string
                           required: true
                         target_url:
                           type: string
                           required: false
                           description: |
-                            The target URL to associate with this status. This URL will be linked from the UI to allow users to easily see the source of the status.
-                            For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
-                            http://ci.example.com/user/repo/build/sha
+                            与此状态关联的目标URL， 以允许用户轻松地查看状态的来源。
+                            例如，如果你的持续集成系统正在发布构建状态，你会想要为这个特定 SHA 的构建输出一个类似格式的链接地址: http://ci.example.com/user/repo/build/sha
                         description:
                           type: string
                           required: false
-                          description: A short description of the status.
+                          description: 状态的简短描述。
                         context:
                           type: string
                           required: false
-                          description: |
-                            A string label to differentiate this status from the status of other systems. This field is case-insensitive.
-                            Default: default
+                          description: 一个字符串类型的标记，用于将此状态与其他系统(用户或者应用)的状态区分开来。该字段不区分大小写。 默认值：default
   # # 创建提交状态
   /repos/{owner}/{repo}/statuses/{sha}:
     post:
@@ -1404,15 +1399,15 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: sha
           in: path
-          description: ""
+          description: 提交 SHA 值
           required: true
       requestBody:
         content:
@@ -1421,28 +1416,23 @@ paths:
               type: json
               properties:
                 state:
-                  description: |
-                    "The state of the status.
-                    Can be one of: error, failure, pending, success"
+                  description: "状态枚举，枚举值为: error, failure, pending, success"
                   type: string
                   required: true
                 target_url:
                   type: string
                   required: false
                   description: |
-                    The target URL to associate with this status. This URL will be linked from the UI to allow users to easily see the source of the status.
-                    For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
-                    http://ci.example.com/user/repo/build/sha
+                            与此状态关联的目标URL， 以允许用户轻松地查看状态的来源。
+                            例如，如果你的持续集成系统正在发布构建状态，你会想要为这个特定 SHA 的构建输出一个类似格式的链接地址: http://ci.example.com/user/repo/build/sha
                 description:
                   type: string
                   required: false
-                  description: A short description of the status.
+                  description: 状态的简短描述。
                 context:
                   type: string
                   required: false
-                  description: |
-                    A string label to differentiate this status from the status of other systems. This field is case-insensitive.
-                    Default: default
+                  description: 一个字符串类型的标记，用于将此状态与其他系统(用户或者应用)的状态区分开来。该字段不区分大小写。 默认值：default
       responses:
         201:
           description: Created
@@ -1457,17 +1447,15 @@ paths:
                   context:
                     type: string
                     required: true
-                    description: |
-                      A string label to differentiate this status from the status of other systems. This field is case-insensitive.
-                      Default: default
+                    description: 一个字符串类型的标记，用于将此状态与其他系统(用户或者应用)的状态区分开来。该字段不区分大小写。 默认值：default
                   created_at:
                     type: string
                     required: true
-                    description: "The time that the status be created. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: "创建时间. 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   description:
                     type: string
                     required: false
-                    description: A short description of the status.
+                    description: 状态的简短描述。
                   required:
                     type: boolean
                     required: true
@@ -1477,17 +1465,13 @@ paths:
                   state:
                     type: string
                     required: true
-                    description: |
-                      The state of the status.
-
-                      Can be one of: error, failure, pending, success
+                    description: "状态枚举，枚举值为: error, failure, pending, success"
                   target_url:
                     type: string
                     required: false
                     description: |
-                      The target URL to associate with this status. This URL will be linked from the UI to allow users to easily see the source of the status.
-                      For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
-                      http://ci.example.com/user/repo/build/sha
+                            与此状态关联的目标URL， 以允许用户轻松地查看状态的来源。
+                            例如，如果你的持续集成系统正在发布构建状态，你会想要为这个特定 SHA 的构建输出一个类似格式的链接地址: http://ci.example.com/user/repo/build/sha
   # ############ Check-runs接口 ############
   # # 创建自动化检查
   /repos/{owner}/{repo}/check-runs:
@@ -1504,11 +1488,11 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
       requestBody:
         content:
@@ -1517,140 +1501,135 @@ paths:
               type: json
               properties:
                 name:
-                  description: The name of the check. For example, "code-coverage".
+                  description: 自动化检查的名称. 例如, "code-coverage"。
                   type: string
                   required: true
                 head_sha:
                   type: string
                   required: true
-                  description: The SHA of the commit.
+                  description: 提交 SHA 值
                 status:
                   type: string
                   required: false
                   description: |
-                    The current status.
-
-                    Default: queued
-                    Can be one of: queued, in_progress, completed
+                    状态枚举，枚举值为：queued, in_progress, completed。默认值: queued
                 started_at:
                   type: string
                   required: false
-                  description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  description: "检查开始时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                 conclusion:
                   type: string
                   required: false
                   description: |
-                    Required if you provide completed_at or a status of completed. The final conclusion of the check. Note: Providing conclusion will automatically set the status parameter to completed. You cannot change a check run conclusion to stale, only platform can set this.
-                    Can be one of: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
+                    如果您传递了 "completed_at" 字段或将 "status" 字段设置为 "completed"，则该字段为必传。该字段表达自动化检查的最终结果。、
+                    注:提供 "conclusion" 字段将自动设置状态参数为 "completed"。同时将不能将 "conclusion" 更改为 "stale"，只有平台可以设置为此值。
+                    枚举值: action_required, cancelled, failure, neutral, success, skip, stale, timed_out
                 completed_at:
                   type: string
                   required: false
-                  description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  description: "检查结束时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                 action:
                   type: object
                   required: false
-                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  description: 自动化检查可以接受 "output" 中的各类数据，包括标题和摘要，并且可以选择性地提供有关运行的描述性详细信息。
                   properties:
                     label:
                       type: string
                       required: true
-                      description: "The text to be displayed on a button in the web UI. The maximum size is 20 characters."
+                      description: "在web UI的按钮上显示的文本。最大长度为 20 个字符。"
                     description:
                       type: string
                       required: true
-                      description: "A short explanation of what this action would do. The maximum size is 40 characters."
+                      description: "关于 action 用途的简短解释。最大长度为 40 个字符。"
                     identifier:
                       type: string
                       required: true
-                      description: "A reference for the action on the integrator's system. The maximum size is 20 characters."
+                      description: "集成系统上对于 action 的一个对照标识。最大长度为 20 字符."
                 output:
                   type: object
                   required: false
-                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  description: 自动化检查可以接受 "output" 中的各类数据，包括标题和摘要，并且可以选择性地提供有关运行的描述性详细信息。
                   properties:
                     title:
                       type: string
                       required: true
-                      description: "The title of the check run."
+                      description: "标题"
                     summary:
                       type: string
                       required: true
-                      description: "The summary of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                      description: "摘要，支持Markdown格式. 最大长度为 65535 字符。"
                     text:
                       type: string
                       required: false
-                      description: "The details of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                      description: "详情，最大长度为 65535 字符。"
                     annotations:
                       type: object
                       required: false
                       description: |
-                        Adds information from your analysis to specific lines of code.
-                        Annotations are visible on platform in the Checks and Files changed tab of the change request.
-                        The Checks API limits the number of annotations to a maximum of 50 per API request.
-                        To create more than 50 annotations, you have to make multiple requests to the Update a check run endpoint.
-                        Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run.
+                        将您分析出的信息附加到特定的代码行。
+                        后续在平台上的更改请求的检查和文件更改选项卡中可以看到对应注释（annotations）。
+                        自动化检查的 API 将请求的注释数量限制为最多 50 个。
+                        如果要创建多于 50 个，可以多次发送请求， 从而将注释添加到已存在的注释列表中。
                       properties:
                         path:
                           type: string
                           required: true
-                          description: "The path of the file to add an annotation to. For example, assets/css/main.css."
+                          description: "要添加注释的文件的路径。例如:assets/css/main.css。"
                         start_line:
                           type: int
                           required: true
-                          description: "The start line of the annotation. Line numbers start at 1."
+                          description: "注释的起始行。行号从 1 开始。"
                         end_line:
                           type: int
                           required: false
-                          description: "The end line of the annotation."
+                          description: "注释的结束行。"
                         start_column:
                           type: int
                           required: false
-                          description: "The start column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values. Column numbers start at 1."
+                          description: "注释的开始列。注释只支持同一行上的 start_column 和 end_column。如果 start_line 和 end_line 的值不同，则省略此参数。列号从 1 开始。"
                         end_column:
                           type: int
                           required: false
-                          description: "The end column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values."
+                          description: "注释的结束列。注释只支持同一行上的start_column和end_column。如果start_line和end_line的值不同，则省略此参数。"
                         annotation_level:
                           type: string
                           required: true
                           description: |
-                            The level of the annotation.
-
-                            Can be one of: notice, warning, failure
+                            注释的级别， 枚举值为：notice, warning, failure
                         message:
                           type: string
                           required: true
-                          description: "A short description of the feedback for these lines of code. The maximum size is 64 KB."
+                          description: "代码行信息的简短描述。最大为 64kb。"
                         title:
                           type: string
                           required: false
-                          description: "The title that represents the annotation. The maximum size is 255 characters."
+                          description: 注释的标题。最大长度为 255 个字符。
                         raw_details:
                           type: string
                           required: false
-                          description: "Details about this annotation. The maximum size is 64 KB."
+                          description: "注释的详细信息。最大为 64kb。"
                     images:
                       type: object
                       required: false
-                      description: "Adds images to the output displayed in the change request UI."
+                      description: "在CR UI中添加图像。"
                       properties:
                         alt:
                           type: string
                           required: true
-                          description: "The alternative text for the image."
+                          description: "图像的替代文本。"
                         image_url:
                           type: string
                           required: true
-                          description: "The full URL of the image."
+                          description: "图像的完整URL。"
                         caption:
                           type: string
                           required: false
-                          description: "A short image description."
+                          description: "简短的图像描述。"
       responses:
         201:
-          description: Created
+          description: 已创建
         500:
-          description: Internal Error
+          description: 内部错误
         responseBody:
           content:
             application/json:
@@ -1675,11 +1654,11 @@ paths:
                   started_at:
                     type: string
                     required: true
-                    description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: "检查开始时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   completed_at:
                     type: string
                     required: false
-                    description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: "检查结束时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   name:
                     type: string
                     required: true
@@ -1738,11 +1717,11 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
       requestBody:
         content:
@@ -1751,140 +1730,136 @@ paths:
               type: json
               properties:
                 name:
-                  description: The name of the check. For example, "code-coverage".
+                  description: 自动化检查的名称. 例如, "code-coverage"。
                   type: string
                   required: true
                 head_sha:
                   type: string
                   required: true
-                  description: The SHA of the commit.
+                  description: 提交 SHA 值
                 status:
                   type: string
                   required: false
-                  description: |
-                    The current status.
-
-                    Default: queued
-                    Can be one of: queued, in_progress, completed
+                  description:  |
+                    状态枚举，枚举值为：queued, in_progress, completed。默认值: queued
                 started_at:
                   type: string
                   required: false
-                  description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  description: |
+                    检查开始时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ
                 conclusion:
                   type: string
                   required: false
                   description: |
-                    Required if you provide completed_at or a status of completed. The final conclusion of the check. Note: Providing conclusion will automatically set the status parameter to completed. You cannot change a check run conclusion to stale, only platform can set this.
-                    Can be one of: action_required, cancelled, failure, neutral, success, skipped, stale, timed_out
+                    如果您传递了 "completed_at" 字段或将 "status" 字段设置为 "completed"，则该字段为必传。该字段表达自动化检查的最终结果。、
+                    注:提供 "conclusion" 字段将自动设置状态参数为 "completed"。同时将不能将 "conclusion" 更改为 "stale"，只有平台可以设置为此值。
+                    枚举值: action_required, cancelled, failure, neutral, success, skip, stale, timed_out
                 completed_at:
                   type: string
                   required: false
-                  description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  description: "检查结束时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                 action:
                   type: object
                   required: false
-                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  description:  自动化检查可以接受 "output" 中的各类数据，包括标题和摘要，并且可以选择性地提供有关运行的描述性详细信息。
                   properties:
                     label:
                       type: string
                       required: true
-                      description: "The text to be displayed on a button in the web UI. The maximum size is 20 characters."
+                      description: "在web UI的按钮上显示的文本。最大长度为 20 个字符。"
                     description:
                       type: string
                       required: true
-                      description: "A short explanation of what this action would do. The maximum size is 40 characters."
+                      description: "关于 action 用途的简短解释。最大长度为 40 个字符。"
                     identifier:
                       type: string
                       required: true
-                      description: "A reference for the action on the integrator's system. The maximum size is 20 characters."
+                      description: "集成系统上对于 action 的一个对照标识。最大长度为 20 字符."
                 output:
                   type: object
                   required: false
-                  description: "Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run."
+                  description: 自动化检查可以接受 "output" 中的各类数据，包括标题和摘要，并且可以选择性地提供有关运行的描述性详细信息。
                   properties:
                     title:
                       type: string
                       required: true
-                      description: "The title of the check run."
+                      description: "标题"
                     summary:
                       type: string
                       required: true
-                      description: "The summary of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                      description: "摘要，支持Markdown格式. 最大长度为 65535 字符。"
                     text:
                       type: string
                       required: false
-                      description: "The details of the check run. This parameter supports Markdown. Maximum length: 65535 characters."
+                      description: "详情，最大长度为 65535 字符。"
                     annotations:
                       type: object
                       required: false
                       description: |
-                        Adds information from your analysis to specific lines of code.
-                        Annotations are visible on platform in the Checks and Files changed tab of the pull request.
-                        The Checks API limits the number of annotations to a maximum of 50 per API request.
-                        To create more than 50 annotations, you have to make multiple requests to the Update a check run endpoint.
-                        Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run.
+                        将您分析出的信息附加到特定的代码行。
+                        后续在平台上的更改请求的检查和文件更改选项卡中可以看到对应注释（annotations）。
+                        自动化检查的 API 将请求的注释数量限制为最多 50 个。
+                        如果要创建多于 50 个，可以多次发送请求， 从而将注释添加到已存在的注释列表中。
                       properties:
                         path:
                           type: string
                           required: true
-                          description: "The path of the file to add an annotation to. For example, assets/css/main.css."
+                          description: "要添加注释的文件的路径。例如:assets/css/main.css。"
                         start_line:
                           type: int
                           required: true
-                          description: "The start line of the annotation. Line numbers start at 1."
+                          description: "注释的起始行。行号从 1 开始。"
                         end_line:
                           type: int
                           required: false
-                          description: "The end line of the annotation."
+                          description: "注释的结束行。"
                         start_column:
                           type: int
                           required: false
-                          description: "The start column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values. Column numbers start at 1."
+                          description: "注释的开始列。注释只支持同一行上的 start_column 和 end_column。如果 start_line 和 end_line 的值不同，则省略此参数。列号从 1 开始。"
                         end_column:
                           type: int
                           required: false
-                          description: "The end column of the annotation. Annotations only support start_column and end_column on the same line. Omit this parameter if start_line and end_line have different values."
+                          description: "注释的结束列。注释只支持同一行上的start_column和end_column。如果start_line和end_line的值不同，则省略此参数。"
                         annotation_level:
                           type: string
                           required: true
                           description: |
-                            The level of the annotation.
-
-                            Can be one of: notice, warning, failure
+                            注释的级别， 枚举值为：notice, warning, failure
                         message:
                           type: string
                           required: true
-                          description: "A short description of the feedback for these lines of code. The maximum size is 64 KB."
+                          description: "代码行信息的简短描述。最大为 64kb。"
                         title:
                           type: string
                           required: false
-                          description: "The title that represents the annotation. The maximum size is 255 characters."
+                          description: "注释的标题。最大长度为 255 个字符。"
                         raw_details:
                           type: string
                           required: false
-                          description: "Details about this annotation. The maximum size is 64 KB."
+                          description: "注释的详细信息。最大为 64kb。"
                     images:
                       type: object
                       required: false
-                      description: "Adds images to the output displayed in the change request UI."
+                      description: "在CR UI中添加图像。"
                       properties:
                         alt:
                           type: string
                           required: true
-                          description: "The alternative text for the image."
+                          description: "图像的替代文本。"
                         image_url:
                           type: string
                           required: true
-                          description: "The full URL of the image."
+                          description: "图像的完整URL。"
                         caption:
                           type: string
                           required: false
-                          description: "A short image description."
+                          description: "简短的图像描述。"
       responses:
         200:
-          description: OK
+          description: 成功
         500:
-          description: Internal Error
+          description: 内部错误
         responseBody:
           content:
             application/json:
@@ -1897,50 +1872,51 @@ paths:
                   head_sha:
                     type: string
                     required: true
-                    description: The SHA of the commit.
+                    description: 提交 SHA值
                   external_id:
                     type: integer
                     required: true
-                    description: A reference for the run on the integrator's system.
+                    description: 在外部集成系统中的唯一标识.
                   status:
                     type: string
                     required: true
                     description: |
-                      The current status.
-
-                      Default: queued
-
-                      Can be one of: queued, in_progress, completed
+                      状态枚举，枚举值为：queued, in_progress, completed。默认值: queued
                   conclusion:
                     type: string
                     required: false
+                  description: |
+                    如果您传递了 "completed_at" 字段或将 "status" 字段设置为 "completed"，则该字段为必传。该字段表达自动化检查的最终结果。、
+                    注:提供 "conclusion" 字段将自动设置状态参数为 "completed"。同时将不能将 "conclusion" 更改为 "stale"，只有平台可以设置为此值。
+                    枚举值: action_required, cancelled, failure, neutral, success, skip, stale, timed_out
                   started_at:
                     type: string
                     required: true
-                    description: "The time that the check run began. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: "检查开始时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   completed_at:
                     type: string
                     required: false
-                    description: "The time the check completed. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: "检查结束时间。 遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   name:
                     type: string
                     required: true
-                    description: The name of the check. For example, "code-coverage".
+                    description: 自动化检查的名称. 例如, "code-coverage"。
                   app:
                     type: object
                     properties:
                       id:
                         type: integer
                         required: true
+                        description: Atomgit App 的 ID
                       slug:
                         type: string
                         required: true
-                        description: The slug of the Atomgit App
+                        description: Atomgit App 的 slug
                       name:
                         type: string
                         required: true
-                        description: The name of the Atomgit App
-                      description:
+                        description: Atomgit App 的名称
+                      description: 
                         type: string
                         required: true
   # # 获取仓库content
@@ -1958,22 +1934,22 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: path
           in: path
-          description: path parameter.
+          description: 文件路径。
       responses:
         200:
-          description: OK
+          description: 成功
         403:
-          description: Forbidden
+          description: 禁止访问
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -1983,46 +1959,63 @@ paths:
                   encoding:
                     type: string
                     required: true
+                    description: "编码类型。默认值：base64"
                   name:
                     type: string
                     required: true
+                    description: "文件名称"
                   path:
                     type: string
                     required: true
+                    description: "文件路径"
                   sha:
                     type: string
                     required: true
+                    description: "对应提交 SHA 值"
                   size:
                     type: integer
                     required: true
+                    description: 文件大小，如果 "type" 是 "dir" 或 "submodule" 则为 0
                   type:
                     type: string
                     required: true
+                    description: "文件类型，枚举值：file, dir, symlink, submodule"
                   entries:
                     type: array
                     required: false
+                    description: |
+                      如果 "type" 是 "dir"，则返回该目录下的文件和子目录。
+                      如果 "type" 是 "file"，则返回空数组。
+                      如果 "type" 是 "symlink"，则返回符号链接的信息。
+                      如果 "type" 是 "submodule"，则返回子模块的信息。
                     items:
                       type: object
                       properties:
                         encoding:
                           type: string
                           required: true
+                          description: "编码类型。默认值：base64"
                         name:
                           type: string
                           required: true
+                          description: "文件名称"
                         path:
                           type: string
                           required: true
+                          description: "文件路径"
                         sha:
                           type: string
                           required: true
+                          description: "对应提交 SHA 值"
                         size:
                           type: integer
                           required: true
+                          description: 文件大小，如果 "type" 是 "dir" 或 "submodule" 则为 0
                         type:
                           type: string
                           required: true
-    # 创建或更新content
+                          description: "文件类型，枚举值：file, dir, symlink, submodule"
+# 创建或更新content
     put:
       tags:
         - repository contents
@@ -2036,15 +2029,15 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: path
           in: path
-          description: path parameter.
+          description: 文件路径。
       requestBody:
         content:
           application/json:
@@ -2054,62 +2047,62 @@ paths:
                 message:
                   type: string
                   required: true
-                  description: The commit message.
+                  description: 提交信息
                 content:
                   type: string
                   required: true
-                  description: The new file content, using Base64 encoding.
+                  description: 文件内容，使用Base64编码。
                 sha:
                   type: string
                   required: false
-                  description: Required if you are updating a file. The blob SHA of the file being replaced.
+                  description: 如果是更新文件，则改字段为必填。就提交的 SHA 值。
                 branch:
                   type: string
                   required: false
-                  description: "The branch name. Default: the repository’s default branch."
+                  description: "分支名称。Default：代码仓库的默认分支。"
                 committer:
                   type: object
                   required: false
-                  description: "The person that committed the file. Default: the authenticated user."
+                  description: 提交者。默认值：当前认证的用户。"
                   properties:
                     name:
                       type: string
                       required: true
-                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                      description: "提交者的名称。如果省略该字段，您将收到 422 状态码。"
                     email:
                       type: string
                       required: true
-                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                      description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
                     date:
                       type: string
                       required: false
                 author:
                   type: object
                   required: false
-                  description: "The person that committed the file. Default: the authenticated user."
+                  description: "提交作者。默认值：当前认证的用户。"
                   properties:
                     name:
                       type: string
                       required: true
-                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                      description: "提交作者的名称。如果省略该字段，您将收到 422 状态码。"
                     email:
                       type: string
                       required: true
-                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                      description: 提交作者的电子邮件。如果省略电子邮件，您将收到422状态码。
                     date:
                       type: string
                       required: false
       responses:
         200:
-          description: OK
+          description: 成功
         201:
-          description: Created
+          description: 已创建
         403:
-          description: Forbidden
+          description: 禁止访问
         409:
-          description: Conflict
+          description: 冲突（有人先一步更新了文件）
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -2122,95 +2115,116 @@ paths:
                       encoding:
                         type: string
                         required: true
+                        description: "编码类型。默认值：base64"
                       name:
                         type: string
                         required: true
+                        description: "文件名称"
                       path:
                         type: string
                         required: true
+                        description: "文件路径"
                       sha:
                         type: string
                         required: true
+                        description: "对应提交 SHA 值"
                       size:
                         type: integer
                         required: true
+                        description: 文件大小，如果 "type" 是 "dir" 或 "submodule" 则为 0
                       type:
                         type: string
                         required: true
+                        description: "文件类型，枚举值：file, dir, symlink, submodule"
                       entries:
                         type: array
                         required: false
+                        description: |
+                          如果 "type" 是 "dir"，则返回该目录下的文件和子目录。
+                          如果 "type" 是 "file"，则返回空数组。
+                          如果 "type" 是 "symlink"，则返回符号链接的信息。
+                          如果 "type" 是 "submodule"，则返回子模块的信息。
                         items:
                           type: object
                           properties:
                             encoding:
                               type: string
                               required: true
+                              description: "编码类型。默认值：base64"
                             name:
                               type: string
                               required: true
+                              description: "文件名称"
                             path:
                               type: string
                               required: true
+                              description: "文件路径"
                             sha:
                               type: string
                               required: true
+                              description: "对应提交 SHA 值"
                             size:
                               type: integer
                               required: true
+                              description: 文件大小，如果 "type" 是 "dir" 或 "submodule" 则为 0
                             type:
                               type: string
                               required: true
+                              description: "文件类型，枚举值：file, dir, symlink, submodule"
                   commit:
                       type: object
                       properties:
                         committer:
                           type: object
                           required: true
-                          description: "The person that committed the file. Default: the authenticated user."
+                          description: "提交者。默认值：当前认证的用户。"
                           properties:
                             name:
                               type: string
                               required: true
-                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                              description: "提交者的名称。如果省略该字段，您将收到 422 状态码。"
                             email:
                               type: string
                               required: true
-                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                              description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
                             date:
                               type: string
                               required: false
                         author:
                           type: object
                           required: true
-                          description: "The person that authored the file. Default: the authenticated user."
+                          description: "提交作者。默认值：当前认证的用户。"
                           properties:
                             name:
                               type: string
                               required: true
-                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                              description: "提交作者的名称。如果省略该字段，您将收到 422 状态码。"
                             email:
                               type: string
                               required: true
-                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                              description: 提交作者的电子邮件。如果省略电子邮件，您将收到422状态码。
                             date:
                               type: string
                               required: false
                         message:
                           type: string
                           required: true
+                          description: 提交信息
                         sha:
                           type: string
                           required: true
+                          description: "提交 SHA 值"
                         parents:
                           type: array
                           required: true
+                          description: "父提交"
                           items:
                             type: object
                             properties:
                               sha:
                                 type: string
                                 required: true
+                                description: "父提交 SHA 值"
     # 删除content
     delete:
       tags:
@@ -2225,15 +2239,15 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: path
           in: path
-          description: path parameter.
+          description: 要删除的文件路径。
       requestBody:
         content:
           application/json:
@@ -2243,48 +2257,44 @@ paths:
                 message:
                   type: string
                   required: true
-                  description: The commit message.
-                content:
-                  type: string
-                  required: true
-                  description: The new file content, using Base64 encoding.
+                  description: 提交信息
                 sha:
                   type: string
                   required: true
-                  description: Required if you are updating a file. The blob SHA of the file being replaced.
+                  description: "要删除的文件 SHA 值"
                 branch:
                   type: string
                   required: false
-                  description: "The branch name. Default: the repository’s default branch."
+                  description: "分支名称。默认值：仓库的默认分支。"
                 committer:
                   type: object
                   required: false
-                  description: "The person that committed the file. Default: the authenticated user."
+                  description: 提交者。默认值：当前认证的用户。
                   properties:
                     name:
                       type: string
                       required: true
-                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                      description: 提交者的名称。如果省略该字段，您将收到 422 状态码。
                     email:
                       type: string
                       required: true
-                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                      description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
                     date:
                       type: string
                       required: false
                 author:
                   type: object
                   required: false
-                  description: "The person that committed the file. Default: the authenticated user."
+                  description: 提交作者。默认值：当前认证的用户。
                   properties:
                     name:
                       type: string
                       required: true
-                      description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                      description: 提交作者的名称。如果省略该字段，您将收到 422 状态码。
                     email:
                       type: string
                       required: true
-                      description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                      description: 提交作者的电子邮件。如果省略电子邮件，您将收到422状态码。
                     date:
                       type: string
                       required: false
@@ -2309,45 +2319,62 @@ paths:
                       encoding:
                         type: string
                         required: true
+                        description: "编码类型。默认值：base64"
                       name:
                         type: string
                         required: true
+                        description: "文件名称"
                       path:
                         type: string
                         required: true
+                        description: "文件路径"
                       sha:
                         type: string
                         required: true
+                        description: "对应提交 SHA 值"
                       size:
                         type: integer
                         required: true
+                        description: 文件大小，如果 "type" 是 "dir" 或 "submodule" 则为 0
                       type:
                         type: string
                         required: true
+                        description: "文件类型，枚举值：file, dir, symlink, submodule"
                       entries:
                         type: array
                         required: false
+                        description: |
+                          如果 "type" 是 "dir"，则返回该目录下的文件和子目录。
+                          如果 "type" 是 "file"，则返回空数组。
+                          如果 "type" 是 "symlink"，则返回符号链接的信息。
+                          如果 "type" 是 "submodule"，则返回子模块的信息。
                         items:
                           type: object
                           properties:
                             encoding:
                               type: string
                               required: true
+                              description: "编码类型。默认值：base64"
                             name:
                               type: string
                               required: true
+                              description: "文件名称"
                             path:
                               type: string
                               required: true
+                              description: "文件路径"
                             sha:
                               type: string
                               required: true
+                              description: "对应提交 SHA 值"
                             size:
                               type: integer
                               required: true
+                              description:  文件大小，如果 "type" 是 "dir" 或 "submodule" 则为 0
                             type:
                               type: string
                               required: true
+                              description: "文件类型，枚举值：file, dir, symlink, submodule"
                   commit:
                       type: object
                       properties:
@@ -2370,32 +2397,36 @@ paths:
                         author:
                           type: object
                           required: true
-                          description: "The person that authored the file. Default: the authenticated user."
+                          description: 提交者。默认值：当前认证的用户。
                           properties:
                             name:
                               type: string
                               required: true
-                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                              description: 提交者的名称。如果省略该字段，您将收到 422 状态码。
                             email:
                               type: string
                               required: true
-                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                              description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
                             date:
                                 type: string
                                 required: false
                         message:
                           type: string
                           required: true
+                          description: 提交信息
                         sha:
                           type: string
                           required: true
+                          description: 提交 SHA 值
                         parents:
                           type: array
                           required: true
+                          description: 父提交 SHA 值
                           properties:
                             sha:
                               type: string
                               required: true
+                              description: 父提交 SHA 值
 ############ 变更请求接口（Change Requests API）############
 # 创建变更请求
   /repos/{owner}/{repo}/pulls:
@@ -2412,15 +2443,12 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
-        - name: path
-          in: path
-          description: path parameter.
       requestBody:
         content:
           application/json:
@@ -2430,30 +2458,32 @@ paths:
                 title:
                   type: string
                   required: false
+                  description: 变更请求标题。
                 body:
                   type: string
                   required: false
+                  description: 变更请求描述。
                 head:
                   type: string
                   required: true
-                  description: 格式："[<src_org>|<src_username>]:<src_branch>"， 如果是创建同库的变更请求，也可以只传递 <src_branch> 即可。
+                  description: 来源分支，创建跨库CR时格式为："[<src_org>|<src_username>]:<src_branch>"， 如创建同库的变更请求，只传递 <src_branch> 即可。
                 base:
                   type: string
                   required: true
-                  description: 格式："<dst_branch>"。
+                  description: 目标分支，格式："<dst_branch>"。
                 draft:
                   type: boolean
                   required: false
-                  description: "true to create a draft (work in progress) change request, false to create a published one. Default: false"
+                  description: "true 表示创建草稿（工作中）变更请求，false 表示创建已发布的变更请求。默认值：false"
       responses:
         201:
-          description: Created
+          description: 已创建
         403:
-          description: Forbidden
+          description: 禁止访问
         404:
-          description: Resource not found
+          description: 资源未找到
         409:
-          description: Conflict. There are similar change requests in progress.
+          description: 冲突。还有类似的变更请求正在评审中。
         responseBody:
           content:
             application/json:
@@ -2463,35 +2493,37 @@ paths:
                   id:
                     type: string
                     required: true
-                    description: The change request Business ID.
+                    description: 变更请求的业务ID。
                   number:
                     type: integer
                     required: true
-                    description: The change request number (the local/short ID in repository).
+                    description: 变更请求的编号（仓库内部的短ID）。
                   state:
                     type: string
                     required: true
-                    description: The change request state, "open" or "closed".
+                    description: 变更请求的状态，枚举值：open, closed。
                   title:
                     type: string
                     required: true
-                    description: The change request title.
+                    description: 变更请求标题。
                   body:
                     type: string
                     required: true
-                    description: The change request description.
+                    description: 变更请求描述。
                   created_at:
                     type: string
                     required: true
-                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      变更请求创建时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   updated_at:
                     type: string
                     required: true
-                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      变更请求更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   draft:
                     type: boolean
                     required: true
-                    description: "true if the change request is a draft (work in progress), false if it is published."
+                    description: "true 表示创建草稿（工作中）变更请求，false 表示创建已发布的变更请求。默认值：false"
 # 查询变更请求详情
   /repos/{owner}/{repo}/pulls/{pull_number}:
     get:
@@ -2507,22 +2539,22 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: pull_number
           in: path
-          description: "The change request number (the local/short ID in repository)."
+          description: 变更请求的编号（仓库内部的短ID）。
       responses:
         200:
-          description: OK
+          description: 成功
         403:
-          description: Forbidden
+          description: 已禁止
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -2532,35 +2564,38 @@ paths:
                   id:
                     type: string
                     required: true
-                    description: The change request Business ID.
+                    description: 变更请求的业务ID。
                   number:
                     type: integer
                     required: true
-                    description: The change request number (the local/short ID in repository).
+                    description: 变更请求的编号（仓库内部的短ID）。
                   state:
                     type: string
                     required: true
-                    description: The change request state, "open" or "closed".
+                    description: 变更请求的状态，枚举值：open, closed。
                   title:
                     type: string
                     required: true
-                    description: The change request title.
+                    description: 变更请求标题。
                   body:
                     type: string
                     required: true
-                    description: The change request description.
+                    description: 变更请求描述。
                   created_at:
                     type: string
                     required: true
-                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      变更请求创建时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   updated_at:
                     type: string
                     required: true
-                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      变更请求更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   in_reply_to:
                     type: string
                     required: false
-                    description: The comment business ID that the change request is replying to.
+                    description: |
+                      变更请求回复的评论业务ID。
 # 创建评论
   /repos/{owner}/{repo}/pulls/comments:
     post:
@@ -2576,11 +2611,11 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
       requestBody:
         content:
@@ -2591,25 +2626,29 @@ paths:
                 body:
                   type: string
                   required: false
+                  description: 评论的内容。
                 commit_id:
                   type: string
                   required: true
-                  description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                  description: |
+                    要评论文件的对应提交 SHA值，提交对应的patchset。
                 path:
                   type: string
                   required: false
-                  description: The relative path of the file to comment on(if it is a global comment, value is omitted).
+                  description: |
+                    要评论的文件的相对路径（如果是全局评论，则省略值）。
                 line:
                   type: integer
                   required: false
-                  description: The line index in the diff to comment on(if it is a global comment, value is omitted).
+                  description: |
+                    要评论的文件的相对路径（如果是全局评论，则省略值）。
       responses:
         201:
-          description: Created
+          description: 已创建
         403:
-          description: Forbidden
+          description: 禁止访问
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -2619,39 +2658,45 @@ paths:
                   id:
                     type: string
                     required: true
-                    description: The comment business ID.
+                    description: 评论的业务ID。
                   pull_request_review_id:
                     type: string
                     required: true
-                    description: The change request business ID.
+                    description: |
+                      评论所属的变更请求的业务ID。
                   path:
                     type: string
                     required: false
-                    description: The relative path of the file to comment on.
+                    description: |
+                      评论所属的变更请求的业务ID。
                   commit_id:
                     type: string
                     required: false
-                    description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                    description: |
+                      评论所属的变更请求的业务ID。
                   in_reply_to_id:
                     type: string
                     required: false
-                    description: The comment ID to reply to.
+                    description: |
+                      评论所属的变更请求的业务ID。
                   body:
                     type: string
                     required: true
-                    description: The change request description.
+                    description:  评论的内容。
                   line:
                     type: integer
                     required: false
-                    description: The line index in the diff to comment on.
+                    description: 评论对应文件的行号。
                   created_at:
                     type: string
                     required: true
-                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      创建时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   updated_at:
                     type: string
                     required: true
-                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
 # 创建回复
   /repos/{owner}/{repo}/pulls/comments/{comment_id}/replies:
     post:
@@ -2667,15 +2712,15 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: comment_id
           in: path
-          description: "The comment business ID."
+          description: 评论的业务ID。
           required: true
       requestBody:
         content:
@@ -2686,13 +2731,14 @@ paths:
                 body:
                   type: string
                   required: false
+                  description: 回复的内容。
       responses:
         201:
-          description: Created
+          description: 已创建
         403:
-          description: Forbidden
+          description: 禁止访问
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -2702,39 +2748,43 @@ paths:
                   id:
                     type: string
                     required: true
-                    description: The comment business ID.
+                    description: 回复的业务ID。
                   pull_request_review_id:
                     type: string
                     required: true
-                    description: The change request business ID.
+                    description: |
+                      回复所属的评论的业务ID。
                   path:
                     type: string
                     required: false
-                    description: The relative path of the file to comment on.
+                    description: 评论对应的文件路径
                   commit_id:
                     type: string
                     required: false
-                    description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                    description: 要评论文件的对应提交 SHA 值，提交对应于的patchset。
                   in_reply_to_id:
                     type: string
                     required: false
-                    description: The comment ID to reply to.
+                    description: |
+                      回复所属的评论的业务ID。
                   body:
                     type: string
                     required: true
-                    description: The change request description.
+                    description: 回复的内容。
                   line:
                     type: integer
                     required: false
-                    description: The line index in the diff to comment on.
+                    description: 回复对应文件的行号。
                   created_at:
                     type: string
                     required: true
-                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      创建时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   updated_at:
                     type: string
                     required: true
-                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
 # 查询评论详情
   /repos/{owner}/{repo}/pulls/comments/{comment_id}:
     get:
@@ -2750,22 +2800,22 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: pull_number
           in: path
-          description: "The change request number(the local/short ID in repository)."
+          description: 变更请求的编号（仓库内部的短ID）。
       responses:
         200:
-          description: OK
+          description: 成功
         403:
-          description: Forbidden
+          description: 禁止访问
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -2775,39 +2825,42 @@ paths:
                   id:
                     type: string
                     required: true
-                    description: The comment business ID.
+                    description: 评论的业务ID。
                   pull_request_review_id:
                     type: string
                     required: true
-                    description: The change request business ID.
+                    description: |
+                      评论所属的变更请求的业务ID。
                   path:
                     type: string
                     required: false
-                    description: The relative path of the file to comment on.
+                    description: 评论对应的文件路径
                   commit_id:
                     type: string
                     required: false
-                    description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                    description: 要评论文件的对应提交 SHA 值，提交对应于的patchset。
                   in_reply_to_id:
                     type: string
                     required: false
-                    description: The comment ID to reply to.
+                    description: 回复的评论的业务ID。
                   body:
                     type: string
                     required: true
-                    description: The change request description.
+                    description: 评论的内容。
                   line:
                     type: integer
                     required: false
-                    description: The line index in the diff to comment on.
+                    description: 评论对应文件的行号。
                   created_at:
                     type: string
                     required: true
-                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      创建时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                   updated_at:
                     type: string
                     required: true
-                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    description: |
+                      更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
 # 查询评论列表
   /repos/{owner}/{repo}/pulls/{pull_number}/comments:
     get:
@@ -2823,15 +2876,15 @@ paths:
           required: true
         - name: owner
           in: path
-          description: "The account owner of the repository. The name is not case sensitive."
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
           required: true
         - name: repo
           in: path
-          description: "The name of the repository. The name is not case sensitive."
+          description: 代码仓库名称。该名称不区分大小写。
           required: true
         - name: pull_number
           in: path
-          description: "The change request number(the local/short ID in repository)."
+          description: 变更请求的编号（仓库内部的短ID）。
           required: true
         - name: page
           in: query
@@ -2843,11 +2896,11 @@ paths:
           required: false
       responses:
         200:
-          description: OK
+          description: 成功
         403:
-          description: Forbidden
+          description: 进展访问
         404:
-          description: Resource not found
+          description: 资源未找到
         responseBody:
           content:
             application/json:
@@ -2860,43 +2913,42 @@ paths:
                     id:
                       type: string
                       required: true
-                      description: The comment business ID.
+                      description: 评论的业务ID。
                     pull_request_review_id:
                       type: string
                       required: true
-                      description: The change request business ID.
+                      description: |
+                        评论所属的变更请求的业务ID。
                     path:
                       type: string
                       required: false
-                      description: The relative path of the file to comment on.
+                      description: 评论对应的文件路径
                     commit_id:
                       type: string
                       required: false
-                      description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                      description: 要评论文件的对应提交 SHA 值，提交对应于的patchset。
                     in_reply_to_id:
                       type: string
                       required: false
-                      description: The comment ID to reply to.
+                      description: 回复的评论的业务ID。
                     body:
                       type: string
                       required: true
-                      description: The change request description.
+                      description: 评论的内容。
                     line:
                       type: integer
                       required: false
-                      description: The line index in the diff to comment on.
+                      description: 评论对应文件的行号。
                     created_at:
                       type: string
                       required: true
-                      description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                      description: |
+                        创建时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
                     updated_at:
                       type: string
                       required: true
-                      description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
-                    draft:
-                      type: boolean
-                      required: true
-                      description: "true if the change request is a draft (work in progress), false if it is published."
+                      description: |
+                        更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
 components:
   schemas:
     ApiResponse:
