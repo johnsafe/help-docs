@@ -111,9 +111,12 @@ tags:
   - name: repository contents
     description: Operations about repository contents
     x-displayName: 仓库文本相关
+  - name: change requests
+    description: Operations about change requests
+    x-displayName: 变更请求相关
   - name: check-runs
     description: Operations about check-runs
-    x-displayName: 评审三方检测相关
+    x-displayName: 变更请求-自动化检查相关
 x-tagGroups:
   - name: User Management
     tags:
@@ -139,6 +142,9 @@ x-tagGroups:
   - name: check-runs
     tags:
       - check-runs
+  - name: change requests
+    tags:
+      - change requests
 paths:
   # 获取用户个人信息
   /user/info:
@@ -1043,7 +1049,7 @@ paths:
               properties:
                 role:
                   description: 设定用户的角色:maintainer、developer、guest。
-                  type: string
+                  type: string 
   ############ 分支接口（Branches API）############
   # 获取分支信息
   /repos/{owner}/{repo}/branches/{branch}:
@@ -2390,6 +2396,507 @@ paths:
                             sha:
                               type: string
                               required: true
+############ 变更请求接口（Change Requests API）############
+# 创建变更请求
+  /repos/{owner}/{repo}/pulls:
+    post:
+      tags:
+        - change requests
+      summary: 创建变更请求
+      description: 创建变更请求
+      operationId: CreateChangeRequest
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: path
+          in: path
+          description: path parameter.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                title:
+                  type: string
+                  required: false
+                body:
+                  type: string
+                  required: false
+                head:
+                  type: string
+                  required: true
+                  description: 格式："[<src_org>|<src_username>]:<src_branch>"， 如果是创建同库的变更请求，也可以只传递 <src_branch> 即可。
+                base:
+                  type: string
+                  required: true
+                  description: 格式："<dst_branch>"。
+                draft:
+                  type: boolean
+                  required: false
+                  description: "true to create a draft (work in progress) change request, false to create a published one. Default: false"
+      responses:
+        201:
+          description: Created
+        403:
+          description: Forbidden
+        404:
+          description: Resource not found
+        409:
+          description: Conflict. There are similar change requests in progress.
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The change request Business ID.
+                  number:
+                    type: integer
+                    required: true
+                    description: The change request number (the local/short ID in repository).
+                  state:
+                    type: string
+                    required: true
+                    description: The change request state, "open" or "closed".
+                  title:
+                    type: string
+                    required: true
+                    description: The change request title.
+                  body:
+                    type: string
+                    required: true
+                    description: The change request description.
+                  created_at:
+                    type: string
+                    required: true
+                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  updated_at:
+                    type: string
+                    required: true
+                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  draft:
+                    type: boolean
+                    required: true
+                    description: "true if the change request is a draft (work in progress), false if it is published."
+# 查询变更请求详情
+  /repos/{owner}/{repo}/pulls/{pull_number}:
+    get:
+      tags:
+        - change requests
+      summary: 查询变更请求详情
+      description: 创建变更请求详情
+      operationId: GetChangeRequest
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: pull_number
+          in: path
+          description: "The change request number (the local/short ID in repository)."
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The change request Business ID.
+                  number:
+                    type: integer
+                    required: true
+                    description: The change request number (the local/short ID in repository).
+                  state:
+                    type: string
+                    required: true
+                    description: The change request state, "open" or "closed".
+                  title:
+                    type: string
+                    required: true
+                    description: The change request title.
+                  body:
+                    type: string
+                    required: true
+                    description: The change request description.
+                  created_at:
+                    type: string
+                    required: true
+                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  updated_at:
+                    type: string
+                    required: true
+                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  in_reply_to:
+                    type: string
+                    required: false
+                    description: The comment business ID that the change request is replying to.
+# 创建评论
+  /repos/{owner}/{repo}/pulls/comments:
+    post:
+      tags:
+        - change requests
+      summary: 创建评论
+      description: 创建评论
+      operationId: CreateChangeRequestComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: false
+                commit_id:
+                  type: string
+                  required: true
+                  description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                path:
+                  type: string
+                  required: false
+                  description: The relative path of the file to comment on(if it is a global comment, value is omitted).
+                line:
+                  type: integer
+                  required: false
+                  description: The line index in the diff to comment on(if it is a global comment, value is omitted).
+      responses:
+        201:
+          description: Created
+        403:
+          description: Forbidden
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The comment business ID.
+                  pull_request_review_id:
+                    type: string
+                    required: true
+                    description: The change request business ID.
+                  path:
+                    type: string
+                    required: false
+                    description: The relative path of the file to comment on.
+                  commit_id:
+                    type: string
+                    required: false
+                    description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                  in_reply_to_id:
+                    type: string
+                    required: false
+                    description: The comment ID to reply to.
+                  body:
+                    type: string
+                    required: true
+                    description: The change request description.
+                  line:
+                    type: integer
+                    required: false
+                    description: The line index in the diff to comment on.
+                  created_at:
+                    type: string
+                    required: true
+                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  updated_at:
+                    type: string
+                    required: true
+                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+# 创建回复
+  /repos/{owner}/{repo}/pulls/comments/{comment_id}/replies:
+    post:
+      tags:
+        - change requests
+      summary: 创建回复
+      description: 创建回复
+      operationId: CreateChangeRequestReply
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: comment_id
+          in: path
+          description: "The comment business ID."
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: false
+      responses:
+        201:
+          description: Created
+        403:
+          description: Forbidden
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The comment business ID.
+                  pull_request_review_id:
+                    type: string
+                    required: true
+                    description: The change request business ID.
+                  path:
+                    type: string
+                    required: false
+                    description: The relative path of the file to comment on.
+                  commit_id:
+                    type: string
+                    required: false
+                    description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                  in_reply_to_id:
+                    type: string
+                    required: false
+                    description: The comment ID to reply to.
+                  body:
+                    type: string
+                    required: true
+                    description: The change request description.
+                  line:
+                    type: integer
+                    required: false
+                    description: The line index in the diff to comment on.
+                  created_at:
+                    type: string
+                    required: true
+                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  updated_at:
+                    type: string
+                    required: true
+                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+# 查询评论详情
+  /repos/{owner}/{repo}/pulls/comments/{comment_id}:
+    get:
+      tags:
+        - change requests
+      summary: 查询变更请求评论
+      description: 查询变更请求评论
+      operationId: GetChangeRequestComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: pull_number
+          in: path
+          description: "The change request number(the local/short ID in repository)."
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The comment business ID.
+                  pull_request_review_id:
+                    type: string
+                    required: true
+                    description: The change request business ID.
+                  path:
+                    type: string
+                    required: false
+                    description: The relative path of the file to comment on.
+                  commit_id:
+                    type: string
+                    required: false
+                    description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                  in_reply_to_id:
+                    type: string
+                    required: false
+                    description: The comment ID to reply to.
+                  body:
+                    type: string
+                    required: true
+                    description: The change request description.
+                  line:
+                    type: integer
+                    required: false
+                    description: The line index in the diff to comment on.
+                  created_at:
+                    type: string
+                    required: true
+                    description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                  updated_at:
+                    type: string
+                    required: true
+                    description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+# 查询评论列表
+  /repos/{owner}/{repo}/pulls/{pull_number}/comments:
+    get:
+      tags:
+        - change requests
+      summary: 查询评论列表
+      description: 查询评论列表
+      operationId: GetChangeRequesCommentList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: pull_number
+          in: path
+          description: "The change request number(the local/short ID in repository)."
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                required: true
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      required: true
+                      description: The comment business ID.
+                    pull_request_review_id:
+                      type: string
+                      required: true
+                      description: The change request business ID.
+                    path:
+                      type: string
+                      required: false
+                      description: The relative path of the file to comment on.
+                    commit_id:
+                      type: string
+                      required: false
+                      description: The SHA of the commit(corresponds to the associated patch) to comment on.
+                    in_reply_to_id:
+                      type: string
+                      required: false
+                      description: The comment ID to reply to.
+                    body:
+                      type: string
+                      required: true
+                      description: The change request description.
+                    line:
+                      type: integer
+                      required: false
+                      description: The line index in the diff to comment on.
+                    created_at:
+                      type: string
+                      required: true
+                      description: "The change request created time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    updated_at:
+                      type: string
+                      required: true
+                      description: "The change request updated time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+                    draft:
+                      type: boolean
+                      required: true
+                      description: "true if the change request is a draft (work in progress), false if it is published."
 components:
   schemas:
     ApiResponse:
