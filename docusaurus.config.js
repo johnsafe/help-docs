@@ -243,7 +243,7 @@ const config = {
               },
               {
                 label: 'API',
-                to: '/api/',
+                to: '/category/api',
               },
               {
                 label: 'OAuth2',
