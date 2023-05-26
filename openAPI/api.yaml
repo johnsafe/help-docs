@@ -76,7 +76,7 @@ info:
     > x-ratelimit-remaining: 0
     > x-ratelimit-used: 60
     > x-ratelimit-reset: 1377013266
-    
+
     > {
     >    "message": "API rate limit exceeded for xxx.xxx.xxx.xxx. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.) , documentation_url": "https://docs.atomgit.com"
     > }
@@ -878,6 +878,10 @@ paths:
       description: 列出组织成员的所有用户
       operationId: orgMembers
       parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
         - name: org
           in: path
           description: 组织命名空间
@@ -1049,7 +1053,7 @@ paths:
               properties:
                 role:
                   description: 设定用户的角色:maintainer、developer、guest。
-                  type: string 
+                  type: string
   ############ 分支接口（Branches API）############
   # 获取分支信息
   /repos/{owner}/{repo}/branches/{branch}:
@@ -1916,7 +1920,7 @@ paths:
                         type: string
                         required: true
                         description: Atomgit App 的名称
-                      description: 
+                      description:
                         type: string
                         required: true
   # # 获取仓库content
