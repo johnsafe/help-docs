@@ -879,9 +879,9 @@ paths:
       operationId: orgMembers
       parameters:
         - name: Authorization
-            in: header
-            description: Oauth2 token或者私人token（需以Bearer加空格开头）
-            required: true
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
         - name: org
           in: path
           description: 组织命名空间
