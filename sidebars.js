@@ -57,6 +57,7 @@ const sidebars = {
         'repo/files',
         'repo/branch',
         'repo/tag',
+        'repo/release',
         {
           type: 'category',
           label: '提交',
@@ -109,6 +110,19 @@ const sidebars = {
             'webhooks',
           ],
         },
+        {
+            type: 'category',
+            label: '研发模式',
+            link: {
+                type: 'generated-index',
+                title: '研发模式',
+                slug: 'git-pr-mode',
+                keywords: ['git-pr-mode'],
+            },
+            items: [
+                'repo/git-pr-mode',
+            ],
+        },
       ],
     },
     {
@@ -130,6 +144,23 @@ const sidebars = {
         'org/cla',
       ],
     },
+      {
+          type: 'category',
+          label: '应用',
+          link: {
+              type: 'generated-index',
+              title: '应用',
+              slug: 'app',
+              description:
+              "应用开发以及开放市场",
+              keywords: ['app'],
+          },
+          items: [
+              'app/app-create',
+              'app/app-market',
+              'app/app-demo',
+          ],
+      },
     {
       type: 'category',
       label: '用户协议',
