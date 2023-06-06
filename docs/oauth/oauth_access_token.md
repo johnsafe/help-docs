@@ -24,7 +24,7 @@ https://atomgit.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect
 
 C. AtomGit认证服务器通过回调地址{redirect_uri}将 用户授权码 传递给 应用服务器 或者直接在 Webview 中跳转到携带 用户授权码的回调地址上，Webview 直接获取code即可（{redirect_uri}?code=abc&state=xyz)
 
-D. 应用服务器 或 Webview 使用 access_token API 向 AtomGit认证服务器发送post请求传入 用户授权码 以及 回调地址（ **POST请求** ）**注：请求过程建议将 client_secret 放在 Body 中传值，以保证数据安全。**
+D. 应用服务器 或 Webview 使用 access_token API 向 AtomGit认证服务器发送post请求传入 用户授权码 以及 回调地址（ **POST请求** ）
 
 ```
 https://atomgit.com/oauth/token?grant_type=authorization_code&code={code}&client_id={client_id}&redirect_uri={redirect_uri}&client_secret={client_secret}
