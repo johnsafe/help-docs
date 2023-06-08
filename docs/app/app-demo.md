@@ -1,3 +1,14 @@
+---
+id: app-create # 唯一ID
+slug: /app/create # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
+sidebar_label: 开发应用 # 在sidebar 中的名称
+title: 开发应用 # 页面标题
+tags:
+  - app
+  - 开发应用
+hide_title: false
+---
+
 <a name="chtqL"></a>
 # 1.应用安装
 应用创建完成后，可引导用户对应用进行安装，若应用未上架至应用市场，可引导用户至平台提供的统一安装链接进行应用安装，若应用已发布至应用市场，则可让用户在应用市场进行自助安装。
