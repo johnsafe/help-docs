@@ -119,10 +119,10 @@ tags:
     x-displayName: 变更请求-自动化检查相关
   - name: issues
     description: Operations about issue
-    x-displayName: issues
+    x-displayName: Issues
   - name: issues comment
     description: Operations about issue comment
-    x-displayName: issues comment
+    x-displayName: Issues comment
 x-tagGroups:
   - name: User Management
     tags:
@@ -3537,6 +3537,243 @@ paths:
               schema:
                 $ref: "#/components/schemas/Issue"
   ###### issue comment ######
+  /repos/{owner}/{repo}/issues/{issue_number}/comments:
+    get:
+      tags:
+        - issues comment
+      summary: 指定 issue 评论列表
+      description: 指定 issue 评论列表
+      operationId: GetIssueCommentsList
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: issue_number
+          in: path
+          description: issue序号
+          required: true
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+    post:
+      tags:
+        - issues comment
+      summary: 创建issue Comment
+      description: 创建issue Comment
+      operationId: CreateIssueComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: issue_number
+          in: path
+          description: issue序号
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: true
+                  description: 评论内容
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+  /repos/{owner}/{repo}/issues/comments/{comment_id}:
+    get:
+      tags:
+        - issues comment
+      summary: 指定评论详情
+      description: 指定评论详情
+      operationId: GetIssueCommentInfo
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: comment_id
+          in: path
+          description: CommentId
+          required: true
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Comment"
+    patch:
+      tags:
+        - issues comment
+      summary: 修改issue Comment
+      description: 修改issue Comment（仅支持删除自己的评论）
+      operationId: UpdateIssueComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: issue_number
+          in: path
+          description: issue序号
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: true
+                  description: 评论内容
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+    delete:
+      tags:
+        - issues comment
+      summary: 删除issue Comment
+      description: 删除issue Comment（仅支持删除自己的评论）
+      operationId: DeleteIssueComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: issue_number
+          in: path
+          description: issue序号
+          required: true
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        204:
+          description: 操作成功
 components:
   schemas:
     ApiResponse:
@@ -4326,15 +4563,49 @@ components:
           example: https://atomgit.com/test/public01/issues/1
         closed_at:
           type: string
-          description: 关闭日期
+          description: 关闭时间
           example: 2023-07-04T17:03:05+08:00
         created_at:
           type: string
-          description: 关闭日期
+          description: 创建时间
           example: 2023-07-04T17:03:05+08:00
         updated_at:
           type: string
-          description: 关闭日期
+          description: 更新时间
+          example: 2023-07-04T17:03:05+08:00
+    Comment:
+      type: object
+      properties:
+        id:
+          description: id
+          type: string
+          example: 64a2791c36ca86246aed3612
+        url:
+          description: url
+          type: string
+          example: https://api.atomgit.com/repos/test/public01/issues/comments/64a6742ece72b305b44bb8f1
+        body:
+          description: Comment content
+          type: string
+          example: issue Comment content
+        user:
+          type: object
+          $ref: "#/components/schemas/IssueUser"
+        issue_url:
+          type: string
+          description: issue地址
+          example: https://api.atomgit.com/repos/test/public01/issue/1
+        html_url:
+          type: string
+          description: issue Comment web 地址
+          example: https://atomgit.com/test/public01/issues/1#issuecomment-64a6742ece72b305b44bb8f1
+        created_at:
+          type: string
+          description: 创建时间
+          example: 2023-07-04T17:03:05+08:00
+        updated_at:
+          type: string
+          description: 修改时间
           example: 2023-07-04T17:03:05+08:00
     IssueUser:
       type: object
