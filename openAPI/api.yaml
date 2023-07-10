@@ -3130,7 +3130,7 @@ paths:
                 body:
                   type: string
                   required: true
-                  description: issue 内容
+                  description: issue 内容（使用MD格式编写内容）
       responses:
         401:
           description: 'token不合法、请检查token是否正确'
@@ -3235,7 +3235,7 @@ paths:
                 body:
                   type: string
                   required: false
-                  description: issue 内容
+                  description: issue 内容（使用MD格式编写内容）
                 state:
                   type: string
                   required: true
@@ -3617,7 +3617,7 @@ paths:
                 body:
                   type: string
                   required: true
-                  description: 评论内容
+                  description: 评论内容（使用MD格式编写内容）
       responses:
         401:
           description: 'token不合法、请检查token是否正确'
@@ -3688,7 +3688,7 @@ paths:
       tags:
         - issues comment
       summary: 修改issue Comment
-      description: 修改issue Comment（仅支持删除自己的评论）
+      description: 修改issue Comment（仅支持修改自己的评论）
       operationId: UpdateIssueComment
       parameters:
         - name: Authorization
@@ -3716,7 +3716,7 @@ paths:
                 body:
                   type: string
                   required: true
-                  description: 评论内容
+                  description: 评论内容（使用MD格式编写内容）
       responses:
         401:
           description: 'token不合法、请检查token是否正确'
@@ -4540,7 +4540,7 @@ components:
           type: string
           example: test title
         body:
-          description: issue 正文
+          description: issue 正文（使用MD格式编写内容）
           type: string
           example: issue content
         user:
@@ -4585,7 +4585,7 @@ components:
           type: string
           example: https://api.atomgit.com/repos/test/public01/issues/comments/64a6742ece72b305b44bb8f1
         body:
-          description: Comment content
+          description: Comment content（使用MD格式编写内容）
           type: string
           example: issue Comment content
         user:
