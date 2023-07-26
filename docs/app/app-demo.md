@@ -1,6 +1,6 @@
 ---
-id: app-create # 唯一ID
-slug: /app/create # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
+id: app-demo # 唯一ID
+slug: /app/demo # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
 sidebar_label: 开发应用 # 在sidebar 中的名称
 title: 开发应用 # 页面标题
 tags:
