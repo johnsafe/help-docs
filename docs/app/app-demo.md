@@ -47,7 +47,7 @@ curl --request GET \
 --url "https://api.atomgit.com/app/installations" \
 --header "Authorization: Bearer YOUR_JWT"
 ```
-	返回内容样例如下:
+	返回内容样例如下
 ```json
 "[{"access_tokens_url":"https://api.atomgit.com/app/installations/14/access_tokens","account":{"id":10912,"org_name":"yanqianyu","organization_id":"62c3ea551b506da49a835225","path":"yanqianyu"},"app_id":75,"app_slug":"car-dove-marketplace-test","created_at":"2023-04-26T14:18:39+08:00","events":["push"],"id":14,"permissions":{"emails":"write","checks":"write","contents":"write","keys":"write","statuses":"write"},"repository_selection":"ALL","target_id":"62c3ea551b506da49a835225","updated_at":"2023-04-26T16:12:05+08:00"},{"access_tokens_url":"https://api.atomgit.com/app/installations/18/access_tokens","account":{"id":13618,"org_name":"hanshuorg2","organization_id":"6311ec658cfdd5a134b25fd3","path":"hanshuorg2"},"app_id":75,"app_slug":"car-dove-marketplace-test","created_at":"2023-04-27T16:42:50+08:00","events":["{\"code\":\"push\"","\"desc\":\"push event\"}"],"id":18,"permissions":{"emails":"write","checks":"write","contents":"write","keys":"write","statuses":"write"},"repository_selection":"ALL","target_id":"6311ec658cfdd5a134b25fd3","updated_at":"2023-04-27T16:42:50+08:00"}]"
 ```
