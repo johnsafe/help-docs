@@ -1,10 +1,10 @@
 ---
-id: git-pr # 唯一ID
-slug: /repo/pr # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
+id: git-pr-mode # 唯一ID
+slug: /repo/git-pr-mode # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
 sidebar_label: 推送评审模式 # 在sidebar 中的名称
 title: 推送评审模式 # 页面标题
 tags:
-  - git push
+  - git push`
   - 推送评审模式
 hide_title: false
 ---
@@ -233,7 +233,7 @@ error: 无法推送一些引用到 'https://xxx.com/demo.git'
 给出的提示信息中显示，存在指向同一目标分支的两个评审，ID分别为31626以及31620，因此无法判断想要更新的是哪一个评审。此时有两种解决方式：
 
 * 使用 -o review=new，创建一个新的代码评审。
-* 使用 -o review=<MR-ID>，显式的给出想要更新的评审的ID。
+* 使用 -o review={MR-ID}，显式的给出想要更新的评审的ID。
 
 第一种方式在创建新的评审一节中已经演示过了，我们来看如何更新指定的评审。
 
@@ -283,7 +283,7 @@ error: 无法推送一些引用到 'https://xxx/demo.git'
 
 先来看第一种方式。拉取更新在本地解决后再更新评审。
 
-首先，我们需要执行 `git fetch origin refs/change-requests/<mr-id>/head`，这里mr-id为31644，所以我们需要执行的命令是：`git fetch origin refs/change-requests/31644/head`
+首先，我们需要执行 `git fetch origin refs/change-requests/{mr-id}/head`，这里mr-id为31644，所以我们需要执行的命令是：`git fetch origin refs/change-requests/31644/head`
 ```
 $ git fetch origin refs/change-requests/31644/head
 来自 https://xxx.com/demo
@@ -324,7 +324,7 @@ To https://xxx.com/demo.git
 另一个是代码评审的源版本。在代码评审的详情页可获得。这里对应的源版本即为8da076fb。
 ![](./img/69.jpg)
 
-然后，可以执行` git push -o review=<mr-id> -o old-oid=<old-oid>`，对应这个例子，命令为`git push -o review=31644 -o old-oid=8da076fb`。
+然后，可以执行` git push -o review={mr-id} -o old-oid={old-oid}`，对应这个例子，命令为`git push -o review=31644 -o old-oid=8da076fb`。
 
 这样，就将31644这个评审刷新成了本地的版本。这个过程中，其他用户的修改会被覆盖，所以只有在明确的想要强制刷新版本时，再执行这个命令，以免丢失其他用户的修改。
 ```
