@@ -15,7 +15,7 @@ https://atomgit.com/login/oauth/authorize?client_id=xxxxxxx&state=state_test&red
 ```
 
 B. 用户对应用进行授权（注：如果用户未登录，则会先跳转到登录页，登录完成后跳转到授权页面）
-![用户授权中间页](./img/user-authorize.png) 
+![用户授权中间页](./img/new_auth_app.png) 
 
 C. AtomGit认证服务器通过回调地址{redirect_uri}将 用户授权码 传递给 应用服务器 或者直接在 Webview 中跳转到携带 用户授权码的回调地址上，Webview 直接获取code即可（{redirect_uri}?code=abc&state=xyz)
 
