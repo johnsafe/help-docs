@@ -6,6 +6,7 @@ title: 变更请求 # 页面标题
 tags:
   - pr
   - pullrequest
+  - changerequest
   - 变更请求
 hide_title: false
 ---

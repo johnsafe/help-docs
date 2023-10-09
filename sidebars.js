@@ -92,7 +92,7 @@ const sidebars = {
           ],
         },
         'user/repo-members',
-        'permission',
+        'repo/permission',
         {
           type: 'category',
           label: '代码库设置',
@@ -107,7 +107,7 @@ const sidebars = {
             'repo/pr-config',
             'repo/br-config',
             'repo/push-rules',
-            'webhooks',
+            'repo/webhooks',
           ],
         },
         {
