@@ -6,7 +6,6 @@ title: 大文件存储 # 页面标题
 tags:
   - repo
   - 大文件存储
-  - lfs
 hide_title: false
 ---
 
