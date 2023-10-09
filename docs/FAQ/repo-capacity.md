@@ -142,7 +142,6 @@ git push -u origin refs/tags/*:refs/tags/* -f
 2. 找到评审产生的特殊引用，示意如下：
 
 * Case1：本地创建评审信息尚在，在本地客户端直接获取特殊引用
-![](./img/01.jpg)
 
 如上图：命令行创建时反馈信息中，最后一行->右边的引用，就是评审产生的特殊引用：refs/merge-requests/1367177/head
 
@@ -152,11 +151,7 @@ git push -u origin refs/tags/*:refs/tags/* -f
 
 此外，还需要获取评审暂存引用：
 
-![](./img/02.jpg)
-
 点击评审源的 commit ID，如上图的63492734。在commit详情页面点击复制 commit ID，如下图：
-
-![](./img/03.jpg)
 
 在这里是：6349273477adaa3b9d18fea9033fe01f26656a1d，那么评审的暂存引用为：refs/keep-around/6349273477adaa3b9d18fea9033fe01f26656a1d
 
@@ -169,5 +164,3 @@ git push oriign :refs/keep-around/6349273477adaa3b9d18fea9033fe01f26656a1d
 ```
 
 4. 在仓库设置页面的存储空间管理-存储库GC，选择“立即清理”，清理策略请选择“立即删除”
-
-![](./img/04.jpg)
