@@ -20,11 +20,11 @@ hide_title: true
     - 所需权限范围中选择OAuth应用所需权限，正常OAuth登录场景可选用户相关权限
 1. 单击【新建应用】按钮
 
-![新建应用](./img/create-oauth-app.png)
+![新建应用](./img/new_create_app.png)
 
 
 创建完成后，可在应用详情->应用信息中查看应用程序 ID（Client ID） 以及点击新建客户端密钥获取应用程序密钥（Secret ID）
 
 请妥善保管你的**【应用程序秘钥】**，该秘钥仅在创建成功后显示一次，离开当前页面后，将不再展示
 
-![应用详情](./img/app-detail.png)
+![应用详情](./img/new_app_detail.png)
