@@ -46,3 +46,7 @@ $ yarn build
 ## API 文档
 
 API 使用文档找到了一个 `docusaurus` 的插件项目，可参考： <https://gitcode.net/mirrors/PaloAltoNetworks/docusaurus-openapi-docs>
+
+### 备注
+
+该文档修改需要经过代码评审
