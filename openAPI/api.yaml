@@ -2,7 +2,7 @@ openapi: 3.0.0
 servers:
   - url: https://api.atomgit.com
     description: prod
-  - url: https://api.atomgit.com
+  - url: https://test-api.atomgit.com
     description: test
 info:
   description: |
@@ -123,6 +123,15 @@ tags:
   - name: issues comment
     description: Operations about issue comment
     x-displayName: Issues comment
+  - name: activity
+    description: Operations about activity
+    x-displayName: 动态通知相关
+  - name: labels
+    description: Operations about labels
+    x-displayName: 标签相关
+  - name: milestones
+    description: Operations about milestones
+    x-displayName: 里程碑相关
 x-tagGroups:
   - name: User Management
     tags:
@@ -157,6 +166,15 @@ x-tagGroups:
   - name: issues comment
     tags:
       - issues comment
+  - name: activity
+    tags:
+      - activity
+  - name: labels
+    tags:
+      - labels
+  - name: milestones
+    tags:
+      - milestones
 paths:
   # 获取用户个人信息
   /user/info:
@@ -678,7 +696,6 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: 操作成功
-
   /organizations:
     get:
       tags:
@@ -1066,6 +1083,38 @@ paths:
                 role:
                   description: 设定用户的角色:maintainer、developer、guest。
                   type: string
+  /orgs/{org}/getFollowers:
+    get:
+      tags:
+        - org
+      summary: 获取指定组织的所有关注者
+      description: 获取指定组织的所有关注者
+      operationId: GetOrgFollowers
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/AuthenticatedUserListVO"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
   ############ 分支接口（Branches API）############
   # 获取分支信息
   /repos/{owner}/{repo}/branches/{branch}:
@@ -3774,6 +3823,317 @@ paths:
                 $ref: "#/components/schemas/Forbidden"
         204:
           description: 操作成功
+
+###### 动态######
+  # 用户的动态
+  /user/{username}/events:
+    get:
+      tags:
+        - activity
+      summary: 用户的动态
+      description: 用户的动态
+      operationId: userEventsList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: username
+          in: path
+          description: "指定用户名"
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventsVo"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventsVo"
+
+  # 用户收到的动态
+  /user/{username}/received_event:
+    get:
+      tags:
+        - activity
+      summary: 用户收到的动态
+      description: 用户收到的动态
+      operationId: userReceivedEventsList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: username
+          in: path
+          description: "指定用户名"
+          required: true
+        - name: page
+          in: query
+          description: "页码(默认为1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "页面大小(默认 30,最大 100)"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventsVo"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventsVo"
+  ###### 标签 ######
+  # 根据标签名获取单个标签
+  /repos/{owner}/{repo}/labels/{name}:
+    get:
+      tags:
+        - labels
+      summary: 根据标签名获取单个标签
+      description: 根据标签名获取单个标签
+      operationId: getSingleLabelByName
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "仓库所属空间地址(企业、组织或个人的地址path)"
+          required: true
+        - name: repo
+          in: path
+          description: "仓库路径(path)"
+          required: true
+        - name: name
+          in: path
+          description: "标签名称"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+  # 获取仓库任务的所有标签
+  /repos/{owner}/{repo}/issues/{issue_number}/labels:
+    get:
+      tags:
+        - labels
+      summary: 获取仓库任务的所有标签
+      description: 获取仓库任务的所有标签
+      operationId: getAllLabels
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "仓库所属空间地址(企业、组织或个人的地址path)"
+          required: true
+        - name: repo
+          in: path
+          description: "仓库路径(path)"
+          required: true
+        - name: issue_number
+          in: path
+          description: "issue序列号"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+
+  ###### 里程碑 ######
+  # 获取仓库单个里程碑
+  /repos/{owner}/{repo}/milestones/{milestone_number}:
+    get:
+      tags:
+        - milestones
+      summary: 获取仓库单个里程碑
+      description: 获取仓库单个里程碑
+      operationId: getSingleMilestones
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "仓库所属空间地址(企业、组织或个人的地址path)"
+          required: true
+        - name: repo
+          in: path
+          description: "仓库路径(path)"
+          required: true
+        - name: milestone_number
+          in: path
+          description: "里程碑(id)"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
+
+  # 获取仓库所有里程碑
+  /repos/{owner}/{repo}/milestones:
+    get:
+      tags:
+        - milestones
+      summary: 获取仓库所有里程碑
+      description: 获取仓库单个里程碑
+      operationId: getRepoAllMilestones
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "仓库所属空间地址(企业、组织或个人的地址path)"
+          required: true
+        - name: repo
+          in: path
+          description: "仓库路径(path)"
+          required: true
+        - name: state
+          in: query
+          description: "里程碑状态: open, closed, all。默认: open"
+          required: false
+        - name: sort
+          in: query
+          description: "排序方式: due_on"
+          required: false
+        - name: direction
+          in: query
+          description: "升序(asc)或是降序(desc)。默认: asc"
+          required: false
+        - name: page
+          in: query
+          description: "当前的页码"
+          required: false
+        - name: per_page
+          in: query
+          description: "每页的数量，最大为 100 默认为30"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
 components:
   schemas:
     ApiResponse:
@@ -4634,6 +4994,244 @@ components:
           type: string
           description: 用户类型 User | Bot
           example: User
+    EventsVo:
+      type: object
+      properties:
+        objectKind:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
+        orgId:
+          type: string
+          description: 组织ID
+          example: 62c791bede9059222516aa8f
+        title:
+          type: string
+          description: 事件标题
+          example: 标题
+        repositoryId:
+          type: integer
+          description: 代码库ID
+          example: 44211
+        action:
+          type: integer
+          description: 件类型对应的枚举数字：推送提交=5,创建变更请求=1,Review变更请求=7,合并代码=13,新建代码库=11,创建组织=20,创建issue=21
+          example: 20
+        userId:
+          type: string
+          description: 用户ID
+          example: User
+        data:
+          type: map
+          description: 具体的Event信息对象,EventDataIssue or EventDataOrg
+          example:
+        createdAt:
+          type: date
+          description: 创建时间
+          example: 2023-01-23T02:22:41xxx
+        user:
+          type: object
+          description: 用户信息
+          $ref: "#/components/schemas/EventsUser"
+        project:
+          type: object
+          description: 项目信息
+          $ref: "#/components/schemas/EventsProject"
+    EventsUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
+        name:
+          type: string
+          description: 用户昵称
+          example: lzs
+        state:
+          type: string
+          description: 类型
+          example: active
+        username:
+          type: string
+          description: 用户名
+          example: lzs
+        web_url:
+          type: string
+          description: web地址
+          example: https://xxx.com
+        email:
+          type: string
+          description: 用户邮箱
+          example: admin@csdn.net
+        avatar_url:
+          type: string
+          description: 头像地址
+          example: https://xxx.com/uploads/user/1657265547983_3769.png
+    EventsProject:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 代码库Id
+          example: 62c791bede9059102516aa8f
+        name:
+          type: string
+          description: 代码库名称
+          example: lzs
+        path:
+          type: string
+          description: 代码库路径
+          example:
+        name_with_namespace:
+          type: string
+          description: 代码库完整名称
+          example:
+        path_with_namespace:
+          type: string
+          description: 代码库完整路径
+          example:
+        web_url:
+          type: string
+          description: 页面访问时的URL
+          example: admin@csdn.net
+        description:
+          type: string
+          description: 代码库描述
+          example:
+        last_activity_at:
+          type: string
+          description: 最后活跃时间
+          example:
+        visibility_level:
+          type: string
+          description: 可见性 0-私有 20-公开
+          example: 20
+        star_count:
+          type: integer
+          description: 收藏数量
+          example: 30
+        fork_count:
+          type: integer
+          description: 派生数
+          example: 10
+        stared:
+          type: boolean
+          description: 用户是否收藏了该仓库
+          example: true
+    LabelVo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: 标签ID
+          example: 650a953fe25d89750163a67d
+        labelName:
+          type: string
+          description: 标签名称
+          example: bug
+        labelColor:
+          type: string
+          description: 标签颜色
+          example: #ff8a65
+        labelDesc:
+          type: string
+          description: 标签描述
+          example: fff
+        sourceType:
+          type: string
+          description: 来源类型 -1-系统标签 1-组织 2-仓库
+          example: 2
+        sourceId:
+          type: string
+          description: 组织id/仓库id
+          example: 35083
+        sourcePath:
+          type: string
+          description: 组织/仓库的命名空间
+          example: dasds/sdasdgggg
+        rootNs:
+          type: string
+          description: 根命名空间（组织NS or 项目所属NS）
+          example: dasds
+        createdBy:
+          type: string
+          description: 创建者
+          example: 6502c09341d619ced5658392
+        lastModifiedBy:
+          type: string
+          description: 更新者
+          example: 6502c09341d619ced5658392
+        createdDate:
+          type: date
+          description: 创建时间
+          example: 2023-09-20T06:46:24.000+00:00
+        lastModifiedDate:
+          type: date
+          description: 更新时间
+          example: 2023-09-20T06:46:24.000+00:00
+    MilepostVo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: 里程碑ID
+          example: 650a953fe25d89750163a67d
+        goalName:
+          type: string
+          description: 里程碑名称
+          example: ggg
+        goalDesc:
+          type: string
+          description: 里程碑描述
+          example: ggg
+        goalStatus:
+          type: integer
+          description: 状态 1-已开启 2-已关闭
+          example: 1
+        projectId:
+          type: integer
+          description: 所属项目ID（仓库ID）
+          example: 35083
+        deadline:
+          type: date
+          description: 截止日期
+          example: 2023-09-29T08:00:00+08:00
+        createdBy:
+          type: string
+          description: 创建人
+          example: 6502c09341d619ced5658392
+        createdDate:
+          type: date
+          description: 创建时间
+          example: 2023-09-20T14:46:51+08:00
+        lastModifiedDate:
+          type: date
+          description: 更新时间
+          example: 2023-09-20T14:46:51+08:00
+        stat:
+          type: object
+          description: 统计
+          $ref: "#/components/schemas/MilepostIssueSumVo"
+    MilepostIssueSumVo:
+      type: object
+      properties:
+        issueTotal:
+          type: integer
+          description: issue总数
+          example: 1
+        issueOn:
+          type: integer
+          description: 开启中的issue总数
+          example: 1
+        issueClose:
+          type: integer
+          description: 已关闭的issue总数
+          example: 0
+        rate:
+          type: integer
+          description: 完成度百分比（保留两位小数）
+          example: 0
   requestBodies:
     UserArray:
       content:
