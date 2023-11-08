@@ -3823,6 +3823,70 @@ paths:
                 $ref: "#/components/schemas/Forbidden"
         204:
           description: 操作成功
+  # 获取仓库的所有Issue评论
+  /repos/{owner}/{repo}/issues/comments:
+    get:
+      tags:
+        - issues comment
+      summary: 获取仓库的所有Issue评论
+      description: 获取仓库的所有Issue评论
+      operationId: GetRepoAllIssueComments
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: sort
+          in: query
+          description: "排序方式: created,updated"
+          required: false
+        - name: direction
+          in: query
+          description: "升序(asc)或是降序(desc)"
+          required: false
+        - name: since
+          in: query
+          description: "时间 YYYY-MM-DDTHH:MM:SSZ"
+          required: false
+        - name: page
+          in: query
+          description: "当前的页码"
+          required: false
+        - name: per_page
+          in: query
+          description: "每页的数量，最大为 100 默认为30"
+          required: false
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Comment"
 
 ###### 动态######
   # 用户的动态
