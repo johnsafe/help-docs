@@ -30,7 +30,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans'],
+    locales: ['zh-Hans','en'],
     localeConfigs: {
       'zh-Hans': {
         htmlLang: 'zh-Hans'
@@ -228,7 +228,7 @@ const config = {
         ],
       },
       metadata: [
-        {name: 'keywords', content: 'gitlab,github'},
+        {name: 'keywords', content: 'gitlab,github,atomgit'},
         {name: 'keywords', content: 'git,api'}
       ],
       footer: {
