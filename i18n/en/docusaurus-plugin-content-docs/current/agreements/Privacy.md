@@ -1,8 +1,8 @@
 ---
 id: privacy # 唯一ID
 slug: /agreements/privacy # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 隐私协议 # 在sidebar 中的名称
-title: 隐私协议 # 页面标题
+sidebar_label: 隐私政策 # 在sidebar 中的名称
+title: 隐私政策 # 页面标题
 hide_title: true
 ---
 
@@ -215,6 +215,6 @@ Cookie 是您登录网站或浏览网络内容时，网站服务器存放在您�
 如果您对本隐私政策有任何疑问，或者是要求行使个人权利，您可以通过以下方式与我们取得联系：
 
 - 联系方式：legal@openatom.org
-- 联系地址：北京市海淀区北四环西路66号17层2018室
+- 联系地址：北京经济技术开发区科谷一街8号院8号楼22层2201
 
 一般情况下，我们将在15个工作日内回复。
