@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "AtomGit",
+    "description": "The title in the navbar"
+  },
+  "item.label.帮助文档": {
+    "message": "Help documentation",
+    "description": "Navbar item with label Help documentation"
+  },
+  "item.label.OAuth2": {
+    "message": "OAuth2",
+    "description": "Navbar item with label OAuth2"
+  },
+  "item.label.Api文档": {
+    "message": "API documentation",
+    "description": "Navbar item with label API documentation"
+  },
+  "item.label.反馈": {
+    "message": "Feedback",
+    "description": "Navbar item with label Feedback"
+  }
+}

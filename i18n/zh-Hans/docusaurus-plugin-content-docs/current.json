@@ -1,0 +1,554 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docs.category.用户": {
+    "message": "用户",
+    "description": "The label for category 用户 in sidebar docs"
+  },
+  "sidebar.docs.category.用户.link.generated-index.title": {
+    "message": "用户",
+    "description": "The generated-index page title for category 用户 in sidebar docs"
+  },
+  "sidebar.docs.category.用户.link.generated-index.description": {
+    "message": "帮助用户快速完成个人设置",
+    "description": "The generated-index page description for category 用户 in sidebar docs"
+  },
+  "sidebar.docs.category.Git": {
+    "message": "Git",
+    "description": "The label for category Git in sidebar docs"
+  },
+  "sidebar.docs.category.Git.link.generated-index.title": {
+    "message": "Git 入门",
+    "description": "The generated-index page title for category Git in sidebar docs"
+  },
+  "sidebar.docs.category.代码库": {
+    "message": "代码库",
+    "description": "The label for category 代码库 in sidebar docs"
+  },
+  "sidebar.docs.category.代码库.link.generated-index.title": {
+    "message": "代码库",
+    "description": "The generated-index page title for category 代码库 in sidebar docs"
+  },
+  "sidebar.docs.category.代码库.link.generated-index.description": {
+    "message": "代码库使用及设置",
+    "description": "The generated-index page description for category 代码库 in sidebar docs"
+  },
+  "sidebar.docs.category.提交": {
+    "message": "提交",
+    "description": "The label for category 提交 in sidebar docs"
+  },
+  "sidebar.docs.category.提交.link.generated-index.title": {
+    "message": "提交",
+    "description": "The generated-index page title for category 提交 in sidebar docs"
+  },
+  "sidebar.docs.category.Issue": {
+    "message": "Issue",
+    "description": "The label for category Issue in sidebar docs"
+  },
+  "sidebar.docs.category.Issue.link.generated-index.title": {
+    "message": "Issue",
+    "description": "The generated-index page title for category Issue in sidebar docs"
+  },
+  "sidebar.docs.category.代码库设置": {
+    "message": "代码库设置",
+    "description": "The label for category 代码库设置 in sidebar docs"
+  },
+  "sidebar.docs.category.代码库设置.link.generated-index.title": {
+    "message": "代码库设置",
+    "description": "The generated-index page title for category 代码库设置 in sidebar docs"
+  },
+  "sidebar.docs.category.研发模式": {
+    "message": "研发模式",
+    "description": "The label for category 研发模式 in sidebar docs"
+  },
+  "sidebar.docs.category.研发模式.link.generated-index.title": {
+    "message": "研发模式",
+    "description": "The generated-index page title for category 研发模式 in sidebar docs"
+  },
+  "sidebar.docs.category.组织": {
+    "message": "组织",
+    "description": "The label for category 组织 in sidebar docs"
+  },
+  "sidebar.docs.category.组织.link.generated-index.title": {
+    "message": "组织",
+    "description": "The generated-index page title for category 组织 in sidebar docs"
+  },
+  "sidebar.docs.category.组织.link.generated-index.description": {
+    "message": "组织使用及设置",
+    "description": "The generated-index page description for category 组织 in sidebar docs"
+  },
+  "sidebar.docs.category.应用": {
+    "message": "应用",
+    "description": "The label for category 应用 in sidebar docs"
+  },
+  "sidebar.docs.category.应用.link.generated-index.title": {
+    "message": "应用",
+    "description": "The generated-index page title for category 应用 in sidebar docs"
+  },
+  "sidebar.docs.category.应用.link.generated-index.description": {
+    "message": "应用开发以及开放市场",
+    "description": "The generated-index page description for category 应用 in sidebar docs"
+  },
+  "sidebar.docs.category.用户协议": {
+    "message": "用户协议",
+    "description": "The label for category 用户协议 in sidebar docs"
+  },
+  "sidebar.docs.category.用户协议.link.generated-index.title": {
+    "message": "用户协议",
+    "description": "The generated-index page title for category 用户协议 in sidebar docs"
+  },
+  "sidebar.docs.category.用户协议.link.generated-index.description": {
+    "message": "AtomGit 平台用户使用协议",
+    "description": "The generated-index page description for category 用户协议 in sidebar docs"
+  },
+  "sidebar.api.category.开放接口": {
+    "message": "开放接口",
+    "description": "The label for category 开放接口 in sidebar api"
+  },
+  "sidebar.api.category.开放接口.link.generated-index.title": {
+    "message": "AtomGit OpenAPI 文档",
+    "description": "The generated-index page title for category 开放接口 in sidebar api"
+  },
+  "sidebar.api.category.开放接口.link.generated-index.description": {
+    "message": "欢迎使用 AtomGit OpenAPI 开发者帮助文档，为了降低开发者的学习、使用成本，也为了更好的帮助各位开发者将自己的第三方应用 API 接口集成到 AtomGit 上，AtomGit OpenAPI接口的使用方式、Url、接口参数及返回值均与主流代码托管平台（eg：GitHub）保持一致。",
+    "description": "The generated-index page description for category 开放接口 in sidebar api"
+  },
+  "sidebar.api.category.用户账号": {
+    "message": "用户账号",
+    "description": "The label for category 用户账号 in sidebar api"
+  },
+  "sidebar.api.category.组织相关": {
+    "message": "组织相关",
+    "description": "The label for category 组织相关 in sidebar api"
+  },
+  "sidebar.api.category.分支相关": {
+    "message": "分支相关",
+    "description": "The label for category 分支相关 in sidebar api"
+  },
+  "sidebar.api.category.提交相关": {
+    "message": "提交相关",
+    "description": "The label for category 提交相关 in sidebar api"
+  },
+  "sidebar.api.category.提交状态相关": {
+    "message": "提交状态相关",
+    "description": "The label for category 提交状态相关 in sidebar api"
+  },
+  "sidebar.api.category.仓库文本相关": {
+    "message": "仓库文本相关",
+    "description": "The label for category 仓库文本相关 in sidebar api"
+  },
+  "sidebar.api.category.变更请求相关": {
+    "message": "变更请求相关",
+    "description": "The label for category 变更请求相关 in sidebar api"
+  },
+  "sidebar.api.category.变更请求-自动化检查相关": {
+    "message": "变更请求-自动化检查相关",
+    "description": "The label for category 变更请求-自动化检查相关 in sidebar api"
+  },
+  "sidebar.api.category.Issues": {
+    "message": "Issues",
+    "description": "The label for category Issues in sidebar api"
+  },
+  "sidebar.api.category.Issues comment": {
+    "message": "Issues comment",
+    "description": "The label for category Issues comment in sidebar api"
+  },
+  "sidebar.api.doc.获取用户个人信息": {
+    "message": "获取用户个人信息",
+    "description": "The label for the doc item 获取用户个人信息 in sidebar api, linking to the doc openAPI/api_versioned/get-the-authenticated-user"
+  },
+  "sidebar.api.doc.根据用户名查询用户信息": {
+    "message": "根据用户名查询用户信息",
+    "description": "The label for the doc item 根据用户名查询用户信息 in sidebar api, linking to the doc openAPI/api_versioned/get-user-by-username"
+  },
+  "sidebar.api.doc.获取当前用户的邮箱列表": {
+    "message": "获取当前用户的邮箱列表",
+    "description": "The label for the doc item 获取当前用户的邮箱列表 in sidebar api, linking to the doc openAPI/api_versioned/list-email"
+  },
+  "sidebar.api.doc.获取当前用户的粉丝列表": {
+    "message": "获取当前用户的粉丝列表",
+    "description": "The label for the doc item 获取当前用户的粉丝列表 in sidebar api, linking to the doc openAPI/api_versioned/get-user-followers"
+  },
+  "sidebar.api.doc.获取指定用户的粉丝列表": {
+    "message": "获取指定用户的粉丝列表",
+    "description": "The label for the doc item 获取指定用户的粉丝列表 in sidebar api, linking to the doc openAPI/api_versioned/get-user-followers-by-username"
+  },
+  "sidebar.api.doc.列出当前用户的关注列表": {
+    "message": "列出当前用户的关注列表",
+    "description": "The label for the doc item 列出当前用户的关注列表 in sidebar api, linking to the doc openAPI/api_versioned/get-user-following"
+  },
+  "sidebar.api.doc.获取指定用户的关注列表": {
+    "message": "获取指定用户的关注列表",
+    "description": "The label for the doc item 获取指定用户的关注列表 in sidebar api, linking to the doc openAPI/api_versioned/get-the-following"
+  },
+  "sidebar.api.doc.关注指定用户": {
+    "message": "关注指定用户",
+    "description": "The label for the doc item 关注指定用户 in sidebar api, linking to the doc openAPI/api_versioned/add-fans"
+  },
+  "sidebar.api.doc.移除某个已关注用户": {
+    "message": "移除某个已关注用户",
+    "description": "The label for the doc item 移除某个已关注用户 in sidebar api, linking to the doc openAPI/api_versioned/del-fans"
+  },
+  "sidebar.api.doc.检查当前用户是否关注了某个用户": {
+    "message": "检查当前用户是否关注了某个用户",
+    "description": "The label for the doc item 检查当前用户是否关注了某个用户 in sidebar api, linking to the doc openAPI/api_versioned/has-this-fans"
+  },
+  "sidebar.api.doc.检查用户是否关注了指定用户": {
+    "message": "检查用户是否关注了指定用户",
+    "description": "The label for the doc item 检查用户是否关注了指定用户 in sidebar api, linking to the doc openAPI/api_versioned/has-the-fans"
+  },
+  "sidebar.api.doc.获取当前登录用户的 SSH 公钥列表": {
+    "message": "获取当前登录用户的 SSH 公钥列表",
+    "description": "The label for the doc item 获取当前登录用户的 SSH 公钥列表 in sidebar api, linking to the doc openAPI/api_versioned/list-key"
+  },
+  "sidebar.api.doc.为当前登录用户创建一个新的 SSH 公钥": {
+    "message": "为当前登录用户创建一个新的 SSH 公钥",
+    "description": "The label for the doc item 为当前登录用户创建一个新的 SSH 公钥 in sidebar api, linking to the doc openAPI/api_versioned/add-key"
+  },
+  "sidebar.api.doc.移除指定的 SSH 公钥": {
+    "message": "移除指定的 SSH 公钥",
+    "description": "The label for the doc item 移除指定的 SSH 公钥 in sidebar api, linking to the doc openAPI/api_versioned/del-key"
+  },
+  "sidebar.api.doc.列出所有组织": {
+    "message": "列出所有组织",
+    "description": "The label for the doc item 列出所有组织 in sidebar api, linking to the doc openAPI/api_versioned/org-page-list"
+  },
+  "sidebar.api.doc.查询组织详情": {
+    "message": "查询组织详情",
+    "description": "The label for the doc item 查询组织详情 in sidebar api, linking to the doc openAPI/api_versioned/org-detail"
+  },
+  "sidebar.api.doc.更新组织基本信息": {
+    "message": "更新组织基本信息",
+    "description": "The label for the doc item 更新组织基本信息 in sidebar api, linking to the doc openAPI/api_versioned/update-org"
+  },
+  "sidebar.api.doc.列出当前用户加入的组织": {
+    "message": "列出当前用户加入的组织",
+    "description": "The label for the doc item 列出当前用户加入的组织 in sidebar api, linking to the doc openAPI/api_versioned/user-org-page-list"
+  },
+  "sidebar.api.doc.创建组织邀请": {
+    "message": "创建组织邀请",
+    "description": "The label for the doc item 创建组织邀请 in sidebar api, linking to the doc openAPI/api_versioned/user-org-invitation"
+  },
+  "sidebar.api.doc.查询组织成员": {
+    "message": "查询组织成员",
+    "description": "The label for the doc item 查询组织成员 in sidebar api, linking to the doc openAPI/api_versioned/org-members"
+  },
+  "sidebar.api.doc.验证用户是否是组织成员": {
+    "message": "验证用户是否是组织成员",
+    "description": "The label for the doc item 验证用户是否是组织成员 in sidebar api, linking to the doc openAPI/api_versioned/org-member-check"
+  },
+  "sidebar.api.doc.移除组织成员": {
+    "message": "移除组织成员",
+    "description": "The label for the doc item 移除组织成员 in sidebar api, linking to the doc openAPI/api_versioned/org-member-delete"
+  },
+  "sidebar.api.doc.根据用户名查询组织中的角色": {
+    "message": "根据用户名查询组织中的角色",
+    "description": "The label for the doc item 根据用户名查询组织中的角色 in sidebar api, linking to the doc openAPI/api_versioned/org-member-role"
+  },
+  "sidebar.api.doc.设置组织成员角色": {
+    "message": "设置组织成员角色",
+    "description": "The label for the doc item 设置组织成员角色 in sidebar api, linking to the doc openAPI/api_versioned/set-org-member-role"
+  },
+  "sidebar.api.doc.获取分支信息": {
+    "message": "获取分支信息",
+    "description": "The label for the doc item 获取分支信息 in sidebar api, linking to the doc openAPI/api_versioned/get-branch"
+  },
+  "sidebar.api.doc.获取分支列表": {
+    "message": "获取分支列表",
+    "description": "The label for the doc item 获取分支列表 in sidebar api, linking to the doc openAPI/api_versioned/get-branch-list"
+  },
+  "sidebar.api.doc.获取提交信息": {
+    "message": "获取提交信息",
+    "description": "The label for the doc item 获取提交信息 in sidebar api, linking to the doc openAPI/api_versioned/get-ref-commit"
+  },
+  "sidebar.api.doc.获取联合提交状态": {
+    "message": "获取联合提交状态",
+    "description": "The label for the doc item 获取联合提交状态 in sidebar api, linking to the doc openAPI/api_versioned/get-combined-commit-statuses"
+  },
+  "sidebar.api.doc.创建提交状态": {
+    "message": "创建提交状态",
+    "description": "The label for the doc item 创建提交状态 in sidebar api, linking to the doc openAPI/api_versioned/create-commit-statuses"
+  },
+  "sidebar.api.doc.获取仓库content": {
+    "message": "获取仓库content",
+    "description": "The label for the doc item 获取仓库content in sidebar api, linking to the doc openAPI/api_versioned/get-repo-conent"
+  },
+  "sidebar.api.doc.创建或更新仓库content": {
+    "message": "创建或更新仓库content",
+    "description": "The label for the doc item 创建或更新仓库content in sidebar api, linking to the doc openAPI/api_versioned/save-repo-conent"
+  },
+  "sidebar.api.doc.删除仓库content": {
+    "message": "删除仓库content",
+    "description": "The label for the doc item 删除仓库content in sidebar api, linking to the doc openAPI/api_versioned/delete-repo-conent"
+  },
+  "sidebar.api.doc.创建变更请求": {
+    "message": "创建变更请求",
+    "description": "The label for the doc item 创建变更请求 in sidebar api, linking to the doc openAPI/api_versioned/create-change-request"
+  },
+  "sidebar.api.doc.查询变更请求详情": {
+    "message": "查询变更请求详情",
+    "description": "The label for the doc item 查询变更请求详情 in sidebar api, linking to the doc openAPI/api_versioned/get-change-request"
+  },
+  "sidebar.api.doc.创建评论": {
+    "message": "创建评论",
+    "description": "The label for the doc item 创建评论 in sidebar api, linking to the doc openAPI/api_versioned/create-change-request-comment"
+  },
+  "sidebar.api.doc.创建回复": {
+    "message": "创建回复",
+    "description": "The label for the doc item 创建回复 in sidebar api, linking to the doc openAPI/api_versioned/create-change-request-reply"
+  },
+  "sidebar.api.doc.查询变更请求评论": {
+    "message": "查询变更请求评论",
+    "description": "The label for the doc item 查询变更请求评论 in sidebar api, linking to the doc openAPI/api_versioned/get-change-request-comment"
+  },
+  "sidebar.api.doc.查询评论列表": {
+    "message": "查询评论列表",
+    "description": "The label for the doc item 查询评论列表 in sidebar api, linking to the doc openAPI/api_versioned/get-change-reques-comment-list"
+  },
+  "sidebar.api.doc.创建自动化检查": {
+    "message": "创建自动化检查",
+    "description": "The label for the doc item 创建自动化检查 in sidebar api, linking to the doc openAPI/api_versioned/create-check-run"
+  },
+  "sidebar.api.doc.查询自动化检查": {
+    "message": "查询自动化检查",
+    "description": "The label for the doc item 查询自动化检查 in sidebar api, linking to the doc openAPI/api_versioned/get-check-run"
+  },
+  "sidebar.api.doc.更新自动化检查": {
+    "message": "更新自动化检查",
+    "description": "The label for the doc item 更新自动化检查 in sidebar api, linking to the doc openAPI/api_versioned/update-check-run"
+  },
+  "sidebar.api.doc.用户相关 issues 列表": {
+    "message": "用户相关 issues 列表",
+    "description": "The label for the doc item 用户相关 issues 列表 in sidebar api, linking to the doc openAPI/api_versioned/get-user-issues-list"
+  },
+  "sidebar.api.doc.指定仓库 issues 列表": {
+    "message": "指定仓库 issues 列表",
+    "description": "The label for the doc item 指定仓库 issues 列表 in sidebar api, linking to the doc openAPI/api_versioned/get-repo-issues-list"
+  },
+  "sidebar.api.doc.创建仓库 issue": {
+    "message": "创建仓库 issue",
+    "description": "The label for the doc item 创建仓库 issue in sidebar api, linking to the doc openAPI/api_versioned/create-repo-issue"
+  },
+  "sidebar.api.doc.指定 issue 的详情": {
+    "message": "指定 issue 的详情",
+    "description": "The label for the doc item 指定 issue 的详情 in sidebar api, linking to the doc openAPI/api_versioned/get-repo-issue-info"
+  },
+  "sidebar.api.doc.修改指定 issue": {
+    "message": "修改指定 issue",
+    "description": "The label for the doc item 修改指定 issue in sidebar api, linking to the doc openAPI/api_versioned/patch-repo-issue-info"
+  },
+  "sidebar.api.doc.锁定 issue": {
+    "message": "锁定 issue",
+    "description": "The label for the doc item 锁定 issue in sidebar api, linking to the doc openAPI/api_versioned/lock-repo-issue"
+  },
+  "sidebar.api.doc.解锁 issue": {
+    "message": "解锁 issue",
+    "description": "The label for the doc item 解锁 issue in sidebar api, linking to the doc openAPI/api_versioned/un-lock-repo-issue"
+  },
+  "sidebar.api.doc.仓库 issue 负责人列表": {
+    "message": "仓库 issue 负责人列表",
+    "description": "The label for the doc item 仓库 issue 负责人列表 in sidebar api, linking to the doc openAPI/api_versioned/get-repo-assignees"
+  },
+  "sidebar.api.doc.检查用户是否可以设置为issue负责人": {
+    "message": "检查用户是否可以设置为issue负责人",
+    "description": "The label for the doc item 检查用户是否可以设置为issue负责人 in sidebar api, linking to the doc openAPI/api_versioned/check-repo-assignee"
+  },
+  "sidebar.api.doc.设置issue负责人": {
+    "message": "设置issue负责人",
+    "description": "The label for the doc item 设置issue负责人 in sidebar api, linking to the doc openAPI/api_versioned/set-issue-assignee"
+  },
+  "sidebar.api.doc.清除issue负责人": {
+    "message": "清除issue负责人",
+    "description": "The label for the doc item 清除issue负责人 in sidebar api, linking to the doc openAPI/api_versioned/clear-issue-assignee"
+  },
+  "sidebar.api.doc.指定 issue 评论列表": {
+    "message": "指定 issue 评论列表",
+    "description": "The label for the doc item 指定 issue 评论列表 in sidebar api, linking to the doc openAPI/api_versioned/get-issue-comments-list"
+  },
+  "sidebar.api.doc.创建issue Comment": {
+    "message": "创建issue Comment",
+    "description": "The label for the doc item 创建issue Comment in sidebar api, linking to the doc openAPI/api_versioned/create-issue-comment"
+  },
+  "sidebar.api.doc.指定评论详情": {
+    "message": "指定评论详情",
+    "description": "The label for the doc item 指定评论详情 in sidebar api, linking to the doc openAPI/api_versioned/get-issue-comment-info"
+  },
+  "sidebar.api.doc.修改issue Comment": {
+    "message": "修改issue Comment",
+    "description": "The label for the doc item 修改issue Comment in sidebar api, linking to the doc openAPI/api_versioned/update-issue-comment"
+  },
+  "sidebar.api.doc.删除issue Comment": {
+    "message": "删除issue Comment",
+    "description": "The label for the doc item 删除issue Comment in sidebar api, linking to the doc openAPI/api_versioned/delete-issue-comment"
+  },
+  "sidebar.petstore-2.0.0.category.Petstore": {
+    "message": "Petstore",
+    "description": "The label for category Petstore in sidebar petstore-2.0.0"
+  },
+  "sidebar.petstore-2.0.0.category.Petstore.link.generated-index.title": {
+    "message": "Petstore API (latest)",
+    "description": "The generated-index page title for category Petstore in sidebar petstore-2.0.0"
+  },
+  "sidebar.petstore-2.0.0.category.Petstore.link.generated-index.description": {
+    "message": "This is a sample server Petstore server. You can find out more about Swagger at http://swagger.io or on irc.freenode.net, #swagger. For this sample, you can use the api key special-key to test the authorization filters.",
+    "description": "The generated-index page description for category Petstore in sidebar petstore-2.0.0"
+  },
+  "sidebar.petstore-2.0.0.category.Pets": {
+    "message": "Pets",
+    "description": "The label for category Pets in sidebar petstore-2.0.0"
+  },
+  "sidebar.petstore-2.0.0.category.Petstore Orders": {
+    "message": "Petstore Orders",
+    "description": "The label for category Petstore Orders in sidebar petstore-2.0.0"
+  },
+  "sidebar.petstore-2.0.0.category.Users": {
+    "message": "Users",
+    "description": "The label for category Users in sidebar petstore-2.0.0"
+  },
+  "sidebar.petstore-2.0.0.doc.Add a new pet to the store": {
+    "message": "Add a new pet to the store",
+    "description": "The label for the doc item Add a new pet to the store in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/add-pet"
+  },
+  "sidebar.petstore-2.0.0.doc.Update an existing pet": {
+    "message": "Update an existing pet",
+    "description": "The label for the doc item Update an existing pet in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/update-pet"
+  },
+  "sidebar.petstore-2.0.0.doc.Find pet by ID": {
+    "message": "Find pet by ID",
+    "description": "The label for the doc item Find pet by ID in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/get-pet-by-id"
+  },
+  "sidebar.petstore-2.0.0.doc.Updates a pet in the store with form data": {
+    "message": "Updates a pet in the store with form data",
+    "description": "The label for the doc item Updates a pet in the store with form data in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/update-pet-with-form"
+  },
+  "sidebar.petstore-2.0.0.doc.Deletes a pet": {
+    "message": "Deletes a pet",
+    "description": "The label for the doc item Deletes a pet in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/delete-pet"
+  },
+  "sidebar.petstore-2.0.0.doc.uploads an image": {
+    "message": "uploads an image",
+    "description": "The label for the doc item uploads an image in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/upload-file"
+  },
+  "sidebar.petstore-2.0.0.doc.Finds Pets by status": {
+    "message": "Finds Pets by status",
+    "description": "The label for the doc item Finds Pets by status in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/find-pets-by-status"
+  },
+  "sidebar.petstore-2.0.0.doc.Finds Pets by tags": {
+    "message": "Finds Pets by tags",
+    "description": "The label for the doc item Finds Pets by tags in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/find-pets-by-tags"
+  },
+  "sidebar.petstore-2.0.0.doc.New pet": {
+    "message": "New pet",
+    "description": "The label for the doc item New pet in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/new-pet"
+  },
+  "sidebar.petstore-2.0.0.doc.Returns pet inventories by status": {
+    "message": "Returns pet inventories by status",
+    "description": "The label for the doc item Returns pet inventories by status in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/get-inventory"
+  },
+  "sidebar.petstore-2.0.0.doc.Place an order for a pet": {
+    "message": "Place an order for a pet",
+    "description": "The label for the doc item Place an order for a pet in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/place-order"
+  },
+  "sidebar.petstore-2.0.0.doc.Find purchase order by ID": {
+    "message": "Find purchase order by ID",
+    "description": "The label for the doc item Find purchase order by ID in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/get-order-by-id"
+  },
+  "sidebar.petstore-2.0.0.doc.Delete purchase order by ID": {
+    "message": "Delete purchase order by ID",
+    "description": "The label for the doc item Delete purchase order by ID in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/delete-order"
+  },
+  "sidebar.petstore-2.0.0.doc.Subscribe to the Store events": {
+    "message": "Subscribe to the Store events",
+    "description": "The label for the doc item Subscribe to the Store events in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/subscribe-to-the-store-events"
+  },
+  "sidebar.petstore-2.0.0.doc.Create user": {
+    "message": "Create user",
+    "description": "The label for the doc item Create user in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/create-user"
+  },
+  "sidebar.petstore-2.0.0.doc.Get the authenticated user info": {
+    "message": "Get the authenticated user info",
+    "description": "The label for the doc item Get the authenticated user info in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/get-the-authenticated-user"
+  },
+  "sidebar.petstore-2.0.0.doc.Get user by user name": {
+    "message": "Get user by user name",
+    "description": "The label for the doc item Get user by user name in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/get-user-by-name"
+  },
+  "sidebar.petstore-2.0.0.doc.Updated user": {
+    "message": "Updated user",
+    "description": "The label for the doc item Updated user in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/update-user"
+  },
+  "sidebar.petstore-2.0.0.doc.Delete user": {
+    "message": "Delete user",
+    "description": "The label for the doc item Delete user in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/delete-user"
+  },
+  "sidebar.petstore-2.0.0.doc.Creates list of users with given input array": {
+    "message": "Creates list of users with given input array",
+    "description": "The label for the doc item Creates list of users with given input array in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/create-users-with-array-input"
+  },
+  "sidebar.petstore-2.0.0.doc.Creates list of users with given input list": {
+    "message": "Creates list of users with given input list",
+    "description": "The label for the doc item Creates list of users with given input list in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/create-users-with-list-input"
+  },
+  "sidebar.petstore-2.0.0.doc.Logs user into the system": {
+    "message": "Logs user into the system",
+    "description": "The label for the doc item Logs user into the system in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/login-user"
+  },
+  "sidebar.petstore-2.0.0.doc.Logs out current logged in user session": {
+    "message": "Logs out current logged in user session",
+    "description": "The label for the doc item Logs out current logged in user session in sidebar petstore-2.0.0, linking to the doc openAPI/petstore_versioned/logout-user"
+  },
+  "sidebar.petstore-1.0.0.category.AtomGit-Api文档": {
+    "message": "AtomGit-Api文档",
+    "description": "The label for category AtomGit-Api文档 in sidebar petstore-1.0.0"
+  },
+  "sidebar.petstore-1.0.0.category.AtomGit-Api文档.link.generated-index.title": {
+    "message": "AtomGit-Api文档(v1.0.0)",
+    "description": "The generated-index page title for category AtomGit-Api文档 in sidebar petstore-1.0.0"
+  },
+  "sidebar.petstore-1.0.0.category.AtomGit-Api文档.link.generated-index.description": {
+    "message": "This is a sample server Petstore server. You can find out more about Swagger at http://swagger.io or on irc.freenode.net, #swagger. For this sample, you can use the api key special-key to test the authorization filters.",
+    "description": "The generated-index page description for category AtomGit-Api文档 in sidebar petstore-1.0.0"
+  },
+  "sidebar.petstore-1.0.0.category.Users": {
+    "message": "Users",
+    "description": "The label for category Users in sidebar petstore-1.0.0"
+  },
+  "sidebar.petstore-1.0.0.doc.Create user": {
+    "message": "Create user",
+    "description": "The label for the doc item Create user in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/create-user"
+  },
+  "sidebar.petstore-1.0.0.doc.Get the authenticated user info": {
+    "message": "Get the authenticated user info",
+    "description": "The label for the doc item Get the authenticated user info in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/get-the-authenticated-user"
+  },
+  "sidebar.petstore-1.0.0.doc.Get user by user name": {
+    "message": "Get user by user name",
+    "description": "The label for the doc item Get user by user name in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/get-user-by-name"
+  },
+  "sidebar.petstore-1.0.0.doc.Updated user": {
+    "message": "Updated user",
+    "description": "The label for the doc item Updated user in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/update-user"
+  },
+  "sidebar.petstore-1.0.0.doc.Delete user": {
+    "message": "Delete user",
+    "description": "The label for the doc item Delete user in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/delete-user"
+  },
+  "sidebar.petstore-1.0.0.doc.Creates list of users with given input array": {
+    "message": "Creates list of users with given input array",
+    "description": "The label for the doc item Creates list of users with given input array in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/create-users-with-array-input"
+  },
+  "sidebar.petstore-1.0.0.doc.Creates list of users with given input list": {
+    "message": "Creates list of users with given input list",
+    "description": "The label for the doc item Creates list of users with given input list in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/create-users-with-list-input"
+  },
+  "sidebar.petstore-1.0.0.doc.Logs user into the system": {
+    "message": "Logs user into the system",
+    "description": "The label for the doc item Logs user into the system in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/login-user"
+  },
+  "sidebar.petstore-1.0.0.doc.Logs out current logged in user session": {
+    "message": "Logs out current logged in user session",
+    "description": "The label for the doc item Logs out current logged in user session in sidebar petstore-1.0.0, linking to the doc openAPI/petstore_versioned/1.0.0/logout-user"
+  }
+}
