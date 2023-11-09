@@ -3585,6 +3585,75 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Issue"
+  /orgs/{org}/issues:
+    get:
+      tags:
+        - issues
+      summary: 获取当前用户某个组织的issues
+      description: 获取当前用户某个组织的issues
+      operationId: GetCurrentUserOrgIssues
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+        - name: org
+          in: path
+          description: 组织路径
+          required: true
+        - name: filter
+          in: query
+          description: "筛选参数: 授权用户负责的(assign_user)，授权用户创建的(about)，包含前两者的(all)。默认: assign_user"
+          required: false
+        - name: state
+          in: query
+          description: "里程碑状态: open, closed, all。默认: open"
+          required: false
+        - name: labels
+          in: query
+          description: "标签:用逗号分开的标签。如: bug,performance"
+          required: false
+        - name: sort
+          in: query
+          description: "排序依据: 创建时间(created)，更新时间(updated)。默认: created"
+          required: false
+        - name: direction
+          in: query
+          description: "升序(asc)或是降序(desc)。默认: asc"
+          required: false
+        - name: since
+          in: query
+          description: "起始的更新时间之后的，要求时间格式为 yyyy-MM-dd'T'HH:mm:ss'Z'"
+          required: false
+        - name: page
+          in: query
+          description: "当前的页码"
+          required: false
+        - name: per_page
+          in: query
+          description: "每页的数量，最大为 100 默认为30"
+          required: false
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Issue"
   ###### issue comment ######
   /repos/{owner}/{repo}/issues/{issue_number}/comments:
     get:
