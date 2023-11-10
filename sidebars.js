@@ -20,6 +20,7 @@ const sidebars = {
         // image: '/img/docusaurus.png',
       },
       items: [
+        'user/2fa',
         'user/user-sshkey',
         'user/user-verify',
         'repo/repo-migrate',
