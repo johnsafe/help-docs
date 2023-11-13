@@ -1,12 +1,10 @@
 ---
 slug: /oauth/process
-title: 'OAuth2 认证基本流程'
+title: 'OAuth2 Process'
 sidebar_position: 3
 hide_title: true
 ---
 
-## OAuth2 认证基本流程
+## OAuth2 Process
 
-![OAuth 认证流程](./img/oauth-process.png)
-
-
+![OAuth2 Process](./img/oauth-process.png)

@@ -1,21 +1,21 @@
 ---
 slug: /oauth/
-title: 'OAuth 应用'
+title: 'OAuth App'
 sidebar_position: 1
 hide_title: true
 ---
 
-## OAuth 应用
+## OAuth App
 
-> OAuth2 是一种协议，它允许外部应用程序请求授权在不使用密码的情况下访问用户 AtomGit 帐户中的私有信息。 此协议优先于基本验证，因为令牌可能仅限于特定类型的数据，用户可以随时撤销。
+> OAuth2 is a protocol that allows external applications to request authorization to access private information in a user's AtomGit account without using a password. This protocol takes precedence over Basic Authentication because tokens may be restricted to specific types of data and can be revoked by the user at any time.
 
-OAuth 应用使用 AtomGit 作为身份提供程序以验证为授予应用程序访问权限的用户。 这意味着，当用户授予 OAuth 应用访问权限时，将授权访问其帐户的基本信息，其账户有权访问的所有代码库，以及他们所属的、未阻止第三方访问的任何组织。
+OAuth applications use AtomGit as the identity provider to authenticate as the user who is granting access to the application. This means that when a user grants access to an OAuth app, they are granted access to their account's basic information, all code libraries their account has access to, and any organizations they are a member of that have not blocked third-party access.
 
-## 注意事项
+## Tips
 
-1. 一个用户或组织最多可以拥有 100 个 OAuth 应用。
-1. OAuth 应用在所有 AtomGit 中（例如，在提供用户通知时）应始终代表经身份验证的 AtomGit 用户。
-1. 通过为经身份验证的用户启用“使用 AtomGit 进行登录”，OAuth 应用可用作身份提供程序。
-1. 如果将 OAuth 应用程序与 AtomGit Actions 一起使用并且想要修改工作流文件，则 OAuth 标记必须具有 workflow 作用域，并且用户必须对包含工作流文件的代码库具有所有者或写入权限。 有关详细信息，请参阅“了解 OAuth 应用的作用域。
+1. A user or organization can have up to 100 OAuth applications.
+2. OAuth applications should always act on behalf of the authenticated AtomGit user in all AtomGit (for example, when providing user notifications).
+3. The OAuth application can be used as an identity provider by enabling "Login with AtomGit" for authenticated users.
+4. If you are using an OAuth application with AtomGit Actions and want to modify a workflow file, the OAuth token must have workflow scope and the user must have owner or write permissions on the repository containing the workflow file. For more information, see Understanding the Scope of an OAuth App.
 
-> 请注意，OAuth 应用是需要托管在某处的应用程序。
+> Note that an OAuth app is an application that needs to be hosted somewhere.
