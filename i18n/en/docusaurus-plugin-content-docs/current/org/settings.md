@@ -1,63 +1,62 @@
 ---
 id: org-settings
 slug: settings
-title: 组织管理 # 页面标题
-sidebar_lable: 组织管理
+title: Organization Setting # 页面标题
+sidebar_lable: Organization Setting
 hide_title: true
 ---
 
-## 组织管理
+## Organization Setting
 
-在组织中，不同角色可以进行的操作不一样，组织的角色分为以下 3 类：
+In an organization, different roles can perform different operations. Organizational roles are divided into the following three categories:
 
-- 管理员：可以读取、克隆、推送到组织中的代码库，可以新建组织代码库，可以添加组织成员权限，可以设置组织基本信息，可以删除组织
-- 开发者：可以读取、克隆、推送到组织中的代码库，可以退出组织
-- 浏览者：可以读取、克隆组织中的代码库，可以退出组织
+- Maintainer: can read, clone, and push to the code base in the organization, can create a new organization code base, can add organization member permissions, can set the organization's basic information, and can delete the organization.
+- Developer: can read, clone, push to the code base in the organization, and can exit the organization
+- Viewer: can read and clone the code base in the organization, and can exit the organization
 
-> 注：不同角色对代码库的权限请参考 [02 - 代码库权限 / 权限说明](../permission) 部分
+> Note: for the permissions of different roles on the repository, see  [02 - Repo Permission](../permission)
 
-### 组织成员及其权限
+### Members and Permissions
 
-不同角色及其权限如下：
-
-| 权限 | 浏览者 | 开发者 | 管理员 | 备注 | 
+| Permission | viewer | developer | maintainer | remark |
 | -- | -- | -- | -- | -- |
-| 查看组织 | ✓ | ✓	| ✓	| 私密组织非组织成员不可查看 |
-| 组织基本信息设置 | | | ✓	| 包括组织基本信息、logo等设置 |
-| 组织可见性设置 | | | ✓	| 更改组织可见性，私密组织/公开组织 |
-| 删除组织	| | | ✓	| |	
-| 设置组织精选项目 | | | ✓ | |
-| 移除组织精选项目 | | | ✓ | |
-| 组织精选项目排序 | | | ✓ | |
-| 新建组织代码库 | | | ✓ | |
-| 浏览组织成员 | ✓ | ✓ | ✓ | |
-| 退出组织 | ✓ | ✓ | ✓ | |
-| 邀请组织成员 | | | ✓ | |
-| 移除组织成员 | | | ✓ | |
-| 设置成员权限 | | | ✓ | |
+| View organization | ✓ | ✓ | ✓ | Private organizations cannot be viewed by non-members of the organization |
+| Organization basic settings | | | ✓ | Including basic information, logo and other settings |
+| visibility settings | | | ✓ | Change organization visibility, private/public |
+| Delete | | | ✓ | |
+| Set pinned repo | | | ✓ | |
+| Remove pinned repo | | | ✓ | |
+| Sort pinned repo | | | ✓ | |
+| Create a new organization repo | | | ✓ | |
+| View members | ✓ | ✓ | ✓ | |
+| Quit | ✓ | ✓ | ✓ | |
+| Invite members | | | ✓ | |
+| Remove members | | | ✓ | |
+| Set member permissions | | | ✓ | |
 
-### 删除组织
+### Delete Organization
 
-`管理员`可以删除组织，删除该组织同时会删除组织中所有的代码库，包括已归档代码库及其相关资源。
+`Maintainer` can delete the organization. Deleting the organization will also delete all code libraries in the organization, including archived code libraries and their related resources.
 
-1. 进入组织页面
-2. 单击【组织设置】进入组织设置页
-3. 单击【高级设置】展开【删除组织】部分
-4. 单击【删除组织】按钮
-5. 按照提示输入确认信息，并提交【删除组织】
+1. Enter the organization page
+2. Click [Organization Settings] to enter the organization settings page
+3. Click [Advanced Settings] to expand the [Delete Organization] section
+4. Click the [Delete Organization] button
+5. Follow the prompts to enter the confirmation information and submit [Delete Organization]
 
-> 注：已删除的组织将无法恢复，在删除之前系统将会二次确认，请谨慎操作！
+> Note: Deleted organizations cannot be recovered. The system will confirm twice before deleting. Please operate with caution!
 
-### 退出组织
+### Quit Organization
 
-用户也可以退出组织，退出组织的步骤为：
+Users can also exit the organization. The steps to exit the organization are:
 
 ![org_members](./img/org_members.png)
 
-1. 进入组织页面
-2. 单击【组织成员】进入组织成员列表页
-3. 找到自己的用户信息，并单击右侧的【退出组织】按钮
+1. Enter the organization page
+2. Click [Organization Member] to enter the organization member list page
+3. Find your user information and click the [Exit Organization] button on the right
 
-> **注：以下情况将导致你无法退出团队**
-> 1. 当你是团队中的唯一成员时，你将无法退出团队
-> 1. 当你是团队中仅剩唯一的 `管理员` 时，你将无法退出团队
+> **Note: The following situations will prevent you from leaving the team**
+>
+> 1. When you are the only member of the team, you will not be able to leave the team
+> 1. When you are the only `Maintainer` left in the team, you will not be able to exit the team

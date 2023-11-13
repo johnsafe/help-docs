@@ -1,74 +1,74 @@
 ---
 id: cla
 slug: cla
-title: CLA 签署 # 页面标题
-sidebar_lable: CLA 签署
+title: CLA Sign # 页面标题
+sidebar_lable: CLA Sign
 hide_title: true
 ---
 
-## 贡献者许可协议介绍 
+## Contributor License Agreement
 
-CLA 应用允许在组织中启用开发者许可协议签署功能。启用后,当外部开发者向组织的代码库提交变更请求时，应用会检查用户是否已签署 CLA。如果已签署，`CLA-bot` 会在变更请求评论区更新签署信息；如果未签署，`CLA-bot` 会引导外部贡献者查看并签署贡献者协议。
+The CLA app allows you to enable Developer License Agreement signing in your organization. When enabled, when an external developer submits a change request to the organization's code base, the application checks whether the user has signed the CLA. If signed, `CLA-bot` will update the signing information in the change request comment area; if not signed, `CLA-bot` will guide external contributors to view and sign the contributor agreement.
 
-### 什么是贡献者许可协议(CLA)？
+### What is CLA？
 
-CLA 是 Contributor License Agreement(贡献者许可协议)的缩写。许多开源项目要求贡献者签署的法律文件，目的是让项目获得贡献内容(如代码和文档)的知识产权，以便自由使用、修改和再分发。
+CLA stands for **Contributor License Agreement**. A legal document that many open source projects require contributors to sign in order to give the project the intellectual property rights to the contributed content (such as code and documentation) so that they can be freely used, modified, and redistributed.
 
-具体来说,CLA 允许项目:
+In detail,CLA allows repo:
 
-- 永久免费使用、修改和再分发贡献内容 
-- 将贡献内容合并到项目中而不产生法律纠纷，避免贡献内容产权问题 
-- 降低法律纠纷风险，允许对贡献内容重新授权，如更改许可证版本 
+- Free to use, modify and redistribute contributed content forever
+- Incorporate contributed content into the project without causing legal disputes and avoiding property rights issues of contributed content
+- Reduce the risk of legal disputes and allow relicensing of contributed content, such as changing license versions
 
-CLA 可以有效提高开源项目治理效率。
+CLA can effectively improve the efficiency of open source project governance.
 
-## CLA 功能
+## Features
 
-AtomGit CLA 应用支持的功能包括：
+AtomGit CLA App supports：
 
-- 自动检查每个变更请求和 commit
-- 每次推送都会重新检查变更请求
-- 已签署贡献者列表可通过 UI 维护
-- 可以通过评论触发变更请求的重新检查
+- Automatically check every change request and commit
+- Change requests are rechecked with every push
+- List of signed contributors can be maintained via UI
+- Rechecking of change requests can be triggered via comments
 
-### 安装 CLA
+### Install CLA App
 
-进入组织设置，打开CLA管理页面。默认未安装CLA应用，需自行前往开放市场安装 AtomGit CLA 应用。
+Enter the organization settings and open the CLA management page. The CLA application is not installed by default. You need to go to the open market to install the AtomGit CLA application.
 
-![cla 安装](./img/cla-install.png)
+![cla Install](./img/cla-install.png)
 
-1. 选择要安装的空间，点击【选择】 
-2. 选择生效仓库范围，建议选择全部代码库 
-3. 点击【安装】，完成后跳转至【组织设置-应用管理】界面 
+1. Select the space to be installed and click [Select]
+2. Select the effective warehouse scope. It is recommended to select all code libraries.
+3. Click [Install] and jump to the [Organization Settings-Application Management] interface after completion.
 
-### 添加 CLA
+### Add CLA
 
-CLA应用安装后，可在 CLA 管理界面添加CLA内容：
+After the CLA application is installed, CLA content can be added in the CLA management interface:
 
-1. 点击【新建CLA】 
-2. 输入协议名称 
-3. 设置协议版本，勾选重新签署则已签署旧版本协议失效，提交变更请求后会收到版本更新提示 
-4. 设置 CLA 启用的代码库范围，一个代码库只能关联一个CLA协议 
-5. 设置 CLA 协议内容 
-6. 点击【新建】，添加新的CLA协议 
+1. Click [New CLA]
+2. Enter the protocol name
+3. Set the agreement version. If you check Re-sign, the old version of the agreement that has been signed will become invalid. You will receive a version update prompt after submitting the change request.
+4. Set the scope of the code base enabled by CLA. A code base can only be associated with one CLA agreement.
+5. Set CLA agreement content
+6. Click [New] to add a new CLA agreement
 
-![cla 列表](./img/cla-list.png)
+![cla list](./img/cla-list.png)
 
-### 签署 CLA
+### Sign CLA
 
-尝试向已启用 CLA 协议的代码库提交变更请求进行贡献时，`CLA-bot` 会提示签署相应的贡献者许可协议。在签署界面，会看到:
+When attempting to contribute by submitting a change request to a CLA-enabled repository, `CLA-bot` will prompt you to sign the appropriate Contributor License Agreement. In the signing interface, you will see:
 
-- 协议名称
-- 协议版本
-- 协议内容
+- Protocol name
+- Protocol version
+- Agreement
 
-![cla 详情](./img/cla-detail.png)
+![cla detail](./img/cla-detail.png)
 
-同时，需提供并确认邮箱、个人信息完成签署：
+At the same time, you need to provide and confirm your email address and personal information to complete the signature:
 
-- 邮箱（可在个人设置-账号绑定更换）
-- 姓名 
+- Email (can be changed in Personal Settings-Account Binding)
+- Name
 
-签署完成后，可在【个人设置-签署CLAs】页面查看和管理已签署的 CLA 协议内容。
+After the signing is completed, you can view and manage the signed CLA agreement content on the [Personal Settings-Sign CLAs] page.
 
-![已签署 cla](./img/my-clas.png)
+![cla signed](./img/my-clas.png)

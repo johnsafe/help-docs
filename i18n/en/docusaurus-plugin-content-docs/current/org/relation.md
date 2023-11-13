@@ -1,58 +1,57 @@
 ---
 id: org-relation
 slug: relate
-title: 关联组织 # 页面标题
-sidebar_lable: 关联组织
+title: Relate Organization # 页面标题
+sidebar_lable: Relate Organization
 hide_title: true
 ---
 
-## 关联组织
+## Relate Organization
 
-在 AtomGit 中，允许不同的组织间进行关联，目前只支持「父组织-子组织」这种单向、单层级的关联：
+In AtomGit, relations between different organizations are allowed. Currently, only one-way, single-level relations such as "parent organization-child organization" are supported:
 
-- 某个组织可以作为子组织关联唯一的一个父组织
-- 某个组织如果已经存在关联的子组织，则无法再关联、申请关联父组织
+- An organization can be related with only one parent organization as a child organization
+- If an organization already has related sub-organizations, it can no longer relate or apply to relate with the parent organization.
 
-在存在关联关系的组织中，父组织会有一个【组织】的模块以及【组织成员】的列表页面，用于展现该父组织的子组织信息；子组织会有一个【组织】模块，用于展现该子组织的父组织信息。
+In organizations with relationships, the parent organization will have an [Organization] module and a [Organization Members] list page, which are used to display the child organization information of the parent organization; the child organization will have an [Organization] module, which is used to display the child organization information. Displays the parent organization information of the child organization.
 
-此外，你可以通过以下方式解除已存在的组织关联关系：
+In addition, you can cancel existing organization relation in the following ways:
 
-- 子组织退出已关联的父组织
-- 父组织移除已关联的子组织
+- The child organization exits the related parent organization
+- The parent organization removes the related child organization
 
-### 申请组织关联
+### Apply for organization relation
 
-你可以通过一下方式来申请组织关联（关联父组织、关联子组织）
+You can apply for organization relation in the following ways (related with parent organization, related with child organization)
 
-1. 打开【组织-组织设置】页面
-2. 点击【成员组织】
-3. 点击【添加】按钮
-4. 选择申请关联的类型（关联父组织、关联子组织）
-5. 输入组织名称、组织 Path 搜索要申请关联的组织
-6. 点击【确定】按钮，提交组织关联申请
-7. 提交申请之后，系统会向被申请的组织管理员发送邮件通知，在管理员通过申请后，双方组织间即可建立组织关联关系
+1. Open the [Organization-Organization Settings] page
+2. Click [Member Organization]
+3. Click the [Add] button
+4. Select the type of relate application (related with parent organization, related with child organization)
+5. Enter the organization name and organization Path to search for the organization you want to apply for relation with.
+6. Click the [OK] button to submit the organization relation application
+7. After submitting the application, the system will send an email notification to the administrator of the organization being applied for. After the administrator approves the application, an organizational relation relationship can be established between the two organizations.
 
-> 注1： 在点击【确定】后，系统会检查当前申请组织以及被申请组织现有的组织关联关系，以确保双方组织间可以形成单向、单层级的组织关联。
-> 注2： 如果当前组织是【子组织】则无法再进行关联申请，【添加】按钮将不可用
+> Note 1: After clicking [OK], the system will check the existing organizational relation between the current applicant organization and the applied organization to ensure that a one-way, single-level organizational relation can be formed between the two organizations.
+> Note 2: If the current organization is a [sub-organization], associate application cannot be made, and the [Add] button will be unavailable.
 
-### 查看组织关联申请
+### View applies
 
-当有其他组织向你的组织发出了关联申请后，我们将会通过电子邮件通知的方式告知你组织的所有管理员，管理员可以通过以下两种方式查看并处理申请：
+When another organization sends an relate application to your organization, we will notify all administrators of your organization via email notification. Administrators can view and process the application in the following two ways:
 
-1. 点击邮件正文中的【查看申请】链接，跳转至申请详情页，详情页面中包括申请组织的相关信息、申请关联的关系类型
-2. 组织管理员进入【组织-组织设置-成员组织】页面，并点击【申请】按钮，进入申请列表并查看申请
+1. Click the [View Application] link in the body of the email to jump to the application details page. The details page includes information about the applicant organization and the relationship type related with the application.
+2. The organization administrator enters the [Organization-Organization Settings-Member Organization] page and clicks the [Apply] button to enter the application list and view the application
 
-在第 2 种方式中，申请列表中是与当前组织相关的所有组织关联申请，包括：
+In the second method, the application list contains all organization-related applications related to the current organization, including:
 
-- 当前组织发起但还未通过的组织关联申请，支持【撤销申请】操作
-- 其它组织向当前组织发起但还未处理的组织关联申请，支持【查看申请】并进入到申请详情页中进行处理操作（通过申请或拒绝申请）
+- For organization related applications initiated by the current organization but not yet passed, the [Cancel Application] operation is supported.
+- Organization related applications initiated by other organizations to the current organization but not yet processed can support [View Application] and enter the application details page for processing (by applying or rejecting the application)
 
-### 解除关联
+### Disrelate
 
-你可以通过以下方式来解决已经存在的组织关联关系：
+You can resolve existing organizational relationships in the following ways:
 
-1. 打开【组织-组织设置】页面
-2. 点击【成员组织】按钮，查看组织成员列表
-3. 如果当前组织是父组织，列表中则会列出当前组织关联的子组织，你可以点击【移除成员】来解除与某一个或多个子组织的关联关系
-4. 如果当前组织是子组织，列表中会列出当前子组织关联的唯一父组织，你可以点击【退出组织】来解除与该父组织的关联关系
-
+1. Open the [Organization-Organization Settings] page
+2. Click the [Member Organization] button to view the list of organization members
+3. If the current organization is a parent organization, the sub-organizations related with the current organization will be listed in the list. You can click [Remove Member] to remove the relation with one or more sub-organizations.
+4. If the current organization is a sub-organization, the only parent organization related with the current sub-organization will be listed in the list. You can click [Exit Organization] to remove the relation with the parent organization.
