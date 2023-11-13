@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus clean-api-docs all && docusaurus clean-api-docs:version petstore_versioned:all;docusaurus gen-api-docs all && docusaurus gen-api-docs:version petstore_versioned:all;docusaurus build",
+    "build": "docusaurus clean-api-docs all && docusaurus clean-api-docs:version petstore_versioned:all && docusaurus gen-api-docs all && docusaurus gen-api-docs:version petstore_versioned:all && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -17,7 +17,8 @@
     "gen-all": "docusaurus gen-api-docs all && docusaurus gen-api-docs:version petstore_versioned:all",
     "clean-all": "docusaurus clean-api-docs all && docusaurus clean-api-docs:version petstore_versioned:all",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "dev": "yarn clean-all && yarn gen-all && yarn start"
   },
   "dependencies": {
     "@docusaurus/core": "^2.2.0",

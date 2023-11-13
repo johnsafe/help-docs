@@ -183,7 +183,7 @@ const config = {
         title: 'AtomGit',
         logo: {
           alt: 'AtomGit Logo',
-          src: 'img/logo.png',
+          src: 'img/logo.svg',
         },
         items: [
           {
@@ -243,7 +243,7 @@ const config = {
               },
               {
                 label: 'API',
-                to: '/api/',
+                to: '/category/api',
               },
               {
                 label: 'OAuth2',

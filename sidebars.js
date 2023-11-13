@@ -22,6 +22,7 @@ const sidebars = {
       items: [
         'user/user-sshkey',
         'user/user-verify',
+        'repo/repo-migrate',
         {
           type: 'category',
           label: 'Git',
@@ -56,6 +57,7 @@ const sidebars = {
         'repo/files',
         'repo/branch',
         'repo/tag',
+        'repo/release',
         {
           type: 'category',
           label: '提交',
@@ -86,10 +88,11 @@ const sidebars = {
             'repo/issue',
             'repo/label',
             'repo/milestone',
+            'repo/issue_template',
           ],
         },
         'user/repo-members',
-        'permission',
+        'repo/permission',
         {
           type: 'category',
           label: '代码库设置',
@@ -104,8 +107,21 @@ const sidebars = {
             'repo/pr-config',
             'repo/br-config',
             'repo/push-rules',
-            'webhooks',
+            'repo/webhooks',
           ],
+        },
+        {
+            type: 'category',
+            label: '研发模式',
+            link: {
+                type: 'generated-index',
+                title: '研发模式',
+                slug: 'git-pr-mode',
+                keywords: ['git-pr-mode'],
+            },
+            items: [
+                'repo/git-pr-mode',
+            ],
         },
       ],
     },
@@ -124,8 +140,27 @@ const sidebars = {
         'org/new-org',
         'org/org-members',
         'org/org-settings',
+        'org/org-relation',
+        'org/cla',
       ],
     },
+      {
+          type: 'category',
+          label: '应用',
+          link: {
+              type: 'generated-index',
+              title: '应用',
+              slug: 'app',
+              description:
+              "应用开发以及开放市场",
+              keywords: ['app'],
+          },
+          items: [
+              'app/app-create',
+              'app/app-market',
+              'app/app-demo',
+          ],
+      },
     {
       type: 'category',
       label: '用户协议',
