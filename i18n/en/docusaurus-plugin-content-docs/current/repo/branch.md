@@ -1,54 +1,58 @@
 ---
 id: branch # 唯一ID
 slug: /repo/branch # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 分支 # 在sidebar 中的名称
-title: 分支 # 页面标题
+sidebar_label: Branch # 在sidebar 中的名称
+title: Branch # 页面标题
 tags:
   - repo
-  - 分支
+  - branch
 hide_title: false
 ---
 
-分支是为了将修改记录分叉备份保存，不受其他分支的影响，所以在同一个代码库里可以同时进行多个修改。创建仓库时，会自动创建 Master 分支作为默认分支，后续研发成员可以创建新的分支，开发完成后将其合并至默认分支。
+Branches are used to backup and save modification records without being affected by other branches, so multiple modifications can be made simultaneously in the same code base. When creating a warehouse, the Master branch will be automatically created as the default branch. Subsequent R&D members can create new branches and merge them into the default branch after development is completed.
 
-AtomGit 的分支划分为三种：我的、活跃、非活跃
+AtomGit branches has three types: mine, active, and inactive
 
-”我的“：我创建的 + 我更新的，便于用户进行分支管理。
+mine：What I created + what I updated makes it easier for users to manage branches.
 
-活跃：近三个月有push的分支，便于用户进行分支的查看及开发。
+active： branches that have commits in the past three months, making it easier for users to view and develop branches.
 
-非活跃：近三个月内无push的分支，便于用户进行分支及时清理。
+inactive：branches that have'nt been pushed in the past three months, allow users to clean up branches in a timely manner.
 
-#### 新建分支
+#### Create Branch
 
-新建分支支持两种方式：Web 端创建及本地创建。
+There are two ways to create a new branch: creation on the Web and local creation.
 
-1.Web 端创建
+1. create in web
 
-在分支列表中点击右上角的新建分支按钮，展现分支创建弹窗。
+Click the New Branch button in the upper right corner of the branch list to display the branch creation pop-up window.
+
 ![](./img/17.jpg)
 
-填写分支信息并确认后即可完成分支创建。
+After filling in the branch information and confirming, the branch creation can be completed.
 
-2.本地端创建
+2.create locally
 
-在 master 或其他分支下（本地分支），输入命令`git checkout -b slave`新建一个分支。输入命令`git push origin slave`把分支推送到远程仓库。
+Under master or other branches (local branches), enter the command `git checkout -b slave` to create a new branch. Enter the command `git push origin slave` to push the branch to the remote repository.
 
-#### 删除分支
+#### Delete branch
 
-##### 普通分支
-开发人员可在分支后点击更多展现删除入口，可点击删除分支。
+##### Ordinary branch
+
+developers can click "show more" after the branch name to get the entrance of 'delete', click "delete" to delete the branch.
+
 ![](./img/18.jpg)
 
-##### 保护分支
+##### Protected branch
 
-不支持删除，需要取消保护后才可删除。
+Deletion is not supported and protection must be canceled before deletion.
 
-##### 默认分支
+##### Default branch
 
-不支持删除，需取消默认后才可删除。
+Deletion is not supported and must be canceled before deletion.
 
-#### 分支比较
-点击更多操作展现比较入口，展现比较弹层，可进行分支间的对比。
+#### Branch comparison
+
+click "show more" after the branch name to get the entrance of 'compare', click "compare" to start compare.
 ![](./img/19.jpg)
 ![](./img/20.jpg)

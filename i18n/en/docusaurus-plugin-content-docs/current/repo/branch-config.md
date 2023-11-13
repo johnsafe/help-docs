@@ -1,108 +1,115 @@
 ---
 id: br-config # 唯一ID
 slug: /repo/config/branch # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 分支设置 # 在sidebar 中的名称
-title: 分支设置 # 页面标题
+sidebar_label: Branch Config # 在sidebar 中的名称
+title: Branch Config # 页面标题
 tags:
   - branch
-  - 分支设置
+  - Branch Config
 hide_title: false
 ---
 
-本文介绍代码库的分支设置功能说明。
+This article introduces the branch setting function description of the code base.
 ![](./img/31.jpg)
 
-#### 1.默认分支
+#### 1.Default branch
 
-默认分支作为 Clone、创建分支、合并请求、代码浏览的基础分支存在，同时可防护分支被误删除。作为代码库管理员可以按团队开发习惯修改默认分支，下拉选择需要修改的分支。
+The default branch exists as the base branch for Clone, branch creation, merge requests, and code browsing, and can also protect branches from being accidentally deleted. As a code base administrator, you can modify the default branch according to team development habits, and select the branch that needs to be modified by pulling down.
 
-#### 2.保护分支
+#### 2. Protect branches
 
-保护分支定义：限制删除分支，限制 Force Push 强制推送。
+Protect branch definition: limit deletion of branches, limit Force Push.
 
-代码库管理员设置合适规则的分支进行保护，被设置成保护分支即不允许任何人删除分支和强制推送，前者主要是对重要分支保护防止误删除，后者是避免强制推送的操作会使 Commit 无法追溯。
+The code base administrator sets branches with appropriate rules for protection. If the protected branch is set, no one is allowed to delete the branch and force push. The former is mainly to protect important branches from accidental deletion, and the latter is to avoid the force push operation that will cause Commit Cannot be traced back.
 
-#### 新建保护分支规则
+#### Create a new protected branch rule
+
 ![](./img/32.jpg)
 
-分支选择：支持两种形态
+Branch selection: supports two forms
 
-- 填写具体分支完整名称
-- 分支通配符规则（目前只支持 ? 和 *），当匹配多个分支时展示所有匹配的分支。
+- Fill in the complete name of the specific branch
+- Branch wildcard rules (currently only supports ? and *), when matching multiple branches, display all matching branches.
 
->如果一个保护分支存在多个规则，以哪个为主？
-生效逻辑：如果代码库的某个分支可匹配多个保护分支规则，则包含特定分支名称的规则具有最高优先级；如果某个分支存在多个通配符规则匹配，则最早创建的分支规则将具有更高的优先级。
+>If there are multiple rules for a protection branch, which one is dominant?
+Effective logic: If a branch of the code base can match multiple protection branch rules, the rule containing the specific branch name will have the highest priority; if there are multiple wildcard rule matches for a branch, the earliest created branch rule will have a higher priority. High priority.
 
-如：代码库中有分支master、master-1、master-prod-1，有规则顺序如下：master-*、master-1、master-prod-*，匹配规则如下：
-|  分支   |  可匹配规则  |  使用的匹配规则  | 
+For example: there are branches master, master-1, master-prod-1 in the code base, and the order of rules is as follows: master-*, master-1, master-prod-*, and the matching rules are as follows:
+
+|  Branch   |  Rules  |  Rules used  |
 |  ----  | ----  |  ----  |  
-|  master-1   |  master-*，master-1  |  master-1  | 
-|  master-2   |  master-*  |  master-*  | 
-|  master-prod-1   |  master-* ，master-prod-*  | master-* | 
+|  master-1   |  master-*，master-1  |  master-1  |
+|  master-2   |  master-*  |  master-*  |
+|  master-prod-1   |  master-*，master-prod-*  | master-* |
 
+##### Push rules
 
-##### 推送规则
-展示可以直接 Push 到该保护分支的角色或人员。
-默认允许管理者和开发者。一旦勾选取消某种角色，意味着该角色不允许进行直接推送。
+Shows the roles or people who can push directly to this protected branch.
+Administrators and developers are allowed by default. Once you check to cancel a certain role, it means that the role is not allowed to push directly.
 
-无：不允许任何人支持进行推送。
+None: Does not allow anyone to support pushing.
 
-可以设置允许推送的人员：可在代码库的成员中进行选择，但生效的前提是该选择的用户有代码库的写入权限；
+You can set the people allowed to push: you can select among the members of the code base, but the prerequisite for the selection to take effect is that the selected user has write permissions to the code base;
 
-##### 合并规则
-即允许点击变更请求中的合并操作的角色或人员。
+##### Merge rules
 
-默认允许管理者和开发者。一旦勾选取消某种角色，意味着该角色不允许进行合并操作。
+That is, the role or person who is allowed to click the merge action in the change request.
 
+Administrators and developers are allowed by default. Once you check to cancel a certain role, it means that the role is not allowed to be merged.
 
-##### 针对代码评审可以进行规则限制
+##### Rules can be restricted for code review
 
-允许创建者通过：是 / 否
+Allow creator to pass: Yes/No
 
-代码评审的评论已经全部解决：是 / 否
+Code review comments have all been resolved: Yes / No
 
-普通评审模式，可设置评审通过的人数要求、允许通过的角色限制、默认评审人。例如：
+In the normal review mode, you can set the number of people who pass the review, the role restrictions that are allowed to pass, and the default reviewer. For example:
 
->最少评审通过人数：1
-允许通过合并请求：管理员 + 开发者
-默认评审者：如果没填人，该项不展示，限制最多20位
+>Minimum number of people passing the review: 1
+Allow merge requests via: Admin + Developer
+Default reviewer: If no one is filled in, the item will not be displayed. The maximum number is 20.
 
-###### 评审文件白名单
-在规范的情况下，变更请求必须至少有一个评审人，但是有时候只是提交几个不敏感的文件，需要人工介入评审的必要性不大，希望能够针对这类文件直接支持合并，提高工作效率。
+###### Review document whitelist
 
-代码工程中大部分文件需要走评审卡点，小部分不重要的文件改动没必要每次都需要人工评审，但是为了保证合入的稳定性，合入过程通常需要走CI自动化检查后再合并，所以仍然不允许直接推送目标分支，而是要走评审流程。
+Under normal circumstances, change requests must have at least one reviewer, but sometimes only a few insensitive files are submitted, and there is little need for manual intervention in the review. We hope to directly support merging of such files to improve work efficiency. .
 
-这类需求可以使用评审文件白名单去解决。
+Most of the files in the code project need to go through review checkpoints. A small number of unimportant file changes do not need manual review every time. However, in order to ensure the stability of the merge, the merge process usually requires CI automated inspection before merging. Therefore, it is still not allowed to push the target branch directly, but must go through the review process.
 
-当设置了评审文件白名单后，当评审涉及该文件时：
-- 若变更请求仅包含该白名单内的文件——变更请求不受「评审通过最少人数」限制，但其他条件如评论要求全部解决仍然生效；
+Such needs can be solved using the review document whitelist.
 
-- 若变更请求部分包含该白名单内的文件——变更请求对应保护分支全部规则均生效；
+After setting the review file whitelist, when the review involves the file:
 
-###### 评审文件白名单书写规则
-文件白名单使用以下规则匹配文件路径：
+- If the change request only contains files in the whitelist - the change request is not subject to the "minimum number of people who can pass the review", but other conditions such as all comment requirements are still in effect;
+
+- If the change request contains files in the whitelist - all rules of the protection branch corresponding to the change request will take effect;
+
+###### Review document whitelist writing rules
+
+File whitelisting matches file paths using the following rules:
+
 ```
-？匹配一个字符
+? match a character
 
-* 匹配零个或多个字符
+* matches zero or more characters
 
-** 匹配路径中的零个或多个目录
+** Match zero or more directories in the path
 ```
 
-示例如下：
+Examples are as follows:
+
 ```
-# 匹配 atomgit/test.java ，同时也匹配 atomgit/tast.java 或 atomgit/txst.java；
+# match atomgit/test.java ，match = atomgit/tast.java or atomgit/txst.java；
 atomgit/t?st.java
 
-# 匹配 atomgit 目录下所有以 .java 结尾的文件； 
+# match all files ending with .java in the atomgit directory; 
 atomgit/*.java 
 
-# 匹配 atomgit 目录下所有名为 test.java 的文件；
+# match all files named test.java in the atomgit directory;
 atomgit/**/test.java 
 
-# 匹配 org/springframework目录下以 .java 结尾的文件；
+# match files ending with .java in the org/springframework directory;
 org/springframework/**/*.java 
 
-# 匹配 org/springframework/servlet/bla.java，同时也匹配 org/springframework/testing/servlet/bla.java 或 org/servlet/bla.java
+# match org/springframework/servlet/bla.java，and match org/springframework/testing/servlet/bla.java or org/servlet/bla.java
 org/**/servlet/bla.java 
 ```
