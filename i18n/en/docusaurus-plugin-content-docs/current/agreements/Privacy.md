@@ -1,220 +1,221 @@
 ---
 id: privacy # 唯一ID
 slug: /agreements/privacy # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 隐私政策 # 在sidebar 中的名称
-title: 隐私政策 # 页面标题
+sidebar_label: Privacy Policy # 在sidebar 中的名称
+title: Privacy Policy # 页面标题
 hide_title: true
 ---
 
 
-## AtomGit平台隐私政策
+## AtomGit Privacy Policy
 
 ```html
-当前版本号：【1.0】
-发布日期：【2022年7月17日】
-生效时期：【2022年7月17日】
+current version：【1.0】
+release date：【2022.07.17】
+effective date：【2022.07.17】
 ```
 
-亲爱的用户：
+Dear users：
 
-欢迎使用AtomGit平台！
+Welcome to the AtomGit platform!
 
-AtomGit平台（以下简称“本平台”）是由开放原子开源基金会进行开发、运营和管理的代码托管平台。开放原子开源基金会（以下简称“我们”）是在民政部注册的、致力于开源产业公益事业的非营利性独立法人机构。我们将通过本平台为您提供注册、登录、代码托管和开源协同服务。为更好地让您了解本平台是如何处理（收集、存储、使用、加工、提供、传输、公开、删除等）和保护您的个人信息，以及如何实现您对您个人信息的管理，我们根据《中华人民共和国个人信息保护法》以及相关法律法规、国家标准制定《AtomGit平台隐私政策》（以下简称“**本隐私政策**”）。
+The AtomGit platform (hereinafter referred to as the "platform") is a code hosting platform developed, operated and managed by the Open Atom Open Source Foundation. The Open Atom Open Source Foundation (hereinafter referred to as "we") is a non-profit independent legal entity registered with the Ministry of Civil Affairs and dedicated to the public welfare of the open source industry. We will provide you with registration, login, code hosting and open source collaboration services through this platform. In order to better let you understand how this platform handles (collects, stores, uses, processes, provides, transmits, discloses, deletes, etc.) and protects your personal information, and how to realize your management of your personal information, we based on The "Personal Information Protection Law of the People's Republic of China" and relevant laws, regulations and national standards formulate the "AtomGit Platform Privacy Policy" (hereinafter referred to as "this Privacy Policy").
 
-**您在正式注册并使用本平台之前，请务必详细阅读本隐私政策。本隐私政策中，我们会通过加粗或<u>下划线</u>的方式提请您注意对您个人信息权益有重大影响的内容，对此您应该重点阅读。** 如您对本隐私政策的内容有任何疑问，请务必在您注册并使用本平台前通过本隐私政策下方“**十、联系方式**”所示联系方式联系我们，我们将针对您的问题进行解答。
+Please be sure to read this privacy policy in detail before you officially register and use this platform. In this privacy policy, we will draw your attention to content that has a significant impact on your personal information rights by bolding or underlining it, and you should read it carefully. If you have any questions about the contents of this Privacy Policy, please be sure to contact us through the contact information shown in "10. Contact Information" below this Privacy Policy before you register and use this platform, and we will answer your questions.
 
-**本隐私政策仅适用于位于中华人民共和国境内使用本平台的自然人用户。** 本隐私政策仅适用于由AtomGit平台为您提供的服务，不涉及我们其他平台提供的服务，也不涉及任何第三方提供的服务。出于本平台服务功能发展的需要，以及相应的法律法规的要求，我们可能会不定期修改本隐私政策。未经您明确同意或无法律法规明确要求，我们不会对本隐私政策进行对您现有权益造成明显减损的修改。一旦修改隐私政策，我们将通过弹窗、公告等方式向您告知，**如您不同意修改后的隐私政策，请您立即停止使用本平台服务。如您继续使用本平台服务，则视为您同意修改后的隐私政策。**
+This privacy policy only applies to natural person users located in the People's Republic of China who use this platform. This privacy policy only applies to the services provided to you by the AtomGit platform, and does not involve services provided by our other platforms, nor does it involve services provided by any third party. Due to the needs of the development of the service functions of this platform and the requirements of corresponding laws and regulations, we may modify this privacy policy from time to time. Without your explicit consent or without explicit requirements of laws and regulations, we will not make any changes to this Privacy Policy that will significantly detract from your existing rights and interests. Once the privacy policy is modified, we will notify you through pop-up windows, announcements, etc. If you do not agree to the modified privacy policy, please stop using this platform service immediately. If you continue to use the services of this platform, you will be deemed to agree to the revised Privacy Policy.
 
-**通过本隐私政策，您将了解以下内容：**
+**Through this privacy policy, you will understand the following:**
 
-- **一、定义**
-- **二、我们如何收集、使用您的个人信息**
-- **三、我们如何使用Cookie及同类技术**
-- **四、个人信息的委托处理、共享、转让及公开披露**
-- **五、我们如何存储并保护您的个人信息**
-- **六、儿童个人信息保护**
-- **七、个人信息的跨境提供**
-- **八、我们如何响应您个人信息权利请求**
-- **九、本隐私政策的更新**
-- **十、联系我们**
+- **1. Definition**
+- **2. How we collect and use your personal information**
+- **3. How we use cookies and similar technologies**
+- **4. Entrusted processing, sharing, transfer and public disclosure of personal information**
+- **5. How we store and protect your personal information**
+- **6. Protection of children’s personal information**
+- **7. Cross-border provision of personal information**
+- **8. How we respond to your request for personal information rights**
+- **9. Updates of this Privacy Policy**
+- **10. Contact Us**
 
-## 一、	定义
+## 1、 Definition
 
-（1）个人信息：是以电子或者其他方式记录的与已识别或者可识别的自然人有关的各种信息，不包括匿名化处理后的信息。
+(1) Personal information: It is various information related to identified or identifiable natural persons recorded electronically or by other means, excluding anonymized information.
 
-（2）个人信息处理：包括个人信息的收集、存储、使用、加工、传输、提供、公开、删除等。
+(2) Personal information processing: including the collection, storage, use, processing, transmission, provision, disclosure, deletion, etc. of personal information.
 
-本隐私政策中未提及的其他概念的定义，与中华人民共和国相关法律法规的中的定义保持一致。
+The definitions of other concepts not mentioned in this Privacy Policy are consistent with the definitions in the relevant laws and regulations of the People's Republic of China.
 
-## 二、	我们如何收集、使用您的个人信息
+## 2、 How we collect and use your personal information
 
-### （一）帐号注册功能
+### （1）Account register
 
-为实现本平台的注册功能，我们可能需要您提供手机号码、电子邮箱地址、用户名信息，为保证帐号安全，您可能还需要根据相关要求设置<u>**帐号密码**</u>。我们通过上述信息为您开设本平台的帐号，以进一步实现您在本平台上使用需登录帐号实现的功能。您了解，您拥有帐号是使用本平台需登录帐号实现功能基础。**前述信息属于必要个人信息，如您无法提供上述信息，您将无法完成本平台帐号注册。** 前述信息仅会在您首次注册帐号时，或您主动更新手机号、电子邮箱地址和用户名时进行收集。
+In order to realize the registration function of this platform, we may need you to provide your mobile phone number, email address, and user name information. To ensure the security of your account, you may also need to set <u>**Account Password**</ according to relevant requirements. u>. We use the above information to open an account for you on this platform to further realize the functions that you need to log in to on this platform. You understand that if you have an account, you need to log in to the account to implement the functions of this platform. **The above information is necessary personal information. If you are unable to provide the above information, you will not be able to complete the account registration on this platform.** The aforementioned information will only be collected when you register an account for the first time, or when you actively update your mobile phone number, email address and user name.
 
-### （二）第三方帐号登录功能
+### （2）Third-party account login
 
-除了在本平台进行帐号注册外，当您通过第三方平台帐号登录本平台时，您需要授权我们收集第三方平台帐号的昵称、头像、用户名、手机号码和电子邮箱地址信息。您理解，基于平台实名制提供信息服务要求，**前述信息属于实现使用第三方平台帐号登录本平台的必要个人信息，如您无法提供上述信息，您将无法实现第三方平台帐号登录**。前述信息仅在您首次使用第三方平台帐号登录时收集。
+In addition to registering an account on this platform, when you log in to this platform through a third-party platform account, you need to authorize us to collect the nickname, avatar, username, mobile phone number and email address information of the third-party platform account. You understand that based on the platform's real-name system for providing information service requirements,**the foregoing information is necessary personal information to log in to the platform using a third-party platform account. If you are unable to provide the above information, you will not be able to log in with a third-party platform account**. The aforementioned information is only collected when you log in for the first time using a third-party platform account.
 
-### （三）编辑个人资料
+### （3）Edit profile
 
-本平台提供个人资料编辑功能，您可以通过编辑功能丰富和完善您的个人资料。为此，我们将会收集您提供的头像、电子邮箱地址、个人网站或博客、公司、所在地、个人简介信息。以上信息会在您每次编辑个人资料时收集。您了解，以上个人信息由您自愿提供，如您无法提供上述信息，不会影响您使用本平台除个人资料编辑及展示以外的其他功能。
+This platform provides personal information editing functions, through which you can enrich and improve your personal information. For this purpose, we will collect the avatar, email address, personal website or blog, company, location, and personal profile information you provide. The above information is collected each time you edit your profile. You understand that the above personal information is provided by you voluntarily. If you are unable to provide the above information, it will not affect your use of other functions of this platform except personal data editing and display.
 
-### （四）SSH公钥创建
+### （4）SSH public Key
 
-SSH公钥用于在您的电脑和本平台间建立更为安全的链接方式，本平台可以为此生成SSH公钥。SSH公钥及其名称由您主动设置生成。以上个人信息由您自愿提供，如您无法提供上述信息，不会影响您使用本平台除SSH公钥创建功能以外的其他功能。
+The SSH public key is used to establish a more secure link between your computer and this platform, and this platform can generate an SSH public key for this purpose. The SSH public key and its name are generated by your active settings. The above personal information is provided voluntarily by you. If you are unable to provide the above information, it will not affect your use of other functions of this platform except the SSH public key creation function.
 
-### （五）其他可能收集和使用您个人信息的情形
+### （5）Other situations in which your personal information may be collected and used
 
-本平台可能会通过短信或电话的方式不定时地向您提供发送邀请或产品服务体验推广内容，届时我们将会通过使用您注册时提供的手机号码完成上述服务。如果您不愿意接受本项服务，您可以通过本隐私政策“**八、（四）撤回同意**”所示方式进行退订。您退订后，我们将不再向您提供本项服务。
+This platform may send you invitations or product service experience promotion content from time to time through text messages or phone calls. At that time, we will complete the above services by using the mobile phone number you provided when registering. If you are unwilling to accept this service, you can unsubscribe through the methods shown in "**8. (4) Withdrawal of Consent**" of this Privacy Policy. After you unsubscribe, we will no longer provide you with this service.
 
-### （六）无需征得您同意的例外情形
+### （6）Exceptions that do not require your consent
 
-**根据法律规定，在以下情况下，我们处理您的个人信息无需取得您的同意：**
+**According to legal provisions, we do not need to obtain your consent to process your personal information under the following circumstances:**
 
-- （1）为订立、履行您作为一方当事人的合同所必需；
-- （2）为履行本平台之法定义务所必需；
-- （3）为应对突发公共卫生事件，或者紧急情况下为保护自然人的生命健康和财产安全所必需；
-- （4）为公共利益实施新闻报道、舆论监督等行为，在合理的范围内处理个人信息；
-- （5）依照法律规定在合理的范围内处理您已经自行公开或者其他已经合法公开的个人信息；
-- （6）法律、行政法规规定的其他情形。
+(1) Necessary for the conclusion and performance of a contract to which you are a party;
+(2) Necessary to fulfill the legal obligations of this platform;
+(3) In order to respond to public health emergencies, or necessary to protect the life, health and property safety of natural persons in emergency situations;
+(4) Implement news reporting, public opinion supervision and other activities for the public interest, and process personal information within a reasonable scope;
+(5) Process personal information that you have disclosed yourself or that has been legally disclosed by others within a reasonable scope in accordance with legal provisions;
+(6) Other situations stipulated by laws and administrative regulations.
 
-## 三、	我们如何使用Cookie及同类技术
+## 3、 How we use cookies and similar technologies
 
-### （一）什么是Cookie及同类技术
+### （1）What are cookies and similar technologies
 
-Cookie 是您登录网站或浏览网络内容时，网站服务器存放在您的电脑、移动电话或其他智能终端设备内的小型文件，通常包含标识符、站点名称以及一些号码和字符。我们可能使用Cookie以提升您访问本平台时的用户体验和服务友好度，主要是用于统计和分析基于您的网站访问和使用习惯等，记录您的偏好和设置，从而作为我们改进产品和提升服务的相关依据。除Cookie外，类似于网站信标或者像素标签等同类技术也可通过埋点上报的方式，实现类似效果。
+Cookies are small files that are stored in your computer, mobile phone or other smart terminal devices by the website server when you log in to the website or browse online content. They usually contain identifiers, site names and some numbers and characters. We may use cookies to improve the user experience and service friendliness when you visit this platform, mainly for statistics and analysis based on your website access and usage habits, etc., to record your preferences and settings, so as to improve our products and enhance Relevant basis for services. In addition to cookies, similar technologies such as web beacons or pixel tags can also achieve similar effects through tracking and reporting.
 
-### （二）我们如何使用Cookie及同类技术
+### （2）How we use cookies and similar technologies
 
-当您使用本平台时，我们可能通过Cookie或同类技术收集您的用户名、头像、设备型号、操作系统、设备标识符、登录IP地址信息，缓存您的<u>**浏览信息**</u>、<u>**点击信息**</u>。我们不会将通过Cookie及同类技术收集的前述信息与您的个人帐号信息或身份信息相关联，也不会用作除统计分析和改善网站服务效果等本隐私政策披露范围之外的其他用途。我们使用Cookie及同类技术的目的是通过了解您在使用本平台的行为以推断用户群体的兴趣领域，基于此不断优化本平台的用户友好程度，并根据您的需要对本平台相关功能或服务及时做出调整。
+When you use this platform, we may collect your user name, avatar, device model, operating system, device identifier, login IP address information through cookies or similar technologies, and cache your <u>**browsing information** </u>, <u>**Click Information**</u>. We will not associate the aforementioned information collected through cookies and similar technologies with your personal account information or identity information, nor will we use it for purposes other than statistical analysis and improvement of website service effects, etc. beyond the scope disclosed in this privacy policy. The purpose of our use of cookies and similar technologies is to infer the areas of interest of user groups by understanding your behavior when using this platform. Based on this, we will continuously optimize the user-friendliness of this platform and make timely adjustments to relevant functions or services of this platform according to your needs. out adjustment.
 
-### （三）如何管理Cookie及同类技术
+### （3）How to manage cookies and similar technologies
 
-大多数设备浏览器通常允许您选择仅禁用第三方Cookie或禁用所有Cookie。您可以通过更改设备的浏览器设置，启用或者关闭浏览器对于本平台的Cookie及同类技术的，但这有可能影响您对本平台的使用体验，例如我们可能无法了解您对本平台的使用而额外产生需重复设置的操作。有关详细信息，请您参阅设备终端浏览器中的帮助菜单或设备随附的文档。
+Most device browsers usually allow you to choose to disable only third-party cookies or all cookies. You can enable or disable the browser's cookies and similar technologies on the Platform by changing the browser settings of your device, but this may affect your experience of using the Platform, for example, we may not be able to understand your use of the Platform and may need to repeat the settings. For more information, refer to the help menu in your device's terminal browser or the documentation that came with your device.
 
-## 四、	个人信息的委托处理、共享、转让与公开披露
+## 4、 Entrusted processing, sharing, transfer and public disclosure of personal information
 
-### （一）委托处理
+### （1）Consignment Processing
 
-为保证本平台的各项功能正常和稳定提供，我们可能会引入技术服务提供商共同向您提供服务。这些技术服务商可能基于实现业务目的确需，受托处理您的数据。具体而言：
+In order to ensure the normal and stable provision of various functions of this platform, we may introduce technical service providers to jointly provide services to you. These technical service providers may be entrusted with processing your data based on the need to achieve business purposes. in particular:
 
-- （1）基于本平台运营所需，我们会委托一家或多家云服务技术提供商提供数据存储服务。数据存储服务提供商仅会在接受本平台委托的范围内，并且在遵循本平台的指示下向您提供数据存储服务。我们会通过与受托数据处理服务商签署严格的数据处理协议或保密协议，要求他们按照我们的说明、本隐私政策以及其他任何相关的保密和安全措施来处理个人信息，确保他们不会主动获取或者访问您在使用本平台时产生的个人信息和其他任何数据。
-- （2）为了满足本平台的互联网信息内容安全和帐号信息安全管理的法定要求，本平台可能为委托一家信息内容审核技术服务提供商，协助我们履行平台内容治理的法定义务。我们会与受托内容审核技术服务提供商签署严格的数据处理协议或保密协议。您理解，前述审核过程中可能涉及通过运用机器或者人工等多种形式对您提交、上传或者公开的信息内容进行审核处理，但我们将采取必要的脱敏措施，在保证信息安全的情况下，由这些内容审核技术提供商进行数据处理。
-- 3）为及时处理您的投诉、建议以及其他诉求，我们将委托一家或多家客户服务提供商收处理您的相关个人信息，以便我们及时了解、处理和响应您的需求。我们会与客户服务提供商签署严格的数据处理协议或保密协议。您理解，前述解决客诉过程中可能会收集和使用您的帐号信息、您的投诉、建议或提出其他诉求时的语音或文字记录等，必要时我们可能会通过您在平台上预留的手机号码或者其他通讯方式向您反馈客诉处理结果。
+(1) Based on the operational needs of this platform, we will entrust one or more cloud service technology providers to provide data storage services. Data storage service providers will only provide you with data storage services within the scope of accepting the entrustment of this platform and following the instructions of this platform. We will sign strict data processing agreements or confidentiality agreements with entrusted data processing service providers, requiring them to process personal information in accordance with our instructions, this privacy policy and any other relevant confidentiality and security measures to ensure that they will not actively obtain or Access your personal information and any other data generated while using the Platform.
 
-### （二）共享
+(2) In order to meet the legal requirements of this platform for Internet information content security and account information security management, this platform may entrust an information content review technology service provider to assist us in fulfilling our legal obligations for platform content management. We will sign a strict data processing agreement or confidentiality agreement with the entrusted content moderation technology service provider. You understand that the aforementioned review process may involve the use of machines or manual methods to review and process the information you submit, upload or disclose, but we will take necessary desensitization measures to ensure information security. Data processing is carried out by these content moderation technology providers.
 
-原则上，未征得您的单独同意，我们不会将您的个人信息共享给第三方。
+3) In order to handle your complaints, suggestions and other demands in a timely manner, we will entrust one or more customer service providers to collect and process your relevant personal information so that we can understand, process and respond to your needs in a timely manner. We will sign strict data processing agreements or confidentiality agreements with our customer service providers. You understand that the aforementioned process of resolving customer complaints may collect and use your account information, voice or text records of your complaints, suggestions or other demands. If necessary, we may use the mobile phone you reserved on the platform. number or other communication methods to provide you with feedback on the results of customer complaint handling.
 
-当您使用本平台帐号登录其他网站或者第三方平台（如开放原子开源基金会官网以及其他开源项目网站）时，经您单独同意，我们会将您的本平台帐号信息（用户名、手机号码、电子邮箱地址、头像）提供给这些您授权使用的网站或平台。
+### （2）Share
 
-此外，如因未来业务开展需要向其他任何第三方共享您的个人信息，我们会事先告知您接收方的名称或者姓名、联系方式、处理目的、处理方式和个人信息的种类，在取得您的单独同意后，我们才会向第三方共享您的个人信息。
+In principle, we will not share your personal information with third parties without your separate consent.
 
-### （三）公开
+When you use this platform account to log in to other websites or third-party platforms (such as the official website of the Open Atom Open Source Foundation and other open source project websites), with your separate consent, we will use your platform account information (user name, mobile phone number, Email address, avatar) provided to these websites or platforms that you authorize to use.
 
-原则上，未征得您的单独同意，我们不会将您的个人信息公开。
+In addition, if we need to share your personal information with any other third party for future business development, we will inform you in advance of the name of the recipient, contact information, processing purpose, processing method and type of personal information. We will share your personal information with third parties only with your consent.
 
-**以下情形将被视为您授权我们公开您的个人信息：** 您在编辑个人信息时，勾选了“在个人首页显示邮箱”。此时我们将公开您的电子邮箱地址。您可以在同一页面勾选“不显示邮箱”来撤回该授权。
+### （3）Disclose
 
-### （四）转让
+In principle, we will not disclose your personal information without your separate consent.
 
-原则上，未征得您的单独同意，我们不会将您的个人信息转让给其他第三方。
+**The following situations will be deemed as your authorization for us to disclose your personal information:** When you edit your personal information, you check "Show email on personal homepage". At this time we will publish your email address. You can check "Don't show email" on the same page to revoke this authorization.
 
-当我们因合并、分立、终止等经营战略调整或商业决策原因需要转移个人信息的，我们会告知您接收方的名称或者姓名和联系方式，并要求个人信息接收方按照本隐私政策继续履行相关义务。若接收方变更本隐私政策的处理目的、处理方式的，我们会要求其重新取得您的单独同意。
+### （4）Transfer
 
-### （五）事先征得授权同意的例外
+In principle, we will not transfer your personal information to other third parties without your separate consent.
 
-**根据相关法律法规或者出于维护公共利益等需要，我们在如下情形共享、提供、公开、转让个人信息时可以无需征得您的同意：**
+When we need to transfer personal information due to business strategy adjustments or business decisions such as mergers, divisions, terminations, etc., we will inform you of the name and contact information of the recipient, and require the recipient of personal information to continue to perform relevant obligations in accordance with this privacy policy. . If the receiving party changes the processing purposes and methods of this privacy policy, we will require it to obtain your separate consent again.
 
-- （1）与我们履行法律法规规定的义务相关的；
-- （2）与国家安全、国防安全直接相关的；
-- （3）与公共安全、公共卫生、重大公共利益直接相关的；
-- （4）与刑事侦查、起诉、审判和判决执行等直接相关的；
-- （5）出于维护您或我们员工其他个人的生命、财产等重大合法权益但又很难得到本人授权同意的；
-- （6）个人信息主体自行向社会公众公开的个人信息；
-- （7）从合法公开披露的信息中收集个人信息的，如合法的新闻报道、政府信息公开等渠道。
+### （5）Exceptions to prior authorization and consent
 
-## 五、	我们如何存储并保护您的个人信息
+**According to relevant laws and regulations or to protect public interests, we do not need to obtain your consent when sharing, providing, disclosing, or transferring personal information in the following circumstances:**
 
-### （一）个人信息的存储
+- (1) Relevant to our performance of obligations stipulated in laws and regulations;
+- (2) Directly related to national security and national defense security;
+- (3) Directly related to public security, public health, and major public interests;
+- (4) Directly related to criminal investigation, prosecution, trial and execution of judgment;
+- (5) To protect the life, property and other major legitimate rights and interests of you or other individuals of our employees but it is difficult to obtain your authorization and consent;
+- (6) Personal information disclosed by the personal information subject to the public on his own initiative;
+- (7) Collect personal information from legally publicly disclosed information, such as legal news reports, government information disclosure and other channels.
 
-我们将在中华人民共和国境内收集或产生的您的个人信息，均存储在中华人民共和国境内的服务器内。我们根据《中华人民共和国个人信息保护法》等有关法律法规的要求，将个人信息的存储期限限制在最小必要的范围内。
+## 5、 How we store and protect your personal information
 
-**基于场景、内容及服务的不同，数据的存储期限可能会有所不同。**我们用于确定存储期限的标准包括：完成该业务目的（包括提供内容和服务，维护相应的交易及业务记录，管控并提升内容与服务性能与质量，保证系统、内容和服务的安全，应对可能的用户查询或投诉以及问题定位等）需要留存个人信息的时间；用户是否同意更长的存储期限；法律、合同等是否有保留数据的特殊要求等。<u>**就您注册、登录所使用的个人信息而言，为了保证本平台服务的持续性，我们将在您使用本平台服务期间长期留存您的该类个人信息。**</u>
+### （1）Storage of personal information
 
-### （二）个人信息的保护
+Your personal information collected or generated by us in the People's Republic of China will be stored in servers in the People's Republic of China. In accordance with the requirements of relevant laws and regulations such as the Personal Information Protection Law of the People's Republic of China, we limit the storage period of personal information to the minimum necessary range.
 
-我们重视个人信息的安全。我们采用适当的物理、管理和技术保障措施来保护您的个人信息不被未经授权访问、披露、使用、修改、损坏或丢失。例如，我们会使用加密技术确保数据的保密性；我们会使用保护机制防止数据遭到恶意攻击；我们会部署访问控制机制，确保只有授权人员才可访问个人信息；以及我们会举办安全和隐私保护培训课程，加强员工对于保护个人信息重要性的认识。我们会尽力保护您的个人信息，但是请您了解，互联网并非百分之百安全。若发生个人信息安全事件，我们将按照法律法规的要求，及时向您告知以下事件相关情况：安全事件的基本事实和可能的影响、我们已采取或将要采取的处置措施、您可自主防范和降低风险的建议、对您的补救措施等。
+**Based on different scenarios, content and services, the data storage period may vary.**The criteria we use to determine the storage period include: completing the business purpose (including providing content and services, maintaining corresponding transactions and business records, controlling and improving the performance and quality of content and services, and ensuring the security of systems, content and services, How long personal information needs to be retained in response to possible user inquiries or complaints, problem locating, etc.; whether the user agrees to a longer storage period; whether there are special requirements for retaining data in laws, contracts, etc. )<u>**As for the personal information you use to register and log in, in order to ensure the continuity of this platform's services, we will retain your personal information for a long time during your use of this platform's services.**</u>
 
-**<u>您知悉：本平台提供的个人信息保护措施仅适用于本网站，一旦您离开本平台，浏览或使用其他网站、服务及内容资源，本平台即没有能力或法律义务保护您在本平台以外的网站提交的任何个人信息，无论您登录或浏览上述网站是否基于本平台的链接或引导。</u>**
+### （2）Protection of personal information
 
-## 六、	儿童个人信息保护
+We take the security of personal information seriously. We use appropriate physical, administrative and technical safeguards to protect your personal information from unauthorized access, disclosure, use, modification, damage or loss. For example, we will use encryption technology to ensure the confidentiality of data; we will use protection mechanisms to prevent data from malicious attacks; we will deploy access control mechanisms to ensure that only authorized personnel can access personal information; and we will implement security and privacy protection Training courses to enhance employees’ awareness of the importance of protecting personal information. We will do our best to protect your personal information, but please understand that the Internet is not 100% safe. If a personal information security incident occurs, we will promptly inform you of the following incident-related information in accordance with the requirements of laws and regulations: the basic facts and possible impact of the security incident, the handling measures we have taken or will take, and your ability to prevent and reduce the risk on your own. Advice on risks, remedies for you, etc.
 
-**本网站及其内容、服务仅面向已满十四周岁的自然人提供。**
+**<u>You know: The personal information protection measures provided by this platform only apply to this website. Once you leave this platform and browse or use other websites, services and content resources, this platform has no ability or legal obligation to protect you. Any personal information submitted on websites other than this platform, regardless of whether you log in or browse the above websites based on links or guidance from this platform. </u>**
 
-如果没有父母或监护人的同意，未满十四周岁的未成年人不得创建自己的用户帐号。对于经父母同意而收集儿童个人信息的情况，我们只会在受到法律允许、父母或监护人明确同意或者保护儿童所必要的情况下使用或披露其个人信息。如果我们发现本平台在未事先获得可证实的父母同意的情况下收集了儿童的个人信息，则我们会尽快删除相关数据和个人信息。我们将根据《儿童个人信息网络保护规定》等相关法律法规的规定保护未满十四周岁儿童的个人信息。
+## 6、 Protection of children’s personal information
 
-## 七、	个人信息的跨境提供
+**This website, its content and services are only provided to natural persons over the age of fourteen.。**
 
-目前，本平台仅向中华人民共和国境内的自然人用户提供服务，并且不存在任何向境外的组织和个人提供个人信息的行为。当我们需要向境外提供个人信息时，我们将依据适用的相关法律法规规定，就个人信息种类、处理目的和方式进行告知并重新取得您的同意。
+Minors under the age of 14 are not allowed to create their own user accounts without the consent of their parents or guardians. When we collect children's personal information with parental consent, we will only use or disclose their personal information when permitted by law, with the explicit consent of parents or guardians, or when it is necessary to protect children. If we discover that the Platform has collected children's personal information without prior verifiable parental consent, we will delete the relevant data and personal information as soon as possible. We will protect the personal information of children under the age of 14 in accordance with the Provisions on the Protection of Children's Personal Information Online and other relevant laws and regulations.
 
-## 八、	我们如何响应您个人信息权利请求
+## 7、 Cross-border provision of personal information
 
-### （一）个人信息的查询、更正及补充
+Currently, this platform only provides services to natural person users within the territory of the People's Republic of China, and does not provide any personal information to overseas organizations and individuals. When we need to provide personal information overseas, we will inform you of the type, purpose and method of processing the personal information and obtain your consent again in accordance with applicable relevant laws and regulations.
 
-您可以通过【个人设置-用户设置-基本信息】来查询、更正、补充您的个人信息。
+## 8、 How we respond to your request for personal information rights
 
-### （二）个人信息的删除
+### （1）Inquiry, correction and addition of personal information
 
-根据法律规定，当出现以下情形时，您有权要求我们删除您的个人信息：
+You can inquire, correct, and supplement your personal information through [Personal Settings - User Settings - Basic Information].
 
-- （1）处理目的已实现、无法实现或者为实现处理目的不再必要；
-- （2）我们停止提供产品或者服务，或者保存期限已届满；
-- （3）您撤回同意；
-- （4）我们违反法律、行政法规或者违反约定处理您的个人信息；
-- （5）法律、行政法规规定的其他情形。
+### （2）Deletion of personal information
 
-您可以通过【个人设置-用户设置-基本信息】来删除您的个人信息。如您通过前述方式无法自主实现删除信息的，您也可以通过本隐私政策“十、联系我们”所示方式向我们提交个人信息删除请求。通常情况下，我们会在15个工作日之内进行处理。
+According to legal provisions, you have the right to ask us to delete your personal information when the following circumstances occur:
 
-### （三）帐号注销
+- (1) The purpose of processing has been achieved, cannot be achieved, or is no longer necessary to achieve the purpose of processing;
+- (2) We stop providing products or services, or the storage period has expired;
+- (3) You withdraw your consent;
+- (4) We process your personal information in violation of laws, administrative regulations or agreements;
+- (5) Other situations stipulated by laws and administrative regulations.
 
-您可以通过注销帐号的方式撤回您对本隐私政策的同意。注销帐号的方式为【我的主页-用户设置-帐号安全-注销帐号】。
+You can delete your personal information through [Personal Settings-User Settings-Basic Information]. If you are unable to delete your information independently through the above methods, you can also submit a personal information deletion request to us through the methods shown in "10. Contact Us" of this Privacy Policy. Normally, we will process it within 15 working days.
 
-<u> **特别提请您注意，在注销帐号之前，您注销帐号后，即代表您撤回您对本隐私政策的同意，我们将会立即删除您的个人信息和您创建的组织和代码库（若有），这些操作都是不可逆的。即**，</u>这些个人信息和数据一旦删除将无法找回。您需审慎评估该后果可能对您造成的风险和损失，进行注销操作。
+### （3）Account Cancel
 
-### （四）撤回同意
+You may withdraw your consent to this Privacy Policy by canceling your account. The way to cancel the account is [My Page - User Settings - Account Security - Cancel Account].
 
-您可以通过删除信息、自主关闭功能等方式改变您授权我们继续收集个人信息的范围或撤回您的授权。您也可以通过注销帐号的方式，整体撤回我们继续收集您个人信息的授权。
+<u> **Please note that before you cancel your account, after you cancel your account, it means that you withdraw your consent to this Privacy Policy, and we will immediately delete your personal information and the organization and code base (if any) you created, and these actions are irreversible. That is, </u> these personal information and data cannot be retrieved once deleted. You need to carefully assess the risks and losses that may be caused to you by the consequences and cancel the operation.
 
-请您理解，每个业务功能需要一些基本的个人信息才能完成，当您撤回同意或授权后，我们无法继续为您提供撤回同意或授权所对应的服务，也不会再处理您相应的个人信息。**但根据法律规定，您撤回同意或授权的决定，不影响我们此前基于您的授权而开展的个人信息处理。**
+### （4）Withdraw consent
 
-### （五）响应您的上述请求
+You can change the scope of your authorization for us to continue collecting personal information or withdraw your authorization by deleting information, turning off functions voluntarily, etc. You can also completely withdraw our authorization to continue collecting your personal information by canceling your account.
 
-为保障安全，您可能需要提供书面请求，或以其他方式证明您的身份。我们可能会先要求您验证自己的身份，然后再处理您的请求。我们将在15天内做出答复。
+Please understand that each business function requires some basic personal information to complete. When you withdraw your consent or authorization, we cannot continue to provide you with the services corresponding to the withdrawal of consent or authorization, and we will no longer process your corresponding personal information. . **However, according to legal provisions, your decision to withdraw your consent or authorization will not affect our previous processing of personal information based on your authorization.**
 
-对于您合理的请求，我们原则上不收取费用，但对多次重复、超出合理限度的请求，我们将视情收取一定成本费用。对于那些无端重复、需要过多技术手段（例如，需要开发新系统或从根本上改变现行惯例）、给他人合法权益带来风险或者非常不切实际（例如，涉及备份磁带上存放的信息）的请求，我们可能会予以拒绝。
+### （5）Respond to your requests above
 
-请您知悉，在以下情形中，按照法律法规要求，我们将无法响应您的请求：
+To ensure security, you may need to provide a written request or other identification to prove your identity. We may require you to verify your identity before processing your request. We will provide a response within 15 days.
 
-- （1）与国家安全、国防安全直接相关的；
-- （2）与公共安全、公共卫生、重大公共利益直接相关的；
-- （3）与犯罪侦查、起诉、审判和判决执行等直接相关的；
-- （4）有充分证据表明您存在主观恶意或滥用权利的；
-- （5）响应您的请求将导致您或其他个人、组织的合法权益受到严重损害的。
-- （6）涉及商业秘密的。
+We do not charge any fees for your reasonable requests in principle, but for requests that are repeated multiple times and exceed reasonable limits, we will charge a certain cost according to the situation. We may refuse requests that are unfounded, require excessive technical means (such as developing new systems or fundamentally changing existing practices), pose risks to the legitimate rights and interests of others, or are highly impractical (such as involving information stored on backup tapes).
+Please be aware that in the following situations, in accordance with legal and regulatory requirements, we will not be able to respond to your request:
 
-## 九、	本隐私政策的更新
+- (1) Directly related to national security and national defense security;
+- (2) Directly related to public safety, public health, and major public interests;
+- (3) Directly related to criminal investigation, prosecution, trial, and execution of judgments;
+- (4) There is sufficient evidence to indicate that you have subjective malice or abused your rights;
+- (5) Responding to your request will cause serious damage to the legitimate rights and interests of you or other individuals or organizations.
+- (6) Involving trade secrets.
 
-我们保留不时更新或修改本隐私政策的权利。如果我们的隐私政策变更，我们会将最新版隐私政策在本网站上发布，**在未经特别声明的情况下，隐私政策发布即刻生效。** 如果我们对隐私政策做出了重大变更，我们还可能会通过不同渠道向您发送变更通知，例如，在本网站上发布通知或者向您发布单独的通知。
+## 9、 Updates of this Privacy Policy
 
-除了法律法规的规定外，未经您明确同意，我们不会削减您按照本隐私政策所应享有的权利。
+We reserve the right to update or modify this privacy policy from time to time. If our privacy policy changes, we will publish the latest version of our privacy policy on this website. **Unless otherwise stated, the privacy policy will take effect immediately** If we make significant changes to our privacy policy, we may also send you change notifications through different channels, such as posting notifications on this website or issuing separate notifications to you.
 
-## 十、	联系我们
+Except as provided by laws and regulations, we will not reduce your rights under this privacy policy without your explicit consent.
 
-如果您对本隐私政策有任何疑问，或者是要求行使个人权利，您可以通过以下方式与我们取得联系：
+## 10、 Contact Us
 
-- 联系方式：legal@openatom.org
-- 联系地址：北京经济技术开发区科谷一街8号院8号楼22层2201
+If you have any questions about this privacy policy or require the exercise of personal rights, you can contact us through the following methods:
 
-一般情况下，我们将在15个工作日内回复。
+- Email: <legal@openatom.org>
+- Address：2201, 22nd Floor, Building 8, Courtyard 8, Kegu 1st Street, Beijing Economic and Technological Development Zone
+
+Normally, we will reply within 15 working days.

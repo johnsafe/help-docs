@@ -1,41 +1,43 @@
 ---
 id: app-market # 唯一ID
 slug: /app/market # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 开放市场 # 在sidebar 中的名称
-title: 开放市场 # 页面标题
+sidebar_label: App Market # 在sidebar 中的名称
+title: App Market # 页面标题
 tags:
   - app
   - app market
-  - 开放市场
 hide_title: false
 ---
 
-## 开放市场
-平台提供了开放市场，供用户自行选择安装适合自己工程的应用，并将持续建设市场应用的丰富度。
+## App Market
+
+The platform provides an open market for users to choose and install applications suitable for their own projects, and will continue to build the richness of market applications.
 ![](./img/07.jpg)
 
-点击应用卡片可进入应用详情：
+Click the application card to enter the application details:
 ![](./img/08.jpg)
 
-### 安装应用
-1. 进入应用详情，点击「免费使用」，根据提示选择期望安装的空间：
+### App Install
+
+1. Enter the application details, click "Free to use", and follow the prompts to select the space you want to install:
 ![](./img/09.jpg)
 
-2. 进入安装确认页面，确认安装和授权信息：
+2. Enter the installation confirmation page and confirm the installation and authorization information:
 ![](./img/10.jpg)
 
-* 生效仓库范围：控制应用可获取的代码库数据范围。
-如果选择部分代码库，则需要手动选择可被获取数据的库加入列表：
+* Effective warehouse scope: Controls the scope of code base data that the application can obtain.
+If you select some code libraries, you need to manually select the libraries that can obtain data and add them to the list:
 ![](./img/11.jpg)
 
-* 资源和用户权限确认：根据应用接入时要求获取的权限进行申明，确认后完成应用安装。
+* Confirmation of resource and user permissions: Declare according to the permissions required when the application is accessed, and complete the application installation after confirmation.
 
-安装完成后将跳转至应用填写的回调地址，如果应用同时要求获取Oauth的用户授权，则会跳转三方应用进入Oauth授权流程。
+After the installation is completed, it will jump to the callback address filled in by the application. If the application also requires Oauth user authorization, it will jump to the third-party application to enter the Oauth authorization process.
 
-应用安装授权完成后，则可以根据应用本身提供的能力进行运作。
-* 如 WebIDE 应用，安装完成后可在代码库内通过 WebIDE 按钮启动在线编码服务：
+After the application installation authorization is completed, it can operate according to the capabilities provided by the application itself.
+
+* For WebIDE applications, after installation is complete, you can start the online coding service through the WebIDE button in the code library:
 ![](./img/12.jpg)
 
-* 如持续集成类的应用，安装完成后可在代码库内针对提交和变更请求回写检查结果状态，辅助进行代码评审工作：
+* For example, for continuous integration applications, after the installation is completed, the check result status can be written back in the code base for submissions and change requests to assist in code review:
 ![](./img/13.jpg)
 ![](./img/14.jpg)

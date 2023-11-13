@@ -1,11 +1,11 @@
 ---
 id: declare # 唯一ID
 slug: /agreements/declare # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 免责声明 # 在sidebar 中的名称
-title: 免责声明 # 页面标题
+sidebar_label: Disclaimer # 在sidebar 中的名称
+title: Disclaimer # 页面标题
 hide_title: true
 ---
 
-### 免责声明
+### Disclaimer
 
-为便于向您提供许可证相关帮助，AtomGit 通过展示许可证信息，帮助用户获得开源许可证及适用该许可证的项目的信息。**AtomGit仅以现有能力识别和提示许可证信息，并“按原样”提供相关信息，不对平台提供的或通过平台提供的任何信息或许可证进行任何担保，且不对使用许可证信息所造成的损失承担任何责任。如您对何为您的代码的正确许可证有任何疑问，或对任何其他相关的法律问题有疑问，请咨询专业人士。**
+In order to provide you with license-related help, AtomGit helps users obtain information about open source licenses and projects applicable to the license by displaying license information. **AtomGit only uses its current ability to identify and prompt license information and provides relevant information "as is". It does not make any guarantees about any information or licenses provided by or through the platform, and is not responsible for losses caused by the use of license information. assume no responsibility. If you have any questions about what is the correct license for your code, or any other relevant legal issues, please consult a professional.**

@@ -1,8 +1,8 @@
 ---
 id: tos # 唯一ID
 slug: /agreements/terms-of-service # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 服务条款 # 在sidebar 中的名称
-title: 服务条款 # 页面标题
+sidebar_label: Terms Of Service # 在sidebar 中的名称
+title: Terms Of Service # 页面标题
 hide_title: true
 ---
 
@@ -10,180 +10,180 @@ hide_title: true
 ## AtomGit平台用户服务条款
 
 ```html
-当前版本号：【1.0】
-发布日期：【2022年7月17日】
-生效时期：【2022年7月17日】
+current version：【1.0】
+release date：【2022.07.17】
+effective date：【2022.07.17】
 ```
 
-感谢您使用AtomGit平台（以下简称“本平台”）。
+Thank you for using the AtomGit platform (hereinafter referred to as the "Platform").
 
-本平台由开放原子开源基金会（以下简称“开放原子”或“我们”，注册地址：北京市北京经济技术开发区科谷一街8号院8号楼22层2201）进行运营与维护。本平台是一个面向公众开放、以提供代码托管与开源合作项目管理服务为主要目的平台，致力于环境良好的开源生态建设，并通过开放治理寻求更加丰富的开源资源共享与交流。
+This platform is operated and maintained by the Open Atom Open Source Foundation (hereinafter referred to as "Open Atomic" or "we", registered address: Room 2201, Floor 22, Building 8, No. 8 Yard 8, Kegu 1st Street, Beijing Economic and Technological Development Zone, Beijing). This platform is open to the public and its main purpose is to provide code hosting and open source cooperation project management services. It is committed to the construction of a good open source ecosystem and seeks richer open source resource sharing and exchange through open governance.
 
-**《AtomGit平台用户服务条款》（下称“本协议”）中的各项条款将构成我们与您所订立权利义务的规范。因此，在您注册、登录并使用本平台前，请您详细阅读本协议，并特别留意字体加粗部分的内容。** 如您选择继续使用本平台，包括但不限于对本平台进行访问、浏览、登录等，您将被视为自愿承诺接受本协议各条款的约束。如您对本协议内容不予接受，您可通过关闭网页、注销帐号等方式选择退出或停止使用本平台的服务。
+**The various terms in the "AtomGit Platform User Terms of Service" (hereinafter referred to as "this Agreement") will constitute the specifications of the rights and obligations between us and you. Therefore, before you register, log in and use this platform, please read this agreement in detail and pay special attention to the content in bold font.** If you choose to continue to use this platform, including but not limited to accessing, browsing, logging in, etc., you will be deemed to have voluntarily promised to be bound by the terms of this agreement. If you do not accept the contents of this Agreement, you can choose to exit or stop using the services of this platform by closing the webpage, canceling your account, etc.
 
-**请您承诺，您在使用本平台时已经具备中华人民共和国法律规定的、与您行为相适应的民事行为能力。** 如您为限制民事行为能力人或无民事行为能力人的，请您在法定监护人的指导下阅读本协议，并决定是否接受本协议的内容。
+**Please promise that when using this platform, you already have the civil capacity required by the laws of the People's Republic of China and appropriate for your behavior.** If you are a person with limited capacity for civil conduct or a person without capacity for civil conduct, please read this agreement under the guidance of your legal guardian and decide whether to accept the contents of this agreement.
 
-如您基于与开放原子的其他合作关系从而与我们另行签署其他协议或文件，且该协议与文件的内容与本协议内容存在冲突的，在前者没有明确澄清的情况下，请您以前者内容为准。
+If you sign other agreements or documents with us based on other cooperative relationships with Open Atom, and the contents of such agreements and documents conflict with the contents of this Agreement, in the absence of clear clarification in the former, please refer to the contents of the former. allow.
 
-## 一、	关于本平台服务内容
+## 1、 About the service
 
-本平台是连接公众与各种开源软件、开源硬件、开源芯片等开源内容或其他互联网信息内容的服务平台。在本协议中，“用户”和“您”是指本平台的使用者；“帐号”是指用户为使用本平台所创建的帐号。**同时，您也可以在未注册或未登陆的状态下以访客身份使用本平台，但在访客模式下，您仅能在本平台进行浏览、下载源代码和相关技术文档或开发文档等，但不能在本平台上传任何内容或使用评论功能。**
+This platform is a service platform that connects the public with various open source software, open source hardware, open source chips and other open source content or other Internet information content. In this agreement, "user" and "you" refer to the users of this platform; "account" refers to the account created by the user to use this platform. **At the same time, you can also use this platform as a guest without registering or logging in. However, in guest mode, you can only browse, download source code and related technical documents or development documents on this platform, but cannot Upload any content or use the comment feature on the Platform.**
 
-### （一）	帐号管理
+### （1） Account Management
 
-#### 1.	帐号创建
+#### 1. Account Creation
 
-当您选择在本平台创建帐号或绑定您的邮箱、手机号等帐号信息时，请您提供合法、有效及准确的注册信息。**您不得以虚假信息注册帐号，不得冒用、盗用、借用他人名义注册帐号。**您充分理解并同意我们对您提供的注册信息资料进行审查。**此外，请您理解，如您无法向我们提供相关个人信息，您可以以访客身份使用本平台。**
+When you choose to create an account on this platform or bind your email, mobile phone number and other account information, please provide legal, valid and accurate registration information. **You are not allowed to register an account with false information, and you are not allowed to register an account in another person's name by falsely using, stealing or borrowing it.** You fully understand and agree that we will review the registration information you provided. **In addition, please understand that if you are unable to provide us with relevant personal information, you can use this platform as a guest.**
 
-#### 2.	帐号使用
+#### 2. Account Use
 
-通过您创建的帐号，您可以在本平台上发布、传输、共享及下载各种开源软件、开源硬件、开源芯片等开源内容或其他互联网信息内容。**请您注意，除本协议另有规定外，您所申请的帐号应当仅为您本人所有，并仅限于您个人使用。**
+Through the account you create, you can publish, transmit, share and download various open source software, open source hardware, open source chips and other open source content or other Internet information content on this platform. **Please note that, unless otherwise provided in this Agreement, the account you apply for shall be owned by you only and shall be limited to your personal use.**
 
-**此外，您应当对您帐号所发布的内容，包括但不限于代码、软件包、应用程序、文档、您的个人观点、立场或基于使用本平台各功能所产生的内容等，独立承担全部法律责任。** 请务必确保您在本平台提供的内容或使用本平台的行为符合中华人民共和国的相关法律法规要求，不得本平台上或者使用本平台的服务制作、复制、发布、传播以下信息：
+**In addition, you shall independently bear all legal responsibilities for the content posted in your account, including but not limited to code, software packages, applications, documents, your personal opinions, positions or content based on the use of various functions of this platform. .** Please make sure that the content you provide on this platform or the behavior you use this platform complies with the relevant laws and regulations of the People's Republic of China. You are not allowed to produce, copy, publish, or disseminate the following information on this platform or use the services of this platform:
 
-- **反对宪法所确定的基本原则的；**
-- **危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；**
-- **损害国家荣誉和利益的；**
-- **煽动民族仇恨、民族歧视，破坏民族团结的；**
-- **破坏国家宗教政策，宣扬邪教和封建迷信的；**
-- **散布谣言，扰乱社会秩序，破坏社会稳定的；**
-- **散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；**
-- **侮辱或者诽谤他人，侵害他人合法权益的；**
-- **干扰本平台的正常运行和秩序，影响其他用户正常使用的；**
-- **煽动非法集会、结社、游行、示威、聚众扰乱社会秩序；**
-- **含有法律、行政法规、政策禁止的其他内容的。**
+* **Opposing the basic principles established by the Constitution;**
+* **Endangering national security, leaking state secrets, subverting state power, and undermining national unity;**
+* **Damaging national honor and interests;**
+* **Inciting ethnic hatred, ethnic discrimination, and undermining ethnic unity;**
+* **Undermining national religious policies and promoting cults and feudal superstitions;**
+* **Spread rumors, disrupt social order, and undermine social stability;**
+* **Spread obscenity, pornography, gambling, violence, murder, terror or instigate crimes;**
+* **Insulting or defaming others and infringing upon others' legitimate rights and interests;**
+* **Interfering with the normal operation and order of this platform and affecting the normal use of other users;**
+* **Inciting illegal assembly, association, procession, demonstration, or gathering of people to disrupt social order;**
+* **Contains other content prohibited by laws, administrative regulations, and policies.**
 
-**如您发现本平台存在以上违法违规或侵权内容的，您可以通过本平台相关“举报”链接向我们进行投诉。为了使我们能够快速处理您的投诉并有助于我们根据相关法律法规的要求履行互联网信息服务管理的义务，请您在投诉时向我们提供：1）涉嫌侵权的帐号名称；2）涉嫌侵权的相关内容；3）构成侵权的初步证明资料或说明。如我们通过主动发现及接受用户投诉等途径发现违法违规内容的，我们将依法采取停止传输等措施。**
+**If you find that this platform contains the above illegal or infringing content, you can complain to us through the relevant "report" link on this platform. In order to enable us to quickly handle your complaint and help us fulfill our obligations of Internet information service management in accordance with the requirements of relevant laws and regulations, please provide us with: 1) the name of the account suspected of infringement; 2) the name of the alleged infringement Relevant content; 3) Preliminary proving materials or explanations constituting infringement. If we discover illegal content through active discovery and acceptance of user complaints, we will take measures such as stopping transmission in accordance with the law.**
 
-最后，您无需另行注册便可以直接利用本平台帐号登录并使用由我们运营的以下网站及第三方网站（具体列表请点击查看）。**在此情况下，您应当事先阅读该网站的各类使用条款和隐私政策，并确保在充分知悉的情况下同意使用相关服务。**
+Finally, you can directly use this platform account to log in and use the following websites and third-party websites operated by us without additional registration (please click to view the specific list). **In this case, you should read the various terms of use and privacy policy of the website in advance and ensure that you fully understand and agree to use the relevant services.**
 
-#### 3.	帐号安全
+#### 3. Account Security
 
-在您持有与使用本平台帐号期间，您应当确保您的帐号、密码及其他帐号信息的安全性，并对您帐号内的所有使用活动承担责任。为增强您的帐号安全性，您可以选择添加SSH公钥，用于在您的电脑和本平台间建立更为安全的链接方式。如您发现您的帐号遇到未经授权的使用或存在其他任何信息安全问题时，应当：1）立即通过修改密码等有效方式降低并排除帐号使用的安全风险；2）按照本协议最下方列明的联系方式与我们进行沟通。我们将在合理范围内竭力降低或消除帐号安全风险。
+While you hold and use your account on this platform, you should ensure the security of your account, password and other account information, and be responsible for all usage activities within your account. To enhance the security of your account, you can choose to add an SSH public key to establish a more secure link between your computer and this platform. If you find that your account has been used without authorization or there are any other information security issues, you should: 1) immediately reduce and eliminate the security risks of account use by changing your password and other effective methods; 2) follow the bottom line of this agreement Communicate with us using the clear contact information. We will make reasonable efforts to reduce or eliminate account security risks.
 
-此外，如您的帐号或密码丢失、遗忘情况的，您可以根据本平台列明的方式找回帐号或密码。另外，您也可以通过本协议下方的联系方式与我们联系，我们将尽力协助您保护您的帐号安全。**但是，针对您个人原因（如帐号保管疏忽）或其他不可归咎于开放原子的原因（如黑客攻击）所导致的帐号未经授权登录、信息泄露等危及您帐号安全的情况，我们不予承担任何责任。**
+In addition, if your account or password is lost or forgotten, you can retrieve your account or password according to the methods listed on this platform. In addition, you can also contact us through the contact information below this agreement, and we will try our best to assist you in protecting the security of your account. **However, we will not be responsible for any unauthorized login, information leakage, or other situations that endanger the security of your account due to your personal reasons (such as negligent account maintenance) or other reasons that cannot be attributed to Open Atom (such as hacker attacks). responsibility.**
 
-### （二）	代码库创建与使用
+### （2） Repository Create and Use
 
-#### 1.	代码库创建
+#### 1. Create
 
-您可以在本平台上创建代码库，通过标签记录的方式记载代码库的重要版本，并设置代码库的可见级别（公开或私有）。如您选择在创建仓库时公开代码库或在仓库设置中选择公开代码库的，本平台其他用户（包括访客）即可访问并基于开源许可协议获取、使用您在代码库中上传的代码等内容。如您选择私有代码库的，则该代码库仅允许具备仓库对应权限的人员进行访问、获取或使用代码库中的内容。此外，代码库中包含评审机制，作为代码库的代码评审者，您可以通过此机制审核由其他贡献者上传的代码内容，保障入库代码的质量。
+You can create a code base on this platform, record important versions of the code base through tag records, and set the visibility level of the code base (public or private). If you choose to make the code base public when creating a warehouse or choose to make the code base public in the warehouse settings, other users of this platform (including visitors) can access and obtain and use the code you uploaded in the code base based on the open source license agreement. . If you choose a private code base, the code base only allows people with the corresponding permissions of the warehouse to access, obtain or use the content in the code base. In addition, the code base contains a review mechanism. As a code reviewer of the code base, you can use this mechanism to review the code content uploaded by other contributors to ensure the quality of the code in the database.
 
-**请注意，您所创建的代码库容量为2GB，且您不得存放与代码无关的其他文件**。如您确需更大代码存储空间，请按照本协议下方列明的方式联系我们。在您就扩容的使用场景和原因进行说明后，我们将视情况允许您使用更大容量的代码库。**如您私自扩大代码库或上传与代码无关的文件的，开放原子保留停止您使用代码库、通知您进行备份并删除代码的权力。**
+**Please note that the code base you create has a capacity of 2GB, and you are not allowed to store other files unrelated to the code** . If you really need more code storage space, please contact us as specified below in this agreement. After you explain the usage scenarios and reasons for the expansion, we will allow you to use a larger capacity code base as appropriate. **If you expand the code base privately or upload files unrelated to the code, Open Atomic reserves the right to stop you from using the code base, notify you to make a backup, and delete the code.**
 
-**请您注意，在您使用代码库的过程中，针对您个人原因（如帐号保管疏忽）或其他不可归咎于开放原子的原因（如黑客攻击）所导致的代码丢失、代码库服务暂停或终止等影响您正常使用代码库的情况，我们不予承担任何责任。**
+**Please note that during your use of the code base, any code loss, code base service suspension or termination, etc. caused by your personal reasons (such as negligent account maintenance) or other reasons that cannot be attributed to Open Atom (such as hacker attacks) We do not assume any responsibility for any situation that affects your normal use of the code base.**
 
-#### 2.	代码库开源许可证
+#### 2. Repository Open Source License
 
-您可以在创建仓库时选择对应的开源许可证，本平台将自动为您的仓库生成对应的开源许可证文件。同时，您也可以基于开源许可证文件上传的方式，将托管在本平台的代码仓库设置对应开源许可证。为便于向您提供开源许可证相关帮助，本平台通过展示开源许可证信息，帮助用户获得开源许可证及适用该开源许可证的项目的信息。
+You can select the corresponding open source license when creating a warehouse, and the platform will automatically generate the corresponding open source license file for your warehouse. At the same time, you can also set the code warehouse hosted on this platform to correspond to the open source license based on the method of uploading the open source license file. In order to provide you with help related to open source licenses, this platform displays open source license information to help users obtain information about open source licenses and projects applicable to the open source licenses.
 
-**本平台仅以现有能力识别和提示开源许可证信息，并“按原样”提供相关信息，不对本平台提供的或通过本平台提供的任何信息或开源许可证进行任何担保，且不对使用开源许可证信息所造成的损失承担任何责任。如您对何为您的代码的正确许可证有任何疑问，或对任何其他相关的法律问题有疑问，请咨询专业人士。**
+**This platform only uses its current ability to identify and prompt open source license information and provides relevant information "as is". It does not make any guarantees about any information or open source licenses provided by or through this platform, and does not make any guarantees about the use of open source licenses. assumes no responsibility for any loss caused by the certified information. If you have any questions about what is the correct license for your code, or any other relevant legal issues, please consult a professional.**
 
-### （三）	组织和仓库创建与使用
+### （3） Organization Create and Use
 
-#### 1.	组织创建
+#### 1. Create
 
-您可以在本平台上自主创建组织或选择加入由其他用户创建的组织。作为自主创建组织的管理员，您的管理权限包括设置及修订组织名称、LOGO与URL，以及管理组织中的不同仓库；此外，您还可以通过发送邮件的方式邀请其他用户进入该组织，或审批其他用户申请加入该组织的请求。作为他人创建组织中的开发者，您可以在该组织中的不同项目里上传、下载代码。而作为他人创建组织中的浏览者，您仅可查看、下载该组织中公开的仓库及代码。
+You can create your own organizations on this platform or choose to join organizations created by other users. As the administrator of a self-created organization, your management rights include setting and revising the organization name, LOGO and URL, and managing different warehouses in the organization; in addition, you can also invite other users to enter the organization by sending emails, or approve Requests from other users to join the organization. As a developer in an organization created by others, you can upload and download code in different projects in the organization. As a viewer in an organization created by others, you can only view and download public repositories and codes in that organization.
 
-#### 2.	本平台组织和仓库成员管理
+#### 2. Manage
 
-**如果您是组织管理员**，您可以在本平台上邀请其他注册用户加入该组织，并赋予受邀用户本平台中支持的权限，如：作为组织管理者，可享有邀请组织成员（即组织管理员、组织开发者、组织浏览者）、修改组织信息、删除组织、创建组织内仓库的权限，以及对仓库的读写与配置权限；作为组织开发者，可享有对组织下仓库的读写权限；作为组织浏览者，可享有对组织内仓库的读取权限。受邀用户成功加入该组织后即可基于其具体的组织成员身份获得该组织的对应权限。
+**If you are an organization administrator** , you can invite other registered users to join the organization on this platform, and grant the invited users the permissions supported by this platform. For example, as an organization administrator, you can invite organization members (i.e., organization administrators) , organization developer, organization viewer), permission to modify organization information, delete organization, create warehouse within the organization, as well as read, write and configure permissions on the warehouse; as an organization developer, you can enjoy read and write permissions on the warehouse under the organization; As an organization viewer, you have read permission to the warehouse within the organization. After the invited users successfully join the organization, they can obtain the corresponding permissions of the organization based on their specific organization membership.
 
-**如果您是仓库管理员**，您可以在本平台上邀请其他注册用户加入该仓库，并赋予受邀用户本平台中支持的权限，如：作为仓库管理者，可享有对仓库的读写权限、配置权限；作为仓库开发者，可享有对仓库的读写权限；作为仓库浏览者，可享有对仓库的读取权限。受邀用户成功加入仓库后即可基于其具体身份获得该仓库的对应权限。
+**If you are a warehouse administrator** , you can invite other registered users to join the warehouse on this platform, and grant the invited users the permissions supported by this platform. For example, as a warehouse manager, you can have read and write permissions, configuration, and access to the warehouse. Permissions; as a warehouse developer, you can have read and write permissions on the warehouse; as a warehouse browser, you can have read permissions on the warehouse. After the invited users successfully join the warehouse, they can obtain the corresponding permissions for the warehouse based on their specific identities.
 
-本平台支持创建和管理私有仓库。请您注意，若因管理员错误添加相关成员从而造成数据泄露等不良后果的，我们将不予承担任何责任。
+Atomgit supports the creation and management of private warehouses. Please note that we will not be held responsible if the administrator mistakenly adds relevant members, resulting in data leakage and other adverse consequences.
 
-#### 3.	本平台资源访问方式
+#### 3. Access Resources
 
-**您可以通过在本平台注册的用户名及密码登录浏览您在本平台具有权限的相关信息。同时，您可以通过在本平台注册的用户名及密码的方式（HTTP协议）或在本平台添加SSH公钥的方式（SSH协议），对您有权访问的代码仓进行上传或下载操作。请妥善管理您的认证信息，如因您自身原因或其他不可归咎于开放原子的原因，造成本平台用户名及密码或SSH公钥泄漏等损失后果的，我们不予承担任何责任。**
+**You can log in through the user name and password registered on this platform to browse the relevant information that you have permissions on this platform. At the same time, you can upload or download the code warehouse that you have access to by using the user name and password registered on this platform (HTTP protocol) or by adding an SSH public key on this platform (SSH protocol). Please properly manage your authentication information. We will not be held responsible for any losses caused by the leakage of usernames and passwords or SSH public keys on this platform due to your own reasons or other reasons that cannot be attributed to Open Atom.**
 
-#### 4.	代码库删除
+#### 4. Delete repository
 
-**您可以在本平台上删除您享有管理权限的代码库，删除后本平台将删除和销毁该代码库内存储的文件以及该代码库相关的所有资源，删除后不可恢复。若因您或其他用户错误删除代码库等原因或其他不可归咎于开放原子的情形而造成数据丢失等情况，我们不予承担任何责任。**
+**You can delete the code library for which you have management rights on this platform. After deletion, the platform will delete and destroy the files stored in the code library and all resources related to the code library. It cannot be recovered after deletion. We do not assume any responsibility for data loss due to reasons such as mistaken deletion of the code base by you or other users or other circumstances that cannot be attributed to Open Atom.**
 
-### （四）	开源团队与开源项目浏览
+### （4） Open-source Team and Open-source Project
 
-您可以在本平台上访问不同的开源团队信息，包括开源团队简介、网址、联系信息、成员数量、代码库数量、公开的精选内容等内容。您可以通过点击“标星”的方式对您关注的组织进行关注与收藏，并在“我的Starred”栏目中进行查看。
+You can access different open source team information on this platform, including the open source team profile, website, contact information, number of members, number of code bases, public selected content, etc. You can follow and favorite the organizations you care about by clicking "Starred" and view them in the "My Starred" column.
 
-此外，您可以在本平台了解各种收藏率与探讨热度较高的热门开源项目，包括相关项目的名称、运行条件、运行说明、测试说明、技术架构、协作者与知识产权许可情况，以及相关项目的活跃情况、相关议题或话题等内容。**为向您提供更好的服务，我们可能会根据您使用本平台的情况向您推荐您可能感兴趣的项目。**
+In addition, you can learn about various popular open source projects that are highly collected and discussed on this platform, including the names, operating conditions, operating instructions, test instructions, technical architecture, collaborators and intellectual property licensing status of related projects, as well as related The activity status of the project, related issues or topics, etc. **In order to provide you with better services, we may recommend projects that may be of interest to you based on your use of this platform.**
 
-## 二、	本平台使用行为规范
+## 2、 Code of conduct for using this platform
 
-您承诺在使用本平台的过程中，严格遵守中华人民共和国相关法律法规、本平台列明的使用规范以及社会公序良俗与诚实信用原则，并且应当确保相关使用行为不侵犯任何第三方合法权益（包括但不限于第三方的知识产权、商业秘密等）；具体要求包括但不限于：
+You promise to strictly abide by the relevant laws and regulations of the People's Republic of China, the usage specifications listed on this platform, and the principles of public order and good faith in the process of using this platform, and you should ensure that the relevant use does not infringe the legitimate rights and interests of any third party (including but Not limited to third-party intellectual property rights, trade secrets, etc.); specific requirements include but are not limited to:
 
-- 不得破坏本平台的运营秩序，不得以任何手段或形式干扰本平台服务，包括利用技术手段恶意破坏本平台、干扰或破坏与本平台相连的服务器或网络，或发布垃圾信息等。
-- 不得破坏、破解本平台及其服务所采取的安全或身份验证措施；试图通过非法侵入、破解密码或任何其他非法方式，未经授权访问本平台的任何内容或使用本平台的任何服务；追踪、反向查找、破解、破译本平台的任何用户信息，包括但不限于任何非您所有的帐号。
-- 不得擅自使用任何网页采集工具及其他相似的手动或自动程序，访问、获取、复制或监测本平台的部分或全部内容。
-- 不得采取任何会对本平台及其相关的架构、系统、网络带来不合理的高负载的行为。
-- 不得以任何形式骚扰、侮辱、损害其他用户合法权益。
-- 未经本平台同意，您不得出售、出借、合用、转移或转让您的帐号或任何帐号相关权利，且不得授权他人使用您所有的本平台帐号。
+* You are not allowed to disrupt the operation order of this platform, and you are not allowed to interfere with this platform's services by any means or form, including using technical means to maliciously damage this platform, interfering with or destroying servers or networks connected to this platform, or publishing spam, etc.
+* You shall not destroy or crack the security or identity verification measures adopted by this platform and its services; attempt to gain unauthorized access to any content of this platform or use any services of this platform through illegal intrusion, password cracking or any other illegal means; track, Reverse search, crack, and decipher any user information on this platform, including but not limited to any account not owned by you.
+* You are not allowed to use any web scraping tools and other similar manual or automatic procedures without authorization to access, obtain, copy or monitor part or all of the content of this platform.
+* You shall not take any action that will impose an unreasonable high load on this platform and its related architecture, systems, and networks.
+* Do not harass, insult, or damage the legitimate rights and interests of other users in any form.
+* Without the consent of this platform, you may not sell, lend, share, transfer or assign your account or any account-related rights, and you may not authorize others to use all of your platform accounts.
 
-**如您在使用本平台的过程因未遵守以上使用要求，或违反相关法律法规的，开放原子有权对您采取相关措施限制或禁止您对本平台的后续访问。此外，如您的前述违法违规或侵权行为致使开放原子或第三方遭受损失的，您还应当对此承担全部赔偿责任。**
+**If you fail to comply with the above usage requirements or violate relevant laws and regulations when using this platform, Open Atom has the right to take relevant measures against you to restrict or prohibit your subsequent access to this platform. In addition, if your aforementioned illegal or infringing behavior causes Open Atomic or a third party to suffer losses, you shall also bear full liability for compensation.**
 
-## 三、	关于所有权与知识产权
+## 3、 Ownership and intellectual property rights
 
-### （一）	本平台所有权与知识产权
+### （1） Platform's Ownership and intellectual property rights
 
-本平台（包括历史版本、当前版本）的所有权与运营权归开放原子所有，开放原子对本平台拥有最终解释权。
+The ownership and operation rights of this platform (including historical versions and current versions) belong to Open Atom, and Open Atom has the final right to interpret this platform.
 
-对于本平台中由开放原子所有或控制的内容，包括但不限于网站名称、网络域名、网站界面、所有源代码和二进制形式的软件、样例、SDK、API；由开放原子发布的文字、内容、软件、录像、音乐、声音、图形、照、图表、美术设计、图片；开放原子的名称、标识、商标和/或服务标志（包括已注册和尚未注册的）；以及第三方所有但授权开放原子使用的内容等，开放原子享有全部知识产权或使用许可。
+For content in this platform owned or controlled by Open Atomic, including but not limited to website name, network domain name, website interface, all source code and binary forms of software, samples, SDK, API; text and content published by Open Atomic , software, videos, music, sounds, graphics, photos, charts, art designs, pictures; Open Atomic's name, logo, trademark and/or service mark (including registered and unregistered); and those owned by third parties but authorized to be opened Open Atom owns all intellectual property rights or licenses for the content used by Atomic.
 
-除非您为相关知识产权权利人，否则未经开放原子事先书面授权，您不得以任何形式对上述内容进行使用或创作相关衍生产品，不得进行反向工程、反汇编、逆向设计或反编译、拆解、植入、分隔软件的任何部分或任何派生操作等行为，亦不得修改、隐匿或清除软件或其任何副本中的任何字母数字代码、标识、知识产权通知和所有权声明用语。
+Unless you are the owner of relevant intellectual property rights, you may not use the above content in any form or create related derivative products without the prior written authorization of Open Atom, and you may not reverse engineer, disassemble, reverse design or decompile or disassemble. You may not deconstruct, embed, separate any part of the Software or any derivative operation, nor modify, obscure or remove any alphanumeric codes, logos, intellectual property notices and proprietary notices in the Software or any copy thereof.
 
-**此外，鉴于本平台所承载的代码、文档、用户讨论等内容均可能受知识产权保护，您同意遵守所有适用本平台的知识产权保护法律法规，以及所有本平台包含的知识产权补充说明或限制（如有）。**
+**In addition, given that the code, documents, user discussions and other content carried on this platform may be protected by intellectual property rights, you agree to abide by all intellectual property protection laws and regulations applicable to this platform, as well as all supplementary instructions or restrictions on intellectual property rights contained in this platform ( If any).**
 
-### （二）	用户原创内容的所有权与知识产权
+### （2） User's Ownership and intellectual property rights
 
-您对您在本平台发表的全部原创内容，包括但不限于您上传和发表的代码、开发文档、文章、评论等，以及您通过使用本平台开源软件、开源硬件、开源芯片等开源内容所产生的衍生品，享有所有权与相应的知识产权。对此，您可以决定是否以公开或私有化等方式授权第三方进行使用。**但针对衍生品，您的相关授权行为不应当与原作品的开源许可协议相冲突。为了利于本平台对知识的分享与传播，您同意授予开放原子及其关联公司在全世界范围内的、永久的、不可撤销的、免费的对您的知识产权进行使用的权利（专属于您人身权的除外），包括但不限于复制权、发行权、信息网络传播权、改编权、翻译权等，以及对其进行开发、宣传和推广的权利等。**
+You are responsible for all original content you publish on this platform, including but not limited to the codes, development documents, articles, comments, etc. you upload and publish, as well as the open source content you generate by using this platform’s open source software, open source hardware, open source chips, etc. Derivatives enjoy ownership and corresponding intellectual property rights. In this regard, you can decide whether to authorize third parties to use it in a public or private manner. **However, for derivatives, your relevant licensing behavior should not conflict with the open source license agreement of the original work. In order to facilitate the sharing and dissemination of knowledge on this platform, you agree to grant Open Atomic and its affiliates the worldwide, permanent, irrevocable, and free right to use your intellectual property rights (exclusive of your personal rights). (excluding), including but not limited to reproduction rights, distribution rights, information network dissemination rights, adaptation rights, translation rights, etc., as well as the rights to develop, publicize and promote them.**
 
-如果任何第三方侵犯了您的相关权利，您同意授权开放原子或其指定的代理人代表您对该第三方提出警告、投诉、发起行政执法、诉讼、进行上诉，或谈判和解，并同意在开放原子认为必要的情况下与开放原子进行共同维权。
+If any third party infringes upon your relevant rights, you agree to authorize Open Atomic or its designated agent to file a warning, complaint, initiate administrative enforcement, litigation, appeal, or negotiate a settlement on your behalf against the third party, and agree to If Atom deems it necessary, it will jointly safeguard rights with Open Atom.
 
-### （三）	第三方权利人内容的所有权与知识产权
+### （3） Third party's Ownership and intellectual property rights
 
-针对本平台上承载的其他第三方权利人享有所有权与知识产权的内容，您在使用前应确保已获取相关权利人的完整授权。**若您需要对其内容进行修改，或用于商业目的的，您应当自行联系第三方权利人获取授权，并按照第三方权利人许可的方式使用相关内容。**
+For content hosted on this platform that has ownership rights and intellectual property rights owned by other third-party rights holders, you should ensure that you have obtained complete authorization from the relevant rights holders before using it. **If you need to modify the content or use it for commercial purposes, you should contact the third-party rights holder to obtain authorization, and use the relevant content in the manner permitted by the third-party rights holder.**
 
-## 四、	关于个人信息保护
+## 4、 Personal Information Protection
 
-我们非常重视您的隐私和个人信息保护并以高度审慎的态度对待和处理您的个人信息。在您使用本平台的过程中，诸如注册、登录帐号时，我们将会收集您的相关个人信息；此外，本平台互联网服务器也可能自动记录任何用于访问本平台的设备的详细信息（如IP地址、域名及浏览器类型、访问日期、时间以及下载信息的详情等）。请您知悉，本平台将采用相适应的技术措施与管理措施来保护您个人信息安全。更多关于您的个人信息处理和保护规则，请您查阅[【AtomGit平台隐私政策】](privacy)。
+We attach great importance to the protection of your privacy and personal information and treat and process your personal information with a high degree of prudence. When you use this platform, such as when registering and logging in to your account, we will collect your relevant personal information; in addition, the Internet server of this platform may also automatically record the detailed information (such as IP address) of any device used to access this platform. address, domain name and browser type, access date, time and details of download information, etc. Please be aware that this platform will adopt appropriate technical measures and management measures to protect the security of your personal information.For more information about your personal information processing and protection rules,please check[【Privacy】](privacy)。
 
-## 五、	关于责任限制
+## 5、 Limitation of Liability
 
-您充分知悉，各用户在本平台上传、发表、传输和共享的开源软件、代码、开源许可证等内容，或文字、图片、视频等相关互联网信息内容仅表明发表者个人的立场和观点，而不代表本平台的立场或观点。**本平台仅“按原样”提供前述内容，但对前述内容的真实性、合法性、完整性与可用性不承担任何责任。您在使用本平台的过程中，应当对其他用户提供的内容加以谨慎判断，并自行承担因使用相关内容而可能引起的法律风险。**
+You are fully aware that the open source software, code, open source license and other content uploaded, published, transmitted and shared by each user on this platform, or related Internet information content such as text, pictures, videos and so on, only express the personal position and opinions of the publisher, and It does not represent the position or opinions of this platform. **This platform only provides the aforementioned content "as is", but does not assume any responsibility for the authenticity, legality, completeness and availability of the aforementioned content. When using this platform, you should carefully judge the content provided by other users and bear the legal risks that may arise from the use of relevant content.**
 
-其次，本平台致力于为您提供优质、稳定的服务，但本平台不保证能够满足所有的用户需求，也不保证服务器永不产生故障或没有病毒、木马程序和其他有害程序，从而不会出现任何的系统意外、数据丢失等信息安全事件。因此，**开放原子无法本平台的网络线路和设备的可靠性、连续性提供保证。在此基础上，如因网络运营商原因、本平台进行网络调整、正常系统维护升级等造成的本平台无法正常访问的，请您理解并知悉开放原子不予承担任何责任。**
+Secondly, this platform is committed to providing you with high-quality and stable services. However, this platform does not guarantee that it can meet all user needs, nor does it guarantee that the server will never malfunction or be free of viruses, Trojans and other harmful programs, so that there will be no Any system accident, data loss and other information security incidents. Therefore, **Open Atom cannot guarantee the reliability and continuity of the network lines and equipment of this platform. On this basis, if the platform cannot be accessed normally due to network operator reasons, network adjustments of the platform, normal system maintenance and upgrades, etc., please understand and know that Open Atom does not assume any responsibility.**
 
-另外，本平台可能包含第三方网站或资源的链接，您在使用本平台的过程中可能会因此跳转至该第三方网站。在此过程中，本平台将采取必要措施对第三方网页的安全性进行合理范围内的控制和保障，但对该等网站的内容不承担实质性的审查义务和相关法律责任，也不声明或认可此类网页或其内容为开放原子所有。**因相关第三方网站均由其独立的经营者负责，请您理解本平台无法对该等网站的资源及信息的真实性、合法性与准确性予以保证。**
+In addition, this platform may contain links to third-party websites or resources, and you may be redirected to the third-party website when using this platform. During this process, this platform will take necessary measures to control and protect the security of third-party web pages within a reasonable range, but it does not assume substantive review obligations and related legal responsibilities for the content of such websites, nor does it declare or acknowledges that such web pages or their contents are owned by Open Atomic. **Since the relevant third-party websites are the responsibility of their independent operators, please understand that this platform cannot guarantee the authenticity, legality and accuracy of the resources and information on these websites.**
 
-而由于政府行为、法律或法规变更、火灾、地震、动乱、战争、停电、通讯线路中断、电信部门技术调整、第三方服务或其他技术、互联网络、通信线路原因等不可抗力，造成您在使用本平台的过程中出现服务中断、数据丢失等现象的，**请您理解并知悉开放原子不予承担任何责任。**
+However, due to force majeure such as government actions, changes in laws or regulations, fires, earthquakes, turmoil, wars, power outages, communication line interruptions, technical adjustments of the telecommunications department, third-party services or other technologies, Internet networks, communication lines, etc., your use of this website may be affected. If there are service interruptions, data loss, etc. during the platform process, **please understand and know that Open Atomic does not assume any responsibility.**
 
-**最后，除法律另有规定外，开放原子不对您因使用本平台所产生损失，承担任何间接性的、附带性的、特殊性的或惩罚性的赔偿责任，前述赔偿责任包括但不限于利益损失、名誉损失等赔偿责任。**
+**Finally, unless otherwise provided by law, Open Atomic will not be liable for any indirect, incidental, special or punitive compensation for your losses arising from your use of this platform. The aforementioned liability includes but is not limited to loss of profits. , reputational damage and other liability for compensation.**
 
-## 六、	关于投诉与纠纷处理
+## 6、 Complaints and Dispute Handling
 
-在您使用本平台的过程中，如果您发现存在涉嫌侵犯本平台合法权益的行为的，请按照本协议最下方的联系方式将相关投诉信息告知我们。
+During your use of this platform, if you find any behavior that is suspected of infringing upon the legitimate rights and interests of this platform, please inform us of the relevant complaint information according to the contact information at the bottom of this agreement.
 
-如您认为本平台存在侵犯您或他人合法权益的内容的，您可以先尝试与相关用户取得联系，通过沟通协商解决问题。同时，您也可通过本协议下方所示方式向本平台进行投诉。**为了使本平台能够快速处理相关投诉且根据相关法律法规，请确保您的投诉中包含如下内容：权利人的姓名、联系方式和地址；涉嫌侵权内容的名称和网址。经开放原子初步判断被投诉内容确构成侵权的，开放原子有权根据《信息网络传播权保护条例》等相关规定，采取删除涉嫌侵权内容，或者断开与涉嫌侵权内容的链接等措施。**
+If you believe that this platform contains content that infringes upon your or others' legitimate rights and interests, you can first try to contact the relevant users and resolve the problem through communication and negotiation. At the same time, you can also make complaints to this platform through the methods shown below in this agreement. **In order for this platform to handle relevant complaints quickly and in accordance with relevant laws and regulations, please ensure that your complaint contains the following content: the name, contact information and address of the rights holder; the name and URL of the allegedly infringing content. If Open Atom initially determines that the complained content does constitute infringement, Open Atom has the right to take measures such as deleting the allegedly infringing content or disconnecting the link to the allegedly infringing content in accordance with the "Regulations on the Protection of Information Network Communication Rights" and other relevant provisions.**
 
-**请您注意，不论您所提出的侵权举报内容是否完全属实，您将承担由此产生的一切法律责任，并承担和赔偿本平台因根据您的通知对相关被投诉的用户帐号进行处理而产生的一切损失。**
+**Please note that regardless of whether the content of your infringement report is completely true or not, you will bear all legal responsibilities arising therefrom, and will bear and compensate the platform for processing the relevant complained user account based on your notice. All losses.**
 
-## 七、	关于本协议条款更新
+## 7、 Term Updates
 
-根据互联网的发展和有关法律、法规及规范性文件的变化，或者因业务发展需要，开放原子有权对本协议的条款作出修改。本协议内容一经修订，我们将公布修订之后的协议内容，该公布行为将被视为开放原子已就修订内容向您履行通知义务。此外，开放原子也可采用电子邮件或私信的传送方式，提示本协议条款的修改、服务变更、或其它重要事项。
+According to the development of the Internet and changes in relevant laws, regulations and normative documents, or due to business development needs, Open Atomic has the right to modify the terms of this agreement. Once the content of this Agreement is revised, we will publish the revised content of the Agreement, and this announcement will be deemed as Open Atom has fulfilled its obligation to notify you of the revised content. In addition, Open Atomic may also use email or private messages to notify you of modifications to the terms of this Agreement, service changes, or other important matters.
 
-如果您不同意开放原子对本协议的相关修订，您有权并应当停止使用本平台。但如果您继续使用本平台，则视为您接受本平台对本协议的相关修订。
+If you do not agree to Open Atomic’s relevant revisions to this Agreement, you have the right and should stop using this platform. However, if you continue to use this platform, it will be deemed that you accept the relevant amendments to this agreement made by this platform.
 
-本平台开放原子有权在任何时间对本平台服务内容进行单方更新，此种更新无需以通知您或任何第三方为前提。您承认并接受上述更新。我们建议您定期访问本平台以尽快获知有关的更新的情况。
+Open Atomic Platform has the right to unilaterally update the service content of this platform at any time without notifying you or any third party. You acknowledge and accept the above updates. We recommend that you visit this platform regularly to learn about relevant updates as soon as possible.
 
-## 八、	关于可分割性
+## 8、 Divisibility
 
-如果本协议中的部分条款被认定为无效，则此无效部分并不影响本协议其他条款的效力。
+If some terms in this Agreement are found to be invalid, this invalid part will not affect the validity of other terms in this Agreement.
 
-## 九、	关于适用法律及争议解决
+## 9、 About Applicable Laws and Dispute Resolution
 
-**开放原子并未做出任何声明，表明本平台上的信息、软件和文档在中国以外的其他地方适用或可用于浏览或下载。**如果您从中国以外的其他地区访问本平台，您需遵守所有适用的当地法律。若本平台的信息、软件或文档可能存在违反或者与您访问时所在国家或地区的法律法规要求，开放原子可能将禁止您来自境外访问本平台。
+**Open Atomic does not make any representation that the information, software and documents on this platform are appropriate or available for browsing or downloading in other places outside China.** If you access the Platform from other regions outside of China, you must comply with all applicable local laws. If the information, software or documents on this platform may violate or be inconsistent with the laws and regulations of the country or region where you are accessing, Open Atom may prohibit you from accessing this platform from abroad.
 
-**本协议适用法律为中华人民共和国法律，签署地为开放原子住所地，就本协议产生的或者与其相关的所有请求、分歧或争议，经双方友好协商仍无法达成一致时，双方应向本协议签署地有管辖权的人民法院提起诉讼。**
+**The applicable law of this Agreement is the law of the People's Republic of China, and the place of signature is the domicile of Open Atom. If both parties still cannot reach an agreement with respect to all requests, differences or disputes arising out of or related to this Agreement after friendly negotiation, the parties shall submit to the signature of this Agreement File a lawsuit with the local people's court with jurisdiction.**
 
-## 十、	联系我们
+## 10、 Contact Us
 
-您可对本平台的服务进行反馈，以便本平台不断完善功能、提升用户体验。如您对本平台或本协议有任何疑问，请通过以下邮箱与我们进行联系：service@openatom.org。开放原子将非常重视和认真考虑您提供的任何意见或建议，并致力于向您提供更好的产品或服务。
+You can provide feedback on the services of this platform so that the platform can continuously improve its functions and enhance user experience. If you have any questions about this platform or this Agreement, please contact us via the following email: [service@openatom.org](mailto:service@openatom.org?_x_tr_sl=en&_x_tr_tl=zh-CN&_x_tr_hl=zh-CN&_x_tr_pto=wapp&_x_tr_sch=http) . Open Atomic will attach great importance to and seriously consider any opinions or suggestions you provide, and is committed to providing you with better products or services.

@@ -1,72 +1,73 @@
 ---
 id: app-create # 唯一ID
 slug: /app/create # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 开发应用 # 在sidebar 中的名称
-title: 开发应用 # 页面标题
+sidebar_label: App Develop # 在sidebar 中的名称
+title: App Develop # 页面标题
 tags:
   - app
-  - 开发应用
+  - App Develop
 hide_title: false
 ---
 
-## 开发应用
-平台支持接入三方的应用，并为应用提供授权。应用可调用 OpenAPI 获取被授权的平台数据，通过应用在 AtomGit 站外自由进行业务的数据处理，并提供了数据结果的回写途径，在提交状态、变更请求状态中回显处理结果，以实现扩展的代码质量、安全检查等目的。
+## Develop Applications
 
-### 应用接入
-应用需要接入到空间下，AtomGit 有两类空间：
+The platform supports access to third-party applications and provides authorization for applications. The application can call OpenAPI to obtain authorized platform data, and can freely perform business data processing outside the AtomGit site through the application. It also provides a way to write back the data results and echo the processing results in the submission status and change request status to achieve expansion. Code quality, security inspection and other purposes.
 
-* 个人空间
-* 组织空间
+### Application Connect
 
-#### 个人空间
-1. 点击右上角头像，进入「个人设置」，选择「开发应用」：
+Applications need to be connected to space, and AtomGit has two types of spaces:
+
+- Personal Space
+- Organizational space
+
+#### Personal Space
+
+1. Click on the avatar in the upper right corner, enter "Personal Settings", and select "Develop Application":
 ![](./img/01.jpg)
-
-2. 点击「新建应用」，填写应用信息表单：
+2. Click on "New Application" and fill out the application information form:
 ![](./img/02.jpg)
 
-* **应用基本信息**
-包括名称、主页、封面等。   
+**Basic information of the application**
 
-* **用户授权配置**
-安装授权的回调配置和是否需要Oauth授权，将用于应用申请用户授权以通过OpenAPI获取对应数据。
+Including name, homepage, cover, etc.
 
-* **WebHook配置**
-启用后将通过WebHook提供应用相关事件的通知
+**User Authorization Configuration**
 
-* **应用所需权限范围选择**
-应用需要申请获取的用户权限范围，包括代码库权限、组织权限、用户权限。
+The callback configuration for installing authorization and whether Oauth authorization is required will be used for applying for user authorization to obtain corresponding data through OpenAPI.
 
-* **应用需要订阅的事件**
-根据选择的权限范围和WebHook设置，可对应选择能够订阅的事件，发生对应事件时将通知给应用，进而可进一步自定义处理。
+**WebHook Configuration**
+After enabling, notifications of application related events will be provided through WebHook
 
-* **应用安装范围设置**
-包括私有和公开，私有应用只有当前空间可以安装，公开应用任意空间可以安装。当应用要上架到应用开放市场时，必须设置为公开应用。
+**Select the required permission range for the application**
+The scope of user permissions that the application needs to apply for, including code base permissions, organizational permissions, and user permissions.
 
-3. 应用创建完成后，将进入应用详情：
+**Events that the application needs to subscribe to**
+According to the selected permission range and WebHook settings, events that can be subscribed to can be selected accordingly. When the corresponding event occurs, it will be notified to the application, which can be further customized for processing.
+
+**Application installation scope settings**
+Including private and public, private applications can only be installed in the current space, while public applications can be installed in any space. When an application is to be launched on the open market, it must be set as a public application.
+
+3. After the application creation is completed, the application details will be entered:
 ![](./img/03.jpg)
+In the application details, you can modify and configure the basic information, permissions, and events of the application.
+Before using an application to make OpenAPI calls, it is necessary to create a new client key or private key as needed. How to use OpenAPI through the application can be found in [Application Access Example] (app demo).
 
-在应用详情中可针对应用基本信息、权限和事件进行修改配置。
+**Installing Applications**
+There are two common ways to install applications:
 
-当使用应用进行 OpenAPI 调用前，需要按需新建客户端密钥或是私钥，如何通过应用使用 OpenAPI 参见[应用接入示例](app-demo)。
+- Install the application through application details and select the desired installation space for installation;
+- Install through an open market, see [app market].
 
-**安装应用**
-安装应用有两种常用方式：
-
-* 通过应用详情 - 安装应用，选择期望安装的空间进行安装；
-* 通过开放市场进行安装，参见[开放市场](app-market)。
-
-**高危操作**
-包括修改公开性和删除应用。
+**High risk operations**
+This includes modifying openness and deleting applications.
 ![](./img/04.jpg)
 
-#### 组织空间
-仅允许组织管理员角色为组织接入应用。
+#### Organizational space
 
-1. 点击右上角头像，进入「我的组织」，点击目标组织：
+Only allow the organization administrator role to access applications for the organization.
+
+1. Click on the avatar in the upper right corner to enter 'My Organization' and click on the target organization:
 ![](./img/05.jpg)
-
-2. 进入组织设置，选择「开发应用」：
+2. Enter the organizational settings and select 'Develop Applications':
 ![](./img/06.jpg)
-
-3. 点击「新建应用」填写应用信息，组织空间下新建应用过程，同个人空间下开发应用，不再赘述。
+3. Click on "New Application" to fill in the application information, organize the process of creating a new application in the space, and develop the application in the same personal space without further explanation.
