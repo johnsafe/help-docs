@@ -11,57 +11,57 @@ hide_title: true
 
 ## Issue
 
-AtomGit 提供用于反馈跟踪 bug、记录新的想法/需求的 Issue 功能，通过 Issue，你可以：
+AtomGit provides the Issue function for feedback tracking bugs and recording new ideas/requirements. Through Issues, you can:
 
-- 与社区用户交流讨论
-- 反馈和跟踪代码库中的 bug
-- 记录新的想法
-- 跟踪新需求的状态
+- Communicate and discuss with community users
+- Feedback and track bugs in the code base
+- Record new ideas
+- Track the status of new requirements
 
-总之，与代码库相关的一切问题，我们建议你都通过 Issue 来讨论和记录。
+In short, we recommend that you discuss and record all issues related to the code base through Issues.
 
-### 了解 Issue
+### About Issue
 
 ![issues_list](./img/issues_list.png)
 
-当你进入到某个代码库（任意公开可访问的代码库均可）后，你可以单击左侧的 Issue 按钮，查看代码库的 Issue 列表，通常你能够看到以下信息：
+When you enter a code base (any publicly accessible code base is acceptable), you can click the Issue button on the left to view the Issue list of the code base. Usually you can see the following information:
 
-1. **Issue 的标题** ，用于描述这个 Issue 主要讨论的内容是什么
-1. **Issue 的状态**，Issue 的状态分为`开启中`和`已关闭`两种
-1. **Issue 创建时间**
-1. **Issue 的创建者**
-1. **Issue 分配的负责人**
-1. **Issue 中讨论的评论数量**
-1. **Issue 最近更新时间**
+1. **Issue title**, used to describe what the main content of this Issue is.
+2. **Issue status**, Issue status is divided into two types: `open` and `closed`
+3. **Issue creation time**
+4. **Creator of Issue**
+5. **Issue assigned person in charge**
+6. **Number of comments discussed in the Issue**
+7. **Issue last updated**
 
-### 新建 Issue
+### Create Issue
 
 ![new_issue](./img/new_issue.png)
 
-你可以在公开可访问的代码库或你有权限的私密代码库中提交 Issue，创建 Issue 时，你需要提供以下信息：
+You can submit an Issue in a publicly accessible code base or a private code base to which you have permission. When creating an Issue, you need to provide the following information:
 
-1. Issue 标题
-2. Issue 的详细说明，这部分越详细越好，如果是 bug 反馈，最好能够提供详细的上下文信息，以便项目成员定位问题
+1. Issue title
+2. A detailed description of the Issue. The more detailed this part is, the better. If it is a bug feedback, it is best to provide detailed contextual information so that project members can locate the problem.
 
-当 Issue 创建成功后，系统将会跳转至 Issue 详情页。
+When the Issue is created successfully, the system will jump to the Issue details page.
 
 ![issue_detail](./img/issue_detail.png)
 
-### 分配 Issue
+### Assign Issue
 
-当 Issue 提交后，项目成员可以对 Issue 进行分配负责人的操作，Issue 可分配的负责人包括 Issue 的参与者（创建者和参与 Issue 讨论的用户）和代码库成员（包括`浏览者`、`开发者`和 `管理员` 三类角色）
+After the Issue is submitted, project members can assign responsible persons to the Issue. The assignable responsible persons of the Issue include the participants of the Issue (creators and users participating in the Issue discussion) and code base members (including `Viewers`, `Developer` and `Administrator` three types of roles)
 
-### 锁定 Issue
+### Lock Issue
 
-当 Issue 被锁定后，将只允许代码库成员进行讨论，非代码库成员将无法提交评论
+When an Issue is locked, only code base members will be allowed to discuss it, and non-code base members will not be able to submit comments.
 
-### 关闭 Issue
+### Close Issue
 
 ![close_issue](./img/close_issue.gif)
 
-当 Issue 分配的负责人认为 Issue 可以关闭的时候，可以通过页面最下方的关闭按钮进行关闭，通常关闭 Issue 的情形有两种:
+When the person in charge of the Issue assignment thinks that the Issue can be closed, he can close it through the close button at the bottom of the page. There are usually two situations for closing an Issue:
 
-1. **跳过并关闭 Issue**， 这将意味着负责人认为该 Issue 的问题可以不用继续关注，可能是个无效的 bug 或者是不符合项目规划的需求等
-2. **完成并关闭 Issue**， 这意味着负责人已经将该 Issue 中反馈的问题处理完成
+1. **Skip and close the Issue**, this will mean that the person in charge believes that the issue does not require further attention, and may be an invalid bug or does not meet the needs of the project plan, etc.
+2. **Complete and close the Issue**, which means that the person in charge has completed handling the issues reported in the Issue
 
-拥有关闭 Issue 权限的人员包括 Issue 的创建者、 当前分配的负责人和代码库成员。
+People with permission to close an issue include the issue's creator, the currently assigned owner, and code base members.

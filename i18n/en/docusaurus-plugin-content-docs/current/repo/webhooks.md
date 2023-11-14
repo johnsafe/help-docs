@@ -1,31 +1,35 @@
 ---
 id: webhooks # 唯一ID
 slug: /repo/webhooks # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 开放与集成 # 在sidebar 中的名称
-title: 开放与集成 # 页面标题
+sidebar_label: Webhooks # 在sidebar 中的名称
+title: Webhooks # 页面标题
 tags:
   - webhook
 hide_title: false
 ---
 
-通过代码库的 Webhook，允许服务端在接收到特殊事件的时候，调用指定的 URL。
+Through the repository's Webhook, the server is allowed to call the specified URL when receiving special events.
 
-这些可以 Webhook 配置的特殊事件有：代码推送，代码评审。平台会发送一个带数据的 Post 请求到 Webhook 的定义 URL。
+These special events that can be configured with Webhooks include: code push and code review. The platform will send a Post request with data to the defined URL of the Webhook.
 
-Webhooks 可以用来触发 CI 构建，执行镜像备份甚至用来触发部署到生产环境等功能。
+Webhooks can be used to trigger CI builds, perform image backups, and even trigger deployment to production environments.
 
 ![图片](./img/03.jpg)
 
-## 事件说明
-### 推送事件
-推送事件指客户端将代码 Push 到服务端，一个例外：Push 标签，不会形成推送事件。
+## Event description
 
-#### 请求头
+### Push event
+
+Push events refer to the client pushing code to the server. One exception: the Push tag does not form a push event.
+
+#### Request header
+
 ```
 X-AtomGit-Event: Push Hook
 ```
 
-#### 请求内容
+#### Request body
+
 ```
 {
   "object_kind": "push",
@@ -72,14 +76,18 @@ X-AtomGit-Event: Push Hook
 }
 ```
 
-### 标签推送事件
-当创建或者删除标签时触发。
+### Tag push event
 
-#### 请求头
+Fired when a tag is created or deleted.
+
+#### Request header
+
 ```
 X-AtomGit-Event: Tag Push Hook
 ```
-#### 请求内容
+
+#### Request body
+
 ```
 {
   "object_kind": "tag_push",
@@ -103,14 +111,18 @@ X-AtomGit-Event: Tag Push Hook
 }
 ```
 
-### 评论事件
-当任何一条评论生成时触发，无论是在代码提交、代码评审的评论。评论数据会存在 object_attributes 字段里。
+### Comment Event
 
-#### 请求头
+Triggered when any comment is generated, whether it is a comment in a code commit or a code review. Comment data will be stored in the object_attributes field.
+
+#### Request header
+
 ```
 X-AtomGit-Event: Note Hook
 ```
-#### 请求内容
+
+#### Request body
+
 ```
 {
   "object_kind": "note",
@@ -164,14 +176,18 @@ X-AtomGit-Event: Note Hook
 }
 ```
 
-### 代码评审评论
-当任何一条评论生成时触发，无论是在代码提交、代码评审的评论。评论数据会存在 object_attributes 字段里。
+### Code review comments
 
-#### 请求头
+Triggered when any comment is generated, whether it is a comment in a code commit or a code review. Comment data will be stored in the object_attributes field.
+
+#### Request header
+
 ```
 X-AtomGit-Event: Note Hook
 ```
-#### 请求内容
+
+#### Request content
+
 ```
 {
   "object_kind": "note",
@@ -253,14 +269,18 @@ X-AtomGit-Event: Note Hook
 }
 ```
 
-### 代码评审事件
-当任何一条评论生成时触发，无论是在代码提交、代码评审的评论。评论数据会存在 object_attributes 字段里。
+### Code review event
 
-#### 请求头
+Triggered when any comment is generated, whether it is a comment in a code commit or a code review. Comment data will be stored in the object_attributes field.
+
+#### Request header
+
 ```
 X-AtomGit-Event: Merge Request Hook
 ```
-#### 请求内容
+
+#### Request content
+
 ```
 {
   "object_kind": "merge_request",
@@ -320,10 +340,11 @@ X-AtomGit-Event: Merge Request Hook
 }
 ```
 
-## Webhook 接收端例子
-如果出于测试的目的，想看下 Webhook 的执行效果，可以用一个简单的 Echo 脚本
+## Webhook receiver example
 
-把下面脚本保存成 print_http_body.rb.
+If you want to see the execution effect of Webhook for testing purposes, you can use a simple Echo script
+
+Save the following script as print_http_body.rb.
 
 ```
 server = WEBrick::HTTPServer.new(:Port => ARGV.first)
@@ -337,9 +358,9 @@ end
 server.start
 ```
 
-选个未被使用的端口（比如8000），并启动脚本：ruby print_http_body.rb 8000 然后在 AtomGit 上配置 Webhook 的 URL http://my.host:8000/
+Select an unused port (such as 8000) and start the script: ruby ​​print_http_body.rb 8000 Then configure the Webhook URL <http://my.host:8000/> on AtomGit
 
-在 AtomGit 上点击 Test Hook，可以在命令行里看到如下内容:
+Click "Test Hook" on AtomGit and you can see the following content in the command line:
 
 ```
 {"before":"f2e2d577fab1562a6239b82721fd9827e05fdce6","after":"eb63d0277e64684236ebf8394b919230c4b8a286"}
@@ -347,8 +368,10 @@ aliyun.com - - [14/May/2019:11:11:11 EDT] "POST / HTTP/1.1" 200 0
 - -> /
 ```
 
-### 使用 HTTP Basic Authentication
-当触发支持 HTTP Basic Authentication 的服务器时， 允许在 URL中添加用户名和密码进行访问，Webhook 形如：
+### Use HTTP Basic Authentication
+
+When a server that supports HTTP Basic Authentication is triggered, the user name and password are allowed to be added to the URL for access. The Webhook is in the form:
+
 ```
 http://userName:password@my.host:8080/project/test-job
 ```

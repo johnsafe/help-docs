@@ -1,48 +1,50 @@
 ---
 id: repo-config # 唯一ID
 slug: /repo/config/general # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 代码库设置 # 在sidebar 中的名称
-title: 代码库设置 # 页面标题
+sidebar_label: Repo Setting # 在sidebar 中的名称
+title: Repo Setting # 页面标题
 tags:
   - repo
-  - 代码库设置
+  - repo setting
 hide_title: false
 ---
 
-### 基本信息
+### Basic Info
 
-作为代码库管理员（包括继承的组织管理员），可以修改代码库基本信息，包含名称、描述、封面、公开性，以便于其他开发者更快的找到代码库。
+As a repository maintainer (including inherited organization maintainer), you can modify the basic information of the repository, including name, description, cover, and visibility, so that other developers can find the repo faster.
 
 ![](./img/28.jpg)
 
+### High-risk operations
 
-### 高危操作
 ![](./img/29.jpg)
 
-其中公开性包括两种：
-- 公开：任何人包括匿名可见
-- 私有：仅代码库成员及所属组织成员可见
+There are two types of visibility:
 
-> 组织成员的权限将继承至其下的代码库中，即如果在组织上是开发者，则在其下库上也将拥有开发者权限。
+- Public: visible to anyone including anonymous
+- Private: visible only to code base members and members of the organization to which they belong
+
+> The permissions of organization members will be inherited to the repositories under it. That is, if you are a developer in the organization, you will also have developer permissions in the repository under it.
 
 ![](./img/30.jpg)
 
-#### 修改代码库路径：
+#### Change repository path
 
-作为开发人员，一个常规访问路径是直接输入URL访问，一个有意义的 Path 能够使开发人员更快速的输入 URL 找到代码库，以及在各自 Workspace 下快速找到对应目标库。
+As a developer, a common access path is to directly enter the URL for access. A meaningful Path can enable developers to enter the URL more quickly to find the repo, and quickly find the corresponding target repo under their respective Workspace.
 
-#### 转移代码库：
+#### Transfer repository
 
-可以快速将代码库移动到另一个组下，方便管理。
+You can quickly move the repository to another group for easier management.
 
-#### 代码库归档：
+#### Archive repository
 
-如果一个代码库不再被维护了，作为代码库管理员，可以将代码库进行归档，归档后代码库只读，不可做提交或更改操作。
-在代码库归档后可解除归档，代码库访问状态回归正常。
+If a repository is no longer maintained, as a repository maintainer, you can archive the repository. After archiving, the repository becomes read-only and cannot be commited or changed.
+After the repository is archived, it can be unarchived and the access status of the repository returns to normal.
 
-#### 删除代码库：
+#### Delete repository
 
-作为代码库管理员，可以管理自己的代码库，如果该代码库永久不会再被使用，可以操作删除。
+As a repository maintainer, you can manage your own repository. If the repository will never be used again, you can delete it.
 
-### 存储空间管理
-存储库 GC：作为代码库管理员，可以在代码库接近存储限制时使用存储库 GC，压缩存储库对象，减少磁盘占用，提升读写仓库的效率。
+### Storage management
+
+Storage GC：As a repository maintainer，when the repository is close to its storage limit, you can use Repository GC to compress repository objects, reduce disk usage, and improve the efficiency of reading and writing the repository.

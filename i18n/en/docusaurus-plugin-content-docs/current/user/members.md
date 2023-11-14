@@ -1,31 +1,32 @@
 ---
 id: repo-members # 唯一ID
 slug: /repo/members # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 成员管理 # 在sidebar 中的名称
-description: 代码库成员管理 # 描述
-title: 成员管理 # 页面标题
+sidebar_label: Member Manage # 在sidebar 中的名称
+description: Repo Members # 描述
+title: Member Manage # 页面标题
 tags:
-  - 成员管理
+  - member manage
+  - repo
+  - member
 hide_title: true
 ---
 
-## 成员管理
+## Member Manage
 
-### 邀请成员
+### Invite
 
-管理员可操作。点击库内左下角成员 Tab 后选择添加成员，检索特定成员（用户名检索）后选择期望授予他的权限，然后点击确定邀请。
+maintainer is operational. Click the Member Tab in the lower left corner of the library and select Add Member, search for a specific member (user name search), select the permissions you want to grant him, and then click OK to invite.
 
 ![图片](./img/02.png)
 
-- 被邀请用户将收到一封邮件通知，点击邮件中的接受邀请按钮，将被成功邀请进库成员列表；
-- 邮件有7天过期时间，过期后邀请失效；
-- 若库管理员在成员管理弹窗中“撤销邀请”，邀请链接也将失效；
+- The invited user will receive an email notification, click the Accept Invitation button in the email, and will be successfully invited to the library member list;
+- The email has an expiration time of 7 days, after which the invitation will become invalid;
+- If the library maintainer "revokes invitation" in the member management pop-up window, the invitation link will also become invalid;
 
+### Change member permissions
 
-### 变更成员权限
+maintainer is operational. Select a member in the library and click the role drop-down list on the right to change the member's permissions.
 
-管理员可操作。选择库中某个成员，点击右方角色下拉列表即可变更成员权限。
+### Delete members
 
-### 删除成员
-
-管理员可操作。选择某个成员后点击移除成员，可删除某个成员。
+maintainer is operational. Select a member and click Remove Member to delete a member.

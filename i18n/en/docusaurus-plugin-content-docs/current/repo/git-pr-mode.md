@@ -1,70 +1,73 @@
 ---
 id: git-pr-mode # 唯一ID
 slug: /repo/git-pr-mode # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 推送评审模式 # 在sidebar 中的名称
-title: 推送评审模式 # 页面标题
+sidebar_label: Pr-mode # 在sidebar 中的名称
+title: Pr-mode # 页面标题
 tags:
   - git push`
-  - 推送评审模式
+  - pr-mode
 hide_title: false
 ---
-## 推送评审模式
-平台支持推送评审模式，该模式下执行 git push 将自动创建评审，并且能够支持对提交进行评审。
+## pr-mode
 
-### 推送评审模式及其优势
+The platform supports pr-mode. Executing git push in this mode will automatically create a review and support review of submissions.
 
-##### 推送评审模式，可以为用户带来全新、高效的代码评审体验 #####
+### pr-mode and its advantages
 
-从开发者的角度，发起代码评审不再需要创建新分支，也不必在开发完成后切换至浏览器来创建代码评审，直接执行git push即可一键发起评审；
+##### pr-mode can bring users a new and efficient code review experience
 
-从管理者的角度，可以设置让开发人员向仓库push代码时，不再直接更新分支的代码，而是自动创建代码评审，通过评审的方式，保障代码质量；
+From a developer's perspective, initiating a code review no longer requires creating a new branch, nor does it require switching to the browser to create a code review after development is completed. You can directly execute git push to initiate a review with one click;
+From the perspective of managers, it can be set up so that when developers push code to the warehouse, they no longer directly update the code of the branch, but automatically create a code review to ensure code quality through review;
 
-推送评审模式与现有分支模式对比：
-|     | 分支开发模式  |推送评审模式  | 
+Comparison between pr-mode and existing branch mode:
+|     | Branch mode  |pr-mode  |
 |  ----  | ----  |----  |
-| 提交代码  | 在特性分支中提交 |直接在主干上提交 |
-|发起代码评审| 网页端操作 |执行git push |
-|更新代码评审| 更新特性分支 |继续执行git push |
-|贡献代码所需权限| 开发者及以上角色 |浏览者及以上权限 |
-|代码质量| 仅保护分支受管控 |所有分支的 push 均受管控 |
+| commit  | commit in feature branch |commit in main branch directly |
+|code review | web | excute git push |
+|update code review | update feature branch | git push |
+|push permission| develop and higher |viewer and higher |
+|code quality| Only protected branches |all branch |
 
-##### 在代码库设置中开启推送评审模式后，具有以下优势 #####
+##### Advantage of pr-mode
 
-* 向仓库贡献代码，发起代码评审，不再需要创建新的分支，直接在主干上进行修改并提交即可，避免了冗余的分支管理成本；
+* Contribute code to the warehouse and initiate code review. You no longer need to create a new branch. You can just modify and submit it directly on the trunk, avoiding redundant branch management costs;
 
-* git push不再直接推送分支内容，而是创建/更新代码评审；
+* git push no longer directly pushes branch content, but creates/updates code reviews;
 
-* 如果代码需要修补，提交后继续执行git push，已发起的评审会自动更新；
+* If the code needs to be patched, continue to execute git push after submission, and the initiated review will be automatically updated;
 
-* 向仓库贡献代码不再需要授予开发者权限，拥有仓库的浏览者权限即可贡献代码，而且贡献的代码需要经过评审才能正式合入代码库。因此可以将直接写库的权限最小化到少数管理者手中，而大部分开发者仅需要读权限即可，降低了代码库被意外修改的风险；
+* Contributing code to the warehouse no longer requires granting developer permissions. You can contribute code with the viewer permissions of the warehouse, and the contributed code needs to be reviewed before it can be officially incorporated into the code base. Therefore, the permission to directly write the library can be minimized to a few managers, while most developers only need read permission, reducing the risk of the code library being accidentally modified;
 
-* 支持指定push option来控制具体的推送行为；
+* Support specifying push options to control specific push behavior;
 
+## Open pr-mode
 
-## 开启方式
-在仓库设置 - 推送规则设置中，可以看到推送评审模式的开关，点击此开关即可开启/关闭推送评审模式的功能：
+In the warehouse settings - push rule settings, you can see the pr-mode switch. Click this switch to turn on/off the pr-mode function:
 ![](./img/66.jpg)
 
-> 重要
-> 开启推送评审模式后，会改变git push的行为，请先知悉并理解后再开启推送评审模式：
-> * 开启推送评审模式后，执行git push不再直接更新远端的代码（即便拥有仓库的开发者权限），而是自动创建/更新代码评审；
-> * 仓库的浏览者，可以通过git push发起评审，但请放心此时代码还未合入分支，需要根据分支评审和合并要求通过后才可手动合入；
-> * 由于git push并不直接更新代码而是创建评审，因此不会触发推送事件的 webhook；
-> * 用户可以在网页端以评审的方式新建，编辑或删除文件；
+> Important
+> After turning on pr-mode, the behavior of git push will be changed. Please know and understand it before turning on pr-mode:
+>
+> * After pr-mode is turned on, executing git push no longer directly updates the remote code (even if you have developer rights in the warehouse), but automatically creates/updates the code review;
+> * Viewers of the warehouse can initiate a review through git push, but please be assured that the code has not yet been merged into the branch. It needs to be manually merged after passing the branch review and merge requirements;
+> * Since git push does not directly update the code but creates a review, the webhook of the push event will not be triggered;
+> * Users can create, edit or delete files through review on the web page;
 
-## 使用推送评审模式进行协作
-下面，用几个实际的例子，说明如何使用推送评审模式进行开发协作。
+## Use pr-mode to collaborate
 
-### 自动创建评审
-假设我们现在接到了一个开发任务，需要开发一个新的特性，使用传统的分支模式，我们需要检出一个分支，并在分支上进行开发，推送分支后再发起特性分支至主干的评审。在使用推送评审模式后，这个过程被简化为只需要两步：
+Below, we use several practical examples to illustrate how to use pr-mode for development collaboration.
 
-* 在主干上进行开发
+### Automatically create reviews
+
+Suppose we now receive a development task and need to develop a new feature. Using the traditional branch model, we need to check out a branch, develop on the branch, push the branch, and then initiate review of the feature branch to the trunk. After using pr-mode, this process is simplified to only two steps:
+
+* develop on main branch
 * git push
 
-下面我们来具体看看。
-在示例仓库中，我们在master分支上开发，并创建了一个提交27e76f58。
+Let’s take a closer look below.
+In the example repository, we develop on the master branch and create a commit 27e76f58.
 
-```
+```bash
 $ git log
 commit 27e76f582ca7207a695dd8762b66ef443adcc572 (HEAD -> master)
 Author: Code User <code.user@example.com>
@@ -80,15 +83,17 @@ Date:   Tue Oct 11 10:09:39 2022 +0800
 
     Initial commit
 ```
-然后，将改动推送至远端，执行git push：
+
+then, push the commit to remote,excute git push：
+
 ```
 $ git push
-枚举对象中: 4, 完成.
-对象计数中: 100% (4/4), 完成.
-使用 12 个线程进行压缩
-压缩对象中: 100% (2/2), 完成.
-写入对象中: 100% (3/3), 310 字节 | 310.00 KiB/s, 完成.
-总共 3（差异 0），复用 0（差异 0），包复用 0
+enuming: 4, done.
+counting: 100% (4/4), done.
+Compression using 12 threads
+compressing: 100% (2/2), done.
+writing: 100% (3/3), 310 bytes | 310.00 KiB/s, done.
+Total 3 (difference 0), mux 0 (difference 0), packet mux 0
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
@@ -98,21 +103,23 @@ remote: +-----------------------------------------------------------------------
 To https://xxx.com/demo.git
  * [new reference]         master -> refs/change-requests/31620/head
 ```
-可以看到，开启了推送评审模式后，git push 没有直接更新远端的代码，而是创建了一个代码评审，ID 是31620。
 
-此代码评审的源为本地最新的提交，目标则是当前的分支。
+It can be seen that after pr-mode is turned on, git push does not directly update the remote code, but creates a code review with the ID 31620.
 
-我们可以通过代码评审的详情来确认：
+The source of this code review is the latest local commit, and the target is the current branch.
+
+We can confirm this through the details of the code review:
 ![](./img/67.jpg)
 
-通过这种方式，不再需要创建特性分支，也不必切换至浏览器创建评审，简化了创建代码评审的步骤。
+This way, you no longer need to create feature branches or switch to the browser to create reviews, simplifying the steps of creating code reviews.
 
-同时，git push不再直接更新代码，而是必须经过评审后才能合入，保障代码质量。
+At the same time, git push no longer directly updates the code, but must be reviewed before being merged to ensure code quality.
 
-### 自动更新评审
-在代码评审的过程中，往往需要根据评审者的意见，多次反复修改代码，才能最终达到代码的准入标准。那么，在修改了代码后，相应的代码评审要如何更新呢？这可以通过再次执行`git push`来完成。下面我们来看看实际的例子。
+### Automatically update reviews
 
-我们在27e76f58的基础上，根据评审意见修改了一些代码，并增加了一个提交e00db452。
+In the process of code review, it is often necessary to modify the code multiple times based on the reviewer's opinions to finally meet the code admission standards. So, after modifying the code, how to update the corresponding code review? This can be done by executing `git push` again. Let’s look at a practical example below.
+
+Based on 27e76f58, we modified some code based on review comments and added a commit e00db452.
 
 ```
 $ git log
@@ -139,15 +146,16 @@ Date:   Tue Oct 11 10:09:39 2022 +0800
     Initial commit
 ```
 
-然后，再次执行`git push`：
+then, excute `git push` again：
+
 ```
 $ git push
-枚举对象中: 4, 完成.
-对象计数中: 100% (4/4), 完成.
-使用 12 个线程进行压缩
-压缩对象中: 100% (2/2), 完成.
-写入对象中: 100% (3/3), 340 字节 | 340.00 KiB/s, 完成.
-总共 3（差异 0），复用 0（差异 0），包复用 0
+enuming: 4, done.
+counting: 100% (4/4), done.
+Compression using 12 threads
+compressing: 100% (2/2), done.
+writing: 100% (3/3), 310 bytes | 310.00 KiB/s, done.
+Total 3 (difference 0), mux 0 (difference 0), packet mux 0
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
@@ -157,26 +165,27 @@ remote: +-----------------------------------------------------------------------
 To https://xxx.com/demo.git
    27e76f582c..e00db4522f  master -> refs/change-requests/31620/head
 ```
-提示信息中可以看出，这次推送更新了 ID为31620的代码评审。
 
-查看评审详情，我们看到代码评审的源版本已经变为了e00db4522，并且提交历史也变为了2。
+It can be seen from the prompt information that this push updates the code review with ID 31620.
+
+Looking at the review details, we see that the source version of the code review has changed to e00db4522, and the submission history has also changed to 2.
 ![](./img/68.jpg)
 
-如果代码仍然需要修改，重复以上流程即可。
+If the code still needs to be modified, just repeat the above process.
 
-### 创建新的评审
-重复执行`git push`命令，会自动更新已经存在的评审。如果我们并不想更新评审，而是想要创建一个新的评审，那要如何操作呢？这可以通过在 push 命令中添加`push option`来实现。具体来说，执行` git push -o review=new`，就可以创建新的代码评审。
+### New review
 
-在本地改动一些代码，再次执行`git push -o review=new`，成功创建了 ID 为31626的代码评审。
+Executing the `git push` command repeatedly will automatically update existing reviews. What if we don't want to update the review, but want to create a new one? This can be achieved by adding the `push option` to the push command. Specifically, execute `git push -o review=new` to create a new code review.
+Change some code locally, execute `git push -o review=new` again, and successfully create a code review with ID 31626.
 
 ```
 $ git push -o review=new
-枚举对象中: 4, 完成.
-对象计数中: 100% (4/4), 完成.
-使用 12 个线程进行压缩
-压缩对象中: 100% (2/2), 完成.
-写入对象中: 100% (3/3), 361 字节 | 361.00 KiB/s, 完成.
-总共 3（差异 0），复用 0（差异 0），包复用 0
+enuming: 4, done.
+counting: 100% (4/4), done.
+Compression using 12 threads
+compressing: 100% (2/2), done.
+writing: 100% (3/3), 310 bytes | 310.00 KiB/s, done.
+Total 3 (difference 0), mux 0 (difference 0), packet mux 0
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
@@ -186,10 +195,12 @@ remote: +-----------------------------------------------------------------------
 To https://xxx.com/demo.git
  * [new reference]         master -> refs/change-requests/31626/head
 ```
-需要注意的是，如果推送时已经存在源与目标完全相同的评审，那么将无法创建新的评审。
+
+It should be noted that if a review with exactly the same source and target already exists when pushing, then you will not be able to create a new review.
+
 ```
 $ git push -o review=new
-总共 0（差异 0），复用 0（差异 0），包复用 0
+Total 0 (difference 0), multiplex 0 (difference 0), packet multiplex 0
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
@@ -198,19 +209,21 @@ remote: | https://xxx.com/demo/change_request/31620       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
  ! [remote rejected]       master -> master (create CR failed)
-error: 无法推送一些引用到 'https://xxx.com/demo.git'
+error: cannot push some refs to 'https://xxx.com/demo.git'
 ```
 
-### 更新指定的评审
-在同时有多个开启的代码评审的情况下，执行`git push`时，会因无法判断想要更新哪一个评审而失败。
+### Update specified review
+
+When there are multiple open code reviews at the same time, when executing `git push`, it will fail because it cannot determine which review you want to update.
+
 ```
 $ git push
-枚举对象中: 5, 完成.
-对象计数中: 100% (5/5), 完成.
-使用 12 个线程进行压缩
-压缩对象中: 100% (2/2), 完成.
-写入对象中: 100% (3/3), 294 字节 | 294.00 KiB/s, 完成.
-总共 3（差异 1），复用 0（差异 0），包复用 0
+enuming: 5, done.
+counting: 100% (5/5), done.
+Compression using 12 threads
+compressing: 100% (2/2), done.
+writing: 100% (3/3), 310 bytes | 310.00 KiB/s, done.
+Total 3 (difference 0), mux 0 (difference 0), packet mux 0
 remote: +-------------------------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                                      |
 remote: +-------------------------------------------------------------------------------------------------+
@@ -228,24 +241,25 @@ remote: |     git push -o review=new                                            
 remote: +-------------------------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
  ! [remote rejected]       master -> master (unable to determine which mr to update)
-error: 无法推送一些引用到 'https://xxx.com/demo.git'
+error: cannot push some refs to 'https://xxx.com/demo.git'
 ```
-给出的提示信息中显示，存在指向同一目标分支的两个评审，ID分别为31626以及31620，因此无法判断想要更新的是哪一个评审。此时有两种解决方式：
 
-* 使用 -o review=new，创建一个新的代码评审。
-* 使用 -o review={MR-ID}，显式的给出想要更新的评审的ID。
+The prompt information given shows that there are two reviews pointing to the same target branch, with IDs 31626 and 31620 respectively, so it is impossible to determine which review you want to update. There are two solutions at this time:
 
-第一种方式在创建新的评审一节中已经演示过了，我们来看如何更新指定的评审。
+* Use -o review=new to create a new code review.
+* Use -o review={MR-ID} to explicitly give the ID of the review you want to update.
 
-假如此时我们要更新31626这个评审，那么具体的命令为： `git push -o review=31626`。
+The first method has been demonstrated in the section on creating a new review. Let's look at how to update a specified review.
+If we want to update the review 31626 at this time, the specific command is: `git push -o review=31626`.
+
 ```
 $ git push -o review=31626
-枚举对象中: 5, 完成.
-对象计数中: 100% (5/5), 完成.
-使用 12 个线程进行压缩
-压缩对象中: 100% (2/2), 完成.
-写入对象中: 100% (3/3), 303 字节 | 303.00 KiB/s, 完成.
-总共 3（差异 1），复用 0（差异 0），包复用 0
+enuming: 5, done.
+counting: 100% (5/5), done.
+Compression using 12 threads
+compressing: 100% (2/2), done.
+writing: 100% (3/3), 310 bytes | 310.00 KiB/s, done.
+Total 3 (difference 1), mux 0 (difference 0), packet mux 0
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
@@ -255,18 +269,21 @@ remote: +-----------------------------------------------------------------------
 To https://xxx.com/demo.git
    0ba010f2ff..037578c634  master -> refs/change-requests/31626/head
 ```
-这样，就更新了ID为31626的代码评审。
 
-### 更新评审的冲突解决
-有时，我们想要更新代码评审时，会发现评审可能已经被其他用户更新了。此时，为了避免其他用户的更新被覆盖，更新会失败。假设此时我们要更新31644这个评审，执行：`git push -o review=31644`
+In this way, the code review with ID 31626 is updated.
+
+### Resolve conflict for update reviews
+
+Sometimes, when we want to update a code review, we find that the review may have been updated by another user. At this time, in order to avoid other users' updates being overwritten, the update will fail. Assume that we want to update the review 31644 at this time, execute: `git push -o review=31644`
+
 ```
 $ git push -o review=31644
-枚举对象中: 4, 完成.
-对象计数中: 100% (4/4), 完成.
-使用 12 个线程进行压缩
-压缩对象中: 100% (2/2), 完成.
-写入对象中: 100% (3/3), 326 字节 | 326.00 KiB/s, 完成.
-总共 3（差异 0），复用 0（差异 0），包复用 0
+enuming: 4, done.
+counting: 100% (4/4), done.
+Compression using 12 threads
+compressing: 100% (2/2), done.
+writing: 100% (3/3), 310 bytes | 310.00 KiB/s, done.
+Total 3 (difference 0), mux 0 (difference 0), packet mux 0
 remote: +--------------------------------------------+
 remote: | The following tips are provided by Code: |
 remote: +--------------------------------------------+
@@ -274,35 +291,41 @@ remote: | CR is diverged with this push              |
 remote: +--------------------------------------------+
 To https://xxx.com/demo.git
  ! [remote rejected]       master -> master (CR is diverged with this push)
-error: 无法推送一些引用到 'https://xxx/demo.git'
+error: cannot push some refs to 'https://xxx/demo.git'
 ```
-提示信息中此次push会引起评审的冲突，更新失败了。此时我们有两种选择：
 
-1. 拉取其他用户的更新，在本地解决后再更新评审。
-2. 强制刷新评审。
+The prompt message indicates that this push will cause a review conflict and the update failed. At this point we have two options:
 
-先来看第一种方式。拉取更新在本地解决后再更新评审。
+1. Pull updates from other users and resolve them locally before updating the review.
+2. Force refresh the review.
 
-首先，我们需要执行 `git fetch origin refs/change-requests/{mr-id}/head`，这里mr-id为31644，所以我们需要执行的命令是：`git fetch origin refs/change-requests/31644/head`
+Let’s look at the first way first. Pull updates and resolve them locally before updating the review.
+
+First, we need to execute `git fetch origin refs/change-requests/{mr-id}/head`, where mr-id is 31644, so the command we need to execute is: `git fetch origin refs/change-requests/31644 /head`
+
 ```
 $ git fetch origin refs/change-requests/31644/head
-来自 https://xxx.com/demo
+from https://xxx.com/demo
  * branch                  refs/change-requests/31644/head -> FETCH_HEAD
 ```
-然后，我们rebase本地的改动到评审对应的引用上。执行`git rebase FETCH_HEAD`。rebase操作可能会出现冲突，请根据实际情况解决。
+
+Then, we rebase the local changes to the reference corresponding to the review. Execute `git rebase FETCH_HEAD`. There may be conflicts in the rebase operation, please resolve them based on the actual situation.
+
 ```
 $ git rebase FETCH_HEAD
-成功变基并更新 refs/heads/master。
+rebase success and update refs/heads/master。
 ```
-这样，本地就拥有了远端的代码，然后重新执行push。
+
+In this way, the local has the remote code, and then the push is executed again.
+
 ```
 $ git push -o review=31644
-枚举对象中: 4, 完成.
-对象计数中: 100% (4/4), 完成.
-使用 12 个线程进行压缩
-压缩对象中: 100% (2/2), 完成.
-写入对象中: 100% (3/3), 331 字节 | 331.00 KiB/s, 完成.
-总共 3（差异 0），复用 0（差异 0），包复用 0
+enuming: 4, done.
+counting: 100% (4/4), done.
+Compression using 12 threads
+compressing: 100% (2/2), done.
+writing: 100% (3/3), 310 bytes | 310.00 KiB/s, done.
+Total 3 (difference 0), mux 0 (difference 0), packet mux 0
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
@@ -312,24 +335,26 @@ remote: +-----------------------------------------------------------------------
 To https://xxx.com/demo.git
    a4a2cad45c..8da076fb44  master -> refs/change-requests/31644/head
 ```
-这样，就更新了31644这个代码评审。
 
-### 强制刷新评审
-有时，我们不想合并其他用户的改动，想要把评审强制刷新成本地的版本，这个时候应该如何操作呢？
+In this way, the code review 31644 is updated.
 
-此时，我们需要知道两个值。
+### Force review refresh
 
-一个是代码评审的ID，即代码评审URL的最后一段数字。例如，代码评审的URL是 https://xxxx.com/demo/change_request/31644，那么这个评审的ID即为31644。
+Sometimes, we don’t want to merge the changes of other users and want to force the review to be refreshed to the local version. How should we do this?
+At this point, we need to know two values.
 
-另一个是代码评审的源版本。在代码评审的详情页可获得。这里对应的源版本即为8da076fb。
+One is the code review ID, which is the last number of the code review URL. For example, if the URL of the code review is <https://xxxx.com/demo/change_request/31644>, then the ID of this review is 31644.
+
+The other is the source version for code review. Available on the code review details page. The corresponding source version here is 8da076fb.
 ![](./img/69.jpg)
 
-然后，可以执行` git push -o review={mr-id} -o old-oid={old-oid}`，对应这个例子，命令为`git push -o review=31644 -o old-oid=8da076fb`。
+then, we can execute `git push -o review={mr-id} -o old-oid={old-oid}`，for this example，command is `git push -o review=31644 -o old-oid=8da076fb`。
 
-这样，就将31644这个评审刷新成了本地的版本。这个过程中，其他用户的修改会被覆盖，所以只有在明确的想要强制刷新版本时，再执行这个命令，以免丢失其他用户的修改。
+In this way, the review 31644 is refreshed into the local version. During this process, the modifications of other users will be overwritten, so only execute this command when you clearly want to force a version refresh to avoid losing the modifications of other users.
+
 ```
 $ git push -o review=31644 -o old-oid=8da076fb
-总共 0（差异 0），复用 0（差异 0），包复用 0
+Total 0 (difference 0), multiplex 0 (difference 0), packet multiplex 0
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
@@ -339,12 +364,16 @@ remote: +-----------------------------------------------------------------------
 To https://xxx.com/demo.git
    8da076fb44..8da076fb44  master -> refs/change-requests/31644/head
 ```
-### 跳过评审，直接更新代码
-有时，我们可能仅仅做了一些微小的提交，例如改了代码注释中的错别字，想要跳过代码评审，应该如何操作呢？此时，我们可以使用` git push -o review=no`命令来跳过创建代码评审。命令的行为与未开启推送评审模式时执行git push一致。
->需要注意的是，需有相应分支的推送权限才可以使用review=no直接推送代码。
 
-### 一些其他的说明
-更新评审需要是评审者或是评审的作者，否则更新会失败。
+### Skip the review and update the code directly
+
+Sometimes, we may only make some minor submissions, such as changing typos in code comments, and want to skip code review. What should we do? At this point, we can use the `git push -o review=no` command to skip creating a code review. The behavior of the command is consistent with executing git push when pr-mode is not enabled.
+> It should be noted that you need to have the push permission of the corresponding branch to directly push the code using review=no.
+
+### Other tips
+
+To update a review, you need to be the reviewer or the author of the review, otherwise the update will fail.
+
 ```
 remote: +---------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                          |

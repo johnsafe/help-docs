@@ -1,68 +1,68 @@
 ---
 id: permission # 唯一ID
 slug: /permission # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 权限说明 # 在sidebar 中的名称
-description: 用户权限说明 # 描述
-title: 权限说明 # 页面标题
+sidebar_label: Permission # 在sidebar 中的名称
+description: Permission # 描述
+title: Permission # 页面标题
 tags:
-  - 用户权限
+  - Permission
 hide_title: true
 ---
 
-## 可见性
+## Visibility
 
-代码库可以通过设置可见性，来约束访问权限。
+Repository can restrict access by setting visibility.
 
-### 代码库的可见性
-- 私有：仅代码库成员和上级组织成员可以查看该库，其他用户无法访问该路径
-- 公开：任何人包括匿名可见
+### Repository visibility
 
+- Private: Only members of the repository and parent organization can view the repository, other users cannot access the path
+- Public: visible to anyone including anonymous
 
-## 角色
+## Role
 
-用户可以通过在特定的代码库配置不同权限，从而获得对应的能力。
-代码库中用户角色分3种：管理员、开发者、浏览者，具体说明如下。
+Users can obtain corresponding capabilities by configuring different permissions in specific repositories.
+There are three types of user roles in the repository: maintainer, developer, and viewer. The specific description is as follows.
 
-### 代码库角色
+### Repository roles
 
-- 管理员：可以读取、Clone、Push和添加成员权限到该代码库。
-- 开发者：可以读取、Clone、Push到该代码库。
-- 浏览者：可以读取、Clone该代码库。
+- maintainer: Can read, clone, push and add member permissions to the repository.
+- Developer: can read, clone, and push to the repository.
+- Viewer: can read and clone the repository.
 
-如果代码库所属某个组织，代码库将继承该用户在组织中的角色。若用户在代码库和组织中同时被赋予了不同角色，则使用最高权限级别作为用户在库上的角色。
+If the repository belongs to an organization, the repository inherits the user's role in the organization. If a user is assigned different roles in both the repository and the organization, the highest permission level is used as the user's role in the repository.
 
-如：用户在 a 组织下的 b 库上，a 组织为管理员，b 库为开发者，则在 b 库的最终权限为管理员。
+For example, if a user is on library b under organization a, organization a is the maintainer, and library b is a developer, then the final authority in library b is the maintainer.
 
-## 权限
-### 代码库权限
+## Permissions
 
-|  操作   | 浏览者  | 开发者  | 管理员  |
+### Repository Permissions
+
+|  operate   | viewer  | developer  | maintainer  |
 |  ----  | ----  |  ----  |  ----  |
-| 浏览代码库  | ✔️ | ✔️   | ✔️  |
-| 克隆 / 拉取 / 下载  | ✔️ | ✔️  | ✔️ |
-| 推送 （新建 / 上传 / 编辑）  | × | ✔️  | ✔️ |
-| 查看提交  | ✔️ | ✔️  | ✔️ |
-| 评论提交  | ✔️ | ✔️  | ✔️ |
-| 创建分支 | × |  ✔️  | ✔️ |
-| 查看分支 |  ✔️ | ✔️  | ✔️ |
-| 删除非保护分支  | × |  ✔️  | ✔️ |
-| 删除保护分支  | × | ×  | × |
-| 强制推送保护分支  | × | ×  | × |
-| 创建 / 编辑 变更请求 | × |  ✔️  | ✔️ |
-| 查看 / 评论 变更请求  |  ✔️ | ✔️  | ✔️ |
-| 通过变更请求  | × |  ✔️  | ✔️ |
-| Merge 变更请求  | × |  ✔️  | ✔️ |
-| 关闭 / 重新打开 变更请求  | × |  ✔️  | ✔️ |
-| 创建 / 编辑 tag  | × |  ✔️  | ✔️ |
-| 删除Tag | × |  ✔️  | ✔️ |
-| 查看Tag  |  ✔️ | ✔️  | ✔️ |
-| 查看库成员  |  ✔️ | ✔️  | ✔️ |
-| 管理库成员  | × | ×  | ✔️ |
-| 编辑库（修改库名称 / 描述 / 封面 / 可见性）  |× | ×  | ✔️ |
-| 代码库高危操作（修改库路径，归档 / 解除归档代码库，删除代码库）  | × | ×  | ✔️ |
-| 存储空间管理（存储库GC） | × | ×  | ✔️ |
-| 分支设置（修改默认分支，编辑保护分支）  | × | ×  | ✔️ |
-| 变更请求设置 | × | ×  | ✔️ |
-| Webhooks设置  | × | ×  | ✔️ |
-| 部署密钥设置  | × | ×  | ✔️ |
-
+| view repository  | ✔️ | ✔️   | ✔️  |
+| clone / pull / download  | ✔️ | ✔️  | ✔️ |
+| push （create / upload / edit）  | × | ✔️  | ✔️ |
+| view commits  | ✔️ | ✔️  | ✔️ |
+| comment commits  | ✔️ | ✔️  | ✔️ |
+| create branch | × |  ✔️  | ✔️ |
+| view branch |  ✔️ | ✔️  | ✔️ |
+| delete non-protected branch  | × |  ✔️  | ✔️ |
+| delete protected branch  | × | ×  | × |
+| force push to protect branch  | × | ×  | × |
+| create / edit cr | × |  ✔️  | ✔️ |
+| view /comment cr  |  ✔️ | ✔️  | ✔️ |
+| allow cr  | × |  ✔️  | ✔️ |
+| Merge  | × |  ✔️  | ✔️ |
+| close / reopen mr  | × |  ✔️  | ✔️ |
+| create / edit tag  | × |  ✔️  | ✔️ |
+| delete Tag | × |  ✔️  | ✔️ |
+| view Tag  |  ✔️ | ✔️  | ✔️ |
+| view repository members  |  ✔️ | ✔️  | ✔️ |
+| manage repository members  | × | ×  | ✔️ |
+| edit repository（name / desc / cover / visibility）  |× | ×  | ✔️ |
+| repository danger actions（edit repo-path，archive / unarchive,delete  | × | ×  | ✔️ |
+| manage GC | × | ×  | ✔️ |
+| branch setting（edit default branch,edit protected branch）  | × | ×  | ✔️ |
+| mr setting | × | ×  | ✔️ |
+| Webhooks setting  | × | ×  | ✔️ |
+| Deployment key settings  | × | ×  | ✔️ |

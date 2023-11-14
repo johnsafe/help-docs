@@ -1,52 +1,68 @@
 ---
 id: lfs # 唯一ID
 slug: /repo/lfs # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 大文件存储 # 在sidebar 中的名称
-title: 大文件存储 # 页面标题
+sidebar_label: LFS # 在sidebar 中的名称
+title: LFS # 页面标题
 tags:
   - repo
-  - 大文件存储
+  - LFS
 hide_title: false
 ---
 
-# 大文件存储（Git LFS)
-AtomGit 平台支持 Git LFS 来管理仓库中的大文件。
-## Git LFS的安装
-Git LFS 作为开源服务，源码及安装方式请参考：[https://git-lfs.com/](https://git-lfs.com/)
-## Git LFS的使用
-### 初始化
-安装好 Git LFS 后，执行`git lfs install`初始化 git 钩子
+# Large File Storage(Git LFS)
+
+The AtomGit platform supports Git LFS to manage large files in the warehouse.
+
+## Install
+
+Git LFS is an open source service. Please refer to the source code and installation method:[https://git-lfs.com/](https://git-lfs.com/)
+
+## Use
+
+### initialization
+
+After installing Git LFS, execute `git lfs install` to initialize the git hook
+
 ```shell
 $ git lfs install
 Updated git hooks.
 Git LFS initialized.
 ```
-### 将文件加入LFS管理
-假如想要将 png 文件使用 LFS 管理，在仓库中执行：`git lfs track "*.png"`，之后正常使用 git 进行提交和推送。png 类型的文件会自动使用LFS管理，不需要额外的操作。
 
-需要注意的是，执行`git lfs track`只影响之后加入仓库的文件，不会影响仓库中已存在的历史文件。
+### Add files to LFS management
 
-如果需要将历史的文件加入 LFS 管理，需要执行迁移操作。
-### 查看LFS管理的文件
-执行 `git lfs ls-file` 查看使用LFS管理的文件
+If you want to use LFS to manage png files, execute: `git lfs track "*.png"` in the warehouse, and then use git to submit and push normally. Files of png type are automatically managed using LFS and no additional operations are required.
+
+It should be noted that executing `git lfs track` will only affect files added to the warehouse later, and will not affect historical files that already exist in the warehouse.
+
+If you need to add historical files to LFS management, you need to perform a migration operation.
+
+### View files managed by LFS
+
+Execute `git lfs ls-file` to view files managed using LFS
+
 ```shell
 $ git lfs ls-files
-2da026638a * <文件1>
-3176f6f797 * <文件2>
+2da026638a * <file1>
+3176f6f797 * <file2>
 ```
-也可以在 `设置 - 大文件存储` 中，查看并管理仓库中的大文件
+
+You can also view and manage large files in the warehouse in `Settings - Large File Storage`
 
 ![image.png](./img/lfs-manage.png)
-## 历史文件的迁移
-> 迁移操作会改写仓库的历史，请慎重操作。
 
+## Migration of historical files
+>
+> The migration operation will rewrite the repo's commit history, so please operate with caution.
 
-如果想要将仓库中的历史文件使用 LFS 管理，需要执行迁移操作。例如，我们想要将 master 分支中的 png 文件使用LFS管理，那么执行：
+If you want to use LFS to manage the historical files in the warehouse, you need to perform a migration operation. For example, if we want to use LFS to manage png files in the master branch, then execute:
+
 ```shell
 git lfs migrate import --include-ref=master --include="*.png"
 ```
 
-会看到类似的输出，说明迁移已经完成：
+You will see output similar to this, indicating that the migration is complete:
+
 ```shell
 migrate: Sorting commits: ..., done.
 migrate: Rewriting commits: 100% (2/2), done.
@@ -55,14 +71,16 @@ migrate: Updating refs: ..., done.
 migrate: checkout: ..., done.
 ```
 
-之后执行 `git push --force` 将改动推送到远端。
+Then execute `git push --force` to push the changes to the remote end.
 
-## 支持超大文件推送
-默认情况下，使用 Git LFS 推送大文件时，单文件大小不可以超过5GB。
-如果有单文件超过5GB的需要，可以通过`xlfs`扩展插件来完成。
+## Support large file push
 
-### 安装和配置
-从 [xlfs Release](https://atomgit.com/OpenAtomFoundation/xlfs/tags?tab=release) 页下载对应平台的二进制程序，将可执行文件的路径加入到`PATH`中，执行`xlfs version`来验证是否正确安装
+By default, when using Git LFS to push large files, the size of a single file cannot exceed 5GB.
+If there is a need for a single file exceeding 5GB, it can be accomplished through the `xlfs` extension plug-in.
+
+### Installation and configuration
+
+Download the binary program corresponding to the platform from the [xlfs Release](https://atomgit.com/OpenAtomFoundation/xlfs/tags?tab=release) page, add the path to the executable file to `PATH`, and execute `xlfs version` to verify correct installation
 
 ```shell
 $ xlfs version
@@ -70,4 +88,4 @@ xlfs version 1.0.0
 git-lfs version 2.13.3 (GitHub; darwin amd64; go 1.16.2; git a5e65851)
 ```
 
-安装完成后，在仓库内执行`git config lfs.customtransfer.xlfs.path xlfs`，即可启用 Git LFS 对超过5GB文件的支持。
+After the installation is complete, execute `git config lfs.customtransfer.xlfs.path xlfs` in the repository to enable Git LFS support for files exceeding 5GB.

@@ -1,8 +1,8 @@
 ---
 id: repo-migrate # 唯一ID
 slug: /repo/migrate # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: '迁移代码库' # 在sidebar 中的名称
-title: '迁移代码库' # 页面标题
+sidebar_label: 'Repo migrate' # 在sidebar 中的名称
+title: 'Repo migrate' # 页面标题
 tags:
   - repo
   - migrate
@@ -11,78 +11,79 @@ tags:
 hide_title: true
 ---
 
-## 迁移代码库
+## Repository migrate
 
-AtomGit 提供了 代码库的迁移功能，允许用户通过个人访问密钥（PAT）来导入 GitHub、Gitee 的代码库数据，目前支持基本信息和 git 仓库的导入。
+AtomGit provides a repository migration function, allowing users to import GitHub and Gitee repository data through personal access keys (PAT). Currently, it supports the import of basic information and git warehouses.
 
-![迁移代码库](./img/repo-migrate.png)
+![imgrate repository](./img/repo-migrate.png)
 
-## 准备个人访问密钥
+## Prepare personal access key
 
-使用 AtomGit 的代码库迁移功能，需要先准备对应代码库托管平台的个人访问密钥(Personal Access Token)。通过该密钥，AtomGit 可以获取 GitHub、Gitee 等平台的代码库信息。
+To use AtomGit's repository migration function, you need to first prepare the Personal Access Token corresponding to the repository hosting platform. Through this key, AtomGit can obtain repository information from platforms such as GitHub and Gitee.
 
-- 生成 GitHub 的个人访问密钥：
-  1. 登录 GitHub，打开【Settings】
-  2. 选择左侧导航中的【Developer settings】
-  3. 选择【Personal access tokens】
-  4. 点击【Generate new token】按钮
-  5. 填写 Token 描述，选择 repo 权限，点击【Generate token】按钮
-  6. 复制生成的 Token，并妥善保管
-- 申请 Gitee 的私人令牌：
-  1. 登录 Gitee，打开【个人中心】
-  2. 选择左侧导航中的【私人令牌】
-  3. 填写令牌名和有效期，选择 repo 权限，点击【创建令牌】按钮
-  4. 复制生成的令牌，并妥善保管
+- Generate a personal access key for GitHub:
+  1. Log in to GitHub and open [Settings]
+  2. Select [Developer settings] in the left navigation
+  3. Select [Personal access tokens]
+  4. Click the [Generate new token] button
+  5. Fill in the Token description, select the repo permissions, and click the [Generate token] button
+  6. Copy the generated Token and keep it properly
+- Apply for Gitee's private token:
+  1. Log in to Gitee and open [Personal Center]
+  2. Select [Private Token] in the left navigation
+  3. Fill in the token name and validity period, select the repo permissions, and click the [Create Token] button
+  4. Copy the generated token and keep it properly
 
-> 建议个人访问密钥的权限设置为代码库的只读权限，且必须包含 repo 权限，否则将无法获取到代码库信息。
+> It is recommended that the permissions of the personal access key be set to the read-only permissions of the repository, and must include the repo permissions, otherwise the repository information will not be obtained.
 
-## 迁移代码库
+## Migrate repository
 
-1. 打开 AtomGit，点击右上角的 "+" 号，选择【导入代码库】
-2. 选择要从哪个平台迁移代码库，目前支持 GitHub 和 Gitee
-3. 选择代码库迁移后属于的命名空间，包括用户自己的和组织的命名空间
-4. 输入对应平台的个人访问密钥，点击【确定】
+1. Open AtomGit, click the "+" sign in the upper right corner, and select [Import repository]
+2. Choose which platform to migrate the repository from. GitHub and Gitee are currently supported.
+3. Select the namespace to which the repository will belong after migration, including the user's own and the organization's namespace.
+4. Enter the personal access key for the corresponding platform and click [OK]
 
-> 选择的命名空间只是默认的归属，在导入界面可以修改每个代码库的归属。
+> The selected namespace is only the default ownership, and the ownership of each repository can be modified in the import interface.
 
-### 导入代码库
+### Import repository
 
-在完成以上步骤后，会进入待导入代码库列表页面，该页面将显示：
+After completing the above steps, you will enter the repository list page to be imported, which will display:
 
-![待导入代码库列表](./img/repos-to-be-imported.png)
+![to be imported repository list](./img/repos-to-be-imported.png)
 
-- 使用的 Token 信息和对应平台的用户名
-- 全部代码库列表，包括私有的、所在组织的代码库和作为协作者参与的代码库
-- 代码库导入状态：未导入、导入中、导入成功
-- 原平台的代码库地址和导入后的 AtomGit 地址
-- 支持的操作：
-  - 更换 Token
-  - 批量导入
-  - 单个导入
-  - 搜索代码库
-  - 重新获取代码库列表
+-Token information used and user name of the corresponding platform
 
-> 可以在这个页面导入单个或多个代码库，修改每个代码库的归属，查看已经导入的代码库等。
+- List of all repositories, including private, organization-wide repositories and repositories participating as collaborators
+- repository import status: not imported, importing, import successful
+- The repository address of the original platform and the imported AtomGit address
+- Supported operations:
+  - Change Token
+  - Batch Import
+  - single import
+  - Search repository
+  - Re-obtain the repository list
 
-## 常见问题
+> You can import single or multiple repositories on this page, modify the ownership of each repository, view the imported repositories, etc.
 
-1. 想更换代码库的归属应该怎么做?
+## Common problems
 
-- 未导入的代码库：
-   1. 找到代码库
-   2. 点击修改归属
-   3. 选择新的归属，保存
-   4. 点击【导入】按钮
-- 已导入的代码库：
-   1. 进入代码库设置，删除代码库
-   2. 返回待导入代码库列表，修改归属
-   3. 选择归属命名空间
-   4. 点击【导入】按钮
+1. What should I do if I want to change the ownership of the repository?
 
-2. 上次使用的 Token 忘了，需要重新生成吗?
+- Unimported repository:
+   1. Find the repository
+   2. Click Modify Attribution
+   3. Select the new ownership and save
+   4. Click the [Import] button
+- Imported repository:
+   1. Enter the repository settings and delete the repository
+   2. Return to the repository list to be imported and modify the ownership
+   3. Select the owning namespace
+   4. Click the [Import] button
 
-不需要，AtomGit 会默认使用上次的 Token。只要该 Token 未被删除且仍在有效期，可以继续使用。
+2. I forgot the token I used last time. Do I need to regenerate it?
 
-3. 导入后可以在 GitHub/Gitee 删除 Token 吗?
+No, AtomGit will use the last Token by default. As long as the Token has not been deleted and is still valid, it can continue to be used.
 
-可以删除，但不建议。除了导入代码库，AtomGit 每天会使用该 Token 从原平台同步更新已经导入的代码库。如果删除 Token，已导入的代码库将无法同步更新。如果不需要同步更新，可以删除 Token。
+3. Can the Token be deleted in GitHub/Gitee after importing?
+
+Removal is possible but not recommended. In addition to importing the repository, AtomGit will use this token to synchronize the imported repository from the original platform every day. If the Token is deleted, the imported repository will not be updated synchronously. If synchronous updates are not required, the Token can be deleted.

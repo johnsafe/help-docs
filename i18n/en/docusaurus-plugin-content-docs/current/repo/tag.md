@@ -1,48 +1,50 @@
 ---
 id: tag # 唯一ID
 slug: /repo/tag # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 标签 # 在sidebar 中的名称
-title: 标签 # 页面标题
+sidebar_label: Tag # 在sidebar 中的名称
+title: Tag # 页面标题
 tags:
   - repo
-  - 标签
+  - tag
 hide_title: false
 ---
 
-### 什么是标签
+### Tag
 
-标签是某一时间点上的版本，通常使用标签标识代码库的重要版本，如在项目的里程碑创建标签。
+Tag is a version at a certain point in time. Tags are usually used to identify important versions of the repository, such as creating tags at project milestones.
+Git uses two main types of tags: lightweight tags and annotated tags. For more information about Git tags, please refer to Git Basics - Tagging in the Git manual.
 
-Git 使用两种主要类型的标签：轻量标签（lightweight）与附注标签（annotated）。更多 Git 标签信息可以查阅 Git 手册的 Git 基础 - 打标签。
+### View tags
 
-### 查看标签
-查看标签有两个入口：「标签」和「提交」。
+There are two entrances to view tags: "tag" and "submit".
 
-#### 在 「标签」中查看
+#### View in "tag"
 
-在 「标签」页可以查看标签列表。
-附注标签显示标签名、描述信息。
-轻量级标记显示为标签名和提交。
+You can view the tag list on the "tag" page.
+Note tag displays the tag name and description information.
+Lightweight tags appear as tag names and commits.
 
 ![](./img/23.jpg)
 
-可以通过标签名称进行过滤搜索。
+You can filter the search by tag name.
 
-#### 在 「提交」中查看
+#### View in "Submit"
 
-在提交记录中查看标签：
+View the tag in the submission record:
 ![](./img/22.jpg)
 
-### 创建标签
-开发者角色有权限创建标签。
+### Create tag
 
-在 「标签」中点击 「新建标签」，输入标签名，指定创建来源，输入描述信息，然后点击「确认」：
+The developer role has permission to create tags.
+
+Click "New tag" in "tag", enter the tag name, specify the creation source, enter the description information, and then click "Confirm":
+
 ![](./img/21.jpg)
-创建完成后会展示在标签列表中。
 
+After creation, it will be displayed in the tag list.
 
-### 删除标签
-开发者及以上权限可删除标签。
+### Delete tag
 
-在标签列表中选择要删除的标签，点击 「删除」图标，点击「确认」就完成了对选择标签的删除：
+Developers and above can delete tags.
+Select the tag to be deleted in the tag list, click the "Delete" icon, and click "Confirm" to complete the deletion of the selected tag:
 ![](./img/24.jpg)

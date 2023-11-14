@@ -1,65 +1,65 @@
 ---
 id: label # 唯一ID
 slug: /repo/label # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 标记 # 在sidebar 中的名称
-title: 标记 # 页面标题
+sidebar_label: Label # 在sidebar 中的名称
+title: Label # 页面标题
 tags:
   - label
   - issue
 hide_title: true
 ---
 
-## 标记
+## Label
 
-标记是[看板](https://#)的重要内容之一，可以用于管理[Issue](issue)和[变更请求](change-request)，通过标记功能，你可以很方便的实现：
+Label is one of the important contents of [Kanban](https://#). It can be used to manage [Issue](issue) and [Change request](change-request). Through the marking function, you can easily implement:
 
-- 使用颜色和文字（例如 `bug`, `新功能`或 `文档` 等）对 Issue 和变更请求进行分类
-- 通过标记来筛选和过滤 Issue 和变更请求
+- Categorize Issues and Change Requests using colors and text (e.g. `bug`, `New Features` or `Documentation` etc.)
+- Filter and filter Issues and Change Requests by labels
 
-### 新建标记
+### Create label
 
-AtomGit 提供了代码库标记和组织标记两种不同类型的标记，其中：
+AtomGit provides two different types of labels: repository label and organization label, among which:
 
-- 代码库标记，代码库标记只能用于特定的代码库，适用于比较独立的项目（比如个人项目）
-- 组织标记，组织标记可以适用于组织下所有代码库，组织下新建的代码库会继承组织标记（当然你也可以在单个代码库中使用代码库标记）
+- Repository label, which can only be used for specific repository, and is suitable for relatively independent projects (such as personal projects)
 
-> 注：你至少需要是代码库或组织的`管理员`才可以使用新建、编辑、删除标记等功能
+- Organization label, organization label can be applied to all repositories under the organization, and newly created repositories under the organization will inherit the organization label (of course you can also use the repository label in a single repository)
 
-#### 新建代码库标记
+> Note: You need to be at least the `maintainer` of the code base or organization to use functions such as create , edit, and delete labels.
 
-1. 打开代码库的 Issue 页
-1. 点击【Labels】按钮
-1. 点击【新建 Label】按钮，填写标记的相关信息
-    - 标记名称
-    - 标记描述，用来详细描述标记的具体作用
-    - 标记颜色，可以选择系统预设的颜色或输入十六进制颜色码
-1. 点击【新建 Label】保存并新建标记
+#### Create repository label
 
-![新建代码库标记](./img/new-repo-label.png)
+1. Open the Issue page of the code base
+1. Click the [Labels] button
+1. Click the [New Label] button and fill in the relevant information of the label
+    - label name
+    - label description, used to describe the specific function of the label in detail
+    - Label color, you can choose the system preset color or enter the hexadecimal color code
+1. Click [New Label] to save and create a new label
 
-#### 新建组织标记
+![新建代码库label](./img/new-repo-label.png)
 
-1. 打开组织设置页
-1. 点击【Labes】选项
-1. 点击【新建组织 Label】按钮，填写标记的相关信息
-    - 标记名称
-    - 标记描述，用来详细描述标记的具体作用
-    - 标记颜色，可以选择系统预设的颜色或输入十六进制颜色码
-1. 点击【新建组织 Label】保存并新建组织标记
+#### Create Organization label
 
-![新建组织标记](./img/new-org-label.png)
+1. Open the organization settings page
+1. Click the [Labels] option
+1. Click the [New Organization Label] button and fill in the relevant information of the label
+    - label name
+    - label description, used to describe the specific function of the label in detail
+    - Label color, you can choose the system preset color or enter the hexadecimal color code
+1. Click [New Organization Label] to save and create a new organization label.
 
-### 导入系统预设标记
+![新建组织label](./img/new-org-label.png)
 
-当代码库标记、组织标记内容为空的时候，也可以使用**导入系统预设 Label**来快速创建一组标记。
+### Import system preset label
+
+When the content of the code base label and organization label is empty, you can also use **Import system preset Label** to quickly create a set of labels.
 
 ![导入系统预设 label](./img/ues-system-label.png)
 
+### Relate label
 
-### 关联标记
+On the issue page, you can associate a label with the issue through the setting button [Labels] on the right.
 
-在 issue 页面，你可以通过右侧【Labels】的设置按钮来为 issue 关联标记。
+> Note: You need at least `developer` permissions of the code base or organization to use functions such as associating labels and removing labels.
 
-> 注：你至少需要是代码库或组织的`开发者`权限才可以使用关联标记、移除标记等功能
-
-![关联标记](./img/issue-link-label.gif)
+![关联label](./img/issue-link-label.gif)

@@ -1,53 +1,52 @@
 ---
 id: milestone # 唯一ID
 slug: /repo/milestone # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 里程碑 # 在sidebar 中的名称
-title: 里程碑 # 页面标题
+sidebar_label: Milestone # 在sidebar 中的名称
+title: Milestone # 页面标题
 tags:
   - milestone
-  - 里程碑
   - issue
 hide_title: true
 ---
 
-## 里程碑
+## Milestone
 
-与[标记](label)类似，里程碑也是一个用与管理 issue 和变更请求的工具。截止日期的引入，可以让你更好的跟踪和查看 issue 和变更请求的进度。
+Similar to [Label](label), milestone is also a tool for managing issues and change requests. The introduction of deadlines allows you to better track and view the progress of issues and change requests.
 
-**敏捷 Sprint**
+**Agile Sprint**
 
-里程碑可用于敏捷 Sprint，跟踪所有与特定冲刺有关的 issue 及变更请求：
+Milestones can be used in Agile Sprints to track all issues and change requests related to a specific sprint:
 
-1. 设置里程碑的截止日期，以代表敏捷冲刺的结束时间
-1. 将里程碑标题设置为敏捷 sprint 的名称，例如`#1 sprint` 
-1. 在 issue、变更请求中将其关联到所需的里程碑，将其添加到敏捷 Sprint中
+1. Set the milestone deadline to represent the end time of the agile sprint
+1. Set the milestone title to the name of the agile sprint, such as `#1 sprint`
+1. Associate it with the required milestone in the issue or change request, and add it to the agile Sprint.
 
-**发布（Release）**
+**Release**
 
-里程碑也可以用与发布：
+Milestones can also be used with releases:
 
-1. 设置里程碑的截止日期设置为计划要发布的日期
-1. 将里程碑标题设置为您的发行版，例如`v1.0.2` 
-1. 在 issue、变更请求中将其关联到所需的里程碑，将其添加到发行版中
+1. Set the deadline of the milestone to the date planned to be released
+1. Set the milestone title to your distribution, for example `v1.0.2`
+1. Associate it to the required milestone in the issue or change request, and add it to the release version
 
-### 新建里程碑
+### Create milestone
 
-> 注：你至少需要是代码库或组织的`管理员`才可以使用新建、编辑、删除里程碑等功能
+> Note: You need to be at least the `maintainer` of the code base or organization to use functions such as creating, editing, and deleting milestones.
 
-1. 打开代码库的 Issue 页
-1. 点击【里程碑】按钮
-1. 点击【新建里程碑】按钮，填写里程碑的相关信息
-    - 里程碑名称
-    - 截止时间，里程碑结束的日期
-    - 里程碑简介，描述里程碑的基本信息
-1. 点击【新建里程碑】保存并新建里程碑
+1. Open the Issue page of the code base
+1. Click the [milestone] button
+1. Click the [New Milestone] button and fill in the relevant information about the milestone.
+    - milestone name
+    - Deadline, the end date of the milestone
+    -Introduction to milestone, describing the basic information of milestone
+1. Click [New Milestone] to save and create a new milestone.
 
-![新建里程碑](./img/new-milestone.png)
+![Create milestone](./img/new-milestone.png)
 
-### 关联里程碑
+### Relate milestone
 
-在 issue 页面，你可以通过右侧【里程碑】的设置按钮来为 issue 关联里程碑。
+On the issue page, you can associate a milestone with the issue through the setting button [milestone] on the right.
 
-> 注：你至少需要是代码库或组织的`开发者`权限才可以使用关联里程碑、移除里程碑等功能
+> Note: You need at least `developer` permissions of the code base or organization to use functions such as associating milestones and removing milestones.
 
-![关联里程碑](./img/issue-link-milestone.gif)
+![relate milestone](./img/issue-link-milestone.gif)

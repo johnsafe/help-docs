@@ -1,8 +1,8 @@
 ---
 id: issue_template # 唯一ID
 slug: /repo/issue_tempalte # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 'Issue 模板' # 在sidebar 中的名称
-title: 'Issue 模板' # 页面标题
+sidebar_label: Issue Template # 在sidebar 中的名称
+title: Issue Template # 页面标题
 tags:
   - repo
   - issue
@@ -10,65 +10,64 @@ tags:
 hide_title: true
 ---
 
-## Issue 模板
+## Issue Template
 
-AtomGit 提供了 Issue 模板功能，当开启了 Issue 模板功能后，用户在向你的代码库提交 Issue 时，将从你指定的 Issue 模板中去创建相应的 Issue，方便对用户反馈的问题进行更好的分类处理。
+AtomGit provides the Issue template function. When the Issue template function is turned on, when users submit an Issue to your code base, the corresponding Issue will be created from the Issue template you specified, which facilitates better processing of user feedback issues. Classification processing.
 
 ![issues_list](./img/issues_template.png)
 
-### 开启 Issue 模板
+### Enable Issue Template
 
-当你的代码库主分支中的如下路径中存在 *.md 格式的文件时，就可以开启 Issue 模板功能
+When a file with *.md format exists in the following path in the main branch of your code base, you can enable the Issue template function
 
-- `.atomgit/ISSUE_TEMPLATE/` 目录
-- `.github/ISSUE_TEMPLATE/` 目录
+- `.atomgit/ISSUE_TEMPLATE/` dir
+- `.github/ISSUE_TEMPLATE/` dir
 
+### Configure Issue Template
 
-### 配置 Issue 模板
+When configuring the Issue template, you can refer to the following steps:
 
-当配置 Issue 模板时，你可以参考以下步骤：
+1. Create `.atomgit/ISSUE_TEMPLATE` or `.github/ISSUE_TEMPLATE` directory
+2. Create a new `test.md` file
+3. Configure the front-matter information in the newly created markdown file, including the introduction of the ISSUE template, the ISSUE title, the designated person in charge, the designated Label, etc.
+4. Add body content to the newly created markdown file. This content will be filled in the description as the default content when the user creates a new Issue.
 
-1. 创建 `.atomgit/ISSUE_TEMPLATE` 或 `.github/ISSUE_TEMPLATE` 目录
-2. 新建 `test.md` 文件
-3. 在新建的 markdown 文件中配置 front-matter 信息，包括 ISSUE 模板的介绍、ISSUE 标题、指定负责人、指定 Label 等
-4. 在新建的 markdown 文件中添加正文内容，该内容会作为用户新建 Issue 时预设的内容填充到描述中
+#### Front-matter
 
-#### Front-matter 介绍
+Currently we support the following markdown front-matter configurations:
 
-目前我们支持以下几种 markdown 的 front-matter 配置：
-
-|   字段  | 说明    |   备注    |
+|   Field  | desc    |   remark    |
 |   --  | -- |  --   |
-|   name  |   模板名称	|   含中文使用双引号    |
-|   about   |   模板解释说明    |	含中文使用双引号    |
-|   titile	|   Issue 预设标题  |   含中文使用双引号    |
-|   labels	|   Issue 的 labels，支持多个   |	多个需要使用中括号，当含有不存在的 labels 时，在创建 Issue 时不显示该 label |
-|   assignees   |	Issue 默认指派人    |	指派人 ID，不需要 @ 符号    |
+|   name  |   Template name |   Use double quotes for Chinese characters    |
+|   about   |   aboute    | Use double quotes for Chinese characters    |
+|   title |   Issue preset title  |   Use double quotes for Chinese characters    |
+|   labels |   Issue labels，Support multiple  | Multiple brackets need to be used. When a label does not exist, the label will not be displayed when creating an Issue. |
+|   assignees   | Issue default assignee    | assignee ID，without @    |
 
-### Issue 模板示例
+### Issue template example
 
-以下是一个简单的 Issue 模板示例，你可以根据你自己代码库的需要进行调整：
+Here is a simple Issue template example that you can adapt to the needs of your own code base:
 
 ```markdown
 ---
-name: "Bug 报告"
-about: "向我们报告你在使用过程中遇到的问题或者 Bug，以便我们改进产品"
+name: "Bug Report"
+about: "Report to us any problems or bugs you encounter during use so that we can improve the product"
 title: "【BUG】:"
-labels: ["BUG","产品优化"]
+labels: ["BUG","Product Optimization"]
 assignees: 'xiongjiamu'
 ---
 
-### BUG 类型
+### BUG Types
 
 <!-- 
-请在这里描述你所遇到的 BUG 类型，以便我们更快定位问题，比如 UI、功能、体验等 
+Please describe the type of BUG you encountered here so that we can locate the problem more quickly, such as UI, function, experience, etc.
 -->
 
-### 复现步骤
+### Reproduction steps
 
 <!-- 
-请在这里描述你遇到该 BUG 时的页面及步骤
+Please describe here the page and steps you took when you encountered this BUG.
 -->
 ```
 
-上面这个模板表示的是一个用于【向我们报告你在使用过程中遇到的问题或者 Bug，以便我们改进产品】的【Bug 报告】Issue 模板，在使用该模板创建时，会创建一个标题默认以 （【BUG】:）开头、默认指派给【xiongjiamu】、Labels 是【BUG，产品优化】的 Issue。
+The above template is a template for【Report to us any problems or bugs you encounter during use so that we can improve the product】的【Bug Report】Issue template，When created using this template, an Issue whose title starts with ([BUG]:) by default, is assigned to [xiongjiamu] by default, and whose Labels is [BUG, Product Optimization]。

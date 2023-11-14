@@ -1,44 +1,44 @@
 ---
 id: pr-config # 唯一ID
 slug: /repo/config/pr # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: 变更请求设置 # 在sidebar 中的名称
-title: 变更请求设置 # 页面标题
+sidebar_label: Pr config # 在sidebar 中的名称
+title: Pr config # 页面标题
 tags:
   - pr
-  - 评审设置
+  - Pr config
 hide_title: false
 ---
 
-### 评审设置
+### Pr config
 
-#### 评审规则设置
+#### Pr config rules
 
-合并操作的评审规则、权限设置：在「设置」-「分支设置」中设置保护分支规则，参见 [保护分支规则](branch)。
+Review rules and permission settings for merge operations: Set protection branch rules in "Settings" - "Branch Settings", see [Protection Branch Rules] (branch).
 
 ![](./img/40.jpg)
 
-### 合并类型设置
+### Pr config setting
 
-开发者可以创建分支到目标分支的变更请求。管理员可以根据团队的 WorkFlow 及规范，来对代码库维度上的变更请求进行规范化的配置。
+Developers can create change requests that branch to the target branch. Administrators can standardize the configuration of change requests in the code base dimension based on the team's WorkFlow and specifications.
 
-当设置某个合并类型为默认时，进行变更操作不选择合并类型则会按照默认类型进行合并；如果取消某种合并类型，则在合并时下拉选择不会出现未勾选则合并类型。
+When a certain merge type is set as the default, if the merge type is not selected during the change operation, the merge will be performed according to the default type; if a certain merge type is canceled, the unchecked merge type will not appear in the drop-down selection during merge.
 
-合并方式具体说明：
+Specific instructions for merging methods:
+
 #### 1、 merge(--no-ff)
 
-默认的合并方式。总是创建一个合并请求，合并提交能记录代码的合并时间、合并人信息，并在主干（first parent）上隐藏评审分支开发细节。
+The default merge method. Always create a merge request, and the merge commit can record the merge time of the code, the merger information, and hide the review branch development details on the trunk (first parent).
 
 #### 2、 Merge （fast-forward-only）
 
-使用 fast-forward-only 方式合并，不创建合并节点。当目标分支上有提交，不能使用 fast-forward 时，默认合并类型为合并（创建合并节点）。
+Use the fast-forward-only method to merge and do not create merge nodes. When there are commits on the target branch and fast-forward cannot be used, the default merge type is merge (create merge node)。
 
 #### 3、 Rebase
 
-通过 Rebase 的方式合并到目标分支，不产生 Merge 节点，不生成 Merge Commit。将保留合并前源分支上的 Commit 记录（作者信息及提交信息，但 CommitId 可能会发生变化）。
+Merge to the target branch through Rebase, no Merge node is generated, and no Merge Commit is generated. The Commit record on the source branch before the merge (author information and commit information, but the CommitId may change) will be retained.
 
 #### 4、 Squash
 
-将评审中的所有提交合并为一个并在目标分支上保留干净的历史记录。Squash 合并允许你将评审中的一系列提交压缩成一次提交，并且可以自定义压缩节点的提交信息。
+Merge all commits in review into one and keep a clean history on the target branch. Squash merge allows you to compress a series of commits under review into a single commit, and you can customize the commit information of the compression node.
 
-在使用 Feature 分支开发时，有时你希望提交改动，但开发过程中的提交信息不一定包含重要信息，因此你不希望将它们包含在目标分支中。这样，集成分支的历史记录通过有意义的提交消息保持清晰，并且在必要时更容易还原（Revert）。
-
+When developing with the Feature branch, sometimes you want to commit changes, but the commit information during development does not necessarily contain important information, so you don't want to include them in the target branch. This way, the history of the integration branch is kept clear with meaningful commit messages and is easier to revert when necessary.
