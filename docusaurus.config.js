@@ -138,18 +138,6 @@ const config = {
             downloadUrl:
               "https://atomgit.com/atomgit_dev/docs/raw/master/openAPI/api.yaml",
           },
-          apiEn: {
-            specPath: "openAPI/api_en.yaml",
-            //proxy: "https://cors.pan.dev",
-            outputDir: "docs/openAPI/api_en",
-            sidebarOptions: {
-              groupPathsBy: "tag",
-              categoryLinkSource: "tag",
-            },
-            template: "api.mustache", // Customize API MDX with mustache template
-            // downloadUrl:
-            //   "https://atomgit.com/atomgit_dev/docs/raw/master/openAPI/api_en.yaml",
-          },
           /* cos: {
              specPath: "openAPI/openapi-cos.json",
              outputDir: "docs/openAPI/cos",
