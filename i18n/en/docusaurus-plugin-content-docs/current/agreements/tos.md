@@ -7,7 +7,7 @@ hide_title: true
 ---
 
 
-## AtomGit平台用户服务条款
+## AtomGit Terms Of Service
 
 ```html
 current version：【1.0】

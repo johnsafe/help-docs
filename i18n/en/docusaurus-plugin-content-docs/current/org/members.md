@@ -1,8 +1,8 @@
 ---
 id: org-members
 slug: members
-title: org members # 页面标题
-sidebar_lable: org members
+title: Org Members # 页面标题
+sidebar_lable: Org Members
 hide_title: true
 ---
 

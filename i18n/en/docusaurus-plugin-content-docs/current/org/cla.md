@@ -8,7 +8,7 @@ hide_title: true
 
 ## Contributor License Agreement
 
-The CLA app allows you to enable Developer License Agreement signing in your organization. When enabled, when an external developer submits a change request to the organization's code base, the application checks whether the user has signed the CLA. If signed, `CLA-bot` will update the signing information in the change request comment area; if not signed, `CLA-bot` will guide external contributors to view and sign the contributor agreement.
+The CLA(stands for Contributor License Agreement) app allows you to enable Developer License Agreement signing in your organization. When enabled, when an external developer submits a change request to the organization's code base, the application checks whether the user has signed the CLA. If signed, `CLA-bot` will update the signing information in the change request comment area; if not signed, `CLA-bot` will guide external contributors to view and sign the contributor agreement.
 
 ### What is CLA？
 
