@@ -1,51 +1,50 @@
 ---
 id: pats # 唯一ID
 slug: /user/pats # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-description: 个人访问密钥设置 # 描述
-title: 个人访问密钥 # 页面标题
+description: personal access token # 描述
+title: Personal Access Token # 页面标题
 hide_title: true
 tags:
-  - 用户个人访问密钥
+  - personal access token
 ---
 
-个人访问密钥可用于用户与 AtomGit OpenAPI 接口的调用。
+Personal access tokens can be used for user calls to the AtomGit OpenAPI interface.
 
-### 创建个人访问密钥
+### Create personal access token
 
-个人访问密钥的数量没有限制，但同一个用户的全部访问密钥都共享 API 调用的[频率限制](http://api#limit)，你可以通过以下方式创建你的个人访问密钥：
+There is no limit on the number of personal access tokens, but all access keys for the same user share the [frequency limit] (<http://api#limit>) of API calls. You can create your personal access token in the following ways:
 
-1. 登录 AtomGit
-1. 点击右上角的头像，然后选择**个人设置**
-1. 在用户设置菜单上，选择**访问密钥**
-1. 设置密钥的名称和可选的到期日期
-1. 选择密钥的作用范围及权限
-1. 单击【创建】按钮
-1. 创建完成后，请妥善保管你的【个人访问密钥】，该秘钥仅在创建成功后显示一次，离开当前页面后，将不再展示
+1. Log in to AtomGit
+1. Click your avatar in the upper right corner and select **Personal Settings**
+1. On the User Settings menu, select **Access Keys**
+1. Set the key's name and optional expiration date
+1. Select the scope and permissions of the key
+1. Click the [Create] button
+1. After creation, please keep your [personal access token] properly. This key will only be displayed once after successful creation. It will no longer be displayed after you leave the current page.
 
-### 撤销个人访问密钥
+### Revoke personal access token
 
-你可以随时通过单击个人访问密钥的【删除】按钮来撤销你的个人访问密钥
+You can revoke your personal access token at any time by clicking the [Delete] button of the personal access token
 
-### 个人访问密钥的作用范围
+### Scope of PAT
 
-你可以使用一个或者多个作用范围来创建个人访问密钥，以下是 AtomGit 提供的作用范围(scope)以及相关权限：
-
-| 作用范围 | 说明 |
+You can use one or more scopes to create a personal access token. The following are the scopes and related permissions provided by AtomGit:
+| scope | remark |
 | --- | --- |
-| `repo` | 代码库相关的全部 API 接口 |
-| `admin:repo_issues` | 代码库 issue 相关的全部 API 接口 |
-| `admin:org_issues` | 组织 issue 相关的全部 API 接口 |
-| `workflow` |  流水线相关的全部 API 接口 |
-| `write:packages` |  制品库的全部 API 接口的写权限 |
-| `delete:packages` |  删除制品库的 API 接口权限 |
-| `admin:org` | 组织相关的全部 API 接口 |
-| `admin:public_key` | 用户 SSH 公钥的 API 接口 |
-| `admin:repo_hook` | 代码库 webhook API 接口 |
-| `admin:org_hook` | 组织 webhook API 接口 |
-| `notifications` | 用户消息通知的 API 接口 |
-| `user` | 用户相关的全部 API 接口 |
-| `delete_repo` | 删除代码库的 API 接口 |
-| `audit_log` | 审计日志的 API 接口 |
-| `project` | 看板的 API 接口 |
-| `admin:gpg_key` | GPG 密钥的 API 接口 |
-| `admin:ssh_signing_key` | SSH 签名密钥的 API 接口 |
+| `repo` | All API interfaces related to the code base |
+| `admin:repo_issues` | All API interfaces related to code base issues |
+| `admin:org_issues` | All API interfaces related to organization issues |
+| `workflow` | All API interfaces related to pipelines |
+| `write:packages` | Write permission for all API interfaces of the product library |
+| `delete:packages` | Delete the API interface permissions of the product library |
+| `admin:org` | All organization-related API interfaces |
+| `admin:public_key` | API interface for user SSH public key |
+| `admin:repo_hook` | Code base webhook API interface |
+| `admin:org_hook` | Organization webhook API interface |
+| `notifications` | API interface for user message notification |
+| `user` | All user-related API interfaces |
+| `delete_repo` | Delete the API interface of the code base |
+| `audit_log` | Audit log API interface |
+| `project` | Kanban API interface |
+| `admin:gpg_key` | API interface for GPG keys |
+| `admin:ssh_signing_key` | API interface for SSH signing key |

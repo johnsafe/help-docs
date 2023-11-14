@@ -1,64 +1,69 @@
 ---
 id: git-advanced # 唯一ID
 slug: /user/git/advanced # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label:  git 进阶 # 在sidebar 中的名称
-description: git 进阶学习资料 # 描述
-title: git 进阶 # 页面标题
+sidebar_label:  Git pro # 在sidebar 中的名称
+description: git pro # 描述
+title: git pro # 页面标题
 tags:
   - git
+  - gir pro
 hide_title: true
 ---
 
-### 定制你的快捷命令
+### Customize your git alias
 
-Git 有一个小技巧可以使你的 Git 体验更简单、容易、熟悉：别名。 如果不想每次都输入完整的 Git 命令，可以通过 git config 来轻松地为每一个命令设置一个别名。 这里有一些例子你可以试试
-
-```bash
-$ git config --global alias.co checkout 
-$ git config --global alias.br branch 
-$ git config --global alias.ci "commit -s"
-$ git config --global alias.st status
-```
-
-这意味着，当要输入 git commit -s 时，只需要输入 git ci。 随着你继续不断地使用 Git，可能也会经常使用其他命令，所以创建别名时不要犹豫。例如，为了解决取消暂存文件的易用性问题，可向 Git 中添加你自己的取消暂存别名：
+Git has a little trick that can make your Git experience simpler, easier, and more familiar: aliases. If you don't want to type the full Git command every time, you can easily set an alias for each command through git config. Here are some examples you can try
 
 ```bash
-$ git config --global alias.unstage 'reset HEAD --'
+git config --global alias.co checkout 
+git config --global alias.br branch 
+git config --global alias.ci "commit -s"
+git config --global alias.st status
 ```
 
-这会是下面的两个命令等价：
+This means that when you want to type `git commit -s`, you only need to type `git ci`. As you continue to use Git, you'll probably use other commands frequently, so don't hesitate to create aliases. For example, to solve the ease-of-use issue of unstaged files, you can add your own unstaged alias to Git:
 
 ```bash
-$ git unstage fileA 
-$ git reset HEAD -- fileA
+git config --global alias.unstage 'reset HEAD --'
 ```
 
-这样看起来更清楚一些。 通常也会添加一个 Last 命令，像这样：
+This makes the following two commands equivalent:
 
 ```bash
-$ git config --global alias.last 'log -1 HEAD'
+git unstage fileA 
+git reset HEAD -- fileA
 ```
 
-这样，可以轻松地看到最后一次提交：
+This looks a little clearer. Usually a `Last` command is also added, like this:
+
+```bash
+git config --global alias.last 'log -1 HEAD'
+```
+
+This way, the last commit can be easily seen:
 
 ```bash
 $ git last   
 commit 66938dae3329c7aebe598c2246a8e6af90d04646 Author: Josh Goebel  <dreamer3@example.com> Date:   Tue Aug 26 19:48:51 2008 +0800      test for current head      Signed-off-by: Scott Chacon <schacon@example.com>
 ```
 
-### 代码合并与变基
-在 Git 中整合来自不同分支的修改主要有两种方法：合并（merge） 以及变基（rebase）。
+### Merge and rebase
 
-#### 合并
-对于两个分支，如下图：
+There are two main ways to integrate changes from different branches in Git: merge and rebase.
+
+#### merge
+
+For the two branches, as shown below:
 ![图片](./img/49.jpeg)
-整合分支最容易的方法是 Merge 命令。 它会把两个分支的最新快照（C3和 C4）以及二者最近的共同祖先（C2）进行三方合并，合并的结果是生成一个新的快照（并提交）
+The easiest way to merge branches is the Merge command. It will perform a three-way merge of the latest snapshots of the two branches (C3 and C4) and their most recent common ancestor (C2). The result of the merge is to generate a new snapshot (and submit it)
+
 ![图片](./img/50.jpeg)
 
-#### Rebase合并
-你可以提取在 C4 中引入的补丁和修改，然后在 C3的基础上应用一次。 在 Git 中，这种操作就叫做 变基。 你可以使用 rebase命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。
+#### Rebase
 
-在上面这个例子中，运行：
+You can extract patches and modifications introduced in C4 and apply them once on top of C3. In Git, this operation is called rebase. You can use the rebase command to move all changes committed on one branch to another branch, as if "replaying".
+
+In the above example, run:
 
 ```bash
 $ git checkout experiment 
@@ -67,45 +72,45 @@ First, rewinding head to replay your work on top of it...
 Applying: added staged command
 ```
 
-它的原理是首先找到这两个分支（即当前分支 Experiment、变基操作的目标基底分支 Master）的最近共同祖先 C2，然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件，然后将当前分支指向目标基底 C3, 最后以此将之前另存为临时文件的修改依序应用。
+Its principle is to first find the most recent common ancestor C2 of the two branches (i.e. the current branch Experiment and the target base branch Master of the rebase operation), then compare the current branch's previous submissions relative to this ancestor, extract the corresponding modifications and save them as temporary files , then point the current branch to the target base C3, and finally apply the modifications previously saved as temporary files in sequence.
 
 ![图片](./img/51.jpeg)
 
-现在回到 master 分支，进行一次快进合并。
+Now go back to the master branch and perform a fast-forward merge.
 
 ```bash
-$ git checkout master 
-$ git merge experiment
+git checkout master 
+git merge experiment
 ```
 
 ![图片](./img/52.jpeg)
 
-#### 优雅地合并分支代码并提交
+#### Elegantly merge branch and commit
 
-通过对比两种合并方法，rebase 的合并能够让提交历史变成串行，看起来更加整洁。所以在合并代码时，有的人喜欢 rebase 完成合并。此外，rebase 还有个作用，修改提交历史，下面会介绍如何通过 rebase 修改提交历史。
+By comparing the two merge methods, rebase's merge can make the submission history serial and look cleaner. So when merging code, some people like to rebase to complete the merge. In addition, rebase also has the function of modifying the submission history. The following will introduce how to modify the submission history through rebase.
 
-优雅的合并代码，就是通过适当的 rebase 修改提交历史，将本地自己开发多个提交进行适当的合并，然后再 rebase 合并分支。
+Elegant merge code is to modify the submission history through appropriate rebase, merge multiple locally developed submissions appropriately, and then rebase the merge branch.
 
-### 代码暂存
+### Git Stash
 
-有时，当你在项目的一部分上已经工作一段时间后，而这时你想要切换到另一个分支做一点别的事情。 问题是，你不想仅仅因为过会儿回到这一点而为做了一半的工作创建一次提交。 针对这个问题的答案是`git stash`命令。
+Sometimes, you've been working on one part of a project for a while, and you want to switch to another branch to do something else. The thing is, you don't want to create a commit for half-done work just because you'll come back to this point later. The answer to this problem is the `git stash` command.
 
-`git stash`将未完成的修改保存到一个栈上，而你可以在任何时候重新应用这些改动。
+`git stash` saves unfinished changes to a stack, and you can reapply these changes at any time.
 
-为了演示，进入项目并改动几个文件，运行`git status`，可以看到有改动的状态：
+For demonstration, enter the project and modify a few files, run `git status`, and you can see the status of the changes:
 
 ```bash
 $ git status 
 Changes to be committed:   
-(use "git reset HEAD <file>..." to unstage)  	
+(use "git reset HEAD <file>..." to unstage)   
 modified:   index.html  
 Changes not staged for commit:   
 (use "git add <file>..." to update what will be committed)   
-(use "git checkout -- <file>..." to discard changes in working directory)  	
+(use "git checkout -- <file>..." to discard changes in working directory)   
 modified:   lib/simplegit.rb
 ```
 
-现在想要切换分支，但是还不想要进行提交，运行 `git stash`或 `git stash save`：
+Now that you want to switch branches, but don't want to commit yet, run `git stash` or `git stash save`:
 
 ```bash
 $ git stash 
@@ -115,14 +120,14 @@ HEAD is now at 049d078 added the index file
 (To restore them type "git stash apply")
 ```
 
-工作目录变干净了，并且刚刚的修改都不存在了：
+The working directory is now clean, and the changes just made no longer exist:
 
 ```bash
 $ git status 
 # On branch master nothing to commit, working directory clean
 ```
 
-在这时，你能够轻易地切换分支并在其他地方工作；你的修改被存储在栈上。 要查看暂存的东西，可以使用 `git stash list`：
+At this point, you can easily switch branches and work elsewhere; your changes are stored on the stack. To view the staging, you can use `git stash list`:
 
 ```bash
 $ git stash list 
@@ -131,7 +136,7 @@ stash@{1}: WIP on master: c264051 Revert "added file_size"
 stash@{2}: WIP on master: 21d80a5 added number to log
 ```
 
-在本例中，有两个之前做的暂存，所以你接触到了三个不同的暂存工作。 可以通过原来 `stash `命令的帮助提示中的命令将你刚刚暂存的工作重新应用：`git stash apply`。 如果想要应用其中一个更旧的暂存，可以通过名字指定它，像这样：`git stash apply stash@{2}`。 如果不指定一个暂存，Git 认为指定的是最近的暂存：
+In this case, there are two previous stagings, so you are exposed to three different staging jobs. You can re-apply the work you just staged through the command in the help prompt of the original `stash` command: `git stash apply`. If you want to apply one of the older stashes, you can specify it by name, like this: `git stash apply stash@{2}`. If you don't specify a stage, Git assumes that the most recent stage is specified:
 
 ```bash
 $ git stash apply 
@@ -143,9 +148,9 @@ $ git stash apply
 #      modified:   lib/simplegit.rb #
 ```
 
-可以看到 Git 重新修改了当你暂存时撤消的文件。 也可以运行` git stash pop`来应用暂存并从栈上扔掉它。
+You can see that Git re-modified the files you undid when you staged them. You can also run `git stash pop` to apply the stash and throw it off the stack.
 
-暂存的丢弃可以运行` git stash drop`加上将要移除的暂存的名字来移除它：
+Stash drop can be removed by running `git stash drop` followed by the name of the stash to be removed:
 
 ```bash
 $ git stash list 
@@ -156,9 +161,9 @@ $ git stash drop stash@{0}
 Dropped stash@{0} (364e91f3f268f0900bc3ee613f9f733e82aaed43)
 ```
 
-#### 从暂存创建一个分支
+#### Create branch from stash
 
-如果暂存了一些工作，在后续重新应用工作时可能会有问题。 如果应用尝试修改刚刚修改的文件，你会得到一个合并冲突并不得不解决它。 如果想要一个轻松的方式来再次测试储藏的改动，可以运行 `git stash branch`创建一个新分支，检出暂存工作时所在的提交，重新在那应用工作，然后在应用成功后扔掉：
+If some work is staged, there may be problems when reapplying the work later. If the app tries to modify a file that was just modified, you'll get a merge conflict and have to resolve it. If you want an easy way to test stash changes again, you can run `git stash branch` to create a new branch, check out the commit where you staging your work, reapply your work there, and then throw away when the application succeeds:
 
 ```bash
 $ git stash branch testchanges 
@@ -175,40 +180,41 @@ Switched to a new branch "testchanges"
 #      modified:   lib/simplegit.rb # Dropped refs/stash@{0} (f0dfc4d5dc332d1cee34a634182e168c4efc3359)
 ```
 
-这是在新分支轻松恢复暂存工作并继续工作的一个很不错的途径。
+This is a great way to easily resume staged work in a new branch and continue working.
 
-### 修改代码历史
-许多时候，在使用 Git 时，可能会因为某些原因想要修正提交历史。 Git 很棒的一点是它允许你在最后时刻做决定。 你可以重写已经发生的提交就像它们以另一种方式发生的一样。 这可能涉及改变提交的顺序，改变提交中的信息或修改文件，将提交压缩或是拆分，或完全地移除提交 - 在将你的工作成果与他人共享之前。
+### Modify commit history
 
-在本节中，你可以学到如何完成这些非常有用的工作，这样在与他人分享你的工作成果时你的提交历史将如你所愿地展示出来。
+Many times when working with Git, you may want to correct your commit history for some reason. The great thing about Git is that it allows you to make last-minute decisions. You can rewrite commits that have already occurred as if they had occurred another way. This may involve changing the order of commits, changing information in commits or modifying files, compressing or splitting commits, or removing commits entirely - before sharing your work with others.
 
-#### 修改最后一次提交
+In this section, you can learn how to do these very useful things so that when you share your work with others, your commit history will appear as you want.
 
-修改你最近一次提交可能是所有修改历史提交的操作中最常见的一个。 对于你的最近一次提交，你往往想做两件事情：修改提交信息，或者修改你添加、修改和移除的文件的快照。
+#### Modify last commit
 
-如果，你只是想修改最近一次提交的提交信息，那么很简单：
+Modifying your most recent commit is probably the most common of all modifications to past commits. With your latest commit, you often want to do two things: modify the commit message, or modify the snapshot of the files you added, modified, and removed.
 
-```bash
-$ git commit --amend
-```
-
-这会把你带入文本编辑器，里面包含了你最近一条提交信息，供你修改。 当保存并关闭编辑器后，编辑器将会用你输入的内容替换最近一条提交信息。
-
-如果你已经完成提交，又因为之前提交时忘记添加一个新创建的文件，想通过添加或修改文件来更改提交的快照，也可以通过类似的操作来完成。 通过修改文件然后运行 git add或 git rm 一个已追踪的文件，随后运行 git commit --amend 拿走当前的暂存区域并使其做为新提交的快照。
-
-使用这个技巧的时候需要小心，因为修正会改变提交的 SHA-1 校验和。 它类似于一个小的变基 - 如果已经推送了最后一次提交就不要修正它。
-
-#### 修改多个提交信息
-
-为了修改在提交历史中较远的提交，必须使用更复杂的工具。 Git 没有一个改变历史工具，但是可以使用变基工具来变基一系列提交，基于它们原来的 HEAD 而不是将其移动到另一个新的上面。 通过交互式变基工具，可以在任何想要修改的提交后停止，然后修改信息、添加文件或做任何想做的事情。 可以通过给 git rebase增加 -i 选项来交互式地运行变基。 必须指定想要重写多久远的历史，这可以通过告诉命令将要变基到的提交来做到。
-
-例如，如果想要修改最近三次提交信息，或者那组提交中的任意一个提交信息，将想要修改的最近一次提交的父提交作为参数传递给 git rebase -i 命令，即 HEAD~2^ 或 HEAD~3。 记住 ~3 可能比较容易，因为你正尝试修改最后三次提交；但是注意实际上指定了以前的四次提交，即想要修改提交的父提交：
+If you just want to modify the commit information of the most recent commit, it's very simple:
 
 ```bash
-$ git rebase -i HEAD~3
+git commit --amend
 ```
 
-再次记住这是一个变基命令 - 在 HEAD~3..HEAD 范围内的每一个提交都会被重写，无论你是否修改信息。 不要涉及任何已经推送到中央服务器的提交 - 这样做会产生一次变更的两个版本，因而使他人困惑。运行这个命令会在文本编辑器上给你一个提交的列表，看起来像下面这样：
+This will bring you into a text editor, which contains your most recent commit information for you to modify. When you save and close the editor, the editor will replace the most recent commit message with the content you entered.
+
+If you have completed the submission and want to change the submitted snapshot by adding or modifying the file because you forgot to add a newly created file during the previous submission, you can also do this through a similar operation. By modifying the file and then running git add or git rm on a tracked file, then running git commit --amend takes the current staging area and makes it a snapshot of the new commit.
+
+Be careful when using this trick, as the fix will change the SHA-1 checksum of the commit. It's similar to a small rebase - don't fix the last commit if it's already been pushed.
+
+#### Modify multiple commits
+
+In order to modify commits that are farther in the commit history, more sophisticated tools must be used. Git does not have a change history tool, but you can use the rebase tool to rebase a series of commits based on their original HEAD instead of moving them to a new one. With the interactive rebase tool, you can stop after any commit you want to modify, and then modify the information, add files, or do whatever you want. You can run rebase interactively by adding the -i option to git rebase. You must specify how far back in history you want to rewrite, which you can do by telling the command the commits you want to rebase to.
+
+For example, if you want to modify the last three commit information, or any commit information in that group of commits, pass the parent commit of the latest commit you want to modify as a parameter to the git rebase -i command, that is, HEAD~2^ or HEAD ~3. It's probably easier to remember ~3 since you're trying to modify the last three commits; but note that you actually specify the previous four commits, the parent commits of the commits you want to modify:
+
+```bash
+git rebase -i HEAD~3
+```
+
+Again, remember this is a rebase command - every commit in the HEAD~3..HEAD range will be rewritten, regardless of whether you modified the information. Don't involve any commits that have already been pushed to the central server - doing so will produce two versions of one change, thus confusing others. Running this command will give you a list of commits in a text editor that looks like this:
 
 ```bash
 pick f7f3f6d changed my name a bit 
@@ -233,7 +239,7 @@ pick a5f4a0d added cat-file
 # Note that empty commits are commented out
 ```
 
-需要重点注意的是相对于正常使用的 log 命令，这些提交显示的顺序是相反的。 运行一次 log 命令，会看到类似这样的东西：
+It's important to note that these commits are displayed in the reverse order relative to normal use of the log command. Run the log command once and you will see something like this:
 
 ```bash
 $ git log --pretty=format:"%h %s" HEAD~3..HEAD 
@@ -242,9 +248,9 @@ a5f4a0d added cat-file
 f7f3f6d changed my name a bit
 ```
 
-注意其中的反序显示。 交互式变基给你一个它将会运行的脚本。 它将会从你在命令行中指定的提交（HEAD~3）开始，从上到下的依次重演每一个提交引入的修改。 它将最旧的而不是最新的列在上面，因为那会是第一个将要重演的。
+Note the reverse order. Interactive rebase gives you a script that it will run. It will start from the commit you specified on the command line (HEAD~3), and replay the changes introduced by each commit in order from top to bottom. It lists the oldest instead of the newest because that will be the first one that will be repeated.
 
-你需要修改脚本来让它停留在你想修改的变更上。 要达到这个目的，你只要将你想修改的每一次提交前面的 ‘pick’ 改为 ‘edit’。 例如，只想修改第三次提交信息，可以像下面这样修改文件：
+You need to modify the script so that it stays on the changes you want to make. To do this, just change 'pick' to 'edit' before each commit you want to modify. For example, if you only want to modify the third commit information, you can modify the file as follows:
 
 ```bash
 edit f7f3f6d changed my name a bit 
@@ -252,7 +258,7 @@ pick 310154e updated README formatting and added blame
 pick a5f4a0d added cat-file
 ```
 
-当保存并退出编辑器时，Git 将你带回到列表中的最后一次提交，把你送回命令行并提示以下信息：
+When you save and exit the editor, Git takes you back to the last commit in the list, sending you back to the command line with the following message:
 
 ```bash
 $ git rebase -i HEAD~3 
@@ -263,23 +269,23 @@ Once you’re satisfied with your changes, run
          git rebase --continue
 ```
 
-这些指令准确地告诉你该做什么。 输入
+These instructions tell you exactly what to do. enter
 
 ```bash
-$ git commit --amend
+git commit --amend
 ```
 
-修改提交信息，然后退出编辑器。 然后，运行
+Modify the commit information and exit the editor. Then, run
 
 ```bash
-$ git rebase --continue
+git rebase --continue
 ```
 
-这个命令将会自动地应用另外两个提交，然后就完成了。 如果需要将不止一处的 pick 改为 edit，需要在每一个修改为 edit 的提交上重复这些步骤。 每一次，Git 将会停止，让你修正提交，然后继续直到完成。
+This command will automatically apply the other two commits and then you're done. If you need to change pick to edit in more than one place, you need to repeat these steps for each commit that is modified to edit. Each time, Git will stop, let you fix the commit, and then continue until it's complete.
 
-#### 重新排序提交
+#### Reorder commits
 
-也可以使用交互式变基来重新排序或完全移除提交。 如果想要移除 “added cat-file” 提交然后修改另外两个提交引入的顺序，可以将变基脚本从这样：
+It is also possible to use interactive rebase to reorder or remove commits entirely. If you want to remove the "added cat-file" commit and change the order in which the other two commits are introduced, you can change the rebase script like this:
 
 ```bash
 pick f7f3f6d changed my name a bit 
@@ -287,18 +293,18 @@ pick 310154e updated README formatting and added blame pick
 a5f4a0d added cat-file
 ```
 
-改为这样：
+turn it into:
 
 ```bash
 pick 310154e updated README formatting and added blame 
 pick f7f3f6d changed my name a bit
 ```
 
-当保存并退出编辑器时，Git 将你的分支带回这些提交的父提交，应用 310154e，然后应用 f7f3f6d，最后停止。 事实修改了那些提交的顺序并完全地移除了 “added cat-file” 提交。
+When you save and exit the editor, Git takes your branch back to the parent of those commits, applies 310154e, then f7f3f6d, and finally stops. This actually changes the order of those commits and completely removes the "added cat-file" commit.
 
-#### 压缩提交
+#### Compress commits
 
-通过交互式变基工具，也可以将一连串提交压缩成一个单独的提交。 在变基信息中脚本给出了有用的指令：
+Through interactive rebase tools, a series of commits can also be compressed into a single commit. The script gives useful instructions in the rebase message:
 
 ```bash
 # 
@@ -319,7 +325,7 @@ pick f7f3f6d changed my name a bit
 # Note that empty commits are commented out
 ```
 
-如果，指定 “squash” 而不是 “pick” 或 “edit”，Git 将应用两者的修改并合并提交信息在一起。 所以，如果想要这三次提交变为一个提交，可以这样修改脚本：
+If you specify "squash" instead of "pick" or "edit", Git will apply the changes from both and merge the commit information together. So, if you want these three submissions to be turned into one submission, you can modify the script like this:
 
 ```bash
 pick f7f3f6d changed my name a bit squash 
@@ -327,7 +333,7 @@ pick f7f3f6d changed my name a bit squash
 a5f4a0d added cat-file
 ```
 
-当保存并退出编辑器时，Git 应用所有的三次修改然后将你放到编辑器中来合并三次提交信息：
+When you save and exit the editor, Git applies all three changes and puts you in the editor to merge the three commits:
 
 ```bash
 # This is a combination of 3 commits. 
@@ -336,11 +342,11 @@ a5f4a0d added cat-file
 # This is the 3rd commit message:  added cat-file
 ```
 
-当你保存之后，你就拥有了一个包含前三次提交的全部变更的提交。
+When you save, you have one commit that contains all the changes from the previous three commits.
 
-#### 拆分提交
+#### Split commit
 
-拆分一个提交会撤消这个提交，然后多次地部分地暂存与提交直到完成你所需次数的提交。 例如，假设想要拆分三次提交的中间那次提交。 想要将它拆分为两次提交：第一个 “updated README formatting”，第二个 “added blame” 来代替原来的 “updated README formatting and added blame”。 可以通过修改 `rebase -i`的脚本来做到这点，将要拆分的提交的指令修改为 “edit”：
+Splitting a commit undoes the commit, then stages and commits parts of it as many times as you want until you have completed as many commits as you need. For example, suppose you want to split the middle of three commits. Want to split it into two commits: the first "updated README formatting" and the second "added blame" instead of the original "updated README formatting and added blame". This can be done by modifying the `rebase -i` script, changing the command of the commit to be split to "edit":
 
 ```bash
 pick f7f3f6d changed my name a bit edit 
@@ -348,18 +354,18 @@ pick f7f3f6d changed my name a bit edit
 a5f4a0d added cat-file
 ```
 
-然后，当脚本将你进入到命令行时，重置那个提交，拿到被重置的修改，从中创建几次提交。 当保存并退出编辑器时，Git 带你到列表中第一个提交的父提交，应用第一个提交（f7f3f6d），应用第二个提交（310154e），然后让你进入命令行。 那里，可以通过 `git reset HEAD^ `做一次针对那个提交的混合重置，实际上将会撤消那次提交并将修改的文件未暂存。 现在可以暂存并提交文件直到有几个提交，然后当完成时运行 `git rebase --continue`：
+Then, when the script drops you into the command line, reset that commit, get the reset changes, and create a few commits from them. When you save and exit the editor, Git takes you to the parent commit of the first commit in the list, applies the first commit (f7f3f6d), applies the second commit (310154e), and then drops you into the command line. There, you can do a hybrid reset of that commit with `git reset HEAD^`, which will actually undo that commit and leave the modified files unstaged. You can now stage and commit the file until there are a few commits, and then run `git rebase --continue` when complete:
 
 ```bash
-$ git reset HEAD^ 
-$ git add README 
-$ git commit -m 'updated README formatting' 
-$ git add lib/simplegit.rb 
-$ git commit -m 'added blame' 
-$ git rebase --continue
+git reset HEAD^ 
+git add README 
+git commit -m 'updated README formatting' 
+git add lib/simplegit.rb 
+git commit -m 'added blame' 
+git rebase --continue
 ```
 
-Git 在脚本中应用最后一次提交（a5f4a0d），历史记录看起来像这样：
+Git applies the last commit (a5f4a0d) in the script and the history looks like this:
 
 ```bash
 $ git log -4 --pretty=format:"%h %s" 
@@ -368,4 +374,4 @@ $ git log -4 --pretty=format:"%h %s"
 f3cc40e changed my name a bit
 ```
 
-再次强调，这些改动了所有在列表中的提交的 SHA-1 校验和，所以要确保列表中的提交还没有推送到共享仓库中。
+Again, these change the SHA-1 checksums of all commits in the list, so make sure the commits in the list haven't been pushed to the shared repository yet.
