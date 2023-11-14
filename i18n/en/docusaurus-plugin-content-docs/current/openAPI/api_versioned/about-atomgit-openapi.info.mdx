@@ -1,0 +1,105 @@
+---
+id: about-atomgit-openapi
+title: "About AtomGit OpenAPI"
+description: "AtomGit provides a REST API that you can use Git CLI, curl, the official Octokit library, and third-party libraries to interact with this API."
+sidebar_label: Introduction
+sidebar_position: 0
+hide_title: true
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiDemoPanel/Export";
+
+<span className={"theme-doc-version-badge badge badge--secondary"}>Version: 2023-02-21</span>
+
+<Export url={"https://atomgit.com/atomgit_dev/docs/raw/master/openAPI/api.yaml"} proxy={undefined}></Export>
+
+# About AtomGit OpenAPI
+
+
+
+AtomGit provides a REST API that you can use Git CLI, curl, the official Octokit library, and third-party libraries to interact with this API.
+
+## API version
+
+Whenever you make a request to a REST API, you must specify the REST API version to use. You should use the X-Api-Version header to specify the API version. For example:
+
+```bash
+$ curl --header "X-Api-Version:2023-02-21" https://api.atomgit.com/user/info
+```
+Requests without the X-Api-Version header will default to that 2023-02-21 version.
+
+If you specify an API version that is no longer supported, you will receive a 400 error message.
+
+## token verification
+
+The REST API provided by AtomGit supports two verification methods: Oauth2 token and private token:
+
+1. OAuth2 token (sent in header)
+
+```bash
+  $ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.atomgit.com
+```
+
+2.Private token token (sent in header)
+
+```bash
+  $ curl -H "Authorization: Bearer PERSONAL-TOKEN" https://api.atomgit.com
+```
+
+## restriction of visit
+
+1. For different authorizations, current limiting configuration information
+
+| auth type | limit per second |  limit per hour |
+| -------- | -------- | ---------- |
+| unauthorized   | 2        | 600        |
+| general user | 10       | 5000       |
+| APP      | 10       | 5000       |
+
+2.Current limiting information response header description：
+
+For each request, the following response header starting with x-ratelimit will be responded to describe the current interface current limiting status.：eg
+
+```shell
+$ curl -i https://api.github.com/users/octocat
+> HTTP/2 200
+> x-ratelimit-limit: 60
+> x-ratelimit-remaining: 56
+> x-ratelimit-used: 4
+> x-ratelimit-reset: 1372700873
+```
+
+| Header name             | Description                                                  |
+| :---------------------- | :----------------------------------------------------------- |
+| `x-ratelimit-limit`     | Maximum request limit per hour                                         |
+| `x-ratelimit-remaining` | Number of requests remaining in the current time window                                 |
+| `x-ratelimit-used`      | The number of requests that have been issued in the current time window                             |
+| `x-ratelimit-reset`     | The current time window is reset [UTC epoch seconds](http://en.wikipedia.org/wiki/Unix_time)。 |
+
+3.When the request exceeds the current limit, the following information will be returned depending on the authorization situation:
+
+If you are not currently logged in, the affected http status: 403, and the x-ratelimit-remaining in the response header will be 0;
+
+```
+> HTTP/2 403
+> Date: Tue, 20 Aug 2013 14:50:41 GMT
+> x-ratelimit-limit: 60
+> x-ratelimit-remaining: 0
+> x-ratelimit-used: 60
+> x-ratelimit-reset: 1377013266
+
+> {
+>    "message": "API rate limit exceeded for xxx.xxx.xxx.xxx. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.) , documentation_url": "https://docs.atomgit.com"
+> }
+```
+
+## Contact Us
+- Contact: API Technical Support
+- Email: lish#csdn.net (Please replace # with @)
+- Issue Feedback address： https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues
+
+

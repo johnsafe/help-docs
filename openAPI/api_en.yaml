@@ -1,0 +1,4655 @@
+openapi: 3.0.0
+servers:
+  - url: https://api.atomgit.com
+    description: prod
+  - url: https://api.atomgit.com
+    description: test
+info:
+  description: |
+    AtomGit provides a REST API that you can use Git CLI, curl, the official Octokit library, and third-party libraries to interact with this API.
+
+    ## API version
+
+    Whenever you make a request to a REST API, you must specify the REST API version to use. You should use the X-Api-Version header to specify the API version. For example:
+
+    ```bash
+    $ curl --header "X-Api-Version:2023-02-21" https://api.atomgit.com/user/info
+    ```
+    Requests without the X-Api-Version header will default to that 2023-02-21 version.
+
+    If you specify an API version that is no longer supported, you will receive a 400 error message.
+
+    ## token verification
+
+    The REST API provided by AtomGit supports two verification methods: Oauth2 token and private token:
+
+    1. OAuth2 token (sent in header)
+
+    ```bash
+      $ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.atomgit.com
+    ```
+
+    2.Private token token (sent in header)
+
+    ```bash
+      $ curl -H "Authorization: Bearer PERSONAL-TOKEN" https://api.atomgit.com
+    ```
+
+    ## restriction of visit
+
+    1. For different authorizations, current limiting configuration information
+
+    | auth type | limit per second |  limit per hour |
+    | -------- | -------- | ---------- |
+    | unauthorized   | 2        | 600        |
+    | general user | 10       | 5000       |
+    | APP      | 10       | 5000       |
+
+    2.Current limiting information response header description：
+
+    For each request, the following response header starting with x-ratelimit will be responded to describe the current interface current limiting status.：eg
+
+    ```shell
+    $ curl -i https://api.github.com/users/octocat
+    > HTTP/2 200
+    > x-ratelimit-limit: 60
+    > x-ratelimit-remaining: 56
+    > x-ratelimit-used: 4
+    > x-ratelimit-reset: 1372700873
+    ```
+
+    | Header name             | Description                                                  |
+    | :---------------------- | :----------------------------------------------------------- |
+    | `x-ratelimit-limit`     | Maximum request limit per hour                                         |
+    | `x-ratelimit-remaining` | Number of requests remaining in the current time window                                 |
+    | `x-ratelimit-used`      | The number of requests that have been issued in the current time window                             |
+    | `x-ratelimit-reset`     | The current time window is reset [UTC epoch seconds](http://en.wikipedia.org/wiki/Unix_time)。 |
+
+    3.When the request exceeds the current limit, the following information will be returned depending on the authorization situation:
+
+    If you are not currently logged in, the affected http status: 403, and the x-ratelimit-remaining in the response header will be 0;
+
+    ```
+    > HTTP/2 403
+    > Date: Tue, 20 Aug 2013 14:50:41 GMT
+    > x-ratelimit-limit: 60
+    > x-ratelimit-remaining: 0
+    > x-ratelimit-used: 60
+    > x-ratelimit-reset: 1377013266
+
+    > {
+    >    "message": "API rate limit exceeded for xxx.xxx.xxx.xxx. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.) , documentation_url": "https://docs.atomgit.com"
+    > }
+    ```
+
+    ## Contact Us
+    - Contact: API Technical Support
+    - Email: lish#csdn.net (Please replace # with @)
+    - Issue Feedback address： https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues
+
+  version: 2023-02-21
+  title: "About AtomGit OpenAPI"
+tags:
+  - name: user
+    description: Operations about user
+    x-displayName: user account
+  - name: org
+    description: Operations about org
+    x-displayName: organization related
+  - name: branches
+    description: Operations about branches
+    x-displayName: branch related
+  - name: commits
+    description: Operations about commits
+    x-displayName: Submit related
+  - name: commit statuses
+    description: Operations about commit statuses
+    x-displayName: Submission status related
+  - name: repositories
+    description: Operations about repositories
+    x-displayName: repo data related
+  - name: repository contents
+    description: Operations about repository contents
+    x-displayName: repo text related
+  - name: change requests
+    description: Operations about change requests
+    x-displayName: Change request related
+  - name: check-runs
+    description: Operations about check-runs
+    x-displayName: Change request-automated inspection related
+  - name: issues
+    description: Operations about issue
+    x-displayName: Issues
+  - name: issues comment
+    description: Operations about issue comment
+    x-displayName: Issues comment
+x-tagGroups:
+  - name: User Management
+    tags:
+      - user
+  - name: Org Management
+    tags:
+      - org
+  - name: branches
+    tags:
+      - branches
+  - name: commits
+    tags:
+      - commits
+  - name: commit statuses
+    tags:
+      - commits statuses
+  - name: repositories
+    tags:
+      - repositories
+  - name: repository contents
+    tags:
+      - repository contents
+  - name: check-runs
+    tags:
+      - check-runs
+  - name: change requests
+    tags:
+      - change requests
+  - name: issues
+    tags:
+      - issues
+  - name: issues comment
+    tags:
+      - issues comment
+paths:
+  # 获取用户个人信息
+  /user/info:
+    get:
+      tags:
+        - user
+      summary: Get user personal information
+      description: Get user personal information
+      operationId: getTheAuthenticatedUser
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+      responses:
+        401:
+          description: 'The token is invalid, please check whether the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  # 根据用户名查询用户信息
+  /users/{username}:
+    get:
+      tags:
+        - user
+      summary: Query user information based on user name
+      description: Query user information based on user name
+      operationId: getUserByUsername
+      parameters:
+        - name: Authorization
+          in: header description:Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: username
+          in: path
+          description: "username"
+          required: true
+      responses:
+        401:
+          description: 'The token is invalid, please check whether the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/User"
+ # 获取当前用户的邮箱列表
+  /user/emails:
+    get:
+      tags:
+        - user
+      summary: Get the current user's email list
+      description: Get the current user's email list
+      operationId: listEmail
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserEmailVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserEmailVO"
+ # 获取当前用户的粉丝列表
+  /user/followers:
+    get:
+      tags:
+        - user
+      summary: Get the current user's fan list
+      description: Get the current user's fan list
+      operationId: getUserFollowers
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 获取指定用户的粉丝列表
+  /users/{username}/followers:
+    get:
+      tags:
+        - user
+      summary: Get the fan list of a specified user
+      description: Get the fan list of a specified user
+      operationId: getUserFollowersByUsername
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: username
+          in: path
+          description: "The specified username that needs to be obtained from the fan list"
+          required: true
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 列出当前用户的关注列表
+  /user/following:
+    get:
+      tags:
+        - user
+      summary: List the current user's starred list
+      description: List the current user's starred list
+      operationId: getUserFollowing
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 获取指定用户的关注列表
+  /users/{username}/following:
+    get:
+      tags:
+        - user
+      summary: Get the starred list of a specified user
+      description: Get the starred list of a specified user
+      operationId: getTheFollowing
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: username
+          in: path
+          description: "The specified username that needs to be obtained from the fan list"
+          required: true
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+ # 关注指定用户
+  /user/following/{username}:
+    put:
+      tags:
+        - user
+      summary: Follow specified user
+      description: Follow specified user
+      operationId: addFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: username
+          in: path
+          description: "followed user's username"
+          required: true
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+        400:
+          description: Cannot follow repeatedly
+ # 移除某个已关注用户
+    delete:
+      tags:
+        - user
+      summary: Remove a followed user
+      description: Remove a followed user
+      operationId: delFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: username
+          in: path
+          description: "The username of the removed user"
+          required: true
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+ # 检查当前用户是否关注了某个用户
+    get:
+      tags:
+        - user
+      summary: Check if the current user follows a user
+      description: Check if the current user follows a user
+      operationId: hasThisFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: username
+          in: path
+          description: "Determine whether to follow the user name"
+          required: true
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: true-follow,false-unfollow
+
+ # 检查用户是否关注了指定用户
+  /users/{username}/following/{targetUsername}:
+    get:
+      tags:
+        - user
+      summary: Check whether the user follows the specified user
+      description: Check whether the user follows the specified user
+      operationId: hasTheFans
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: username
+          in: path
+          description: "current usernames"
+          required: true
+        - name: targetUsername
+          in: path
+          description: "Followed username"
+          required: true
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+        400:
+          description: Cannot follow repeatedly
+ # 获取当前登录用户的 SSH 公钥列表
+  /user/keys:
+    get:
+      tags:
+        - user
+      summary: Get the SSH public key list of the currently logged in user
+      description: Get the SSH public key list of the currently logged in user
+      operationId: listKey
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+  #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
+    post:
+      tags:
+        - user
+      summary: Create a new SSH public key for the currently logged in user
+      description: Create a new SSH public key for the currently logged in user
+      operationId: addKey
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+        400:
+          description: The title cannot be empty/SSH Key format error/The key has been added as a user key or deployment key, and the addition failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddSSHKeyDTO"
+        description: add ssh key request body
+        required: true
+ # 移除指定的 SSH 公钥
+  /user/keys/{keyId}:
+    delete:
+      tags:
+        - user
+      summary: Remove the specified SSH public key
+      description: Remove the specified SSH public key
+      operationId: delKey
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: keyId
+          in: path
+          description: "Specify SSH public key id"
+          required: true
+      responses:
+        401:
+          description: invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Success
+
+  /organizations:
+    get:
+      tags:
+        - org
+      summary: List all organizations
+      description: Paginated list of all organizations on AtomGit by creation date.
+      operationId: orgPageList
+      parameters:
+        - name: since
+          in: query
+          description: start page
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Maximum number per page, maximum limit is 50
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrgPage"
+  /orgs/{org}:
+    get:
+      tags:
+        - org
+      summary: Query organization details
+      description: Query organization details based on organization namespace
+      operationId: orgDetail
+      parameters:
+        - name: org
+          in: path
+          description: Organization namespace
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgDetail"
+        "404":
+          description: Organization does not exist
+    patch:
+      tags:
+        - org
+      summary: Update basic organization information
+      description: Update the basic information of the organization. The current operator must be the organization maintainer.
+      operationId: updateOrg
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgDetail"
+        "401":
+          description: Operation failed, not logged in yet
+        "403":
+          description: No permission yet, operation failed.
+        "404":
+          description: Organization does not exist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateOrg"
+        description: Update org request body
+        required: true
+  /user/orgs:
+    get:
+      tags:
+        - org
+      summary: List the organizations the current user is a member of
+      description: List all organizations of the current user. This interface must have scope permissions of user or read:org, otherwise 403 will be returned.
+      operationId: userOrgPageList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: since
+          in: query
+          description: start page
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Maximum number per page, maximum limit is 50
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserOrgPage"
+        "401":
+          description: Operation failed, not logged in yet
+        "403":
+          description: No permission yet, operation failed
+  #  /users/{username}/orgs:
+  #    get:
+  #    tags:
+  #        - org
+  #      summary: list organizations by username
+  #      description: "List public organization memberships for the specified user."
+  #      operationId: userOrgByUserNamePageList
+  #      parameters:
+  #        - name: since
+  #          in: query
+  #          description: start page
+  #          required: false
+  #          schema:
+  #            type: integer
+  #        - name: per_page
+  #          in: query
+  #          description: Maximum number per page, maximum limit is 50
+  #          required: false
+  #          schema:
+  #            type: integer
+  #      responses:
+  #        "200":
+  #          description: Success
+  #          content:
+  #            application/json:
+  #              schema:
+  #                type: array
+  #                items:
+  #                  $ref: "#/components/schemas/UserOrgPage"
+  #        "400":
+  #          description: username is not exist
+  /orgs/{org}/invitations:
+    post:
+      tags:
+        - org
+      summary: Create an organizational invitation
+      description: Invite a user to the organization using the AtomGit user's ID or email address. The current user initiating the operation must be the organization owner.
+      operationId: userOrgInvitation
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserOrgInvition"
+        "400":
+          description: Wrong parameters
+        "401":
+          description: Operation failed, not logged in yet
+        "403":
+          description: No permission yet, operation failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                invitee_id:
+                  description: Required unless you provide an email. The AtomGit user ID of the person you invited.
+                  type: string
+                email:
+                  description: Required unless you provide an email. The AtomGit user ID of the person you invited.
+                  type: string
+                role:
+                  description: new member's role:maintainer、developer、guest。
+                  type: string
+  /orgs/{org}/members:
+    get:
+      tags:
+        - org
+      summary: Query organization members
+      description: List all users who are members of an organization
+      operationId: orgMembers
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: start page
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Maximum number per page, maximum limit is 50
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrgMember"
+        "400":
+          description: Wrong parameters，Organization does not exist
+  /orgs/{org}/members/{username}:
+    get:
+      tags:
+        - org
+      summary: Verify that the user is a member of the organization
+      description: Verify whether the user is a member of the organization based on the username
+      operationId: orgMemberCheck
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description:  username
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Respond to this status code if the requester is a member of an organization and the username being queried is a member of this organization
+        "401":
+          description: If the requester is not a member of the organization, respond with this status code
+        "404":
+          description: Respond to this status code if the requester is a member of an organization and the user whose name is being queried is not a member of the organization.
+    delete:
+      tags:
+        - org
+      summary: Remove organization members
+      description: "To remove organization members based on user name, the current operator must be an organization maintainer, otherwise the removal will fail."
+      operationId: orgMemberDelete
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: username
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: The operation failed, the parameter username is incorrect!
+        "401":
+          description: The operation failed. The current operator is not an organization administrator and does not have permissions at the moment.
+  /orgs/{org}/memberships/{username}:
+    get:
+      tags:
+        - org
+      summary: Query roles in an organization based on username
+      description: Query the user's role in the organization based on the user name
+      operationId: orgMemberRole
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: the queried user's username
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+          "400":
+            description: Wrong parameters
+          "401":
+            description: Operation failed, not logged in yet
+          "403":
+            description: The operation failed. The current operator is not a member of the organization.
+    put:
+      tags:
+        - org
+      summary: Set organization member roles
+      description: Set the user's role in the organization based on the user name
+      operationId: SetOrgMemberRole
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: the queried user's username
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+          "400":
+            description: Wrong parameters
+          "401":
+            description: Operation failed, not logged in yet
+          "403":
+            description: The operation failed. The current operator is not an maintainer of the organization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                role:
+                  description: set user's role:maintainer、developer、guest。
+                  type: string
+  ############ 分支接口（Branches API）############
+  # 获取分支信息
+  /repos/{owner}/{repo}/branches/{branch}:
+    get:
+      tags:
+        - branches
+      summary: Get branch information
+      description: Get branch information
+      operationId: getBranch
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository is generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: "repository name. The name is not case sensitive."
+          required: true
+        - name: branch
+          in: path
+          description: "Branch name, cannot contain wildcard characters."
+          required: true
+      responses:
+        404:
+          description: 404 not found
+        200:
+          description: success
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  name:
+                    type: string
+                    required: true
+                    description: branch name.
+                  commit:
+                    type: object
+                    description: Commit ID
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: commitor. Default value -  The currently authenticated user.
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: The name of the commitor. If you omit this field, you will receive a 422 status code.
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: "commitor. Default value -  The currently authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the commitor. If you omit this field, you will receive a 422 status code"
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: commit message
+                      sha:
+                        type: string
+                        required: true
+                        description: commit  sha value.
+                      parents:
+                        type: array
+                        required: true
+                        items:
+                          type: object
+                          properties:
+                            sha:
+                              type: string
+                              required: true
+                              description: commit sha value.
+  # 获取分支列表
+  /repos/{owner}/{repo}/branches:
+    get:
+      tags:
+        - branches
+      summary: get branch list
+      description: get branch list
+      operationId: getBranchList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: per_page
+          in: query
+          description: page size
+          required: false
+        - name: page
+          in: query
+          description: page num
+          required: false
+      responses:
+        200:
+          description: success
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: Branch name, cannot contain wildcard characters
+                    commit:
+                      type: object
+                      required: true
+                      description: commit ID
+                      properties:
+                        sha:
+                          type: string
+                          required: true
+                          description: commit sha value
+                    protected:
+                      type: boolean
+                      required: true
+                      description: is protected branch or not
+  # ############ 提交接口（Commits API）############
+  # # 获取分支提交
+  /repos/{owner}/{repo}/commits/{ref}:
+    get:
+      tags:
+        - commits
+      summary: get commit info
+      description: get commit info
+      operationId: getRefCommit
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: "repository name, the name is not case sensitive"
+          required: true
+        - name: ref
+          in: path
+          description: "ref"
+          required: true
+      responses:
+        200:
+          description: success
+        404:
+          description: 404 not found
+        500:
+          description: internal error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    required: true
+                    description: ref name
+                  commit:
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: commitor. Default value -  The currently authenticated user.
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: The name of the commitor. If you omit this field, you will receive a 422 status code.
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: "commitor. Default value -  The currently authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: The name of the commitor. If you omit this field, you will receive a 422 status code
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: commit message
+                  sha:
+                    type: string
+                    required: true
+                    description: commit sha value
+                  parents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        sha:
+                          type: string
+                          required: true
+                          description: commit sha value
+                    required: true
+                  stats:
+                    type: object
+                    required: true
+                    properties:
+                      additions:
+                        type: integer
+                        required: true
+                      deletions:
+                        type: integer
+                        required: true
+                      total:
+                        type: integer
+                        required: true
+  # # 获取联合提交状态
+  /repos/{owner}/{repo}/commits/status/{ref}:
+    get:
+      tags:
+        - commit statuses
+      summary: Get combined commit statuses
+      description: Get combined commit statuses
+      operationId: getCombinedCommitStatuses
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: ref
+          in: path
+          description: ref
+          required: true
+      responses:
+        200:
+          description: success
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  state:
+                    type: string
+                    required: true
+                    description: "Status enumeration, the enumeration values ​​are: error, failure, pending, success"
+                  sha:
+                    type: string
+                    required: true
+                    description: commit sha value。
+                  total_count:
+                    type: integer
+                    required: true
+                  statuses:
+                    type: array
+                    required: true
+                    items:
+                      type: object
+                      properties:
+                        state:
+                          description: "Status enumeration, the enumeration values ​​are: error, failure, pending, success"
+                          type: string
+                          required: true
+                        target_url:
+                          type: string
+                          required: false
+                          description: |
+                            The target URL associated with this status to allow the user to easily view the source of the status.
+                            For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
+                        description:
+                          type: string
+                          required: false
+                          description: A short description of the status.
+                        context:
+                          type: string
+                          required: false
+                          description: A string flag used to distinguish this state from other system (user or application) states. This field is not case sensitive. Default value -  default
+  # # 创建提交状态
+  /repos/{owner}/{repo}/statuses/{sha}:
+    post:
+      tags:
+        - commit statuses
+      summary: create commit status
+      description: create commit status
+      operationId: CreateCommitStatuses
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: sha
+          in: path
+          description: commit sha value
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                state:
+                  description: "Status enumeration, the enumeration values ​​are: error, failure, pending, success"
+                  type: string
+                  required: true
+                target_url:
+                  type: string
+                  required: false
+                  description: |
+                            The target URL associated with this status to allow the user to easily view the source of the status.
+                            For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
+                description:
+                  type: string
+                  required: false
+                  description: A short description of the status.
+                context:
+                  type: string
+                  required: false
+                  description: A string flag used to distinguish this state from other system (user or application) states. This field is not case sensitive. Default value -  default
+      responses:
+        201:
+          description: Created
+        500:
+          description: Internal Error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  context:
+                    type: string
+                    required: true
+                    description: A string flag used to distinguish this state from other system (user or application) states. This field is not case sensitive. Default value -  default
+                  created_at:
+                    type: string
+                    required: true
+                    description: "created time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  description:
+                    type: string
+                    required: false
+                    description: A short description of the status.
+                  required:
+                    type: boolean
+                    required: true
+                  id:
+                    type: integer
+                    required: true
+                  state:
+                    type: string
+                    required: true
+                    description: "Status enumeration, the enumeration values ​​are: error, failure, pending, success"
+                  target_url:
+                    type: string
+                    required: false
+                    description: |
+                            The target URL associated with this status to allow the user to easily view the source of the status.
+                            For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
+  # ############ Check-runs接口 ############
+  # # 创建自动化检查
+  /repos/{owner}/{repo}/check-runs:
+    post:
+      tags:
+        - check-runs
+      summary: create automated check
+      description: create automated check
+      operationId: CreateCheckRun
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                name:
+                  description: The name of the automated check. For example, "code-coverage"。
+                  type: string
+                  required: true
+                head_sha:
+                  type: string
+                  required: true
+                  description: commit sha value
+                status:
+                  type: string
+                  required: false
+                  description: |
+                    Status enumeration, the enumeration value is:queued, in_progress, completed。default: queued
+                started_at:
+                  type: string
+                  required: false
+                  description: "start time of check。 Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                conclusion:
+                  type: string
+                  required: false
+                  description: |
+                   This field is required if you pass the "completed_at" field or set the "status" field to "completed". This field expresses the final result of the automated check. ,
+                    Note: Providing the "conclusion" field will automatically set the status parameter to "completed". Also it will not be possible to change "conclusion" to "stale", only platforms can be set to this value.
+                    Enumeration values: action_required, canceled, failure, neutral, success, skip, stale, timed_out
+                completed_at:
+                  type: string
+                  required: false
+                  description: "end time of check。 Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                action:
+                  type: object
+                  required: false
+                  description: Automated checks can accept various types of data in "output", including titles and summaries, and can optionally provide descriptive details about the run.
+                  properties:
+                    label:
+                      type: string
+                      required: true
+                      description: "The text displayed on the button in the web UI. Maximum length is 20 characters."
+                    description:
+                      type: string
+                      required: true
+                      description: "A brief explanation of the purpose of action. Maximum length is 40 characters."
+                    identifier:
+                      type: string
+                      required: true
+                      description: "A comparison identifier for action on the integrated system. Maximum length is 20 characters."
+                output:
+                  type: object
+                  required: false
+                  description: Automated checks can accept various types of data in "output", including titles and summaries, and can optionally provide descriptive details about the run.
+                  properties:
+                    title:
+                      type: string
+                      required: true
+                      description: "title"
+                    summary:
+                      type: string
+                      required: true
+                      description: "Summary, supports Markdown format. Maximum length is 65535 characters."
+                    text:
+                      type: string
+                      required: false
+                      description: "detail, maximum length is 65535 characters"
+                    annotations:
+                      type: object
+                      required: false
+                      description: |
+                        Attach the information you analyzed to specific lines of code.
+                        Corresponding annotations can be seen in the inspection and file changes tabs of subsequent change requests on the platform.
+                        The automated inspection API limits the number of annotations requested to a maximum of 50.
+                        If you want to create more than 50, you can send the request multiple times to add comments to the list of existing comments.
+                      properties:
+                        path:
+                          type: string
+                          required: true
+                          description: "The path to the file to add the annotation to. For example: assets/css/main.css."
+                        start_line:
+                          type: int
+                          required: true
+                          description: "The starting line of the comment. Line numbers start from 1."
+                        end_line:
+                          type: int
+                          required: false
+                          description: "Ending line of comment."
+                        start_column:
+                          type: int
+                          required: false
+                          description: "The starting column of the annotation. Annotations only support start_column and end_column on the same line. If the values ​​of start_line and end_line are different, this parameter is omitted. Column numbers start at 1."
+                        end_column:
+                          type: int
+                          required: false
+                          description: "The ending column of the comment. Comments only support start_column and end_column on the same line. If the values ​​of start_line and end_line are different, this parameter is omitted."
+                        annotation_level:
+                          type: string
+                          required: true
+                          description: |
+                            The level of annotation, the enumeration values ​​are: notice, warning, failure
+                        message:
+                          type: string
+                          required: true
+                          description: "A short description of the line of code information. Maximum size is 64kb."
+                        title:
+                          type: string
+                          required: false
+                          description: The title of the annotation. Maximum length is 255 characters.
+                        raw_details:
+                          type: string
+                          required: false
+                          description: "Details of the comment. Maximum size is 64kb."
+
+                    images:
+                      type: object
+                      required: false
+                      description: "Add images in CR UI."
+                      properties:
+                        alt:
+                          type: string
+                          required: true
+                          description: "Alt text for the image."
+                        image_url:
+                          type: string
+                          required: true
+                          description: "The full URL of the image."
+                        caption:
+                          type: string
+                          required: false
+                          description: "Short image description."
+      responses:
+        201:
+          description: created
+        500:
+          description: internal error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: integer
+                    required: true
+                  head_sha:
+                    type: string
+                    required: true
+                  external_id:
+                    type: integer
+                    required: true
+                  status:
+                    type: string
+                    required: true
+                  conclusion:
+                    type: string
+                    required: false
+                  started_at:
+                    type: string
+                    required: true
+                    description: "the start time. Follows ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  completed_at:
+                    type: string
+                    required: false
+                    description: "the end time. Follows ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  name:
+                    type: string
+                    required: true
+                  app:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        required: true
+                      slug:
+                        type: string
+                        required: true
+                      name:
+                        type: string
+                        required: true
+                      description:
+                        type: string
+                        required: true
+  # # 更新自动化检查
+  /repos/{owner}/{repo}/check-runs/{check_run_id}:
+    get:
+      tags:
+        - check-runs
+      summary: Query automated checks
+      description: Query automated checks
+      operationId: GetCheckRun
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: "The account owner of the repository. The name is not case sensitive."
+          required: true
+        - name: repo
+          in: path
+          description: "The name of the repository. The name is not case sensitive."
+          required: true
+        - name: check_run_id
+          in: path
+          description: The unique identifier of the check run.
+      responses:
+        200:
+          description: Created
+    patch:
+      tags:
+        - check-runs
+      summary: Update automated checks
+      description: Update automated checks
+      operationId: UpdateCheckRun
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository, generally called "username". The name is not case-sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                name:
+                  description: The name of the automated check. For example, "code-coverage".
+                  type: string
+                  required: true
+                head_sha:
+                  type: string
+                  required: true
+                  description: commit sha value
+                status:
+                  type: string
+                  required: false
+                  description:  |
+                    Status enumeration, the enumeration values ​​are: queued, in_progress, completed. Default value: queued
+                started_at:
+                  type: string
+                  required: false
+                  description: |
+                    start time. Follows ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ
+                conclusion:
+                  type: string
+                  required: false
+                  description: |
+                    This field is required if you pass the "completed_at" field or set the "status" field to "completed". This field expresses the final result of the automated check. ,
+                    Note: Providing the "conclusion" field will automatically set the status parameter to "completed". Also it will not be possible to change "conclusion" to "stale", only platforms can be set to this value.
+                    Enumeration values: action_required, canceled, failure, neutral, success, skip, stale, timed_out
+                completed_at:
+                  type: string
+                  required: false
+                  description: "end time. Follows ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                action:
+                  type: object
+                  required: false
+                  description:  Automated checks can accept various types of data in "output", including titles and summaries, and can optionally provide descriptive details about the run.
+                  properties:
+                    label:
+                      type: string
+                      required: true
+                      description: "The text displayed on the button in the web UI. Maximum length is 20 characters."
+                    description:
+                      type: string
+                      required: true
+                      description: "A brief explanation of the purpose of action. Maximum length is 40 characters."
+                    identifier:
+                      type: string
+                      required: true
+                      description: "A comparison identifier for action on the integrated system. Maximum length is 20 characters."
+                output:
+                  type: object
+                  required: false
+                  description: Automated checks can accept various types of data in "output", including titles and summaries, and can optionally provide descriptive details about the run.
+                  properties:
+                    title:
+                      type: string
+                      required: true
+                      description: "title"
+                    summary:
+                      type: string
+                      required: true
+                      description: "Summary, supports Markdown format. Maximum length is 65535 characters."
+                    text:
+                      type: string
+                      required: false
+                      description: "detail, maximum length is 65535 characters"
+                    annotations:
+                      type: object
+                      required: false
+                      description: |
+                        Attach the information you analyzed to specific lines of code.
+                        Corresponding annotations can be seen in the inspection and file changes tabs of subsequent change requests on the platform.
+                        The automated inspection API limits the number of annotations requested to a maximum of 50.
+                        If you want to create more than 50, you can send the request multiple times to add comments to the list of existing comments.
+                      properties:
+                        path:
+                          type: string
+                          required: true
+                          description: "The path to the file to add the annotation to. For example: assets/css/main.css."
+                        start_line:
+                          type: int
+                          required: true
+                          description: "The starting line of the comment. Line numbers start from 1."
+                        end_line:
+                          type: int
+                          required: false
+                          description: "The end line of the comment."
+                        start_column:
+                          type: int
+                          required: false
+                          description: "The starting column of the annotation. Comments only support start_column and end_column on the same line. If the values ​​of start_line and end_line are different, this parameter is omitted. Column numbers start from 1."
+                        end_column:
+                          type: int
+                          required: false
+                          description: "Ending column of comments. Comments only support start_column and end_column on the same line. If the values ​​of start_line and end_line are different, this parameter is omitted."
+                        annotation_level:
+                          type: string
+                          required: true
+                          description: |
+                            The level of annotation, the enumeration values ​​are: notice, warning, failure
+                        message:
+                          type: string
+                          required: true
+                          description: "A short description of the line of code information. Maximum size is 64kb."
+                        title:
+                          type: string
+                          required: false
+                          description: "Title of the comment. Maximum length is 255 characters."
+                        raw_details:
+                          type: string
+                          required: false
+                          description: "Details of the comment. Maximum size is 64kb."
+                    images:
+                      type: object
+                      required: false
+                      description: "Add images in CR UI."
+                      properties:
+                        alt:
+                          type: string
+                          required: true
+                          description: "Alt text for the image."
+                        image_url:
+                          type: string
+                          required: true
+                          description: "The full URL of the image."
+                        caption:
+                          type: string
+                          required: false
+                          description: "Short image description."
+      responses:
+        200:
+          description: success
+        500:
+          description: internal error
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: integer
+                    required: true
+                  head_sha:
+                    type: string
+                    required: true
+                    description: Submit SHA value
+                  external_id:
+                    type: integer
+                    required: true
+                    description: Unique identifier in external integrated systems.
+                  status:
+                    type: string
+                    required: true
+                    description: |
+                      Status enumeration, the enumeration values ​​are: queued, in_progress, completed. Default value: queued
+                  conclusion:
+                    type: string
+                    required: false
+                  description: |
+                    This field is required if you pass the "completed_at" field or set the "status" field to "completed". This field expresses the final result of the automated check. ,
+                    Note: Providing the "conclusion" field will automatically set the status parameter to "completed". Also it will not be possible to change "conclusion" to "stale", only platforms can be set to this value.
+                    Enumeration values: action_required, canceled, failure, neutral, success, skip, stale, timed_out
+                  started_at:
+                    type: string
+                    required: true
+                    description: "start time. Follows ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  completed_at:
+                    type: string
+                    required: false
+                    description: "end time. Follows the ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  name:
+                    type: string
+                    required: true
+                    description: The name of the automated check. For example, "code-coverage".
+                  app:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        required: true
+                        description: Atomgit App 的 ID
+                      slug:
+                        type: string
+                        required: true
+                        description: Atomgit App 的 slug
+                      name:
+                        type: string
+                        required: true
+                        description: Atomgit App 的名称
+                      description:
+                        type: string
+                        required: true
+  # # 获取仓库content
+  /repos/{owner}/{repo}/contents/{path}:
+    get:
+      tags:
+        - repository contents
+      summary: get repo content
+      description: get repo content
+      operationId: GetRepoConent
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: path
+          in: path
+          description: file path
+      responses:
+        200:
+          description: success
+        403:
+          description: No Access
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  encoding:
+                    type: string
+                    required: true
+                    description: "Encode type. Default: base64"
+                  name:
+                    type: string
+                    required: true
+                    description: "filename"
+                  path:
+                    type: string
+                    required: true
+                    description: "file path"
+                  sha:
+                    type: string
+                    required: true
+                    description: "commit sha value"
+                  size:
+                    type: integer
+                    required: true
+                    description: File size, or 0 if "type" is "dir" or "submodule"
+                  type:
+                    type: string
+                    required: true
+                    description: "File type, enumeration values: file, dir, symlink, submodule"
+                  entries:
+                    type: array
+                    required: false
+                    description: |
+                      If "type" is "dir", files and subdirectories in that directory are returned.
+                      If "type" is "file", an empty array is returned.
+                      If "type" is "symlink", information about the symbolic link is returned.
+                      If "type" is "submodule", returns the submodule information.
+                    items:
+                      type: object
+                      properties:
+                        encoding:
+                          type: string
+                          required: true
+                          description: "Encode type. Default: base64"
+                        name:
+                          type: string
+                          required: true
+                          description: "filename"
+                        path:
+                          type: string
+                          required: true
+                          description: "file path"
+                        sha:
+                          type: string
+                          required: true
+                          description: "commit sha value"
+                        size:
+                          type: integer
+                          required: true
+                          description: File size, or 0 if "type" is "dir" or "submodule"
+                        type:
+                          type: string
+                          required: true
+                          description: "File type, enumeration values: file, dir, symlink, submodule"
+# 创建或更新content
+    put:
+      tags:
+        - repository contents
+      summary: save repo content
+      description: save repo content
+      operationId: SaveRepoConent
+      parameter:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: path
+          in: path
+          description: file path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                message:
+                  type: string
+                  required: true
+                  description: commit message
+                content:
+                  type: string
+                  required: true
+                  description: File content, encoded using Base64.
+                sha:
+                  type: string
+                  required: false
+                  description: If it is an update file, change the field to required. Just submit the SHA value.
+                branch:
+                  type: string
+                  required: false
+                  description: "branch name ,Default：repository's default branch'"
+                committer:
+                  type: object
+                  required: false
+                  description: commitor. Default value -  The currently authenticated user."
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: "The name of the commitor. If you omit this field, you will receive a 422 status code."
+                    email:
+                      type: string
+                      required: true
+                      description: commitor's email. If you omit the email, you will receive a 422 status code.
+                    date:
+                      type: string
+                      required: false
+                author:
+                  type: object
+                  required: false
+                  description: "commitor. Default value -  The currently authenticated user."
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: "The name of the commitor. If you omit this field, you will receive a 422 status code"
+                    email:
+                      type: string
+                      required: true
+                      description: commitor's email. If you omit the email, you will receive a 422 status code.
+                    date:
+                      type: string
+                      required: false
+      responses:
+        200:
+          description: success
+        201:
+          description: created
+        403:
+          description: No Access
+        409:
+          description: Conflict (someone updated the file first)
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      encoding:
+                        type: string
+                        required: true
+                        description: "Encode type. Default: base64"
+                      name:
+                        type: string
+                        required: true
+                        description: "filename"
+                      path:
+                        type: string
+                        required: true
+                        description: "file path"
+                      sha:
+                        type: string
+                        required: true
+                        description: "commit sha value"
+                      size:
+                        type: integer
+                        required: true
+                        description: File size, or 0 if "type" is "dir" or "submodule"
+                      type:
+                        type: string
+                        required: true
+                        description: "File type, enumeration values: file, dir, symlink, submodule"
+                      entries:
+                        type: array
+                        required: false
+                        description: |
+                          If "type" is "dir", files and subdirectories in that directory are returned.
+                          If "type" is "file", an empty array is returned.
+                          If "type" is "symlink", information about the symbolic link is returned.
+                          If "type" is "submodule", returns the submodule information.
+                        items:
+                          type: object
+                          properties:
+                            encoding:
+                              type: string
+                              required: true
+                              description: "Encode type. Default: base64"
+                            name:
+                              type: string
+                              required: true
+                              description: "filename"
+                            path:
+                              type: string
+                              required: true
+                              description: "file path"
+                            sha:
+                              type: string
+                              required: true
+                              description: "commit sha value"
+                            size:
+                              type: integer
+                              required: true
+                              description: File size, or 0 if "type" is "dir" or "submodule"
+                            type:
+                              type: string
+                              required: true
+                              description: "File type, enumeration values: file, dir, symlink, submodule"
+                  commit:
+                      type: object
+                      properties:
+                        committer:
+                          type: object
+                          required: true
+                          description: "commitor. Default value -  The currently authenticated user."
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: "The name of the commitor. If you omit this field, you will receive a 422 status code."
+                            email:
+                              type: string
+                              required: true
+                              description: commitor's email. If you omit the email, you will receive a 422 status code.
+                            date:
+                              type: string
+                              required: false
+                        author:
+                          type: object
+                          required: true
+                          description: "commitor. Default value -  The currently authenticated user."
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: "The name of the commitor. If you omit this field, you will receive a 422 status code"
+                            email:
+                              type: string
+                              required: true
+                              description: commitor's email. If you omit the email, you will receive a 422 status code.
+                            date:
+                              type: string
+                              required: false
+                        message:
+                          type: string
+                          required: true
+                          description: commit message
+                        sha:
+                          type: string
+                          required: true
+                          description: "commit sha value"
+                        parents:
+                          type: array
+                          required: true
+                          description: "parent commit"
+                          items:
+                            type: object
+                            properties:
+                              sha:
+                                type: string
+                                required: true
+                                description: "parent commit sha value"
+    # 删除content
+    delete:
+      tags:
+        - repository contents
+      summary: Delete Repo Content
+      description: Delete Repo Content
+      operationId: DeleteRepoConent
+      parameter:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: path
+          in: path
+          description: The path of the file to be deleted.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                message:
+                  type: string
+                  required: true
+                  description: commit message
+                sha:
+                  type: string
+                  required: true
+                  description: "File SHA value to be deleted"
+                branch:
+                  type: string
+                  required: false
+                  description: "branch name, default:repository's default branch"
+                committer:
+                  type: object
+                  required: false
+                  description: commitor. Default value -  The currently authenticated user.
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: The name of the commitor. If you omit this field, you will receive a 422 status code.
+                    email:
+                      type: string
+                      required: true
+                      description: commitor's email. If you omit the email, you will receive a 422 status code.
+                    date:
+                      type: string
+                      required: false
+                author:
+                  type: object
+                  required: false
+                  description: commitor. Default value -  The currently authenticated user.
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: The name of the commitor. If you omit this field, you will receive a 422 status code
+                    email:
+                      type: string
+                      required: true
+                      description: commitor's email. If you omit the email, you will receive a 422 status code.
+                    date:
+                      type: string
+                      required: false
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        409:
+          description: Conflict
+        404:
+          description: Resource not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      encoding:
+                        type: string
+                        required: true
+                        description: "Encode type. Default: base64"
+                      name:
+                        type: string
+                        required: true
+                        description: "filename"
+                      path:
+                        type: string
+                        required: true
+                        description: "file path"
+                      sha:
+                        type: string
+                        required: true
+                        description: "commit sha value"
+                      size:
+                        type: integer
+                        required: true
+                        description: File size, or 0 if "type" is "dir" or "submodule"
+                      type:
+                        type: string
+                        required: true
+                        description: "File type, enumeration values: file, dir, symlink, submodule"
+                      entries:
+                        type: array
+                        required: false
+                        description: |
+                          If "type" is "dir", files and subdirectories in that directory are returned.
+                          If "type" is "file", an empty array is returned.
+                          If "type" is "symlink", information about the symbolic link is returned.
+                          If "type" is "submodule", returns the submodule information.
+                        items:
+                          type: object
+                          properties:
+                            encoding:
+                              type: string
+                              required: true
+                              description: "Encode type. Default: base64"
+                            name:
+                              type: string
+                              required: true
+                              description: "filename"
+                            path:
+                              type: string
+                              required: true
+                              description: "file path"
+                            sha:
+                              type: string
+                              required: true
+                              description: "commit sha value"
+                            size:
+                              type: integer
+                              required: true
+                              description:  File size, or 0 if "type" is "dir" or "submodule"
+                            type:
+                              type: string
+                              required: true
+                              description: "File type, enumeration values: file, dir, symlink, submodule"
+                  commit:
+                      type: object
+                      properties:
+                        committer:
+                          type: object
+                          required: true
+                          description: "The person that committed the file. Default: the authenticated user."
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                            email:
+                              type: string
+                              required: true
+                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                            date:
+                                type: string
+                                required: false
+                        author:
+                          type: object
+                          required: true
+                          description: commitor. Default value -  The currently authenticated user.
+                          properties:
+                            name:
+                              type: string
+                              required: true
+                              description: The name of the commitor. If you omit this field, you will receive a 422 status code.
+                            email:
+                              type: string
+                              required: true
+                              description: commitor's email. If you omit the email, you will receive a 422 status code.
+                            date:
+                                type: string
+                                required: false
+                        message:
+                          type: string
+                          required: true
+                          description: commit message
+                        sha:
+                          type: string
+                          required: true
+                          description: commit sha value
+                        parents:
+                          type: array
+                          required: true
+                          description: 父commit sha value
+                          properties:
+                            sha:
+                              type: string
+                              required: true
+                              description: 父commit sha value
+############ 变更请求接口（Change Requests API）############
+# 创建变更请求
+  /repos/{owner}/{repo}/pulls:
+    post:
+      tags:
+        - change requests
+      summary: create change request
+      description: create change request
+      operationId: CreateChangeRequest
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                title:
+                  type: string
+                  required: false
+                  description: cr title
+                body:
+                  type: string
+                  required: false
+                  description: cr description
+                head:
+                  type: string
+                  required: true
+                  description: "Source branch, when creating a cross-database CR, the format is: '[<src_org>|<src_username>]:<src_branch>'. If you create a change request for the same library, just pass <src_branch>."
+                base:
+                  type: string
+                  required: true
+                  description: "Target branch, format: '<dst_branch>'"
+                draft:
+                  type: boolean
+                  required: false
+                  description: "true means creating a draft (in-progress) change request, false means creating a published change request. Default value: false"
+      responses:
+        201:
+          description: created
+        403:
+          description: No Access
+        404:
+          description: 404 not found
+        409:
+          description: conflict. There are remaining similar change requests under review.
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: cr id
+                  number:
+                    type: integer
+                    required: true
+                    description: The number of the change request (short ID within the repo).
+                  state:
+                    type: string
+                    required: true
+                    description: "The status of the change request, enumeration values: open, closed."
+                  title:
+                    type: string
+                    required: true
+                    description: cr title
+                  body:
+                    type: string
+                    required: true
+                    description: cr description
+                  created_at:
+                    type: string
+                    required: true
+                    description: |
+                      cr created time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  updated_at:
+                    type: string
+                    required: true
+                    description: |
+                      cr updated time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  draft:
+                    type: boolean
+                    required: true
+                    description: "true means creating a draft (in-progress) change request, false means creating a published change request. Default value: false"
+# 查询变更请求详情
+  /repos/{owner}/{repo}/pulls/{pull_number}:
+    get:
+      tags:
+        - change requests
+      summary: get change request detail
+      description: get change request detail
+      operationId: GetChangeRequest
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: pull_number
+          in: path
+          description: The number of the change request (short ID within the repo).
+      responses:
+        200:
+          description: success
+        403:
+          description: forbidden
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: Business ID of the change request.
+                  number:
+                    type: integer
+                    required: true
+                    description: The number of the change request (short ID within the repo).
+                  state:
+                    type: string
+                    required: true
+                    description: "The status of the change request, enumeration values: open, closed."
+                  title:
+                    type: string
+                    required: true
+                    description: Change request title.
+                  body:
+                    type: string
+                    required: true
+                    description: Description of the change request.
+                  created_at:
+                    type: string
+                    required: true
+                    description: |
+                      The time the change request was created. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  updated_at:
+                    type: string
+                    required: true
+                    description: |
+                      Change request update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  in_reply_to:
+                    type: string
+                    required: false
+                    description: |
+                      The comment business ID of the change request reply.
+# 创建评论
+  /repos/{owner}/{repo}/pulls/comments:
+    post:
+      tags:
+        - change requests
+      summary: create change request comment
+      description: create change request comment
+      operationId: CreateChangeRequestComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+      requestBody:
+        content:
+          application/json:
+            Schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: false
+                  description: The content of the comment.
+                commit_id:
+                  type: string
+                  required: true
+                  description: |
+                    To comment on the corresponding commit SHA value of a file, commit the corresponding patchset.
+                path:
+                  type: string
+                  required: false
+                  description: |
+                    Relative path to the file to comment (value omitted if global comment).
+                line:
+                  type: integer
+                  required: false
+                  description: |
+                    Relative path to the file to comment (value omitted if global comment).
+      responses:
+        201:
+          description: created
+        403:
+          description: No Access
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              Schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The business ID of the comment.
+                  pull_request_review_id:
+                    type: string
+                    required: true
+                    description: |
+                      The business ID of the change request to which the comment belongs.
+                  path:
+                    type: string
+                    required: false
+                    description: |
+                      The business ID of the change request to which the comment belongs.
+                  commit_id:
+                    type: string
+                    required: false
+                    description: |
+                      The business ID of the change request to which the comment belongs.
+                  in_reply_to_id:
+                    type: string
+                    required: false
+                    description: |
+                      The business ID of the change request to which the comment belongs.
+                  body:
+                    type: string
+                    required: true
+                    description: The content of the comment.
+                  line:
+                    type: integer
+                    required: false
+                    description: The line number of the file corresponding to the comment.
+                  created_at:
+                    type: string
+                    required: true
+                    description: |
+                      Creation time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  updated_at:
+                    type: string
+                    required: true
+                    description: |
+                      Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+# 创建回复
+  /repos/{owner}/{repo}/pulls/comments/{comment_id}/replies:
+    post:
+      tags:
+        - change requests
+      summary: create change request reply
+      description: create change request reply
+      operationId: CreateChangeRequestReply
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: comment_id
+          in: path
+          description: The business ID of the comment.
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: false
+                  description: reply content
+      responses:
+        201:
+          description: created
+        403:
+          description: No Access
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The business ID of the reply.
+                  pull_request_review_id:
+                    type: string
+                    required: true
+                    description: |
+                      The business ID of the comment to which the reply belongs.
+                  path:
+                    type: string
+                    required: false
+                    description: file path corresponding to the comment
+                  commit_id:
+                    type: string
+                    required: false
+                    description: The corresponding commit sha value of the file to be commented, and the corresponding patchset submitted.
+                  in_reply_to_id:
+                    type: string
+                    required: false
+                    description: |
+                      The business ID of the comment to which the reply belongs.
+                  body:
+                    type: string
+                    required: true
+                    description: The content of the reply.
+                  line:
+                    type: integer
+                    required: false
+                    description: Reply to the line number of the corresponding file.
+                  created_at:
+                    type: string
+                    required: true
+                    description: |
+                      Creation time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  updated_at:
+                    type: string
+                    required: true
+                    description: |
+                      Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+# 查询评论详情
+  /repos/{owner}/{repo}/pulls/comments/{comment_id}:
+    get:
+      tags:
+        - change requests
+      summary: get change request comment
+      description: get change request comment
+      operationId: GetChangeRequestComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: pull_number
+          in: path
+          description: "The number of the change request (short ID within the repo)"
+      responses:
+        200:
+          description: success
+        403:
+          description: No Access
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  id:
+                    type: string
+                    required: true
+                    description: The business ID of the comment.
+                  pull_request_review_id:
+                    type: string
+                    required: true
+                    description: |
+                      The business ID of the change request to which the comment belongs.
+                  path:
+                    type: string
+                    required: false
+                    description: The file path corresponding to the comment
+                  ccommit_id:
+                    type: string
+                    required: false
+                    description: The corresponding commit sha value of the file to be commented, and the corresponding patchset submitted.
+                  in_reply_to_id:
+                    type: string
+                    required: false
+                    description: The business ID of the reply comment.
+                  body:
+                    type: string
+                    required: true
+                    description: The content of the comment.
+                  line:
+                    type: integer
+                    required: false
+                    description: The line number of the file corresponding to the comment.
+                  created_at:
+                    type: string
+                    required: true
+                    description: |
+                      Creation time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                  updated_at:
+                    type: string
+                    required: true
+                    description: |
+                      Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+# 查询评论列表
+  /repos/{owner}/{repo}/pulls/{pull_number}/comments:
+    get:
+      tags:
+        - change requests
+      summary: get change request comment list
+      description: get change request comment list
+      operationId: GetChangeRequesCommentList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: pull_number
+          in: path
+          description: The number of the change request (short ID within the repo).
+          required: true
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        200:
+          description: success
+        403:
+          description: forbidden
+        404:
+          description: 404 not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                required: true
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      required: true
+                      description: The business ID of the comment.
+                    pull_request_review_id:
+                      type: string
+                      required: true
+                      description: |
+                        The business ID of the change request to which the comment belongs.
+                    path:
+                      type: string
+                      required: false
+                      description: file path corresponding to the comment
+                    commit_id:
+                      type: string
+                      required: false
+                      description: The corresponding commit sha value of the file to be commented, and the corresponding patchset submitted.
+                    in_reply_to_id:
+                      type: string
+                      required: false
+                      description: The business ID of the reply comment.
+                    body:
+                      type: string
+                      required: true
+                      description: The content of the comment.
+                    line:
+                      type: integer
+                      required: false
+                      description: The line number of the file corresponding to the comment.
+                    created_at:
+                      type: string
+                      required: true
+                      description: |
+                        Creation time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+                    updated_at:
+                      type: string
+                      required: true
+                      description: |
+                        Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+  ###### issue ######
+  /issues:
+    get:
+      tags:
+        -issues
+      summary: get user issues list
+      description: Get a list of all issues responsible for or created by the current user
+      operationId: GetUserIssuesList
+      parameters:
+        - name: Authorization
+          in: header
+          description: private token (needs to start with Bearer and a space)
+          required: true
+        - name: filter
+          in: query
+          description: |
+            filter enumeration: assigned, created. Default value: assigned
+        - name: state
+          in: query
+          description: |
+            Status enumeration: open, closed, all. Default value: open
+        - name: sort
+          in: query
+          description: |
+            Sorting: created(default), updated
+        - name: direction
+          in: query
+          description: |
+            Sorting direction: asc, desc(default)
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Issue"
+  /repos/{owner}/{repo}/issues:
+    get:
+      tags:
+        - issues
+      summary: get repo issues list
+      description: get repo issues list
+      operationId: GetRepoIssuesList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: creator
+          in: query
+          description: |
+            Create user uid
+        - name: assignee
+          in: query
+          description: |
+            Person in charge uid
+        - name: state
+          in: query
+          description: |
+            Status enumeration: open, closed, all. Default value: open
+        - name: sort
+          in: query
+          description: |
+            Sorting: created(default), updated
+        - name: direction
+          in: query
+          description: |
+            Sorting direction: asc, desc(default)
+        - name: page
+          in: query
+          description: "Page num (default is 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, max 100)"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Issue"
+    post:
+      tags:
+        - issues
+      summary: create repo issue
+      description: create repo issue
+      operationId: CreateRepoIssue
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                title:
+                  type: string
+                  required: true
+                  description: issue title
+                body:
+                  type: string
+                  required: true
+                  description: Issue content (use markdown format to write content)
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+  /repos/{owner}/{repo}/issues/{issue_number}:
+    get:
+      tags:
+        - issues
+      summary: get repo issue info
+      description: get repo issue info
+      operationId: GetRepoIssueInfo
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue number
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+    patch:
+      tags:
+        - issues
+      summary: patch repo issue info
+      description: path repo issue info
+      operationId: PatchRepoIssueInfo
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                title:
+                  type: string
+                  required: false
+                  description: issue title
+                body:
+                  type: string
+                  required: false
+                  description: Issue content (use markdown format to write content)
+                state:
+                  type: string
+                  required: true
+                  description: issue状态 open, closed
+                state_reason:
+                  type: string
+                  required: false
+                  description: state=closed ,optional：completed ， not_planned
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+  /repos/{owner}/{repo}/issues/{issue_number}/lock:
+    put:
+      tags:
+        - issues
+      summary: lock issue
+      description: lock issue
+      operationId: LockRepoIssue
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        204:
+          description: Success
+    delete:
+      tags:
+        - issues
+      summary: unlock issue
+      description: unlock issue
+      operationId: unLockRepoIssue
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        204:
+          description: Success
+  /repos/{owner}/{repo}/assignees:
+    get:
+      tags:
+        - issues
+      summary: get repo assignees
+      description: List the available assignees for the repository issue
+      operationId: GetRepoAssignees
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IssueUser"
+  /repos/{owner}/{repo}/assignees/{assignee}:
+    get:
+      tags:
+        - issues
+      summary: Check whether the user can be set as the issue leader
+      description: Check whether the user can be set as the issue leader
+      operationId: CheckRepoAssignee
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: assignee
+          in: path
+          description: username
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        404:
+          description: Otherwise, a 404 status code is returned.
+        204:
+          description: If assignee can be assigned to an issue in the repository, a 204 header with no content is returned.
+  /repos/{owner}/{repo}/issues/{issue_number}/assignees:
+    post:
+      tags:
+        - issues
+      summary: set issue assignee
+      description: set issue assignee
+      operationId: SetIssueAssignee
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                assignee:
+                  type: string
+                  required: true
+                  description: assignee's username
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+    delete:
+      tags:
+        - issues
+      summary: clear issue assignee
+      description: clear issue assignee
+      operationId: ClearIssueAssignee
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+  ###### issue comment ######
+  /repos/{owner}/{repo}/issues/{issue_number}/comments:
+    get:
+      tags:
+        - issues comment
+      summary: get issue comments list
+      description: get issue comments list
+      operationId: GetIssueCommentsList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+    post:
+      tags:
+        - issues comment
+      summary: create issue comment
+      description: create issue comment
+      operationId: CreateIssueComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: true
+                  description: Comment content (use MD format to write content)
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+  /repos/{owner}/{repo}/issues/comments/{comment_id}:
+    get:
+      tags:
+        - issues comment
+      summary: get issue comment info
+      description: get issue comment info
+      operationId: GetIssueCommentInfo
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: comment_id
+          in: path
+          description: CommentId
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Comment"
+    patch:
+      tags:
+        - issues comment
+      summary: update issue Comment
+      description: update issue Comment(Only supports modifying your own comments)
+      operationId: UpdateIssueComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                body:
+                  type: string
+                  required: true
+                  description: Comment content (use MD format to write content)
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+    delete:
+      tags:
+        - issues comment
+      summary: delete issue Comment
+      description: delete issue Comment(Only supports modifying your own comments)
+      operationId: DeleteIssueComment
+      parameters:
+        - name: Authorization
+          in: header
+          description: Private token | app token(ats) (needs to start with Bearer plus a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository name, the name is not case sensitive
+          required: true
+        - name: issue_number
+          in: path
+          description: issue num
+          required: true
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        204:
+          description: Success
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+    Id:
+      type: integer
+      format: int64
+      readOnly: true
+    Tag:
+      type: object
+      properties:
+        id:
+          description: Tag ID
+          allOf:
+            - $ref: "#/components/schemas/Id"
+        name:
+          description: Tag name
+          type: string
+          minLength: 1
+      xml:
+        name: Tag
+    ParamterError:
+      type: object
+      properties:
+        cause:
+          description: error cause
+          type: string
+          example: MESSAGE.PARAMETER_ERROR
+        error_code:
+          description: PARAMETER_ERROR
+          type: string
+          example: error code
+        error_message:
+          description: PARAMETER_ERROR
+          type: string
+          example: illegal nickname (the length cannot be less than 1 and cannot be greater than 20 characters)
+        trace_id:
+          description:  trace id
+          type: string
+          example: trace_id
+        code:
+          description: response code
+          type: Integer
+          example: 1000
+    InvalidToken:
+      type: object
+      properties:
+        error:
+          description: error name
+          type: string
+          example: invalid_token
+        error_description:
+          description: wrong description
+          type: string
+          example: Invalid token, please provide correct token
+    Forbidden:
+      type: object
+      properties:
+        error_code:
+          description: error name
+          type: string
+        error_message:
+          description: wrong description
+          type: string
+    UpdateAuthenticatedUserDTO:
+      type: object
+      properties:
+        name:
+          description: The current user's nickname is between 1 and 20 characters in length
+          type: string
+          example: this is my nickname
+        blog:
+          description: The blog address of the current user is between 1 and 100 characters
+          type: string
+          example: https://youboke.com
+        company:
+          description: The company name of the current user is between 1 and 50 characters
+          type: string
+          example: atom
+        location:
+          description: The current user's location is between 1 and 20 characters
+          type: string
+          example: beijing
+        bio:
+          description: The current user's profile is between 1 and 200 characters
+          type: string
+          example: hello i am putianyang
+    UserEmailVO:
+      type: object
+      properties:
+        email:
+          description: email
+          type: string
+          example: 2xas@qq.com
+        verified:
+          description: verified
+          type: boolean
+          example: false
+        visibility:
+          description: is public or private
+          type: string
+          example: public
+    User:
+      type: object
+      properties:
+        login:
+          description: username
+          type: string
+          example: mrpuatomgit
+        id:
+          description: user id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        url:
+          description: The interface path to obtain user information based on the user name
+          type: string
+          example: https://api.atomgit.com/users/mrpuatomgit
+        name:
+          description: nickname
+          type: string
+          example: Joooooooo
+        company:
+          description: company
+          type: string
+          example: atom
+        blog:
+          description: blog
+          type: string
+          example: https://youboke.com
+        location:
+          description: location
+          type: string
+          example: beijing
+        email:
+          description: email
+          type: string
+          example: example@atomgit.com
+        bio:
+          description: bio
+          type: string
+          example: hello i am putianyang
+        avatar_url:
+          description: avatar
+          type: string
+          example: https://img-host/uploads/user/1656318880150_5104.png
+        html_url:
+          description: home_url
+          type: string
+          example: https://atomgit.com/mrpuatomgit
+        public_repos:
+          description: public_repos count
+          type: Integer
+          example: 3
+        total_private_repos:
+          description: private_repos count
+          type: Integer
+          example: 2
+        owned_private_repos:
+          description:  number of private repos created by user
+          type: Integer
+          example: 1
+        created_at:
+          description: created_at
+          type: string
+          example: '2023-02-02 09:31:24'
+        updated_at:
+          description: updated_at
+          example: '2023-02-02 09:31:24'
+    AuthenticatedUserListVO:
+      type: object
+      properties:
+        login:
+          description: username
+          type: string
+          example: mrpuatomgit
+        id:
+          description: user id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        avatar_url:
+          description: avataurl
+          type: string
+          example: https://img-host/uploads/user/1656318880150_5104.png
+        url:
+          description: The interface path to obtain user information based on the user name
+          type: string
+          example: https://api.atomgit.com/users/mrpuatomgit
+        html_url:
+          description: html_url
+          type: string
+          example: https://atomgit.com/mrpuatomgit
+        organizations_url:
+          description: organizations_url
+          type: string
+          example: https://atomgit.com/users/zhangzhe/starred
+        repos_url:
+          description: repos_url
+          type: string
+          example: https://atomgit.com/users/zhangzhe/projects
+    SSHKeyVO:
+      type: object
+      properties:
+        key:
+          description: public key
+          type: string
+          example: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPE6tiarA4AR0asd33dklfjf87R6TE9BJAfkdBpqHi9zWfRhloJ 323467712@qq.com
+        id:
+          description: public key id
+          type: string
+          example: 207003
+        title:
+          description: public key name
+          type: string
+          example: ssh-1
+        createdAt:
+          description: creation time
+          type: string
+          example: "2023-02-24T04:31:36.000+00:00"
+        readOnly:
+          description: Is it read-only?
+          type: boolean
+          example: false
+    AddSSHKeyDTO:
+      type: object
+      properties:
+        title:
+          description: title
+          type: string
+          example: title
+        key:
+          description: ssh public key
+          type: string
+          example: ssh public key
+    OrgPage:
+      type: object
+      properties:
+        login:
+          description: organization name
+          type: string
+          example: csdn
+        id:
+          description: organization id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        url:
+          description: Organization's OepnApi address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        repos_url:
+          description: organization’s repos address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/repos
+        events_url:
+          description: The organization’s event address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/events
+        hooks_url:
+          description: Organization’s hooks address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/hooks
+        issues_url:
+          description: The organization’s issue address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn_test2/issues
+        members_url:
+          description: The organization’s members address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/members/{/member}
+        public_members_url:
+          description: The organization’s public members address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+        avatar_url:
+          description: Organization avatar address
+          type: string
+          example: https://img-host/uploads/org/1656042927816_7741.png
+        description:
+          description: description of the organization
+          type: string
+          example: csdn is a goog website
+    OrgDetail:
+      type: object
+      properties:
+        login:
+          description: organization name
+          type: string
+          example: csdn
+        id:
+          description: organization id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        url:
+          description: Organization's OepnApi address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        repos_url:
+          description: organization’s repos address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/repos
+        events_url:
+          description: The organization’s event address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/events
+        hooks_url:
+          description: Organization’s hooks address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/hooks
+        issues_url:
+          description: The organization’s issue address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn_test2/issues
+        members_url:
+          description: The organization’s members address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/members/{/member}
+        public_members_url:
+          description: The organization’s public members address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+        avatar_url:
+          description: Organization avatar address
+          type: string
+          example: https://img-host/uploads/org/1656042927816_7741.png
+        description:
+          description: description of the organization
+          type: string
+          example: csdn is a goog website
+        name:
+          description: the organization's name
+          type: string
+          example: test organization
+        company:
+          description: Organization official website
+          type: string
+          example: http://www.csdn.net
+        blog:
+          description: Organization's blog
+          type: string
+          example: http://www.csdn.net
+        location:
+          description: Organization location
+          type: string
+          example: Chaoyang District, Beijing
+        public_repos:
+          description: The number of public repositories of the organization
+          type: Integer
+          example: 1
+        followers:
+          description: Number of fans of the organization
+          type: Integer
+          example: 10
+        following:
+          description: Number of followers of the organization
+          type: Integer
+          example: 0
+        email:
+          description: Organization's email address
+          type: string
+          example: admin@csdn.net
+        html_url:
+          description: URL of the organization
+          type: string
+          example: https://atomgit.com/csdn
+        created_at:
+          description: Creation time of the organization
+          type: string
+          example: 2022-12-21T15:45:17+08:00
+        updated_at:
+          description: Organization update time
+          type: string
+          example: 2022-12-21T15:45:17+08:00
+        type:
+          description: type of organization
+          type: string
+          example: Organization
+    UpdateOrg:
+      type: object
+      properties:
+        description:
+          description: description of the organization
+          type: string
+          example: csdn is a goog website
+        name:
+          description: name of the organization
+          type: string
+          example: test organization
+        company:
+          description: Organization official website
+          type: string
+          example: http://www.csdn.net
+        location:
+          description: Organization location
+          type: string
+          example: Chaoyang District, Beijing
+    UserOrgPage:
+      type: object
+      properties:
+        login:
+          description: organization name
+          type: string
+          example: csdn
+        id:
+          description: organization id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        url:
+          description: Organization's OepnApi address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        repos_url:
+          description: organization’s repos address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/repos
+        events_url:
+          description: The organization’s event address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/events
+        hooks_url:
+          description: Organization’s hooks address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/hooks
+        issues_url:
+          description: The organization’s issue address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn_test2/issues
+        members_url:
+          description: The organization’s members address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/members/{/member}
+        public_members_url:
+          description: The organization’s public members address
+          type: string
+          example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+        avatar_url:
+          description: Organization avatar address
+          type: string
+          example: https://img-host/uploads/org/1656042927816_7741.png
+        description:
+          description: description of the organization
+          type: string
+          example: csdn is a goog website
+    UserOrgInvition:
+      type: object
+      properties:
+        login:
+          description: Invitee username
+          type: string
+          example: csdn
+        id:
+          description: Invitee user id
+          type: string
+          example: 62b59720cbcaeffdff0148ce
+        role:
+          description: Invitee user role
+          type: string
+          example: maintainer
+        email:
+          description: Email address of the invitee
+          type: string
+          example: admin@csdn.net
+        created_at:
+          description: operation time
+          type: string
+          example: 2022-12-21T15:45:17+08:00
+        inviter:
+          description: Inviter information
+          type: object
+          properties:
+            login:
+              description: Inviter username
+              type: string
+              example: mrpuatomgit
+            id:
+              description: Inviter user ID
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: Inviter user avatar
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: Inviter information api address
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: Inviter’s homepage address
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: the inviter’s followers url
+              type: string
+              example:
+            following_url:
+              description: following url of the inviter
+              type: string
+              example:
+            gists_url:
+              description: gists url of the inviter
+              type: string
+              example:
+            starred_url:
+              description: the inviter's starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: Inviter’s subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: The organizations url of the inviter
+              type: string
+              example:
+            repos_url:
+              description: The repos url of the inviter
+              type: string
+              example:
+            events_url:
+              description: event url of the inviter
+              type: string
+              example:
+            received_events_url:
+              description: the inviter’s received events url
+              type: string
+              example:
+            type:
+              description: user type of the inviter
+              type: string
+              example: user
+            site_admin:
+              description: Whether the inviter is an administrator
+              type: string
+              example: false
+    OrgMember:
+      type: object
+      properties:
+        login:
+          description: username of organization member
+          type: string
+          example: mrpuatomgit
+        id:
+          description: User ID of organization member
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        avatar_url:
+          description: Avatar of organization member
+          type: string
+          example: https://img-host/uploads/user/1656318880150_5104.png
+        url:
+          description: URL of detailed information about organization members
+          type: string
+          example: https://api.atomgit.com/users/leige
+        html_url:
+          description: Home page URL of organization members
+          type: string
+          example: https://atomgit.com/mrpuatomgit
+        followers_url:
+          description: followers url of organization members
+          type: string
+          example:
+        following_url:
+          description: following url of organization members
+          type: string
+          example:
+        gists_url:
+          description: gists url of organization members
+          type: string
+          example:
+        starred_url:
+          description: starred url of organization member
+          type: string
+          example:
+        subscriptions_url:
+          description: subscriptions url of organization members
+          type: string
+          example:
+        organizations_url:
+          description: organizations url of organization members
+          type: string
+          example:
+        repos_url:
+          description: repos url of organization members
+          type: string
+          example:
+        events_url:
+          description: events url of organization members
+          type: string
+          example:
+        received_events_url:
+          description: received events url of organization members
+          type: string
+          example:
+        type:
+          description: type
+          type: string
+          example: user
+        site_admin:
+          description: Whether the organization member is an administrator
+          type: string
+          example: false
+    OrgMemberRole:
+      type: object
+      properties:
+        url:
+          description: openApi address of organization member details
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        state:
+          description: Organization status
+          type: string
+          example: active
+        role:
+          description: To query organization member roles
+          type: string
+          example: maintainer
+        organization_url:
+          description: openApi address of organization details
+          type: string
+          example: https://api.atomgit.com/orgs/csdn
+        user:
+          description: Detailed information of the user name being queried
+          type: object
+          properties:
+            login:
+              description: the user name being queried
+              type: string
+              example: mrpuatomgit
+            id:
+              description: The user ID being queried
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: The avatar of the user being queried
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: the openApi address of the user details being queried
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: The atomgit access address of the queried user
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: The queried user followers address
+              type: string
+              example:
+            following_url:
+              description: The following address of the user being queried
+              type: string
+              example:
+            gists_url:
+              description: The user gists address being queried
+              type: string
+              example:
+            starred_url:
+              description: The starred address of the user being queried
+              type: string
+              example:
+            subscriptions_url:
+              description: Queryed user subscriptions address
+              type: string
+              example:
+            organizations_url:
+              description: Queryed user organizations address
+              type: string
+              example:
+            repos_url:
+              description: The queried user repos address
+              type: string
+              example:
+            events_url:
+              description: The user events address being queried
+              type: string
+              example:
+            received_events_url:
+              description: The queried user's received events address
+              type: string
+              example:
+            type:
+              description: The type of user being queried
+              type: string
+              example: user
+            site_admin:
+              description: The user being queried is an administrator
+              type: string
+              example: false
+        organization:
+          description: Organization information of the current operation
+          type: object
+          properties:
+            login:
+              description: organization name
+              type: string
+              example: csdn
+            id:
+              description: organization id
+              type: string
+              example: 62b59720cbcaeffdff0148ce
+            url:
+              description: Organization's OepnApi address
+              type: string
+              example: https://api.atomgit.com/orgs/csdn
+            repos_url:
+              description: organization’s repos address
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/repos
+            events_url:
+              description: The organization’s event address
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/events
+            hooks_url:
+              description: Organization’s hooks address
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/hooks
+            issues_url:
+              description: The organization’s issue address
+              type: string
+              example: https://api.atomgit.com/orgs/csdn_test2/issues
+            members_url:
+              description: The organization’s members address
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/members/{/member}
+            public_members_url:
+              description: The organization’s public members address
+              type: string
+              example: https://api.atomgit.com/orgs/csdn/public_members/{/member}
+            avatar_url:
+              description: Organization avatar address
+              type: string
+              example: https://img-host/uploads/org/1656042927816_7741.png
+            description:
+              description: description of the organization
+              type: string
+              example: csdn is a goog website
+    Issue:
+      type: object
+      properties:
+        id:
+          description: id
+          type: string
+          example: 64a2791c36ca86246aed3612
+        url:
+          description: url
+          type: string
+          example: https://api.atomgit.com/repos/test/public01/issues/6
+        number:
+          description: number
+          type: int
+          example: 1
+        state:
+          description: state
+          type: string
+          example: closed
+        title:
+          description: title
+          type: string
+          example: test title
+        body:
+          description: Issue text (use MD format to write content)
+          type: string
+          example: issue content
+        user:
+          type: object
+          $ref: "#/components/schemas/IssueUser"
+        assignee:
+          type: object
+          $ref: "#/components/schemas/IssueUser"
+        locked:
+          type: boolean
+          description: lock status
+          example: false
+        repository_url:
+          type: string
+          description: repository_url
+          example: https://api.atomgit.com/repos/test/public01
+        html_url:
+          type: string
+          description: issue web url
+          example: https://atomgit.com/test/public01/issues/1
+        closed_at:
+          type: string
+          description: closed_at
+          example: 2023-07-04T17:03:05+08:00
+        created_at:
+          type: string
+          description: created_at
+          example: 2023-07-04T17:03:05+08:00
+        updated_at:
+          type: string
+          description: updated_at
+          example: 2023-07-04T17:03:05+08:00
+    Comment:
+      type: object
+      properties:
+        id:
+          description: id
+          type: string
+          example: 64a2791c36ca86246aed3612
+        url:
+          description: url
+          type: string
+          example: https://api.atomgit.com/repos/test/public01/issues/comments/64a6742ece72b305b44bb8f1
+        body:
+          description: Comment content（use MD format）
+          type: string
+          example: issue Comment content
+        user:
+          type: object
+          $ref: "#/components/schemas/IssueUser"
+        issue_url:
+          type: string
+          description: issue_url
+          example: https://api.atomgit.com/repos/test/public01/issue/1
+        html_url:
+          type: string
+          description: issue Comment web url
+          example: https://atomgit.com/test/public01/issues/1#issuecomment-64a6742ece72b305b44bb8f1
+        created_at:
+          type: string
+          description: created_at
+          example: 2023-07-04T17:03:05+08:00
+        updated_at:
+          type: string
+          description: updated_at
+          example: 2023-07-04T17:03:05+08:00
+    IssueUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
+        login:
+          type: string
+          description: username
+          example: lik0914
+        url:
+          type: string
+          description: user url
+          example: https://api.atomgit.com/users/lik0914
+        avatar_url:
+          type: string
+          description: avatar_url
+          example: https://xxx.com/uploads/user/1657265547983_3769.png
+        html_url:
+          type: string
+          description: html_url
+          example: https://atomgit.com/lik0914
+        type:
+          type: string
+          description: user type - User | Bot
+          example: User
+  requestBodies:
+    UserArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/User"
+      description: List of user object
+      required: true
+  examples:
+    Order:
+      value:
+        quantity: 1
+        shipDate: "2018-10-19T16:46:45Z"
+        status: placed
+        complete: false
+
+
