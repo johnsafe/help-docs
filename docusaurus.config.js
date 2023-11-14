@@ -106,25 +106,25 @@ const config = {
         id: "openapi",
         docsPluginId: "classic",
         config: {
-          petstore_versioned: {
-            specPath: "openAPI/petstore.yaml",
-            outputDir: "docs/openAPI/petstore_versioned", // No trailing slash
-            sidebarOptions: {
-              groupPathsBy: "tag",
-              categoryLinkSource: "tag",
-            },
-            version: "1.0.0", // Current version
-            label: "v2.0.0", // Current version label
-            baseUrl: "/openAPI/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
-            versions: {
-              "1.0.0": {
-                specPath: "openAPI/petstore-1.0.0.yaml",
-                outputDir: "docs/openAPI/petstore_versioned/1.0.0", // No trailing slash
-                label: "v1.0.0",
-                baseUrl: "/openAPI/petstore_versioned/1.0.0/swagger-petstore-yaml", // Leading slash is important
-              },
-            },
-          },
+          // petstore_versioned: {
+          //   specPath: "openAPI/petstore.yaml",
+          //   outputDir: "docs/openAPI/petstore_versioned", // No trailing slash
+          //   sidebarOptions: {
+          //     groupPathsBy: "tag",
+          //     categoryLinkSource: "tag",
+          //   },
+          //   version: "1.0.0", // Current version
+          //   label: "v2.0.0", // Current version label
+          //   baseUrl: "/openAPI/petstore_versioned/swagger-petstore-yaml", // Leading slash is important
+          //   versions: {
+          //     "1.0.0": {
+          //       specPath: "openAPI/petstore-1.0.0.yaml",
+          //       outputDir: "docs/openAPI/petstore_versioned/1.0.0", // No trailing slash
+          //       label: "v1.0.0",
+          //       baseUrl: "/openAPI/petstore_versioned/1.0.0/swagger-petstore-yaml", // Leading slash is important
+          //     },
+          //   },
+          // },
 
           api: {
             specPath: "openAPI/api.yaml",
