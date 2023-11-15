@@ -88,7 +88,7 @@ info:
     - Issue Feedback address： https://atomgit.com/OpenAtomFoundation/AtomGit-Docs/issues
 
   version: 2023-02-21
-  title: "About AtomGit OpenAPI"
+  title: "AtomGit OpenAPI"
 tags:
   - name: user
     description: Operations about user
