@@ -92,31 +92,31 @@ info:
 tags:
   - name: user
     description: Operations about user
-    x-displayName: user account
+    x-displayName: User Account
   - name: org
     description: Operations about org
-    x-displayName: organization related
+    x-displayName: Organization
   - name: branches
     description: Operations about branches
-    x-displayName: branch related
+    x-displayName: Branch
   - name: commits
     description: Operations about commits
-    x-displayName: Submit related
+    x-displayName: Commits
   - name: commit statuses
     description: Operations about commit statuses
-    x-displayName: Submission status related
+    x-displayName: Commit Status
   - name: repositories
     description: Operations about repositories
-    x-displayName: repo data related
+    x-displayName: Repository
   - name: repository contents
     description: Operations about repository contents
-    x-displayName: repo text related
+    x-displayName: Repository Content
   - name: change requests
     description: Operations about change requests
-    x-displayName: Change request related
+    x-displayName: Change Request
   - name: check-runs
     description: Operations about check-runs
-    x-displayName: Change request-automated inspection related
+    x-displayName: Change Request-Automated Inspection
   - name: issues
     description: Operations about issue
     x-displayName: Issues
@@ -163,7 +163,7 @@ paths:
     get:
       tags:
         - user
-      summary: Get user personal information
+      summary: getTheAuthenticatedUser
       description: Get user personal information
       operationId: getTheAuthenticatedUser
       parameters:
@@ -196,7 +196,7 @@ paths:
     get:
       tags:
         - user
-      summary: Query user information based on user name
+      summary: getUserByUsername
       description: Query user information based on user name
       operationId: getUserByUsername
       parameters:
@@ -232,7 +232,7 @@ paths:
     get:
       tags:
         - user
-      summary: Get the current user's email list
+      summary: listEmail
       description: Get the current user's email list
       operationId: listEmail
       parameters:
@@ -268,7 +268,7 @@ paths:
     get:
       tags:
         - user
-      summary: Get the current user's fan list
+      summary: getUserFollowers
       description: Get the current user's fan list
       operationId: getUserFollowers
       parameters:
@@ -312,7 +312,7 @@ paths:
     get:
       tags:
         - user
-      summary: Get the fan list of a specified user
+      summary: getUserFollowersByUsername
       description: Get the fan list of a specified user
       operationId: getUserFollowersByUsername
       parameters:
@@ -360,7 +360,7 @@ paths:
     get:
       tags:
         - user
-      summary: List the current user's starred list
+      summary: getUserFollowing
       description: List the current user's starred list
       operationId: getUserFollowing
       parameters:
@@ -403,7 +403,7 @@ paths:
     get:
       tags:
         - user
-      summary: Get the starred list of a specified user
+      summary: getTheFollowing
       description: Get the starred list of a specified user
       operationId: getTheFollowing
       parameters:
@@ -451,7 +451,7 @@ paths:
     put:
       tags:
         - user
-      summary: Follow specified user
+      summary: addFans
       description: Follow specified user
       operationId: addFans
       parameters:
@@ -481,7 +481,7 @@ paths:
     delete:
       tags:
         - user
-      summary: Remove a followed user
+      summary: delFans
       description: Remove a followed user
       operationId: delFans
       parameters:
@@ -509,7 +509,7 @@ paths:
     get:
       tags:
         - user
-      summary: Check if the current user follows a user
+      summary: hasThisFans
       description: Check if the current user follows a user
       operationId: hasThisFans
       parameters:
@@ -539,7 +539,7 @@ paths:
     get:
       tags:
         - user
-      summary: Check whether the user follows the specified user
+      summary: hasTheFans
       description: Check whether the user follows the specified user
       operationId: hasTheFans
       parameters:
@@ -574,7 +574,7 @@ paths:
     get:
       tags:
         - user
-      summary: Get the SSH public key list of the currently logged in user
+      summary: listKey
       description: Get the SSH public key list of the currently logged in user
       operationId: listKey
       parameters:
@@ -613,7 +613,7 @@ paths:
     post:
       tags:
         - user
-      summary: Create a new SSH public key for the currently logged in user
+      summary: addKey
       description: Create a new SSH public key for the currently logged in user
       operationId: addKey
       parameters:
@@ -654,7 +654,7 @@ paths:
     delete:
       tags:
         - user
-      summary: Remove the specified SSH public key
+      summary: delKey
       description: Remove the specified SSH public key
       operationId: delKey
       parameters:
@@ -683,7 +683,7 @@ paths:
     get:
       tags:
         - org
-      summary: List all organizations
+      summary: orgPageList
       description: Paginated list of all organizations on AtomGit by creation date.
       operationId: orgPageList
       parameters:
@@ -712,7 +712,7 @@ paths:
     get:
       tags:
         - org
-      summary: Query organization details
+      summary: orgDetail
       description: Query organization details based on organization namespace
       operationId: orgDetail
       parameters:
@@ -734,7 +734,7 @@ paths:
     patch:
       tags:
         - org
-      summary: Update basic organization information
+      summary: updateOrg
       description: Update the basic information of the organization. The current operator must be the organization maintainer.
       operationId: updateOrg
       parameters:
@@ -772,7 +772,7 @@ paths:
     get:
       tags:
         - org
-      summary: List the organizations the current user is a member of
+      summary: userOrgPageList
       description: List all organizations of the current user. This interface must have scope permissions of user or read:org, otherwise 403 will be returned.
       operationId: userOrgPageList
       parameters:
@@ -840,7 +840,7 @@ paths:
     post:
       tags:
         - org
-      summary: Create an organizational invitation
+      summary: userOrgInvitation
       description: Invite a user to the organization using the AtomGit user's ID or email address. The current user initiating the operation must be the organization owner.
       operationId: userOrgInvitation
       parameters:
@@ -886,7 +886,7 @@ paths:
     get:
       tags:
         - org
-      summary: Query organization members
+      summary: orgMembers
       description: List all users who are members of an organization
       operationId: orgMembers
       parameters:
@@ -927,7 +927,7 @@ paths:
     get:
       tags:
         - org
-      summary: Verify that the user is a member of the organization
+      summary: orgMemberCheck
       description: Verify whether the user is a member of the organization based on the username
       operationId: orgMemberCheck
       parameters:
@@ -957,7 +957,7 @@ paths:
     delete:
       tags:
         - org
-      summary: Remove organization members
+      summary: orgMemberDelete
       description: "To remove organization members based on user name, the current operator must be an organization maintainer, otherwise the removal will fail."
       operationId: orgMemberDelete
       parameters:
@@ -988,7 +988,7 @@ paths:
     get:
       tags:
         - org
-      summary: Query roles in an organization based on username
+      summary: orgMemberRole
       description: Query the user's role in the organization based on the user name
       operationId: orgMemberRole
       parameters:
@@ -1024,7 +1024,7 @@ paths:
     put:
       tags:
         - org
-      summary: Set organization member roles
+      summary: SetOrgMemberRole
       description: Set the user's role in the organization based on the user name
       operationId: SetOrgMemberRole
       parameters:
@@ -1072,7 +1072,7 @@ paths:
     get:
       tags:
         - branches
-      summary: Get branch information
+      summary: getBranch
       description: Get branch information
       operationId: getBranch
       parameters:
@@ -1166,7 +1166,7 @@ paths:
     get:
       tags:
         - branches
-      summary: get branch list
+      summary: getBranchList
       description: get branch list
       operationId: getBranchList
       parameters:
@@ -1226,7 +1226,7 @@ paths:
     get:
       tags:
         - commits
-      summary: get commit info
+      summary: getRefCommit
       description: get commit info
       operationId: getRefCommit
       parameters:
@@ -1334,7 +1334,7 @@ paths:
     get:
       tags:
         - commit statuses
-      summary: Get combined commit statuses
+      summary: getCombinedCommitStatuses
       description: Get combined commit statuses
       operationId: getCombinedCommitStatuses
       parameters:
@@ -1405,7 +1405,7 @@ paths:
     post:
       tags:
         - commit statuses
-      summary: create commit status
+      summary: CreateCommitStatuses
       description: create commit status
       operationId: CreateCommitStatuses
       parameters:
@@ -1494,7 +1494,7 @@ paths:
     post:
       tags:
         - check-runs
-      summary: create automated check
+      summary: CreateCheckRun
       description: create automated check
       operationId: CreateCheckRun
       parameters:
@@ -1699,7 +1699,7 @@ paths:
     get:
       tags:
         - check-runs
-      summary: Query automated checks
+      summary: GetCheckRun
       description: Query automated checks
       operationId: GetCheckRun
       parameters:
@@ -1724,7 +1724,7 @@ paths:
     patch:
       tags:
         - check-runs
-      summary: Update automated checks
+      summary: UpdateCheckRun
       description: Update automated checks
       operationId: UpdateCheckRun
       parameters:
@@ -1941,7 +1941,7 @@ paths:
     get:
       tags:
         - repository contents
-      summary: get repo content
+      summary: GetRepoConent
       description: get repo content
       operationId: GetRepoConent
       parameters:
@@ -2036,7 +2036,7 @@ paths:
     put:
       tags:
         - repository contents
-      summary: save repo content
+      summary: SaveRepoConent
       description: save repo content
       operationId: SaveRepoConent
       parameter:
@@ -2246,7 +2246,7 @@ paths:
     delete:
       tags:
         - repository contents
-      summary: Delete Repo Content
+      summary: DeleteRepoConent
       description: Delete Repo Content
       operationId: DeleteRepoConent
       parameter:
@@ -2450,7 +2450,7 @@ paths:
     post:
       tags:
         - change requests
-      summary: create change request
+      summary: CreateChangeRequest
       description: create change request
       operationId: CreateChangeRequest
       parameters:
@@ -2546,7 +2546,7 @@ paths:
     get:
       tags:
         - change requests
-      summary: get change request detail
+      summary: GetChangeRequest
       description: get change request detail
       operationId: GetChangeRequest
       parameters:
@@ -2720,7 +2720,7 @@ paths:
     post:
       tags:
         - change requests
-      summary: create change request reply
+      summary: CreateChangeRequestReply
       description: create change request reply
       operationId: CreateChangeRequestReply
       parameters:
@@ -2808,7 +2808,7 @@ paths:
     get:
       tags:
         - change requests
-      summary: get change request comment
+      summary: GetChangeRequestComment
       description: get change request comment
       operationId: GetChangeRequestComment
       parameters:
@@ -2884,7 +2884,7 @@ paths:
     get:
       tags:
         - change requests
-      summary: get change request comment list
+      summary: GetChangeRequesCommentList
       description: get change request comment list
       operationId: GetChangeRequesCommentList
       parameters:
@@ -2972,7 +2972,7 @@ paths:
     get:
       tags:
         - issues
-      summary: get user issues list
+      summary: GetUserIssuesList
       description: Get a list of all issues responsible for or created by the current user
       operationId: GetUserIssuesList
       parameters:
@@ -3032,7 +3032,7 @@ paths:
     get:
       tags:
         - issues
-      summary: get repo issues list
+      summary: GetRepoIssuesList
       description: get repo issues list
       operationId: GetRepoIssuesList
       parameters:
@@ -3103,7 +3103,7 @@ paths:
     post:
       tags:
         - issues
-      summary: create repo issue
+      summary: CreateRepoIssue
       description: create repo issue
       operationId: CreateRepoIssue
       parameters:
@@ -3159,7 +3159,7 @@ paths:
     get:
       tags:
         - issues
-      summary: get repo issue info
+      summary: GetRepoIssueInfo
       description: get repo issue info
       operationId: GetRepoIssueInfo
       parameters:
@@ -3204,7 +3204,7 @@ paths:
     patch:
       tags:
         - issues
-      summary: patch repo issue info
+      summary: PatchRepoIssueInfo
       description: path repo issue info
       operationId: PatchRepoIssueInfo
       parameters:
@@ -3272,7 +3272,7 @@ paths:
     put:
       tags:
         - issues
-      summary: lock issue
+      summary: LockRepoIssue
       description: lock issue
       operationId: LockRepoIssue
       parameters:
@@ -3313,7 +3313,7 @@ paths:
     delete:
       tags:
         - issues
-      summary: unlock issue
+      summary: unLockRepoIssue
       description: unlock issue
       operationId: unLockRepoIssue
       parameters:
@@ -3355,7 +3355,7 @@ paths:
     get:
       tags:
         - issues
-      summary: get repo assignees
+      summary: GetRepoAssignees
       description: List the available assignees for the repository issue
       operationId: GetRepoAssignees
       parameters:
@@ -3403,7 +3403,7 @@ paths:
     get:
       tags:
         - issues
-      summary: Check whether the user can be set as the issue leader
+      summary: CheckRepoAssignee
       description: Check whether the user can be set as the issue leader
       operationId: CheckRepoAssignee
       parameters:
@@ -3447,7 +3447,7 @@ paths:
     post:
       tags:
         - issues
-      summary: set issue assignee
+      summary: SetIssueAssignee
       description: set issue assignee
       operationId: SetIssueAssignee
       parameters:
@@ -3499,7 +3499,7 @@ paths:
     delete:
       tags:
         - issues
-      summary: clear issue assignee
+      summary: ClearIssueAssignee
       description: clear issue assignee
       operationId: ClearIssueAssignee
       parameters:
@@ -3543,7 +3543,7 @@ paths:
     get:
       tags:
         - issues comment
-      summary: get issue comments list
+      summary: GetIssueCommentsList
       description: get issue comments list
       operationId: GetIssueCommentsList
       parameters:
@@ -3590,7 +3590,7 @@ paths:
     post:
       tags:
         - issues comment
-      summary: create issue comment
+      summary: CreateIssueComment
       description: create issue comment
       operationId: CreateIssueComment
       parameters:
@@ -3643,7 +3643,7 @@ paths:
     get:
       tags:
         - issues comment
-      summary: get issue comment info
+      summary: GetIssueCommentInfo
       description: get issue comment info
       operationId: GetIssueCommentInfo
       parameters:
@@ -3689,7 +3689,7 @@ paths:
     patch:
       tags:
         - issues comment
-      summary: update issue Comment
+      summary: UpdateIssueComment
       description: update issue Comment(Only supports modifying your own comments)
       operationId: UpdateIssueComment
       parameters:
@@ -3741,7 +3741,7 @@ paths:
     delete:
       tags:
         - issues comment
-      summary: delete issue Comment
+      summary: DeleteIssueComment
       description: delete issue Comment(Only supports modifying your own comments)
       operationId: DeleteIssueComment
       parameters:
