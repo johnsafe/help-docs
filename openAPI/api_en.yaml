@@ -201,7 +201,8 @@ paths:
       operationId: getUserByUsername
       parameters:
         - name: Authorization
-          in: header description:Oauth2 token or private token (needs to start with Bearer plus a space)
+          in: header 
+          description: "Oauth2 token or private token (needs to start with Bearer plus a space)"
           required: true
         - name: username
           in: path
@@ -2617,8 +2618,8 @@ paths:
     post:
       tags:
         - change requests
-      summary: create change request comment
-      description: create change request comment
+      summary: CreateChangeRequestComment
+      description: Create Change Request Comment
       operationId: CreateChangeRequestComment
       parameters:
         - name: Authorization
@@ -2627,27 +2628,27 @@ paths:
           required: true
         - name: owner
           in: path
-          description: The owner of the repository,  generally called "username". The name is not case sensitive.
+          description: The owner of the repository, generally called "username". The name is not case sensitive.
           required: true
         - name: repo
           in: path
-          description: repository name, the name is not case sensitive
+          description: repository name, not case sensitive
           required: true
       requestBody:
         content:
           application/json:
-            Schema:
+            schema:
               type: json
               properties:
                 body:
                   type: string
                   required: false
-                  description: The content of the comment.
+                  description: comment content
                 commit_id:
                   type: string
                   required: true
                   description: |
-                    To comment on the corresponding commit SHA value of a file, commit the corresponding patchset.
+                    The corresponding commit sha value of the file to be commented, and the corresponding patchset submitted.
                 path:
                   type: string
                   required: false
@@ -2657,24 +2658,24 @@ paths:
                   type: integer
                   required: false
                   description: |
-                    Relative path to the file to comment (value omitted if global comment).
+                    line number
       responses:
         201:
           description: created
         403:
           description: No Access
         404:
-          description: 404 not found
+          description: "404 not Found"
         responseBody:
           content:
             application/json:
-              Schema:
+              schema:
                 type: json
                 properties:
                   id:
                     type: string
                     required: true
-                    description: The business ID of the comment.
+                    description: The business ID of the comment
                   pull_request_review_id:
                     type: string
                     required: true
@@ -2698,11 +2699,11 @@ paths:
                   body:
                     type: string
                     required: true
-                    description: The content of the comment.
+                    description:  comment content
                   line:
                     type: integer
                     required: false
-                    description: The line number of the file corresponding to the comment.
+                    description: line number
                   created_at:
                     type: string
                     required: true
@@ -2713,6 +2714,7 @@ paths:
                     required: true
                     description: |
                       Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
+
 # 创建回复
   /repos/{owner}/{repo}/pulls/comments/{comment_id}/replies:
     post:
@@ -2969,7 +2971,7 @@ paths:
   /issues:
     get:
       tags:
-        -issues
+        - issues
       summary: get user issues list
       description: Get a list of all issues responsible for or created by the current user
       operationId: GetUserIssuesList
