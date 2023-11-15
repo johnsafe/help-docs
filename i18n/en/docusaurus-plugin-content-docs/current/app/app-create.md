@@ -50,13 +50,13 @@ Including private and public, private applications can only be installed in the 
 3. After the application creation is completed, the application details will be entered:
 ![](./img/03.jpg)
 In the application details, you can modify and configure the basic information, permissions, and events of the application.
-Before using an application to make OpenAPI calls, it is necessary to create a new client key or private key as needed. How to use OpenAPI through the application can be found in [Application Access Example] (app demo).
+Before using an application to make OpenAPI calls, it is necessary to create a new client key or private key as needed. How to use OpenAPI through the application can be found in [Application Access Example](demo).
 
 **Installing Applications**
 There are two common ways to install applications:
 
 - Install the application through application details and select the desired installation space for installation;
-- Install through an open market, see [app market].
+- Install through an open market, see [app market](market).
 
 **High risk operations**
 This includes modifying openness and deleting applications.

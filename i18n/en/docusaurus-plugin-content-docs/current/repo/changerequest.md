@@ -124,5 +124,5 @@ Reviewers can click on the upper right corner to complete the review and submit 
 
 After all conditions that must be met before merging are met, users with merge permissions can perform the merge operation.
 The merging person can click the "Merge" button in the upper right corner to select the merging method to complete the merging.
-Merging supports four methods by default. For details, see [Change Request Settings](pr-config) and select as needed.
+Merging supports four methods by default. For details, see [Change Request Settings](config/pr) and select as needed.
 ![](./img/61.jpg)

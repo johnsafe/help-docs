@@ -14,7 +14,7 @@ This article explains codebase capacity limits and how to clean up codebase capa
 #### 1. Is there a limit to the repository storage capacity?
 
 By default, a repository has 2GB Git storage space and 5GB LFS storage space.
-> What is  Git LFS? See [LFS](../repo/lfs.md)。
+> What is Git LFS? See [LFS](lfs)。
 
 #### 2. How to clean up repo capacity？
 
@@ -38,7 +38,7 @@ When the recommended capacity limit is reached, the platform will temporarily lo
 
 If a large number of binary files are submitted in the code base, the capacity of the code base may exceed the limit and cannot be written, or a single file may be too large and exceed the single file size limit and cannot be written.
 
-At this time, it is recommended to clean up the historical large files of the submitted code base, and then use Git-LFS to store and manage the large files.To know more about "Git Big file to LFS" ,see [LFS](../repo/lfs.md)。
+At this time, it is recommended to clean up the historical large files of the submitted code base, and then use Git-LFS to store and manage the large files.To know more about "Git Big file to LFS" ,see [LFS](lfs)。
 
 ##### Data Backup
 

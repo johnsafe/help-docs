@@ -28,4 +28,4 @@ brew install git
 
 ### Install on Windows
 
-The official version can be downloaded from [Git official website](https://git-scm.com/download?spm=a2c4g.11186623.0.0.44ce7a8bWW9Tkt). Please note that this is a project called Git for Windows (also called msysGit), which is a separate project from Git. For more information visit <<http://msysgit.github.io/>. >
+The official version can be downloaded from [Git official website](https://git-scm.com/download?spm=a2c4g.11186623.0.0.44ce7a8bWW9Tkt). Please note that this is a project called Git for Windows (also called msysGit), which is a separate project from Git. For more information visit [msysgi](http://msysgit.github.io).

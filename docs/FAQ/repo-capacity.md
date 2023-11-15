@@ -14,7 +14,7 @@ hide_title: false
 #### 1. 代码库存储空间容量是否有限制？
 
 默认单个代码库具备 2GB Git 存储空间，以及 5GB LFS 存储空间。
-> 什么是大文件存储 Git LFS 容量？参见 [大文件存储](../repo/lfs.md)。
+> 什么是大文件存储 Git LFS 容量？参见 [大文件存储](lfs)。
 
 #### 2. 如何清理代码库容量？
 
@@ -38,7 +38,7 @@ hide_title: false
 
 如果在代码库中提交了大量的二进制文件，可能导致代码库容量超出限制而无法写入，或者单个文件过大，超出单文件大小限制而无法写入。
 
-此时建议对已提交代码库的历史大文件进行清理，然后将大文件使用 Git-LFS 进行存储管理。Git 大文件转 LFS 管理参见 [大文件存储](../repo/lfs.md)。
+此时建议对已提交代码库的历史大文件进行清理，然后将大文件使用 Git-LFS 进行存储管理。Git 大文件转 LFS 管理参见 [大文件存储](lfs)。
 
 ##### 数据备份
 
@@ -55,6 +55,7 @@ pip3 install git-filter-repo
 ```
 
 ##### 克隆裸库
+
 克隆待处理的代码库裸库，以 HTTP 协议为例：
 
 ```shell
@@ -64,9 +65,11 @@ git clone --mirror --bare HTTPs://atomgit.com/example/example.git
 ##### 清理大文件
 
 进入克隆好的裸库中：
+
 ```shell
 cd example.git
 ```
+
 git-filter-repo 支持三种方式的大文件清理：按照文件大小、路径或者按照文件 blob ID，以下通过示例详细说明其使用方法。
 
 * 按文件大小清理

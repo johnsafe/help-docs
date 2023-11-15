@@ -11,7 +11,7 @@ hide_title: true
 
 ## Label
 
-Label is one of the important contents of [Kanban](https://#). It can be used to manage [Issue](issue) and [Change request](change-request). Through the marking function, you can easily implement:
+Label is one of the important contents of [Kanban]. It can be used to manage [Issue](issue) and [Change request](change-request). Through the marking function, you can easily implement:
 
 - Categorize Issues and Change Requests using colors and text (e.g. `bug`, `New Features` or `Documentation` etc.)
 - Filter and filter Issues and Change Requests by labels
