@@ -115,6 +115,8 @@ demo doc
 
 ```
 
+> 未增加相应的翻译文档时，切换到英文，项目会展示中文文档。
+
 #### navbar 维护
 
 如果**侧边栏新增了 category 、navbar 或 footer 有调整**，可以运行 `yarn write-translations --locale en --override`，该命令会将我们上面提到的 `i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json` 重新生成，可以在执行该指令前，可以先复制一份原来的 json 文件，在新生成的 json 中，翻译完新增内容后，将原来未改动的已翻译部分拷贝回来。
@@ -129,15 +131,18 @@ demo doc
 
 1. 更新 `api_en.yaml`
 2. 在 `docusaurus.config.js` 中，将 `specPath: "openAPI/api.yaml"` 临时改为 `specPath: "openAPI/api_en.yaml`
-3. 执行 `yarn clean-all`
-4. 执行 `yarn gen-all`
-5. 将对应的 API 文档，从 `docs/openAPI/api_versioned` 目录下，拷贝到 `i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 目录下，也可以使用 `cp -rf docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 全部覆盖
-6. 在 `docusaurus.config.js` 中，将 `specPath` 配置改回 `specPath: "openAPI/api.yaml"`
+3. 执行 `yarn gen-all-en`
+4. 将对应的 API 文档，从 `docs/openAPI/api_versioned` 目录下，拷贝到 `i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 目录下，也可以执行 `cp -rf docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 全部覆盖
+5. 在 `docusaurus.config.js` 中，将 `specPath` 配置改回 `specPath: "openAPI/api.yaml"`
 
-#### 本地预览效果
+### 本地开发预览
 
-运行 `yarn start --locale en`，以开发模式启动英文站点，预览效果。
+运行 `yarn start --locale en`，以开发模式启动英文站点。
 
-#### 翻译工具
+### 线上效果预览
+
+运行 `yarn build`，构建完成后，执行`yarn serve`，可以预览线上效果，进行多语言切换检查。
+
+### 翻译工具
 
 调用谷歌翻译接口（`https://translate.googleapis.com/translate_a/single`），进行翻译。
