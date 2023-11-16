@@ -1,8 +1,8 @@
 ---
 id: git-pr-mode # 唯一ID
 slug: /repo/git-pr-mode # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: Pr-mode # 在sidebar 中的名称
-title: Pr-mode # 页面标题
+sidebar_label: Pr Mode # 在sidebar 中的名称
+title: Pr Mode # 页面标题
 tags:
   - git push`
   - pr-mode

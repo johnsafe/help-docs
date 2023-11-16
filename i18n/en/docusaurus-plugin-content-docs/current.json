@@ -60,11 +60,11 @@
     "description": "The generated-index page title for category 代码库设置 in sidebar docs"
   },
   "sidebar.docs.category.研发模式": {
-    "message": "R&D model",
+    "message": "R&D Model",
     "description": "The label for category 研发模式 in sidebar docs"
   },
   "sidebar.docs.category.研发模式.link.generated-index.title": {
-    "message": "R&D model",
+    "message": "R&D Model",
     "description": "The generated-index page title for category 研发模式 in sidebar docs"
   },
   "sidebar.docs.category.组织": {
@@ -132,7 +132,7 @@
     "description": "The label for category 提交相关 in sidebar api"
   },
   "sidebar.api.category.提交状态相关": {
-    "message": "Commit status",
+    "message": "Commit Status",
     "description": "The label for category 提交状态相关 in sidebar api"
   },
   "sidebar.api.category.仓库文本相关": {
@@ -152,7 +152,7 @@
     "description": "The label for category Issues in sidebar api"
   },
   "sidebar.api.category.Issues comment": {
-    "message": "Issues comment",
+    "message": "Issues Comment",
     "description": "The label for category Issues comment in sidebar api"
   },
   "sidebar.api.doc.获取用户个人信息": {

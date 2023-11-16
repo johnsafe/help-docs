@@ -1,7 +1,7 @@
 ---
 id: git-advanced # 唯一ID
 slug: /user/git/advanced # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label:  Git pro # 在sidebar 中的名称
+sidebar_label:  Git Pro # 在sidebar 中的名称
 description: git pro # 描述
 title: git pro # 页面标题
 tags:

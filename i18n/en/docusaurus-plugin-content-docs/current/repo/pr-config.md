@@ -1,8 +1,8 @@
 ---
 id: pr-config # 唯一ID
 slug: /repo/config/pr # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: Pr config # 在sidebar 中的名称
-title: Pr config # 页面标题
+sidebar_label: Pr Config # 在sidebar 中的名称
+title: Pr Config # 页面标题
 tags:
   - pr
   - Pr config
