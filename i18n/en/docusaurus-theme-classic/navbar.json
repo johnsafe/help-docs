@@ -5,7 +5,7 @@
   },
   "item.label.帮助文档": {
     "message": "Help Docs",
-    "description": "Navbar item with label Help documentation"
+    "description": "Navbar item with label 帮助文档"
   },
   "item.label.OAuth2": {
     "message": "OAuth2 Docs",
@@ -13,10 +13,10 @@
   },
   "item.label.Api文档": {
     "message": "API Docs",
-    "description": "Navbar item with label API documentation"
+    "description": "Navbar item with label Api文档"
   },
   "item.label.反馈": {
     "message": "Feedback",
-    "description": "Navbar item with label Feedback"
+    "description": "Navbar item with label 反馈"
   }
 }
