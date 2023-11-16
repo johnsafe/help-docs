@@ -2,7 +2,7 @@
 id: cla
 slug: cla
 title: CLA Sign # 页面标题
-sidebar_lable: CLA Sign
+sidebar_label: CLA Sign
 hide_title: true
 ---
 

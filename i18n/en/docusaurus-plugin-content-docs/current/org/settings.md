@@ -2,7 +2,7 @@
 id: org-settings
 slug: settings
 title: Organization Setting # 页面标题
-sidebar_lable: Organization Setting
+sidebar_label: Organization Setting
 hide_title: true
 ---
 

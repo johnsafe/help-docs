@@ -4,7 +4,7 @@ slug: / # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体
 sidebar_position: 1 #侧边栏位置
 description: 文档首页介绍 # 描述
 title: 介绍 # 页面标题
-sidebar_lable: 介绍
+sidebar_label: 介绍
 tags:
   - 演示
   - 上手

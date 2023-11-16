@@ -4,7 +4,7 @@ slug: / # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体
 sidebar_position: 1 #侧边栏位置
 description: homepage introduction # 描述
 title: Introduction # 页面标题
-sidebar_lable: Introduction
+sidebar_label: Introduction
 tags:
   - demonstrate
   - getting started
@@ -13,8 +13,6 @@ tags:
 # Document Introduction
 
 The AtomGit documentation will help you gain a comprehensive understanding of the AtomGit community and quickly get started with code contribution and collaboration.
-
-
 
 <section class="row list">
   <article class="col col--6 margin-bottom--lg">

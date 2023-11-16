@@ -2,7 +2,7 @@
 id: new-org
 slug: new
 title: Create Organization # 页面标题
-sidebar_lable: Organization
+sidebar_label: Organization
 hide_title: true
 ---
 

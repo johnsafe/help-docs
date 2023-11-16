@@ -2,7 +2,7 @@
 id: org-relation
 slug: relate
 title: Relate Organization # 页面标题
-sidebar_lable: Relate Organization
+sidebar_label: Relate Organization
 hide_title: true
 ---
 
