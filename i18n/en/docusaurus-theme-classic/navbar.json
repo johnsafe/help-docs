@@ -4,15 +4,15 @@
     "description": "The title in the navbar"
   },
   "item.label.帮助文档": {
-    "message": "Help documentation",
+    "message": "Help Docs",
     "description": "Navbar item with label Help documentation"
   },
   "item.label.OAuth2": {
-    "message": "OAuth2",
+    "message": "OAuth2 Docs",
     "description": "Navbar item with label OAuth2"
   },
   "item.label.Api文档": {
-    "message": "API documentation",
+    "message": "API Docs",
     "description": "Navbar item with label API documentation"
   },
   "item.label.反馈": {
