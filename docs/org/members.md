@@ -2,7 +2,7 @@
 id: org-members
 slug: members
 title: 组织成员 # 页面标题
-sidebar_lable: 组织成员
+sidebar_label: 组织成员
 hide_title: true
 ---
 
