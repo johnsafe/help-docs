@@ -28,4 +28,4 @@ brew install git
 
 ### 在 Windows 上安装
 
-官方版本在 [Git 官方网站](https://git-scm.com/download?spm=a2c4g.11186623.0.0.44ce7a8bWW9Tkt)下载。 要注意这是一个名为 Git for Windows的项目（也叫做 msysGit），和 Git 是分别独立的项目。更多信息请访问http://msysgit.github.io/。
+官方版本在 [Git 官方网站](https://git-scm.com/download?spm=a2c4g.11186623.0.0.44ce7a8bWW9Tkt)下载。 要注意这是一个名为 Git for Windows的项目（也叫做 msysGit），和 Git 是分别独立的项目。更多信息请访问[msysgi](http://msysgit.github.io)。

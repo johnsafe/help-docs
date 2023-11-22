@@ -1,0 +1,7 @@
+[
+  {
+    "version": "1.0.0",
+    "label": "v1.0.0",
+    "baseUrl": "/openAPI/petstore_versioned/1.0.0/swagger-petstore-yaml"
+  }
+]

@@ -6,3 +6,4 @@ node_modules/
 ### IntelliJ IDEA ###
 .idea
 docs/openAPI/
+.vscode
