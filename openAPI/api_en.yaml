@@ -123,6 +123,18 @@ tags:
   - name: issues comment
     description: Operations about issue comment
     x-displayName: Issues comment
+  - name: activity
+    description: Operations about activity
+    x-displayName: Activity Notifications Related
+  - name: labels
+    description: Operations about labels
+    x-displayName: Labels Related
+  - name: milestones
+    description: Operations about milestones
+    x-displayName: Milestones Related
+  - name: webHooks
+    description: Operations about webHooks
+    x-displayName: WebHooks
 x-tagGroups:
   - name: User Management
     tags:
@@ -157,6 +169,18 @@ x-tagGroups:
   - name: issues comment
     tags:
       - issues comment
+  - name: activity
+    tags:
+      - activity
+  - name: labels
+    tags:
+      - labels
+  - name: milestones
+    tags:
+      - milestones
+  - name: webHooks
+    tags:
+      - webHooks
 paths:
   # 获取用户个人信息
   /user/info:
@@ -201,7 +225,7 @@ paths:
       operationId: getUserByUsername
       parameters:
         - name: Authorization
-          in: header 
+          in: header
           description: "Oauth2 token or private token (needs to start with Bearer plus a space)"
           required: true
         - name: username
@@ -805,37 +829,6 @@ paths:
           description: Operation failed, not logged in yet
         "403":
           description: No permission yet, operation failed
-  #  /users/{username}/orgs:
-  #    get:
-  #    tags:
-  #        - org
-  #      summary: list organizations by username
-  #      description: "List public organization memberships for the specified user."
-  #      operationId: userOrgByUserNamePageList
-  #      parameters:
-  #        - name: since
-  #          in: query
-  #          description: start page
-  #          required: false
-  #          schema:
-  #            type: integer
-  #        - name: per_page
-  #          in: query
-  #          description: Maximum number per page, maximum limit is 50
-  #          required: false
-  #          schema:
-  #            type: integer
-  #      responses:
-  #        "200":
-  #          description: Success
-  #          content:
-  #            application/json:
-  #              schema:
-  #                type: array
-  #                items:
-  #                  $ref: "#/components/schemas/UserOrgPage"
-  #        "400":
-  #          description: username is not exist
   /orgs/{org}/invitations:
     post:
       tags:
@@ -1066,6 +1059,162 @@ paths:
                 role:
                   description: set user's role:maintainer、developer、guest。
                   type: string
+  /orgs/{org}/getFollowers:
+    get:
+      tags:
+        - org
+      summary: Get all followers of the specified organization
+      description: Retrieve all followers of the specified organization
+      operationId: GetOrgFollowers
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: org
+          in: path
+          description: Organization namespace
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Operation successful
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/AuthenticatedUserListVO"
+        "400":
+          description: Invalid parameters
+        "401":
+          description: Operation failed, not currently logged in
+        "403":
+          description: Operation failed, the current operator is not an organization administrator
+
+  /user/memberships/orgs:
+    get:
+      tags:
+        - org
+      summary: List the authorized user's membership information in affiliated organizations
+      description: List the authorized user's membership information in affiliated organizations
+      operationId: getOrgMemberAll
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+      responses:
+        "200":
+          description: Operation successful
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+        "400":
+          description: Invalid parameters
+        "401":
+          description: Operation failed, not currently logged in
+        "403":
+          description: Operation failed, the current operator is not an organization administrator
+
+  /orgs/{org}/repos:
+    get:
+      tags:
+        - org
+      summary: Get a list of repositories for an organization
+      description: Get a list of repositories for an organization
+      operationId: getOrgRepos
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: org
+          in: path
+          description: Organization namespace
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Repository type: public, private, all. Default is all
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Starting page
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Page size, maximum limit 100
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Operation successful
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/projectVo"
+        "400":
+          description: Invalid parameters
+        "401":
+          description: Operation failed, not currently logged in
+        "403":
+          description: Operation failed, the current operator is not an organization administrator
+
+  /users/{username}/orgs:
+    get:
+      tags:
+        - org
+      summary: List organizations the user belongs to
+      description: List organizations the user belongs to
+      operationId: getUserBelongOrg
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: username
+          in: path
+          description: Username
+          required: true
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: Starting page, default is 1
+          required: false
+          schema:
+            type: string
+        - name: per_page
+          in: query
+          description: Number of pages, default is 20
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Operation successful
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/OrgPage"
+        "400":
+          description: Invalid parameters
+        "401":
+          description: Operation failed, not currently logged in
+        "403":
+          description: Operation failed, the current operator is not an organization administrator
+
   ############ 分支接口（Branches API）############
   # 获取分支信息
   /repos/{owner}/{repo}/branches/{branch}:
@@ -3538,6 +3687,76 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Issue"
+  /orgs/{org}/issues:
+    get:
+      tags:
+        - issues
+      summary: Get issues of a specific organization for the current user
+      description: Get issues of a specific organization for the current user
+      operationId: GetCurrentUserOrgIssues
+      parameters:
+        - name: Authorization
+          in: header
+          description: Personal token | app token (ats) (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: org
+          in: path
+          description: Organization path
+          required: true
+        - name: filter
+          in: query
+          description: "Filter parameter: issues assigned to authorized user (assign_user), issues created by authorized user (about), or a combination of both (all). Default: assign_user"
+          required: false
+        - name: state
+          in: query
+          description: "Milestone status: open, closed, all. Default: open"
+          required: false
+        - name: labels
+          in: query
+          description: "Labels: comma-separated list of labels. Example: bug, performance"
+          required: false
+        - name: sort
+          in: query
+          description: "Sort by: creation time (created), update time (updated). Default: created"
+          required: false
+        - name: direction
+          in: query
+          description: "Ascending order (asc) or descending order (desc). Default: asc"
+          required: false
+        - name: since
+          in: query
+          description: "Start time for updated issues, time format required: yyyy-MM-dd'T'HH:mm:ss'Z'"
+          required: false
+        - name: page
+          in: query
+          description: "Current page number"
+          required: false
+        - name: per_page
+          in: query
+          description: "Number of items per page, maximum 100, default 30"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Issue"
+
   ###### issue comment ######
   /repos/{owner}/{repo}/issues/{issue_number}/comments:
     get:
@@ -3776,6 +3995,482 @@ paths:
                 $ref: "#/components/schemas/Forbidden"
         204:
           description: Success
+  # Get all Issue comments of a repository
+  /repos/{owner}/{repo}/issues/comments:
+    get:
+      tags:
+        - issues comment
+      summary: Get all Issue comments of a repository
+      description: Get all Issue comments of a repository
+      operationId: GetRepoAllIssueComments
+      parameters:
+        - name: Authorization
+          in: header
+          description: Personal token | app token (ats) (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: owner
+          in: path
+          description: Owner of the code repository, usually referred to as the "username". This name is case-insensitive.
+          required: true
+        - name: repo
+          in: path
+          description: Code repository name. This name is case-insensitive.
+          required: true
+        - name: sort
+          in: query
+          description: "Sorting method: created, updated"
+          required: false
+        - name: direction
+          in: query
+          description: "Ascending (asc) or descending (desc) order"
+          required: false
+        - name: since
+          in: query
+          description: "Time in format YYYY-MM-DDTHH:MM:SSZ"
+          required: false
+        - name: page
+          in: query
+          description: "Current page number"
+          required: false
+        - name: per_page
+          in: query
+          description: "Items per page, maximum 100, default 30"
+          required: false
+      responses:
+        401:
+          description: 'Invalid token, please check if the token is correct'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Comment"
+    ###### Activities ######
+  # User Activity
+  /user/{username}/events:
+    get:
+      tags:
+        - activity
+      summary: User Activity
+      description: User Activity
+      operationId: userEventsList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: username
+          in: path
+          description: "Specify username"
+          required: true
+        - name: page
+          in: query
+          description: "Page number (default: 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, maximum 100)"
+          required: false
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventsVo"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventsVo"
+
+    # User Received Activity
+    /user/{username}/received_event:
+      get:
+        tags:
+          - activity
+        summary: User Received Activity
+        description: User Received Activity
+        operationId: userReceivedEventsList
+        parameters:
+          - name: Authorization
+            in: header
+            description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+            required: true
+          - name: username
+            in: path
+            description: "Specify username"
+            required: true
+          - name: page
+            in: query
+            description: "Page number (default: 1)"
+            required: false
+          - name: per_page
+            in: query
+            description: "Page size (default 30, maximum 100)"
+            required: false
+        responses:
+          401:
+            description: Invalid token
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/InvalidToken"
+              application/xml:
+                schema:
+                  $ref: "#/components/schemas/InvalidToken"
+          200:
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ReceivedEventsVo"
+              application/xml:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ReceivedEventsVo"
+  ###### Labels ######
+  # Get a single label by its name
+  /repos/{owner}/{repo}/labels/{name}:
+    get:
+      tags:
+        - labels
+      summary: Get a single label by its name
+      description: Get a single label by its name
+      operationId: getSingleLabelByName
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: owner
+          in: path
+          description: "Repository owner's space address (enterprise, organization, or individual's address path)"
+          required: true
+        - name: repo
+          in: path
+          description: "Repository path"
+          required: true
+        - name: name
+          in: path
+          description: "Label name"
+          required: true
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+  # Get all labels of a repository task
+  /repos/{owner}/{repo}/issues/{issue_number}/labels:
+    get:
+      tags:
+        - labels
+      summary: Get all labels of a repository task
+      description: Get all labels of a repository task
+      operationId: getAllLabels
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: owner
+          in: path
+          description: "Repository owner's space address (enterprise, organization, or individual's address path)"
+          required: true
+        - name: repo
+          in: path
+          description: "Repository path"
+          required: true
+        - name: issue_number
+          in: path
+          description: "Issue number"
+          required: true
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LabelVo"
+  ###### Milestones ######
+  # Get a single milestone of a repository
+  /repos/{owner}/{repo}/milestones/{milestone_number}:
+    get:
+      tags:
+        - milestones
+      summary: Get a single milestone of a repository
+      description: Get a single milestone of a repository
+      operationId: getSingleMilestones
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: owner
+          in: path
+          description: "Repository owner's space address (enterprise, organization, or individual's address path)"
+          required: true
+        - name: repo
+          in: path
+          description: "Repository path"
+          required: true
+        - name: milestone_number
+          in: path
+          description: "Milestone ID"
+          required: true
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
+
+  # Get all milestones of a repository
+  /repos/{owner}/{repo}/milestones:
+    get:
+      tags:
+        - milestones
+      summary: Get all milestones of a repository
+      description: Get all milestones of a repository
+      operationId: getRepoAllMilestones
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: owner
+          in: path
+          description: "Repository owner's space address (enterprise, organization, or individual's address path)"
+          required: true
+        - name: repo
+          in: path
+          description: "Repository path"
+          required: true
+        - name: state
+          in: query
+          description: "Milestone status: open, closed, all. Default: open"
+          required: false
+        - name: sort
+          in: query
+          description: "Sort by: due_on"
+          required: false
+        - name: direction
+          in: query
+          description: "Ascending (asc) or descending (desc). Default: asc"
+          required: false
+        - name: page
+          in: query
+          description: "Current page number"
+          required: false
+        - name: per_page
+          in: query
+          description: "Number of items per page, maximum 100, default 30"
+          required: false
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/MilepostVo"
+  ####webHooks#####
+  # Get repository's webhooks
+  /repos/{owner}/{repo}/hooks:
+    get:
+      tags:
+        - webHooks
+      summary: Get repository's webhooks
+      description: Get repository's webhooks
+      operationId: getRepoWebHooks
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: owner
+          in: path
+          description: "Repository owner's space address (enterprise, organization, or individual's address path)"
+          required: true
+        - name: repo
+          in: path
+          description: "Repository path"
+          required: true
+        - name: page
+          in: query
+          description: "Current page number"
+          required: false
+        - name: per_page
+          in: query
+          description: "Number of items per page, maximum 100, default 30"
+          required: false
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/hooksVo"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/hooksVo"
+  # Query a single webhook
+  /repos/{owner}/{repo}/hooks/{id}:
+    get:
+      tags:
+        - webHooks
+      summary: Query a single webhook
+      description: Query a single webhook
+      operationId: queryOnlyWebHook
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: owner
+          in: path
+          description: "Repository owner's space address (enterprise, organization, or individual's address path)"
+          required: true
+        - name: repo
+          in: path
+          description: "Repository path"
+          required: true
+        - name: id
+          in: path
+          description: "ID"
+          required: true
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/hooksVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/hooksVo"
+
+
 components:
   schemas:
     ApiResponse:
@@ -4636,6 +5331,629 @@ components:
           type: string
           description: user type - User | Bot
           example: User
+    EventsVo:
+      type: object
+      properties:
+        objectKind:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
+        actionName:
+          type: string
+          description: 事件名称
+          example:
+        action:
+          type: integer
+          description: 件类型对应的枚举数字：推送提交=5,创建变更请求=1,Review变更请求=7,合并代码=13,新建代码库=11,创建组织=20,创建issue=21
+          example: 20
+        createdAt:
+          type: date
+          description: 创建时间
+          example: 2023-01-23T02:22:41xxx
+        project:
+          type: object
+          description: 项目信息
+          $ref: "#/components/schemas/EventsProject"
+        commitTimes:
+          type: integer
+          description:
+          example: 12
+        commits:
+          type: object
+          description: 提交信息
+          $ref: "#/components/schemas/CommitVo"
+        mergeRequest:
+          type: object
+          description: mr信息
+          $ref: "#/components/schemas/MergeRequestVo"
+        visibilityLevel:
+          type: string
+          description: 可见性级别
+          example:
+        orgName:
+          type: string
+          description: 组织名称
+          example:
+        orgPath:
+          type: string
+          description: 组织路径
+          example:
+        homepage:
+          type: string
+          description: 组织路径
+          example:
+        orgId:
+          type: string
+          description: 组织ID
+          example:
+        orgRole:
+          type: string
+          description: 组织角色
+          example:
+        user:
+          type: object
+          description: 用户信息
+          properties:
+            id:
+              type: string
+              description: id
+              example: 62c791bede9059102516aa8f
+            name:
+              type: string
+              description: 用户昵称
+              example: lzs
+            username:
+              type: string
+              description: 用户名
+              example: lzs
+            avatarUrl:
+              type: string
+              description: 头像
+              example: https://xxx.com
+            email:
+              type: string
+              description: 用户邮箱
+              example: admin@csdn.net
+        repository:
+          type: object
+          description: 仓库信息
+          properties:
+            description:
+              type: string
+              description: 描述
+              example:
+            name:
+              type: string
+              description: 仓库名称
+              example:
+            url:
+              type: string
+              description: 仓库URL
+              example: lzs
+            homepage:
+              type: string
+              description: 首页
+              example: https://xxx.com
+            visibilityLevel:
+              type: integer
+              description: 可视化级别
+              example:
+    ReceivedEventsVo:
+      type: object
+      properties:
+        objectKind:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
+        orgId:
+          type: string
+          description: 组织ID
+          example: 62c791bede9059222516aa8f
+        title:
+          type: string
+          description: 事件标题
+          example: 标题
+        repositoryId:
+          type: integer
+          description: 代码库ID
+          example: 44211
+        action:
+          type: integer
+          description: 件类型对应的枚举数字：推送提交=5,创建变更请求=1,Review变更请求=7,合并代码=13,新建代码库=11,创建组织=20,创建issue=21
+          example: 20
+        userId:
+          type: string
+          description: 用户ID
+          example: User
+        data:
+          type: map
+          description: 具体的Event信息对象,EventDataIssue or EventDataOrg
+          example:
+        createdAt:
+          type: date
+          description: 创建时间
+          example: 2023-01-23T02:22:41xxx
+        user:
+          type: object
+          description: 用户信息
+          $ref: "#/components/schemas/EventsUser"
+        project:
+          type: object
+          description: 项目信息
+          $ref: "#/components/schemas/EventsProject"
+    EventsUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID
+          example: 62c791bede9059102516aa8f
+        name:
+          type: string
+          description: User nickname
+          example: lzs
+        state:
+          type: string
+          description: Type
+          example: active
+        username:
+          type: string
+          description: Username
+          example: lzs
+        web_url:
+          type: string
+          description: Web URL
+          example: https://xxx.com
+        email:
+          type: string
+          description: User email
+          example: admin@csdn.net
+        avatar_url:
+          type: string
+          description: Avatar URL
+          example: https://xxx.com/uploads/user/1657265547983_3769.png
+    EventsProject:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Repository ID
+          example: 62c791bede9059102516aa8f
+        name:
+          type: string
+          description: Repository name
+          example: lzs
+        path:
+          type: string
+          description: Repository path
+          example:
+        name_with_namespace:
+          type: string
+          description: Full repository name
+          example:
+        path_with_namespace:
+          type: string
+          description: Full repository path
+          example:
+        web_url:
+          type: string
+          description: URL when accessing the page
+          example: admin@csdn.net
+        description:
+          type: string
+          description: Repository description
+          example:
+        last_activity_at:
+          type: string
+          description: Last activity time
+          example:
+        visibility_level:
+          type: string
+          description: Visibility (0-private, 20-public)
+          example: 20
+        star_count:
+          type: integer
+          description: Number of stars
+          example: 30
+        fork_count:
+          type: integer
+          description: Number of forks
+          example: 10
+        stared:
+          type: boolean
+          description: Whether the user has starred this repository
+          example: true
+    CommitVo:
+      type: object
+      properties:
+        timestamp:
+          type: date
+          description: Timestamp
+          example:
+        message:
+          type: string
+          description: Description information
+          example:
+        author:
+          type: object
+          description:
+        id:
+          type: string
+          description: ID
+          example:
+        url:
+          type: string
+          description: URL
+          example:
+    MergeRequestVo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID
+          example:
+        iid:
+          type: string
+          description: IID
+          example:
+        title:
+          type: string
+          description: Title
+        url:
+          type: string
+          description: URL
+          example:
+    LabelVo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: Label ID
+          example: 650a953fe25d89750163a67d
+        labelName:
+          type: string
+          description: Label name
+          example: bug
+        labelColor:
+          type: string
+          description: Label color
+          example: #ff8a65
+        labelDesc:
+          type: string
+          description: Label description
+          example: fff
+        sourceType:
+          type: string
+          description: Source type -1-system label 1-organization 2-repository
+          example: 2
+        sourceId:
+          type: string
+          description: Organization ID / Repository ID
+          example: 35083
+        sourcePath:
+          type: string
+          description: Organization / Repository namespace
+          example: dasds/sdasdgggg
+        rootNs:
+          type: string
+          description: Root namespace (Organization NS or Project's NS)
+          example: dasds
+        createdBy:
+          type: string
+          description: Creator
+          example: 6502c09341d619ced5658392
+        lastModifiedBy:
+          type: string
+          description: Last modifier
+          example: 6502c09341d619ced5658392
+        createdDate:
+          type: date
+          description: Creation date
+          example: 2023-09-20T06:46:24.000+00:00
+        lastModifiedDate:
+          type: date
+          description: Last modified date
+          example: 2023-09-20T06:46:24.000+00:00
+    MilepostVo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: Milestone ID
+          example: 650a953fe25d89750163a67d
+        goalName:
+          type: string
+          description: Milestone name
+          example: ggg
+        goalDesc:
+          type: string
+          description: Milestone description
+          example: ggg
+        goalStatus:
+          type: integer
+          description: Status 1-open 2-closed
+          example: 1
+        projectId:
+          type: integer
+          description: Associated project ID (Repository ID)
+          example: 35083
+        deadline:
+          type: date
+          description: Deadline
+          example: 2023-09-29T08:00:00+08:00
+        createdBy:
+          type: string
+          description: Creator
+          example: 6502c09341d619ced5658392
+        createdDate:
+          type: date
+          description: Creation date
+          example: 2023-09-20T14:46:51+08:00
+        lastModifiedDate:
+          type: date
+          description: Last modified date
+          example: 2023-09-20T14:46:51+08:00
+        stat:
+          type: object
+          description: Statistics
+          $ref: "#/components/schemas/MilepostIssueSumVo"
+    MilepostIssueSumVo:
+      type: object
+      properties:
+        issueTotal:
+          type: integer
+          description: Total number of issues
+          example: 1
+        issueOn:
+          type: integer
+          description: Total number of open issues
+          example: 1
+        issueClose:
+          type: integer
+          description: Total number of closed issues
+          example: 0
+        rate:
+          type: integer
+          description: Completion rate percentage (with two decimal places)
+          example: 0
+    projectVo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Repository ID
+          example:
+        name:
+          type: string
+          description: Repository name
+          example:
+        path:
+          type: string
+          description: Repository path
+          example:
+        description:
+          type: string
+          description: Repository description
+          example: 1
+        pathWithNamespace:
+          type: string
+          description: Complete repository path
+          example:
+        isPrivate:
+          type: boolean
+          description: Whether it's private
+          example:
+        owner:
+          type: object
+          description: Creator information
+          $ref: "#/components/schemas/OrgMember"
+        url:
+          type: string
+          description: Repository URL
+          example:
+        nameWithNamespace:
+          type: string
+          description: Complete repository name
+          example:
+        lastActivityAt:
+          type: string
+          description: Last activity time
+          example:
+        starCount:
+          type: integer
+          description: Number of stars
+          example:
+        forkCount:
+          type: integer
+          description: Number of forks
+          example:
+        webUrl:
+          type: string
+          description: URL for page access
+          example:
+        avatarUrl:
+          type: string
+          description: Avatar address
+          example:
+        createdAt:
+          type: string
+          description: Creation date
+          example:
+        stared:
+          type: boolean
+          description: Whether the user has starred the repository
+          example:
+        isSelected:
+          type: boolean
+          description: Whether the project is selected by the user
+          example:
+        issueCount:
+          type: integer
+          description: Number of issues
+          example:
+        archived:
+          type: string
+          description: Whether it's archived
+          example:
+        belongTo:
+          type: string
+          description: Repository ownership
+          example:
+        repositorySize:
+          type: string
+          description: Repository size
+          example:
+        httpUrlToRepo:
+          type: string
+          description: HTTP clone address
+          example:
+        sshUrlToRepo:
+          type: string
+          description: SSH clone address
+          example:
+        creatorId:
+          type: string
+          description: Creator's ID
+          example:
+        defaultBranch:
+          type: string
+          description: Default branch of the repository
+          example:
+        hooksUrl:
+          type: string
+          description: hooksUrl
+          example:
+        branchesUrl:
+          type: string
+          description: branchesUrl
+          example:
+        tagsUrl:
+          type: string
+          description: tagsUrl
+          example:
+        gitTagsUrl:
+          type: string
+          description: gitTagsUrl
+          example:
+        gitRefsUrl:
+          type: string
+          description: gitRefsUrl
+          example:
+        treesUrl:
+          type: string
+          description: treesUrl
+          example:
+        commitsUrl:
+          type: string
+          description: commitsUrl
+          example:
+        commentsUrl:
+          type: string
+          description: commentsUrl
+          example:
+        issueCommentUrl:
+          type: string
+          description: issueCommentUrl
+          example:
+        mergesUrl:
+          type: string
+          description: mergesUrl
+          example:
+        issuesUrl:
+          type: string
+          description: issuesUrl
+          example:
+        pullsUrl:
+          type: string
+          description: pullsUrl
+          example:
+        milestonesUrl:
+          type: string
+          description: milestonesUrl
+          example:
+        labelsUrl:
+          type: string
+          description: labelsUrl
+          example:
+        releasesUrl:
+          type: string
+          description: releasesUrl
+          example:
+        gitUrl:
+          type: string
+          description: gitUrl
+          example:
+        sshUrl:
+          type: string
+          description: sshUrl
+          example:
+        can_comment:
+          type: boolean
+          description: can_comment
+          example:
+        has_issues:
+          type: boolean
+          description: has_issues
+          example:
+        has_wiki:
+          type: boolean
+          description: has_wiki
+          example:
+        issue_comment:
+          type: boolean
+          description: issue_comment
+          example:
+        testers_number:
+          type: boolean
+          description: testers_number
+          example:
+    hooksVo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: id
+          example:
+        fromId:
+          type: string
+          description: ID of the organization or project
+          example:
+        notifyUrl:
+          type: string
+          description: Webhook notification URL
+          example:
+        isSetSecret:
+          type: boolean
+          description: Whether a secret is set: true - set, false - not set
+          example:
+        enableSslVeri:
+          type: boolean
+          description: Whether SSL verification is enabled: 1 - enabled, 0 - not enabled
+          example:
+        isActive:
+          type: boolean
+          description: Whether it's active: 1 - active, 0 - not active
+          example: 0
+        reqBodyType:
+          type: integer
+          description: Request body type: 1 - application/json, 2 - application/x-www-form-urlencoded
+          example: 0
+        type:
+          type: integer
+          description: Entity type: 1 - organization, 2 - project
+          example:
+        events:
+          type: array
+          description: Events triggered by the webhook
+          example:
+        lastDelivery:
+          type: map
+          description: Information about the last notification response; when null, indicates no notification has been made yet
+          example:
+        createdDate:
+          type: date
+          description: Creation date
+          example:
   requestBodies:
     UserArray:
       content:

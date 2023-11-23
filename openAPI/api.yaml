@@ -132,6 +132,9 @@ tags:
   - name: milestones
     description: Operations about milestones
     x-displayName: 里程碑相关
+  - name: webHooks
+    description: Operations about webHooks
+    x-displayName: webHooks
 x-tagGroups:
   - name: User Management
     tags:
@@ -175,6 +178,9 @@ x-tagGroups:
   - name: milestones
     tags:
       - milestones
+  - name: webHooks
+    tags:
+      - webHooks
 paths:
   # 获取用户个人信息
   /user/info:
@@ -822,37 +828,6 @@ paths:
           description: 操作失败，暂未登录
         "403":
           description: 操作失败，暂无权限
-  #  /users/{username}/orgs:
-  #    get:
-  #    tags:
-  #        - org
-  #      summary: list organizations by username
-  #      description: "List public organization memberships for the specified user."
-  #      operationId: userOrgByUserNamePageList
-  #      parameters:
-  #        - name: since
-  #          in: query
-  #          description: 起始页
-  #          required: false
-  #          schema:
-  #            type: integer
-  #        - name: per_page
-  #          in: query
-  #          description: 每页大小，最大限制50
-  #          required: false
-  #          schema:
-  #            type: integer
-  #      responses:
-  #        "200":
-  #          description: 操作成功
-  #          content:
-  #            application/json:
-  #              schema:
-  #                type: array
-  #                items:
-  #                  $ref: "#/components/schemas/UserOrgPage"
-  #        "400":
-  #          description: username is not exist
   /orgs/{org}/invitations:
     post:
       tags:
@@ -1109,6 +1084,126 @@ paths:
               type: array
               schema:
                 $ref: "#/components/schemas/AuthenticatedUserListVO"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
+  /user/memberships/orgs:
+    get:
+      tags:
+        - org
+      summary: 列出授权用户在所属组织的成员资料
+      description: 列出授权用户在所属组织的成员资料
+      operationId: getOrgMemberAll
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
+  /orgs/{org}/repos:
+    get:
+      tags:
+        - org
+      summary: 获取一个组织的仓库列表
+      description: 获取一个组织的仓库列表
+      operationId: getOrgRepos
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: 仓库类型 public、private、all，默认为all
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: 起始页
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: 每页大小，最大限制100
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/projectVo"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
+  /users/{username}/orgs:
+    get:
+      tags:
+        - org
+      summary: 列出用户所属的组织
+      description: 列出用户所属的组织
+      operationId: getUserBelongOrg
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: username
+          in: path
+          description: 用户名
+          required: true
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 起始页 默认为1
+          required: false
+          schema:
+            type: string
+        - name: per_page
+          in: query
+          description: 页数，默认为20
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: "#/components/schemas/OrgPage"
           "400":
             description: 参数有误
           "401":
@@ -4049,12 +4144,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/EventsVo"
+                  $ref: "#/components/schemas/ReceivedEventsVo"
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/EventsVo"
+                  $ref: "#/components/schemas/ReceivedEventsVo"
   ###### 标签 ######
   # 根据标签名获取单个标签
   /repos/{owner}/{repo}/labels/{name}:
@@ -4267,6 +4362,107 @@ paths:
                 type: object
                 items:
                   $ref: "#/components/schemas/MilepostVo"
+####webHooks#####
+  # 获取仓库的webHooks
+  /repos/{owner}/{repo}/hooks:
+    get:
+      tags:
+        - webHooks
+      summary: 获取仓库的webHooks
+      description: 获取仓库的webHooks
+      operationId: getRepoWebHooks
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "仓库所属空间地址(企业、组织或个人的地址path)"
+          required: true
+        - name: repo
+          in: path
+          description: "仓库路径(path)"
+          required: true
+        - name: page
+          in: query
+          description: "当前的页码"
+          required: false
+        - name: per_page
+          in: query
+          description: "每页的数量，最大为 100 默认为30"
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/hooksVo"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/hooksVo"
+  # 查询单个webhook
+  /repos/{owner}/{repo}/hooks/{id}:
+    get:
+      tags:
+        - webHooks
+      summary: 查询单个webhook
+      description: 查询单个webhook
+      operationId: queruOnlyWebHook
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: "仓库所属空间地址(企业、组织或个人的地址path)"
+          required: true
+        - name: repo
+          in: path
+          description: "仓库路径(path)"
+          required: true
+        - name: id
+          in: path
+          description: "id"
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/hooksVo"
+            application/xml:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/hooksVo"
 components:
   schemas:
     ApiResponse:
@@ -5134,6 +5330,113 @@ components:
           type: string
           description: id
           example: 62c791bede9059102516aa8f
+        actionName:
+          type: string
+          description: 事件名称
+          example:
+        action:
+          type: integer
+          description: 件类型对应的枚举数字：推送提交=5,创建变更请求=1,Review变更请求=7,合并代码=13,新建代码库=11,创建组织=20,创建issue=21
+          example: 20
+        createdAt:
+          type: date
+          description: 创建时间
+          example: 2023-01-23T02:22:41xxx
+        project:
+          type: object
+          description: 项目信息
+          $ref: "#/components/schemas/EventsProject"
+        commitTimes:
+          type: integer
+          description:
+          example: 12
+        commits:
+          type: object
+          description: 提交信息
+          $ref: "#/components/schemas/CommitVo"
+        mergeRequest:
+          type: object
+          description: mr信息
+          $ref: "#/components/schemas/MergeRequestVo"
+        visibilityLevel:
+          type: string
+          description: 可见性级别
+          example:
+        orgName:
+          type: string
+          description: 组织名称
+          example:
+        orgPath:
+          type: string
+          description: 组织路径
+          example:
+        homepage:
+          type: string
+          description: 组织路径
+          example:
+        orgId:
+          type: string
+          description: 组织ID
+          example:
+        orgRole:
+          type: string
+          description: 组织角色
+          example:
+        user:
+          type: object
+          description: 用户信息
+          properties:
+            id:
+              type: string
+              description: id
+              example: 62c791bede9059102516aa8f
+            name:
+              type: string
+              description: 用户昵称
+              example: lzs
+            username:
+              type: string
+              description: 用户名
+              example: lzs
+            avatarUrl:
+              type: string
+              description: 头像
+              example: https://xxx.com
+            email:
+              type: string
+              description: 用户邮箱
+              example: admin@csdn.net
+        repository:
+          type: object
+          description: 仓库信息
+          properties:
+            description:
+              type: string
+              description: 描述
+              example:
+            name:
+              type: string
+              description: 仓库名称
+              example:
+            url:
+              type: string
+              description: 仓库URL
+              example: lzs
+            homepage:
+              type: string
+              description: 首页
+              example: https://xxx.com
+            visibilityLevel:
+              type: integer
+              description: 可视化级别
+              example:
+    ReceivedEventsVo:
+      type: object
+      properties:
+        objectKind:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
         orgId:
           type: string
           description: 组织ID
@@ -5252,6 +5555,46 @@ components:
           type: boolean
           description: 用户是否收藏了该仓库
           example: true
+    CommitVo:
+      type: object
+      properties:
+        timestamp:
+          type: date
+          description: 时间戳
+          example:
+        message:
+          type: string
+          description: 描述信息
+          example:
+        author:
+          type: object
+          description:
+        id:
+          type: string
+          description: id
+          example:
+        url:
+          type: string
+          description: url
+          example:
+    MergeRequestVo:
+      type: object
+      properties:
+        id:
+          type: string
+          description:
+          example:
+        iid:
+          type: string
+          description:
+          example:
+        title:
+          type: string
+          description:
+        url:
+          type: string
+          description:
+          example:
     LabelVo:
       type: object
       properties:
@@ -5365,6 +5708,245 @@ components:
           type: integer
           description: 完成度百分比（保留两位小数）
           example: 0
+    projectVo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 代码库ID
+          example:
+        name:
+          type: string
+          description: 代码库名称
+          example:
+        path:
+          type: string
+          description: 代码库路径
+          example:
+        description:
+          type: string
+          description: 代码库描述
+          example: 1
+        pathWithNamespace:
+          type: string
+          description: 代码库完整路径
+          example:
+        isPrivate:
+          type: boolean
+          description: 是否私有
+          example:
+        owner:
+          type: object
+          description: 创建者信息
+          $ref: "#/components/schemas/OrgMember"
+        url:
+          type: string
+          description: 仓库地址
+          example:
+        nameWithNamespace:
+          type: string
+          description: 代码库完整名称
+          example:
+        lastActivityAt:
+          type: string
+          description: 最后活跃时间
+          example:
+        starCount:
+          type: integer
+          description: 收藏数量
+          example:
+        forkCount:
+          type: integer
+          description: fork数量
+          example:
+        webUrl:
+          type: string
+          description: 页面访问时的URL
+          example:
+        avatarUrl:
+          type: string
+          description: 头像地址
+          example:
+        createdAt:
+          type: string
+          description: 创建时间
+          example:
+        stared:
+          type: boolean
+          description: 用户是否收藏了该仓库
+          example:
+        isSelected:
+          type: boolean
+          description: 用户是否精选项目
+          example:
+        issueCount:
+          type: integer
+          description: issue数量
+          example:
+        archived:
+          type: string
+          description: 是否已归档
+          example:
+        belongTo:
+          type: string
+          description: 代码库归属
+          example:
+        repositorySize:
+          type: string
+          description: 代码库大小
+          example:
+        httpUrlToRepo:
+          type: string
+          description: Http克隆地址
+          example:
+        sshUrlToRepo:
+          type: string
+          description: SSH克隆地址
+          example:
+        creatorId:
+          type: string
+          description: 创建者
+          example:
+        defaultBranch:
+          type: string
+          description: 仓库默认分支
+          example:
+        hooksUrl:
+          type: string
+          description: hooksUrl
+          example:
+        branchesUrl:
+          type: string
+          description: branchesUrl
+          example:
+        tagsUrl:
+          type: string
+          description: tagsUrl
+          example:
+        gitTagsUrl:
+          type: string
+          description: gitTagsUrl
+          example:
+        gitRefsUrl:
+          type: string
+          description: gitRefsUrl
+          example:
+        treesUrl:
+          type: string
+          description: treesUrl
+          example:
+        commitsUrl:
+          type: string
+          description: commitsUrl
+          example:
+        commentsUrl:
+          type: string
+          description: commentsUrl
+          example:
+        issueCommentUrl:
+          type: string
+          description: issueCommentUrl
+          example:
+        mergesUrl:
+          type: string
+          description: mergesUrl
+          example:
+        issuesUrl:
+          type: string
+          description: issuesUrl
+          example:
+        pullsUrl:
+          type: string
+          description: pullsUrl
+          example:
+        milestonesUrl:
+          type: string
+          description: milestonesUrl
+          example:
+        labelsUrl:
+          type: string
+          description: labelsUrl
+          example:
+        releasesUrl:
+          type: string
+          description: releasesUrl
+          example:
+        gitUrl:
+          type: string
+          description: gitUrl
+          example:
+        sshUrl:
+          type: string
+          description: sshUrl
+          example:
+        can_comment:
+          type: boolean
+          description: can_comment
+          example:
+        has_issues:
+          type: boolean
+          description: has_issues
+          example:
+        has_wiki:
+          type: boolean
+          description: has_wiki
+          example:
+        issue_comment:
+          type: boolean
+          description: issue_comment
+          example:
+        testers_number:
+          type: boolean
+          description: testers_number
+          example:
+    hooksVo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: id
+          example:
+        fromId:
+          type: string
+          description: 组织或项目的ID
+          example:
+        notifyUrl:
+          type: string
+          description: webhook通知url
+          example:
+        isSetSecret:
+          type: boolean
+          description: 是否设置secret：true：已设置 false：未设置
+          example:
+        enableSslVeri:
+          type: boolean
+          description: 是否启用ssl验证：1：启用 0：未启用
+          example:
+        isActive:
+          type: boolean
+          description: 是否激活：1：激活 0：未激活
+          example: 0
+        reqBodyType:
+          type: integer
+          description: 请求体类型：1：application/json 2：application/x-www-form-urlencoded
+          example: 0
+        type:
+          type: integer
+          description: 主体类型：1：组织 2：项目
+          example:
+        events:
+          type: array
+          description: webhook触发的事件
+          example:
+        lastDelivery:
+          type: map
+          description: 最近一次的通知响应信息，当为null时候，证明还没进行过通知
+          example:
+        createdDate:
+          type: date
+          description: 创建时间
+          example:
+
   requestBodies:
     UserArray:
       content:
