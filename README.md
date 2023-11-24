@@ -132,14 +132,15 @@ demo doc
 1. 更新 `api_en.yaml`
 2. 在项目根目录下的`./docusaurus.config.js` 文件中，将 `specPath: "openAPI/api.yaml"` 临时改为 `specPath: "openAPI/api_en.yaml`
 3. 执行 `yarn gen-all-en` 命令，生成英文版本的 API 文档
-4. 将对应的 API 文档，从 `docs/openAPI/api_versioned` 目录下，拷贝到 `i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 目录下，也可以执行下面的命令，直接覆盖原有的 API 英文文档
+4. 将对应的 API 文档，从 `docs/openAPI/api_versioned` 目录下，拷贝到 `i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 目录下（**建议只调整新增、修改的文档**），如需覆盖全部的 API 英文文档，也可以执行下面的命令：
 
 ```bash
 # linux & mac
 cp -rf docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned
 
 # window powershell 7
-copy docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned
+# window cmd 可以用 copy 命令
+cp -Recurse -Force docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned
 ```
 
 5. 在 `docusaurus.config.js` 中，将 `specPath: "openAPI/api_en.yaml` 配置改回 `specPath: "openAPI/api.yaml"`
@@ -171,11 +172,15 @@ These sidebar document ids do not exist:
 `yarn gen-all-en` 失败，报错：
 
 ```bash
-Loading of api failed for "xxxxx\docs\openAPI\api.yaml"
+Loading of api failed for "xxxxx\docs\openAPI\api_en.yaml"
 [ERROR] Error: can not read a block mapping entry; a multiline key may not be an implicit key in "xxxxx\docs\openAPI\api_en.yaml" (2040:18)
 ```
 
-错误里指明了行数`2040:18`，可以到对应行查看，进行处理，一般是缩进、大小写的问题。
+上面的错误示例里，指明了行数`2040:18`，可以到 `api_en.yaml` 对应行查看，进行处理，一般是缩进、大小写的问题。
+
+#### API 英文介绍文档——侧边栏 label 名为 “介绍”
+
+一般是因为把`i18n\en\docusaurus-plugin-content-docs\current\openAPI\api_versioned\atomgit-openapi.info.mdx`覆盖了，可以去这个文档里，把 `sidebar_label` 改成 `Introduction` 即可。
 
 ### 线上效果预览
 
