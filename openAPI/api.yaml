@@ -1064,7 +1064,7 @@ paths:
         - org
       summary: 获取指定组织的所有关注者
       description: 获取指定组织的所有关注者
-      operationId: GetOrgFollowers
+      operationId: getOrgFollowers
       parameters:
         - name: Authorization
           in: header
@@ -1096,7 +1096,7 @@ paths:
         - org
       summary: 列出授权用户在所属组织的成员资料
       description: 列出授权用户在所属组织的成员资料
-      operationId: getOrgMemberAll
+      operationId: getOrgMemberships
       parameters:
         - name: Authorization
           in: header
@@ -4206,7 +4206,7 @@ paths:
         - labels
       summary: 获取仓库任务的所有标签
       description: 获取仓库任务的所有标签
-      operationId: getAllLabels
+      operationId: getIssueLabels
       parameters:
         - name: Authorization
           in: header
@@ -4422,7 +4422,7 @@ paths:
         - webHooks
       summary: 查询单个webhook
       description: 查询单个webhook
-      operationId: queruOnlyWebHook
+      operationId: getSingleWebHook
       parameters:
         - name: Authorization
           in: header
