@@ -126,12 +126,6 @@ tags:
   - name: activity
     description: Operations about activity
     x-displayName: 动态通知相关
-  - name: labels
-    description: Operations about labels
-    x-displayName: 标签相关
-  - name: milestones
-    description: Operations about milestones
-    x-displayName: 里程碑相关
   - name: webHooks
     description: Operations about webHooks
     x-displayName: webHooks
@@ -172,12 +166,6 @@ x-tagGroups:
   - name: activity
     tags:
       - activity
-  - name: labels
-    tags:
-      - labels
-  - name: milestones
-    tags:
-      - milestones
   - name: webHooks
     tags:
       - webHooks
@@ -4155,7 +4143,7 @@ paths:
   /repos/{owner}/{repo}/labels/{name}:
     get:
       tags:
-        - labels
+        - issues
       summary: 根据标签名获取单个标签
       description: 根据标签名获取单个标签
       operationId: getSingleLabelByName
@@ -4203,7 +4191,7 @@ paths:
   /repos/{owner}/{repo}/issues/{issue_number}/labels:
     get:
       tags:
-        - labels
+        - issues
       summary: 获取仓库任务的所有标签
       description: 获取仓库任务的所有标签
       operationId: getIssueLabels
@@ -4253,7 +4241,7 @@ paths:
   /repos/{owner}/{repo}/milestones/{milestone_number}:
     get:
       tags:
-        - milestones
+        - issues
       summary: 获取仓库单个里程碑
       description: 获取仓库单个里程碑
       operationId: getSingleMilestones
@@ -4302,7 +4290,7 @@ paths:
   /repos/{owner}/{repo}/milestones:
     get:
       tags:
-        - milestones
+        - issues
       summary: 获取仓库所有里程碑
       description: 获取仓库单个里程碑
       operationId: getRepoAllMilestones

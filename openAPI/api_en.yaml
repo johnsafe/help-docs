@@ -126,12 +126,6 @@ tags:
   - name: activity
     description: Operations about activity
     x-displayName: activity
-  - name: labels
-    description: Operations about labels
-    x-displayName: labels
-  - name: milestones
-    description: Operations about milestones
-    x-displayName: milestones
   - name: webHooks
     description: Operations about webHooks
     x-displayName: WebHooks
@@ -172,12 +166,6 @@ x-tagGroups:
   - name: activity
     tags:
       - activity
-  - name: labels
-    tags:
-      - labels
-  - name: milestones
-    tags:
-      - milestones
   - name: webHooks
     tags:
       - webHooks
@@ -4162,7 +4150,7 @@ paths:
   /repos/{owner}/{repo}/labels/{name}:
     get:
       tags:
-        - labels
+        - issues
       summary: getSingleLabelByName
       description: Get a single label by its name
       operationId: getSingleLabelByName
@@ -4210,7 +4198,7 @@ paths:
   /repos/{owner}/{repo}/issues/{issue_number}/labels:
     get:
       tags:
-        - labels
+        - issues
       summary: getIssueLabels
       description: Get all labels of a repository task
       operationId: getIssueLabels
@@ -4259,7 +4247,7 @@ paths:
   /repos/{owner}/{repo}/milestones/{milestone_number}:
     get:
       tags:
-        - milestones
+        - issues
       summary: getSingleMilestones
       description: Get a single milestone of a repository
       operationId: getSingleMilestones
@@ -4307,7 +4295,7 @@ paths:
   /repos/{owner}/{repo}/milestones:
     get:
       tags:
-        - milestones
+        - issues
       summary: getRepoAllMilestones
       description: Get all milestones of a repository
       operationId: getRepoAllMilestones
