@@ -125,13 +125,13 @@ tags:
     x-displayName: Issues comment
   - name: activity
     description: Operations about activity
-    x-displayName: Activity Notifications Related
+    x-displayName: activity
   - name: labels
     description: Operations about labels
-    x-displayName: Labels Related
+    x-displayName: labels
   - name: milestones
     description: Operations about milestones
-    x-displayName: Milestones Related
+    x-displayName: milestones
   - name: webHooks
     description: Operations about webHooks
     x-displayName: WebHooks
@@ -1063,9 +1063,9 @@ paths:
     get:
       tags:
         - org
-      summary: Get all followers of the specified organization
+      summary: getOrgFollowers
       description: Retrieve all followers of the specified organization
-      operationId: GetOrgFollowers
+      operationId: getOrgFollowers
       parameters:
         - name: Authorization
           in: header
@@ -1096,9 +1096,9 @@ paths:
     get:
       tags:
         - org
-      summary: List the authorized user's membership information in affiliated organizations
+      summary: getOrgMemberships
       description: List the authorized user's membership information in affiliated organizations
-      operationId: getOrgMemberAll
+      operationId: getOrgMemberships
       parameters:
         - name: Authorization
           in: header
@@ -1123,7 +1123,7 @@ paths:
     get:
       tags:
         - org
-      summary: Get a list of repositories for an organization
+      summary: getOrgRepos
       description: Get a list of repositories for an organization
       operationId: getOrgRepos
       parameters:
@@ -1174,7 +1174,7 @@ paths:
     get:
       tags:
         - org
-      summary: List organizations the user belongs to
+      summary: getUserBelongOrg
       description: List organizations the user belongs to
       operationId: getUserBelongOrg
       parameters:
@@ -1184,7 +1184,7 @@ paths:
           required: true
         - name: username
           in: path
-          description: Username
+          description: username
           required: true
           schema:
             type: string
@@ -3691,7 +3691,7 @@ paths:
     get:
       tags:
         - issues
-      summary: Get issues of a specific organization for the current user
+      summary: GetCurrentUserOrgIssues
       description: Get issues of a specific organization for the current user
       operationId: GetCurrentUserOrgIssues
       parameters:
@@ -4000,7 +4000,7 @@ paths:
     get:
       tags:
         - issues comment
-      summary: Get all Issue comments of a repository
+      summary: GetRepoAllIssueComments
       description: Get all Issue comments of a repository
       operationId: GetRepoAllIssueComments
       parameters:
@@ -4110,60 +4110,60 @@ paths:
                   $ref: "#/components/schemas/EventsVo"
 
     # User Received Activity
-    /user/{username}/received_event:
-      get:
-        tags:
-          - activity
-        summary: User Received Activity
-        description: User Received Activity
-        operationId: userReceivedEventsList
-        parameters:
-          - name: Authorization
-            in: header
-            description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
-            required: true
-          - name: username
-            in: path
-            description: "Specify username"
-            required: true
-          - name: page
-            in: query
-            description: "Page number (default: 1)"
-            required: false
-          - name: per_page
-            in: query
-            description: "Page size (default 30, maximum 100)"
-            required: false
-        responses:
-          401:
-            description: Invalid token
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/InvalidToken"
-              application/xml:
-                schema:
-                  $ref: "#/components/schemas/InvalidToken"
-          200:
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/ReceivedEventsVo"
-              application/xml:
-                schema:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/ReceivedEventsVo"
+  /user/{username}/received_event:
+    get:
+      tags:
+        - activity
+      summary: userReceivedEventsList
+      description: User Received Activity
+      operationId: userReceivedEventsList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or personal token (must be prefixed with 'Bearer ' followed by a space)
+          required: true
+        - name: username
+          in: path
+          description: "Specify username"
+          required: true
+        - name: page
+          in: query
+          description: "Page number (default: 1)"
+          required: false
+        - name: per_page
+          in: query
+          description: "Page size (default 30, maximum 100)"
+          required: false
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReceivedEventsVo"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReceivedEventsVo"
   ###### Labels ######
   # Get a single label by its name
   /repos/{owner}/{repo}/labels/{name}:
     get:
       tags:
         - labels
-      summary: Get a single label by its name
+      summary: getSingleLabelByName
       description: Get a single label by its name
       operationId: getSingleLabelByName
       parameters:
@@ -4211,9 +4211,9 @@ paths:
     get:
       tags:
         - labels
-      summary: Get all labels of a repository task
+      summary: getIssueLabels
       description: Get all labels of a repository task
-      operationId: getAllLabels
+      operationId: getIssueLabels
       parameters:
         - name: Authorization
           in: header
@@ -4260,7 +4260,7 @@ paths:
     get:
       tags:
         - milestones
-      summary: Get a single milestone of a repository
+      summary: getSingleMilestones
       description: Get a single milestone of a repository
       operationId: getSingleMilestones
       parameters:
@@ -4303,13 +4303,12 @@ paths:
                 type: object
                 items:
                   $ref: "#/components/schemas/MilepostVo"
-
   # Get all milestones of a repository
   /repos/{owner}/{repo}/milestones:
     get:
       tags:
         - milestones
-      summary: Get all milestones of a repository
+      summary: getRepoAllMilestones
       description: Get all milestones of a repository
       operationId: getRepoAllMilestones
       parameters:
@@ -4374,7 +4373,7 @@ paths:
     get:
       tags:
         - webHooks
-      summary: Get repository's webhooks
+      summary: getRepoWebHooks
       description: Get repository's webhooks
       operationId: getRepoWebHooks
       parameters:
@@ -4426,9 +4425,9 @@ paths:
     get:
       tags:
         - webHooks
-      summary: Query a single webhook
+      summary: getSingleWebHook
       description: Query a single webhook
-      operationId: queryOnlyWebHook
+      operationId: getSingleWebHook
       parameters:
         - name: Authorization
           in: header
