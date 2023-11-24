@@ -1139,7 +1139,7 @@ paths:
             type: string
         - name: type
           in: query
-          description: Repository type: public, private, all. Default is all
+          description: Repository type public, private, all. Default is all
           required: false
           schema:
             type: string
@@ -5924,23 +5924,23 @@ components:
           example:
         isSetSecret:
           type: boolean
-          description: Whether a secret is set: true - set, false - not set
+          description: Whether a secret is set true - set, false - not set
           example:
         enableSslVeri:
           type: boolean
-          description: Whether SSL verification is enabled: 1 - enabled, 0 - not enabled
+          description: Whether SSL verification is enabled 1 - enabled, 0 - not enabled
           example:
         isActive:
           type: boolean
-          description: Whether it's active: 1 - active, 0 - not active
+          description: Whether it's active 1 - active, 0 - not active
           example: 0
         reqBodyType:
           type: integer
-          description: Request body type: 1 - application/json, 2 - application/x-www-form-urlencoded
+          description: Request body type 1 - application/json, 2 - application/x-www-form-urlencoded
           example: 0
         type:
           type: integer
-          description: Entity type: 1 - organization, 2 - project
+          description: Entity type 1 - organization, 2 - project
           example:
         events:
           type: array
