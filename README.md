@@ -130,19 +130,57 @@ demo doc
 后续 `api.yaml` 有更新的话，可以考虑按如下步骤更新或生成对应的英文 API 文档：
 
 1. 更新 `api_en.yaml`
-2. 在 `docusaurus.config.js` 中，将 `specPath: "openAPI/api.yaml"` 临时改为 `specPath: "openAPI/api_en.yaml`
-3. 执行 `yarn gen-all-en`
-4. 将对应的 API 文档，从 `docs/openAPI/api_versioned` 目录下，拷贝到 `i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 目录下，也可以执行 `cp -rf docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 全部覆盖
-5. 在 `docusaurus.config.js` 中，将 `specPath` 配置改回 `specPath: "openAPI/api.yaml"`
+2. 在项目根目录下的`./docusaurus.config.js` 文件中，将 `specPath: "openAPI/api.yaml"` 临时改为 `specPath: "openAPI/api_en.yaml`
+3. 执行 `yarn gen-all-en` 命令，生成英文版本的 API 文档
+4. 将对应的 API 文档，从 `docs/openAPI/api_versioned` 目录下，拷贝到 `i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 目录下，也可以执行下面的命令，直接覆盖原有的 API 英文文档
+
+```bash
+# linux & mac
+cp -rf docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned
+
+# window powershell 7
+copy docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned
+```
+
+5. 在 `docusaurus.config.js` 中，将 `specPath: "openAPI/api_en.yaml` 配置改回 `specPath: "openAPI/api.yaml"`
 
 ### 本地开发预览
 
 运行 `yarn start --locale en`，以开发模式启动英文站点。
 
+### 错误处理
+
+#### 启动失败
+
+`yarn start --locale en` 报错：
+
+```bash
+[ERROR] Loading of version failed for version current
+[ERROR] Error: Invalid sidebar file at "sidebars.js".
+These sidebar document ids do not exist:
+```
+
+这种情况一般是 `api_en.yaml` 与 `api_yaml` 格式不一致导致的，可以按下面的流程，进行验证：
+
+1. 执行`yarn clean-all` 清空 `docs/openAPI` 目录
+2. 再执行 `yarn gen-all` ，生成中文 API 文档
+3. 执行 `yarn start` 启动默认中文语言版本，如果能执行的话，一般能确认是 `api_en.yaml` 与 `api_yaml` 格式不一致导致的错误，可以详细检查下缩进、大小写，或有无字段缺失等问题
+
+#### API 文档生成失败
+
+`yarn gen-all-en` 失败，报错：
+
+```bash
+Loading of api failed for "xxxxx\docs\openAPI\api.yaml"
+[ERROR] Error: can not read a block mapping entry; a multiline key may not be an implicit key in "xxxxx\docs\openAPI\api_en.yaml" (2040:18)
+```
+
+错误里指明了行数`2040:18`，可以到对应行查看，进行处理，一般是缩进、大小写的问题。
+
 ### 线上效果预览
 
-运行 `yarn build`，构建完成后，执行`yarn serve`，可以预览线上效果，进行多语言切换检查。
+运行 `yarn build`，等中英文版本均构建完成后，再执行`yarn serve`，可以预览线上效果，进行多语言切换检查。
 
 ### 翻译工具
 
-调用谷歌翻译接口（`https://translate.googleapis.com/translate_a/single`），进行翻译。
+可调用谷歌翻译接口（`https://translate.googleapis.com/translate_a/single`），进行翻译。
