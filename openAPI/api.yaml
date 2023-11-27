@@ -4042,7 +4042,7 @@ paths:
 
 ###### 动态######
   # 用户的动态
-  /user/{username}/events:
+  /users/{username}/events:
     get:
       tags:
         - activity
@@ -4091,7 +4091,7 @@ paths:
                   $ref: "#/components/schemas/EventsVo"
 
   # 用户收到的动态
-  /user/{username}/received_event:
+  /users/{username}/received_events:
     get:
       tags:
         - activity

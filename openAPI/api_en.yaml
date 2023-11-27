@@ -4049,7 +4049,7 @@ paths:
                 $ref: "#/components/schemas/Comment"
     ###### Activities ######
   # User Activity
-  /user/{username}/events:
+  /users/{username}/events:
     get:
       tags:
         - activity
@@ -4098,7 +4098,7 @@ paths:
                   $ref: "#/components/schemas/EventsVo"
 
     # User Received Activity
-  /user/{username}/received_event:
+  /users/{username}/received_events:
     get:
       tags:
         - activity
