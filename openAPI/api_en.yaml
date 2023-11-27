@@ -4047,7 +4047,7 @@ paths:
               schema:
                 type: object
                 $ref: "#/components/schemas/Comment"
-    ###### Activities ######
+  ###### 动态######
   # User Activity
   /users/{username}/events:
     get:
@@ -4097,7 +4097,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/EventsVo"
 
-    # User Received Activity
+  # User Received Activity
   /users/{username}/received_events:
     get:
       tags:

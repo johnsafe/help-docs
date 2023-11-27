@@ -155,6 +155,14 @@
     "message": "Issues Comment",
     "description": "The label for category Issues comment in sidebar api"
   },
+  "sidebar.api.category.动态通知相关": {
+    "message": "Activity",
+    "description": "The label for category 动态通知相关 in sidebar api"
+  },
+  "sidebar.api.category.webHooks": {
+    "message": "webHooks",
+    "description": "The label for category webHooks in sidebar api"
+  },
   "sidebar.api.doc.获取用户个人信息": {
     "message": "get user info",
     "description": "The label for the doc item 获取用户个人信息 in sidebar api, linking to the doc openAPI/api_versioned/get-the-authenticated-user"
