@@ -125,7 +125,7 @@ tags:
     x-displayName: Issues comment
   - name: activity
     description: Operations about activity
-    x-displayName: 动态
+    x-displayName: 动态通知相关
   - name: webHooks
     description: Operations about webHooks
     x-displayName: webHooks
