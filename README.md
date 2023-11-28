@@ -178,6 +178,29 @@ Loading of api failed for "xxxxx\docs\openAPI\api_en.yaml"
 
 上面的错误示例里，指明了行数`2040:18`，可以到 `api_en.yaml` 对应行查看，进行处理，一般是缩进、大小写的问题。
 
+#### openAPI 新增 category，en 模式下 sidebar 显示中文
+
+openAPI 新增 category 时，需要配置 API 文档侧边栏一级菜单文案。
+
+举例来说，在 `api.yaml` tags 下新增了一个名为“变更请求-自动化检查相关”的分类：
+
+```bash
+  - name: check-runs
+    description: Operations about check-runs
+    x-displayName: 变更请求-自动化检查相关
+```
+
+那么，除了在`api_en.yaml`里翻译相应的 `x-displayName` 外，还需在`i18n\en\docusaurus-plugin-content-docs\current.json` 文件中，增加对应的英文侧边栏文案：
+
+```json
+"sidebar.api.category.变更请求-自动化检查相关": {
+    "message": "Merge Request-Automate Check",
+    "description": "The label for category 变更请求-自动化检查相关 in sidebar api"
+},
+```
+
+保持`sidebar.api.category.[displayName]` 中 `displayName` 与 yaml 中 `x-displayName` 一致， `message` 即为对应的英文侧边栏文案。
+
 #### API 英文介绍文档——侧边栏 label 名为 “介绍”
 
 一般是因为把`i18n\en\docusaurus-plugin-content-docs\current\openAPI\api_versioned\atomgit-openapi.info.mdx`覆盖了，可以去这个文档里，把 `sidebar_label` 改成 `Introduction` 即可。
