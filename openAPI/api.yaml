@@ -690,6 +690,78 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: 操作成功
+  # 列出授权用户所有的 Namespace
+  /user/namespaces:
+    get:
+      tags:
+        - user
+      summary: 列出授权用户所有的 Namespace
+      description: 列出授权用户所有的 Namespace
+      operationId: getNameSpaces
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: mode
+          in: query
+          description: project(所有参与仓库的namepsce)、intrant(所加入的namespace)、all(包含前两者)，默认(intrant)
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
+  # 列出授权用户所有的 Namespace
+  /user/namespace:
+    get:
+      tags:
+        - user
+      summary: 列出授权用户所有的一个Namespace
+      description: 列出授权用户所有的一个 Namespace
+      operationId: getNameSpace
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: path
+          in: query
+          description: 命名空间
+          required: true
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
   /organizations:
     get:
       tags:
@@ -1072,12 +1144,12 @@ paths:
               type: array
               schema:
                 $ref: "#/components/schemas/AuthenticatedUserListVO"
-          "400":
-            description: 参数有误
-          "401":
-            description: 操作失败，暂未登录
-          "403":
-            description: 操作失败，当前操作人非组织管理员
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
   /user/memberships/orgs:
     get:
       tags:
@@ -1098,12 +1170,12 @@ paths:
               type: array
               schema:
                 $ref: "#/components/schemas/OrgMemberRole"
-          "400":
-            description: 参数有误
-          "401":
-            description: 操作失败，暂未登录
-          "403":
-            description: 操作失败，当前操作人非组织管理员
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
   /orgs/{org}/repos:
     get:
       tags:
@@ -1148,12 +1220,12 @@ paths:
               type: array
               schema:
                 $ref: "#/components/schemas/projectVo"
-          "400":
-            description: 参数有误
-          "401":
-            description: 操作失败，暂未登录
-          "403":
-            description: 操作失败，当前操作人非组织管理员
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
   /users/{username}/orgs:
     get:
       tags:
@@ -1192,12 +1264,12 @@ paths:
               type: array
               schema:
                 $ref: "#/components/schemas/OrgPage"
-          "400":
-            description: 参数有误
-          "401":
-            description: 操作失败，暂未登录
-          "403":
-            description: 操作失败，当前操作人非组织管理员
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
   ############ 分支接口（Branches API）############
   # 获取分支信息
   /repos/{owner}/{repo}/branches/{branch}:
@@ -5933,6 +6005,29 @@ components:
         createdDate:
           type: date
           description: 创建时间
+          example:
+    NameSpaceVO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: namespace id
+          example:
+        name:
+          type: string
+          description: namespace 名称
+          example:
+        type:
+          type: string
+          description: namespace 类型，组织：group，用户：personal
+          example:
+        path:
+          type: string
+          description: namespace 路径
+          example:
+        htmlUrl:
+          type: string
+          description: namespace 地址
           example:
 
   requestBodies:
