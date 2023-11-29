@@ -762,6 +762,51 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/NameSpaceVO"
+  # 获取指定用户的 SSH 公钥列表
+  /users/{username}/keys:
+    get:
+      tags:
+        - user
+      summary: 获取指定用户的 SSH 公钥列表
+      description: 获取指定用户的 SSH 公钥列表
+      operationId: getSSHListByUsername
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: username
+          in: path
+          description: 用户名
+          required: true
+        - name: page
+          in: query
+          description: 当前页,默认1
+          required: false
+        - name: per_page
+          in: query
+          description: 页数,默认30
+          required: false
+      responses:
+        401:
+          description: token无效
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+
   /organizations:
     get:
       tags:
@@ -1176,12 +1221,42 @@ paths:
           description: 操作失败，暂未登录
         "403":
           description: 操作失败，当前操作人非组织管理员
+  /user/memberships/orgs/{org}:
+    get:
+      tags:
+        - org
+      summary: 获取授权用户在一个组织的成员资料
+      description: 获取授权用户在一个组织的成员资料
+      operationId: getSingleOrgMembership
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: org
+          in: path
+          description: 组织
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              type: object
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
   /orgs/{org}/repos:
     get:
       tags:
         - org
-      summary: 获取一个组织的仓库列表
-      description: 获取一个组织的仓库列表
+      summary: 获取一个组织的仓库
+      description: 获取一个组织的仓库
       operationId: getOrgRepos
       parameters:
         - name: Authorization
@@ -3234,8 +3309,8 @@ paths:
     get:
       tags:
         - issues
-      summary: 指定仓库 issues 列表
-      description: 指定仓库 issues 列表
+      summary: 仓库的所有Issues
+      description: 仓库的所有Issues
       operationId: GetRepoIssuesList
       parameters:
         - name: Authorization
@@ -3361,8 +3436,8 @@ paths:
     get:
       tags:
         - issues
-      summary: 指定 issue 的详情
-      description: 指定 issue 的详情
+      summary: 仓库的某个issue
+      description: 仓库的某个issue
       operationId: GetRepoIssueInfo
       parameters:
         - name: Authorization
@@ -3814,8 +3889,8 @@ paths:
     get:
       tags:
         - issues comment
-      summary: 指定 issue 评论列表
-      description: 指定 issue 评论列表
+      summary: 获取指定仓库某个issue所有的评论
+      description: 获取指定仓库某个issue所有的评论
       operationId: GetIssueCommentsList
       parameters:
         - name: Authorization
@@ -3914,8 +3989,8 @@ paths:
     get:
       tags:
         - issues comment
-      summary: 指定评论详情
-      description: 指定评论详情
+      summary: 获取仓库Issue某条评论
+      description: 获取仓库Issue某条评论
       operationId: GetIssueCommentInfo
       parameters:
         - name: Authorization
@@ -3930,9 +4005,9 @@ paths:
           in: path
           description: 代码仓库名称。该名称不区分大小写。
           required: true
-        - name: comment_id
+        - name: id
           in: path
-          description: CommentId
+          description: id
           required: true
       responses:
         401:

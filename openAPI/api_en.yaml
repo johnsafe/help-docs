@@ -763,6 +763,50 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/NameSpaceVO"
+  # 获取指定用户的 SSH 公钥列表
+  /users/{username}/keys:
+    get:
+      tags:
+        - user
+      summary: getSSHListByUsername
+      description: Get the SSH public key list of a specified user
+      operationId: getSSHListByUsername
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (should start with 'Bearer ' followed by the token)
+          required: true
+        - name: username
+          in: path
+          description: Username
+          required: true
+        - name: page
+          in: query
+          description: Current page, default is 1
+          required: false
+        - name: per_page
+          in: query
+          description: Number of items per page, default is 30
+          required: false
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
 
   /organizations:
     get:
@@ -1177,6 +1221,36 @@ paths:
           description: Invalid parameters
         "401":
           description: Operation failed, not currently logged in
+        "403":
+          description: Operation failed, the current operator is not an organization administrator
+  /user/memberships/orgs/{org}:
+    get:
+      tags:
+        - org
+      summary: getSingleOrgMembership
+      description: Get authorized user's membership details within an organization
+      operationId: getSingleOrgMembership
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (should start with 'Bearer ' followed by the token)
+          required: true
+        - name: org
+          in: path
+          description: Organization
+          required: true
+      responses:
+        "200":
+          description: Operation successful
+          content:
+            application/json:
+              type: object
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+        "400":
+          description: Invalid parameters
+        "401":
+          description: Operation failed, not logged in
         "403":
           description: Operation failed, the current operator is not an organization administrator
 
