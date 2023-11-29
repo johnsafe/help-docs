@@ -29,6 +29,7 @@ You can revoke your personal access token at any time by clicking the [Delete] b
 ### Scope of PAT
 
 You can use one or more scopes to create a personal access token. The following are the scopes and related permissions provided by AtomGit:
+
 | scope | remark |
 | --- | --- |
 | `repo` | All API interfaces related to the code base |

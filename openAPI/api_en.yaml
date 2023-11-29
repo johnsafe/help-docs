@@ -690,79 +690,6 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: Success
-  # 列出授权用户的namespace
-  /user/namespaces:
-    get:
-      tags:
-        - user
-      summary: nameSpaceList
-      description: List all namespaces for authorized users
-      operationId: getNameSpaces
-      parameters:
-        - name: Authorization
-          in: header
-          description: OAuth2 token or private token (prefixed with Bearer and a space)
-          required: true
-        - name: mode
-          in: query
-          description: project (all namespaces associated with repositories), intrant (joined namespaces), all (includes both), default (intrant)
-          required: false
-      responses:
-        401:
-          description: Invalid token
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidToken"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/InvalidToken"
-        200:
-          description: Operation successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NameSpaceVO"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/NameSpaceVO"
-
-  # 获取授权用户的一个 namespace
-  /user/namespace:
-    get:
-      tags:
-        - user
-      summary: getNameSpace
-      description: List one namespace for authorized users
-      operationId: getNameSpace
-      parameters:
-        - name: Authorization
-          in: header
-          description: OAuth2 token or private token (prefixed with Bearer and a space)
-          required: true
-        - name: path
-          in: query
-          description: Namespace
-          required: true
-      responses:
-        401:
-          description: Invalid token
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidToken"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/InvalidToken"
-        200:
-          description: Operation successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NameSpaceVO"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/NameSpaceVO"
 
   /organizations:
     get:
@@ -1177,6 +1104,36 @@ paths:
           description: Invalid parameters
         "401":
           description: Operation failed, not currently logged in
+        "403":
+          description: Operation failed, the current operator is not an organization administrator
+  /user/memberships/orgs/{org}:
+    get:
+      tags:
+        - org
+      summary: getSingleOrgMembership
+      description: Get authorized user's membership details within an organization
+      operationId: getSingleOrgMembership
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (should start with 'Bearer ' followed by the token)
+          required: true
+        - name: org
+          in: path
+          description: Organization
+          required: true
+      responses:
+        "200":
+          description: Operation successful
+          content:
+            application/json:
+              type: object
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+        "400":
+          description: Invalid parameters
+        "401":
+          description: Operation failed, not logged in
         "403":
           description: Operation failed, the current operator is not an organization administrator
 
@@ -6014,30 +5971,6 @@ components:
           type: date
           description: Creation date
           example:
-    NameSpaceVO:
-      type: object
-      properties:
-        id:
-          type: string
-          description: namespace id
-          example:
-        name:
-          type: string
-          description: namespace 名称
-          example:
-        type:
-          type: string
-          description: namespace 类型，组织：group，用户：personal
-          example:
-        path:
-          type: string
-          description: namespace 路径
-          example:
-        htmlUrl:
-          type: string
-          description: namespace 地址
-          example:
-
   requestBodies:
     UserArray:
       content:
