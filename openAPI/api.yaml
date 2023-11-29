@@ -239,7 +239,7 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/User"
- # 获取当前用户的邮箱列表
+  # 获取当前用户的邮箱列表
   /user/emails:
     get:
       tags:
@@ -275,7 +275,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/UserEmailVO"
- # 获取当前用户的粉丝列表
+  # 获取当前用户的粉丝列表
   /user/followers:
     get:
       tags:
@@ -319,7 +319,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 获取指定用户的粉丝列表
+  # 获取指定用户的粉丝列表
   /users/{username}/followers:
     get:
       tags:
@@ -367,7 +367,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 列出当前用户的关注列表
+  # 列出当前用户的关注列表
   /user/following:
     get:
       tags:
@@ -402,15 +402,15 @@ paths:
           description: 操作成功
           content:
             application/json:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+              type: array
+              items:
+                $ref: "#/components/schemas/AuthenticatedUserListVO"
             application/xml:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 获取指定用户的关注列表
+  # 获取指定用户的关注列表
   /users/{username}/following:
     get:
       tags:
@@ -458,7 +458,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 关注指定用户
+  # 关注指定用户
   /user/following/{username}:
     put:
       tags:
@@ -489,7 +489,7 @@ paths:
           description: 操作成功
         400:
           description: 不能重复关注
- # 移除某个已关注用户
+    # 移除某个已关注用户
     delete:
       tags:
         - user
@@ -517,7 +517,7 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: 操作成功
- # 检查当前用户是否关注了某个用户
+    # 检查当前用户是否关注了某个用户
     get:
       tags:
         - user
@@ -546,7 +546,7 @@ paths:
         200:
           description: 返回true或false，true为关注，false为未关注
 
- # 检查用户是否关注了指定用户
+  # 检查用户是否关注了指定用户
   /users/{username}/following/{targetUsername}:
     get:
       tags:
@@ -581,7 +581,7 @@ paths:
           description: 操作成功
         400:
           description: 不能重复关注
- # 获取当前登录用户的 SSH 公钥列表
+  # 获取当前登录用户的 SSH 公钥列表
   /user/keys:
     get:
       tags:
@@ -621,7 +621,7 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/SSHKeyVO"
-  #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
+    #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
     post:
       tags:
         - user
@@ -661,7 +661,7 @@ paths:
               $ref: "#/components/schemas/AddSSHKeyDTO"
         description: add ssh key request body
         required: true
- # 移除指定的 SSH 公钥
+  # 移除指定的 SSH 公钥
   /user/keys/{keyId}:
     delete:
       tags:
@@ -1215,12 +1215,42 @@ paths:
               type: array
               schema:
                 $ref: "#/components/schemas/OrgMemberRole"
-          "400":
-            description: 参数有误
-          "401":
-            description: 操作失败，暂未登录
-          "403":
-            description: 操作失败，当前操作人非组织管理员
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
+  /user/memberships/orgs/{org}:
+    get:
+      tags:
+        - org
+      summary: 获取授权用户在一个组织的成员资料
+      description: 获取授权用户在一个组织的成员资料
+      operationId: getSingleOrgMembership
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: org
+          in: path
+          description: 组织
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              type: object
+              schema:
+                $ref: "#/components/schemas/OrgMemberRole"
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
   /orgs/{org}/repos:
     get:
       tags:
@@ -1265,12 +1295,12 @@ paths:
               type: array
               schema:
                 $ref: "#/components/schemas/projectVo"
-          "400":
-            description: 参数有误
-          "401":
-            description: 操作失败，暂未登录
-          "403":
-            description: 操作失败，当前操作人非组织管理员
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 操作失败，当前操作人非组织管理员
   /users/{username}/orgs:
     get:
       tags:
@@ -1688,8 +1718,8 @@ paths:
                   type: string
                   required: false
                   description: |
-                            与此状态关联的目标URL， 以允许用户轻松地查看状态的来源。
-                            例如，如果你的持续集成系统正在发布构建状态，你会想要为这个特定 SHA 的构建输出一个类似格式的链接地址: http://ci.example.com/user/repo/build/sha
+                    与此状态关联的目标URL， 以允许用户轻松地查看状态的来源。
+                    例如，如果你的持续集成系统正在发布构建状态，你会想要为这个特定 SHA 的构建输出一个类似格式的链接地址: http://ci.example.com/user/repo/build/sha
                 description:
                   type: string
                   required: false
@@ -1735,8 +1765,8 @@ paths:
                     type: string
                     required: false
                     description: |
-                            与此状态关联的目标URL， 以允许用户轻松地查看状态的来源。
-                            例如，如果你的持续集成系统正在发布构建状态，你会想要为这个特定 SHA 的构建输出一个类似格式的链接地址: http://ci.example.com/user/repo/build/sha
+                      与此状态关联的目标URL， 以允许用户轻松地查看状态的来源。
+                      例如，如果你的持续集成系统正在发布构建状态，你会想要为这个特定 SHA 的构建输出一个类似格式的链接地址: http://ci.example.com/user/repo/build/sha
   # ############ Check-runs接口 ############
   # # 创建自动化检查
   /repos/{owner}/{repo}/check-runs:
@@ -2280,7 +2310,7 @@ paths:
                           type: string
                           required: true
                           description: "文件类型，枚举值：file, dir, symlink, submodule"
-# 创建或更新content
+    # 创建或更新content
     put:
       tags:
         - repository contents
@@ -2437,59 +2467,59 @@ paths:
                               required: true
                               description: "文件类型，枚举值：file, dir, symlink, submodule"
                   commit:
-                      type: object
-                      properties:
-                        committer:
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "提交者。默认值：当前认证的用户。"
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "提交者的名称。如果省略该字段，您将收到 422 状态码。"
+                          email:
+                            type: string
+                            required: true
+                            description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: "提交作者。默认值：当前认证的用户。"
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "提交作者的名称。如果省略该字段，您将收到 422 状态码。"
+                          email:
+                            type: string
+                            required: true
+                            description: 提交作者的电子邮件。如果省略电子邮件，您将收到422状态码。
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: 提交信息
+                      sha:
+                        type: string
+                        required: true
+                        description: "提交 SHA 值"
+                      parents:
+                        type: array
+                        required: true
+                        description: "父提交"
+                        items:
                           type: object
-                          required: true
-                          description: "提交者。默认值：当前认证的用户。"
                           properties:
-                            name:
+                            sha:
                               type: string
                               required: true
-                              description: "提交者的名称。如果省略该字段，您将收到 422 状态码。"
-                            email:
-                              type: string
-                              required: true
-                              description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
-                            date:
-                              type: string
-                              required: false
-                        author:
-                          type: object
-                          required: true
-                          description: "提交作者。默认值：当前认证的用户。"
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: "提交作者的名称。如果省略该字段，您将收到 422 状态码。"
-                            email:
-                              type: string
-                              required: true
-                              description: 提交作者的电子邮件。如果省略电子邮件，您将收到422状态码。
-                            date:
-                              type: string
-                              required: false
-                        message:
-                          type: string
-                          required: true
-                          description: 提交信息
-                        sha:
-                          type: string
-                          required: true
-                          description: "提交 SHA 值"
-                        parents:
-                          type: array
-                          required: true
-                          description: "父提交"
-                          items:
-                            type: object
-                            properties:
-                              sha:
-                                type: string
-                                required: true
-                                description: "父提交 SHA 值"
+                              description: "父提交 SHA 值"
     # 删除content
     delete:
       tags:
@@ -2641,59 +2671,59 @@ paths:
                               required: true
                               description: "文件类型，枚举值：file, dir, symlink, submodule"
                   commit:
-                      type: object
-                      properties:
-                        committer:
-                          type: object
-                          required: true
-                          description: "The person that committed the file. Default: the authenticated user."
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
-                            email:
-                              type: string
-                              required: true
-                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
-                            date:
-                                type: string
-                                required: false
-                        author:
-                          type: object
-                          required: true
-                          description: 提交者。默认值：当前认证的用户。
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: 提交者的名称。如果省略该字段，您将收到 422 状态码。
-                            email:
-                              type: string
-                              required: true
-                              description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
-                            date:
-                                type: string
-                                required: false
-                        message:
-                          type: string
-                          required: true
-                          description: 提交信息
-                        sha:
-                          type: string
-                          required: true
-                          description: 提交 SHA 值
-                        parents:
-                          type: array
-                          required: true
-                          description: 父提交 SHA 值
-                          properties:
-                            sha:
-                              type: string
-                              required: true
-                              description: 父提交 SHA 值
-############ 变更请求接口（Change Requests API）############
-# 创建变更请求
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "The person that committed the file. Default: the authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                          email:
+                            type: string
+                            required: true
+                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: 提交者。默认值：当前认证的用户。
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: 提交者的名称。如果省略该字段，您将收到 422 状态码。
+                          email:
+                            type: string
+                            required: true
+                            description: 提交者的电子邮件。如果省略电子邮件，您将收到422状态码。
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: 提交信息
+                      sha:
+                        type: string
+                        required: true
+                        description: 提交 SHA 值
+                      parents:
+                        type: array
+                        required: true
+                        description: 父提交 SHA 值
+                        properties:
+                          sha:
+                            type: string
+                            required: true
+                            description: 父提交 SHA 值
+  ############ 变更请求接口（Change Requests API）############
+  # 创建变更请求
   /repos/{owner}/{repo}/pulls:
     post:
       tags:
@@ -2789,7 +2819,7 @@ paths:
                     type: boolean
                     required: true
                     description: "true 表示创建草稿（工作中）变更请求，false 表示创建已发布的变更请求。默认值：false"
-# 查询变更请求详情
+  # 查询变更请求详情
   /repos/{owner}/{repo}/pulls/{pull_number}:
     get:
       tags:
@@ -2861,7 +2891,7 @@ paths:
                     required: false
                     description: |
                       变更请求回复的评论业务ID。
-# 创建评论
+  # 创建评论
   /repos/{owner}/{repo}/pulls/comments:
     post:
       tags:
@@ -2962,7 +2992,7 @@ paths:
                     required: true
                     description: |
                       更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
-# 创建回复
+  # 创建回复
   /repos/{owner}/{repo}/pulls/comments/{comment_id}/replies:
     post:
       tags:
@@ -3050,7 +3080,7 @@ paths:
                     required: true
                     description: |
                       更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
-# 查询评论详情
+  # 查询评论详情
   /repos/{owner}/{repo}/pulls/comments/{comment_id}:
     get:
       tags:
@@ -3126,7 +3156,7 @@ paths:
                     required: true
                     description: |
                       更新时间。遵循 ISO 8601 时间格式: YYYY-MM-DDTHH:MM:SSZ"
-# 查询评论列表
+  # 查询评论列表
   /repos/{owner}/{repo}/pulls/{pull_number}/comments:
     get:
       tags:
@@ -3975,9 +4005,9 @@ paths:
           in: path
           description: 代码仓库名称。该名称不区分大小写。
           required: true
-        - name: comment_id
+        - name: id
           in: path
-          description: CommentId
+          description: id
           required: true
       responses:
         401:
@@ -4157,7 +4187,7 @@ paths:
                 type: object
                 $ref: "#/components/schemas/Comment"
 
-###### 动态######
+  ###### 动态######
   # 用户的动态
   /users/{username}/events:
     get:
@@ -4467,7 +4497,7 @@ paths:
                 type: object
                 items:
                   $ref: "#/components/schemas/MilepostVo"
-####webHooks#####
+  ####webHooks#####
   # 获取仓库的webHooks
   /repos/{owner}/{repo}/hooks:
     get:
@@ -6050,6 +6080,29 @@ components:
         createdDate:
           type: date
           description: 创建时间
+          example:
+    NameSpaceVO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: namespace id
+          example:
+        name:
+          type: string
+          description: namespace 名称
+          example:
+        type:
+          type: string
+          description: namespace 类型，组织：group，用户：personal
+          example:
+        path:
+          type: string
+          description: namespace 路径
+          example:
+        htmlUrl:
+          type: string
+          description: namespace 地址
           example:
 
   requestBodies:
