@@ -733,7 +733,7 @@ paths:
       tags:
         - user
       summary: getNameSpace
-      description: List one namespace for authorized users
+      description: one namespace for authorized users
       operationId: getNameSpace
       parameters:
         - name: Authorization
