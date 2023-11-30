@@ -239,7 +239,7 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/User"
- # 获取当前用户的邮箱列表
+  # 获取当前用户的邮箱列表
   /user/emails:
     get:
       tags:
@@ -275,7 +275,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/UserEmailVO"
- # 获取当前用户的粉丝列表
+  # 获取当前用户的粉丝列表
   /user/followers:
     get:
       tags:
@@ -319,7 +319,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 获取指定用户的粉丝列表
+  # 获取指定用户的粉丝列表
   /users/{username}/followers:
     get:
       tags:
@@ -367,7 +367,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 列出当前用户的关注列表
+  # 列出当前用户的关注列表
   /user/following:
     get:
       tags:
@@ -402,15 +402,15 @@ paths:
           description: Success
           content:
             application/json:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+              type: array
+              items:
+                $ref: "#/components/schemas/AuthenticatedUserListVO"
             application/xml:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 获取指定用户的关注列表
+  # 获取指定用户的关注列表
   /users/{username}/following:
     get:
       tags:
@@ -458,7 +458,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 关注指定用户
+  # 关注指定用户
   /user/following/{username}:
     put:
       tags:
@@ -489,7 +489,7 @@ paths:
           description: Success
         400:
           description: Cannot follow repeatedly
- # 移除某个已关注用户
+    # 移除某个已关注用户
     delete:
       tags:
         - user
@@ -517,7 +517,7 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: Success
- # 检查当前用户是否关注了某个用户
+    # 检查当前用户是否关注了某个用户
     get:
       tags:
         - user
@@ -546,7 +546,7 @@ paths:
         200:
           description: true-follow,false-unfollow
 
- # 检查用户是否关注了指定用户
+  # 检查用户是否关注了指定用户
   /users/{username}/following/{targetUsername}:
     get:
       tags:
@@ -581,7 +581,7 @@ paths:
           description: Success
         400:
           description: Cannot follow repeatedly
- # 获取当前登录用户的 SSH 公钥列表
+  # 获取当前登录用户的 SSH 公钥列表
   /user/keys:
     get:
       tags:
@@ -621,7 +621,7 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/SSHKeyVO"
-  #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
+    #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
     post:
       tags:
         - user
@@ -661,7 +661,7 @@ paths:
               $ref: "#/components/schemas/AddSSHKeyDTO"
         description: add ssh key request body
         required: true
- # 移除指定的 SSH 公钥
+  # 移除指定的 SSH 公钥
   /user/keys/{keyId}:
     delete:
       tags:
@@ -690,6 +690,123 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: Success
+  # 列出授权用户的namespace
+  /user/namespaces:
+    get:
+      tags:
+        - user
+      summary: nameSpaceList
+      description: List all namespaces for authorized users
+      operationId: getNameSpaces
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (prefixed with Bearer and a space)
+          required: true
+        - name: mode
+          in: query
+          description: project (all namespaces associated with repositories), intrant (joined namespaces), all (includes both), default (intrant)
+          required: false
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
+
+  # 获取授权用户的一个 namespace
+  /user/namespace:
+    get:
+      tags:
+        - user
+      summary: getNameSpace
+      description: List one namespace for authorized users
+      operationId: getNameSpace
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (prefixed with Bearer and a space)
+          required: true
+        - name: path
+          in: query
+          description: Namespace
+          required: true
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/NameSpaceVO"
+  # 获取指定用户的 SSH 公钥列表
+  /users/{username}/keys:
+    get:
+      tags:
+        - user
+      summary: getSSHListByUsername
+      description: Get the SSH public key list of a specified user
+      operationId: getSSHListByUsername
+      parameters:
+        - name: Authorization
+          in: header
+          description: OAuth2 token or private token (should start with 'Bearer ' followed by the token)
+          required: true
+        - name: username
+          in: path
+          description: Username
+          required: true
+        - name: page
+          in: query
+          description: Current page, default is 1
+          required: false
+        - name: per_page
+          in: query
+          description: Number of items per page, default is 30
+          required: false
+      responses:
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        200:
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SSHKeyVO"
 
   /organizations:
     get:
@@ -1606,8 +1723,8 @@ paths:
                   type: string
                   required: false
                   description: |
-                            The target URL associated with this status to allow the user to easily view the source of the status.
-                            For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
+                    The target URL associated with this status to allow the user to easily view the source of the status.
+                    For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
                 description:
                   type: string
                   required: false
@@ -1653,8 +1770,8 @@ paths:
                     type: string
                     required: false
                     description: |
-                            The target URL associated with this status to allow the user to easily view the source of the status.
-                            For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
+                      The target URL associated with this status to allow the user to easily view the source of the status.
+                      For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
   # ############ Check-runs接口 ############
   # # 创建自动化检查
   /repos/{owner}/{repo}/check-runs:
@@ -1704,9 +1821,9 @@ paths:
                   type: string
                   required: false
                   description: |
-                   This field is required if you pass the "completed_at" field or set the "status" field to "completed". This field expresses the final result of the automated check. ,
-                    Note: Providing the "conclusion" field will automatically set the status parameter to "completed". Also it will not be possible to change "conclusion" to "stale", only platforms can be set to this value.
-                    Enumeration values: action_required, canceled, failure, neutral, success, skip, stale, timed_out
+                    This field is required if you pass the "completed_at" field or set the "status" field to "completed". This field expresses the final result of the automated check. ,
+                     Note: Providing the "conclusion" field will automatically set the status parameter to "completed". Also it will not be possible to change "conclusion" to "stale", only platforms can be set to this value.
+                     Enumeration values: action_required, canceled, failure, neutral, success, skip, stale, timed_out
                 completed_at:
                   type: string
                   required: false
@@ -2199,7 +2316,7 @@ paths:
                           type: string
                           required: true
                           description: "File type, enumeration values: file, dir, symlink, submodule"
-# 创建或更新content
+    # 创建或更新content
     put:
       tags:
         - repository contents
@@ -2356,59 +2473,59 @@ paths:
                               required: true
                               description: "File type, enumeration values: file, dir, symlink, submodule"
                   commit:
-                      type: object
-                      properties:
-                        committer:
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "commitor. Default value -  The currently authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the commitor. If you omit this field, you will receive a 422 status code."
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: "commitor. Default value -  The currently authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the commitor. If you omit this field, you will receive a 422 status code"
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: commit message
+                      sha:
+                        type: string
+                        required: true
+                        description: "commit sha value"
+                      parents:
+                        type: array
+                        required: true
+                        description: "parent commit"
+                        items:
                           type: object
-                          required: true
-                          description: "commitor. Default value -  The currently authenticated user."
                           properties:
-                            name:
+                            sha:
                               type: string
                               required: true
-                              description: "The name of the commitor. If you omit this field, you will receive a 422 status code."
-                            email:
-                              type: string
-                              required: true
-                              description: commitor's email. If you omit the email, you will receive a 422 status code.
-                            date:
-                              type: string
-                              required: false
-                        author:
-                          type: object
-                          required: true
-                          description: "commitor. Default value -  The currently authenticated user."
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: "The name of the commitor. If you omit this field, you will receive a 422 status code"
-                            email:
-                              type: string
-                              required: true
-                              description: commitor's email. If you omit the email, you will receive a 422 status code.
-                            date:
-                              type: string
-                              required: false
-                        message:
-                          type: string
-                          required: true
-                          description: commit message
-                        sha:
-                          type: string
-                          required: true
-                          description: "commit sha value"
-                        parents:
-                          type: array
-                          required: true
-                          description: "parent commit"
-                          items:
-                            type: object
-                            properties:
-                              sha:
-                                type: string
-                                required: true
-                                description: "parent commit sha value"
+                              description: "parent commit sha value"
     # 删除content
     delete:
       tags:
@@ -2560,59 +2677,59 @@ paths:
                               required: true
                               description: "File type, enumeration values: file, dir, symlink, submodule"
                   commit:
-                      type: object
-                      properties:
-                        committer:
-                          type: object
-                          required: true
-                          description: "The person that committed the file. Default: the authenticated user."
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
-                            email:
-                              type: string
-                              required: true
-                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
-                            date:
-                                type: string
-                                required: false
-                        author:
-                          type: object
-                          required: true
-                          description: commitor. Default value -  The currently authenticated user.
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: The name of the commitor. If you omit this field, you will receive a 422 status code.
-                            email:
-                              type: string
-                              required: true
-                              description: commitor's email. If you omit the email, you will receive a 422 status code.
-                            date:
-                                type: string
-                                required: false
-                        message:
-                          type: string
-                          required: true
-                          description: commit message
-                        sha:
-                          type: string
-                          required: true
-                          description: commit sha value
-                        parents:
-                          type: array
-                          required: true
-                          description: 父commit sha value
-                          properties:
-                            sha:
-                              type: string
-                              required: true
-                              description: 父commit sha value
-############ 变更请求接口（Change Requests API）############
-# 创建变更请求
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "The person that committed the file. Default: the authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                          email:
+                            type: string
+                            required: true
+                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: commitor. Default value -  The currently authenticated user.
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: The name of the commitor. If you omit this field, you will receive a 422 status code.
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: commit message
+                      sha:
+                        type: string
+                        required: true
+                        description: commit sha value
+                      parents:
+                        type: array
+                        required: true
+                        description: 父commit sha value
+                        properties:
+                          sha:
+                            type: string
+                            required: true
+                            description: 父commit sha value
+  ############ 变更请求接口（Change Requests API）############
+  # 创建变更请求
   /repos/{owner}/{repo}/pulls:
     post:
       tags:
@@ -2708,7 +2825,7 @@ paths:
                     type: boolean
                     required: true
                     description: "true means creating a draft (in-progress) change request, false means creating a published change request. Default value: false"
-# 查询变更请求详情
+  # 查询变更请求详情
   /repos/{owner}/{repo}/pulls/{pull_number}:
     get:
       tags:
@@ -2780,7 +2897,7 @@ paths:
                     required: false
                     description: |
                       The comment business ID of the change request reply.
-# 创建评论
+  # 创建评论
   /repos/{owner}/{repo}/pulls/comments:
     post:
       tags:
@@ -2882,7 +2999,7 @@ paths:
                     description: |
                       Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
 
-# 创建回复
+  # 创建回复
   /repos/{owner}/{repo}/pulls/comments/{comment_id}/replies:
     post:
       tags:
@@ -2970,7 +3087,7 @@ paths:
                     required: true
                     description: |
                       Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
-# 查询评论详情
+  # 查询评论详情
   /repos/{owner}/{repo}/pulls/comments/{comment_id}:
     get:
       tags:
@@ -3046,7 +3163,7 @@ paths:
                     required: true
                     description: |
                       Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
-# 查询评论列表
+  # 查询评论列表
   /repos/{owner}/{repo}/pulls/{pull_number}/comments:
     get:
       tags:
@@ -5971,6 +6088,30 @@ components:
           type: date
           description: Creation date
           example:
+    NameSpaceVO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: namespace id
+          example:
+        name:
+          type: string
+          description: namespace 名称
+          example:
+        type:
+          type: string
+          description: namespace 类型，组织：group，用户：personal
+          example:
+        path:
+          type: string
+          description: namespace 路径
+          example:
+        htmlUrl:
+          type: string
+          description: namespace 地址
+          example:
+
   requestBodies:
     UserArray:
       content:
