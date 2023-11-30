@@ -731,8 +731,8 @@ paths:
     get:
       tags:
         - user
-      summary: 列出授权用户所有的一个Namespace
-      description: 列出授权用户所有的一个 Namespace
+      summary: 列出授权用户的一个Namespace
+      description: 列出授权用户的一个 Namespace
       operationId: getNameSpace
       parameters:
         - name: Authorization
@@ -4439,7 +4439,7 @@ paths:
       tags:
         - issues
       summary: 获取仓库所有里程碑
-      description: 获取仓库单个里程碑
+      description: 获取仓库所有里程碑
       operationId: getRepoAllMilestones
       parameters:
         - name: Authorization
