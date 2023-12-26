@@ -162,6 +162,21 @@ const sidebars = {
               'app/app-demo',
           ],
       },
+      {
+        type: 'category',
+        label: '安全',
+        link: {
+          type: 'generated-index',
+          title: '安全',
+          slug: 'security',
+          description:
+            "关于扫描结果json文件内容结构的说明",
+          keywords: ['securitys'],
+        },
+        items: [
+          'security/reporter',
+        ],
+      },
     {
       type: 'category',
       label: '用户协议',
