@@ -1,7 +1,7 @@
 ---
 id: user-gpgkey # 唯一ID
 slug: /user/gpgkey # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_position: 2 #侧边栏位置（不设置则按照ID排序）
+sidebar_label: GPG
 description: 用户 gpg 密钥设置 # 描述
 title: 配置GPG密钥 # 页面标题
 hide_title: true
