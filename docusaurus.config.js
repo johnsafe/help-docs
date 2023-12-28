@@ -20,7 +20,7 @@ const config = {
   // 百度统计脚本
   scripts: [
     {
-      src: 'https://hm.baidu.com/hm.js?dd6bceaa31549c06f7b0488133c25b7b',
+      src: 'https://hm.baidu.com/hm.js?cdada1daa0a08ea5acc8d56756d60b1b',
       async: true,
     },
   ],
