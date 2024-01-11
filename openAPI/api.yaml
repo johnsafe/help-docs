@@ -96,9 +96,15 @@ tags:
   - name: org
     description: Operations about org
     x-displayName: 组织相关
+  - name: apps
+    description: Operations about apps
+    x-displayName: 应用相关
   - name: branches
     description: Operations about branches
     x-displayName: 分支相关
+  - name: tags
+    description: Operations about tags
+    x-displayName: 标签相关
   - name: commits
     description: Operations about commits
     x-displayName: 提交相关
@@ -133,9 +139,15 @@ x-tagGroups:
   - name: Org Management
     tags:
       - org
+  - name: apps
+    tags:
+      - apps
   - name: branches
     tags:
       - branches
+  - name: tags
+    tags:
+      - tags
   - name: commits
     tags:
       - commits
@@ -1072,6 +1084,75 @@ paths:
                 role:
                   description: 设定用户的角色:maintainer、developer、guest。
                   type: string
+  ############ 应用（apps API）############
+  # 获取atu token
+  /login/oauth/access_token:
+    post:
+      tags:
+        - apps
+      summary: 获取oauth access_token
+      description: 基于授权码或基于refresh_token获取oauth access_token
+      operationId: getOAuthAtuToken
+      parameters:
+        - name: Content-Type
+          in: header
+          description: application/json
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                client_id:
+                  type: string
+                  required: false
+                  description: 应用客户端Id
+                client_secret:
+                  type: string
+                  required: true
+                  description: 应用客户端密钥
+                code:
+                  type: string
+                  required: false
+                  description: oauth授权码(使用授权码获取token时非空)
+                grant_type:
+                  type: string
+                  required: false
+                  description: grant_type 取值:refresh_token(使用refresh_token刷新token时必传)
+                refresh_token:
+                  type: string
+                  required: false
+                  description: refresh_token(使用refresh_token刷新token时必传)
+      responses:
+        200:
+          description: 创建token成功
+        403:
+          description: 禁止访问
+        404:
+          description: 资源未找到
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  access_token:
+                    type: string
+                    required: true
+                    description: access_token。
+                  expires_in:
+                    type: long
+                    required: true
+                    description: access_token过期时间(时间戳:ms)
+                  refresh_token:
+                    type: string
+                    required: true
+                    description: refresh_token
+                  refresh_token_expires_in:
+                    type: long
+                    required: true
+                    description: refresh_token过期时间(时间戳:ms)
   ############ 分支接口（Branches API）############
   # 获取分支信息
   /repos/{owner}/{repo}/branches/{branch}:
@@ -1226,6 +1307,65 @@ paths:
                       type: boolean
                       required: true
                       description: 是否为保护分支。
+  ############ 标签接口（Tags API）############
+  /repos/{owner}/{repo}/tags:
+    get:
+      tags:
+        - tags
+      summary: 获取标签列表
+      description: 获取标签列表
+      operationId: getTagList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: per_page
+          in: query
+          description: 分页结果数
+          required: false
+        - name: page
+          in: query
+          description: 分页页码
+          required: false
+        - name: search
+          in: query
+          description: 标签名称检索,支持模糊查询
+          required: false
+      responses:
+        200:
+          description: 成功
+        404:
+          description: 资源未找到
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: 标签名称
+                    commit:
+                      type: object
+                      required: true
+                      description: 提交ID
+                      properties:
+                        sha:
+                          type: string
+                          required: true
+                          description: 提交 SHA 值
   # ############ 提交接口（Commits API）############
   # # 获取分支提交
   /repos/{owner}/{repo}/commits/{ref}:
@@ -1941,6 +2081,219 @@ paths:
                       description:
                         type: string
                         required: true
+  # # 仓库数据相关
+  # # 获取组织下仓库列表
+  /orgs/{orgPath}/repos:
+    get:
+      tags:
+        - repositories
+      summary: 获取组织下代码库列表
+      description: 获取组织下代码库列表
+      operationId: getOrgRepoList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: orgPath
+          in: path
+          description: 代码仓库所属组织的路径，该名称不区分大小写。
+          required: true
+        - name: per_page
+          in: query
+          description: 分页结果数
+          required: false
+        - name: page
+          in: query
+          description: 分页页码
+          required: false
+        - name: search
+          in: query
+          description: 查询字段，模糊查询代码库名称
+          required: false
+      responses:
+        200:
+          description: 成功
+        404:
+          description: 资源未找到
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    private:
+                      type: boolean
+                      required: true
+                      description: 是否为私有库
+                    id:
+                      type: long
+                      required: true
+                      description: 代码库Id
+                    full_name:
+                      type: string
+                      required: true
+                      description: 代码库绝对路径
+                    name:
+                      type: string
+                      required: true
+                      description: 代码库名称
+                    description:
+                      type: string
+                      required: false
+                      description: 代码库描述
+                    default_branch:
+                      type: string
+                      required: false
+                      description: 代码库默认分支
+                    git_url:
+                      type: string
+                      required: true
+                      description: 代码库ssh clone地址
+                    html_url:
+                      type: string
+                      required: true
+                      description: 代码库http clone地址
+  # # 获取组织下仓库列表
+  /users/{username}/repos:
+    get:
+      tags:
+        - repositories
+      summary: 获取个人空间下代码库列表
+      description: 获取个人空间下代码库列表
+      operationId: getUserSpaceRepoList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: username
+          in: path
+          description: 代码仓库所属用户的username,该名称不区分大小写。
+          required: true
+        - name: per_page
+          in: query
+          description: 分页结果数
+          required: false
+        - name: page
+          in: query
+          description: 分页页码
+          required: false
+        - name: search
+          in: query
+          description: 查询字段，模糊查询代码库名称
+          required: false
+      responses:
+        200:
+          description: 成功
+        404:
+          description: 资源未找到
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    private:
+                      type: boolean
+                      required: true
+                      description: 是否为私有库
+                    id:
+                      type: long
+                      required: true
+                      description: 代码库Id
+                    full_name:
+                      type: string
+                      required: true
+                      description: 代码库绝对路径
+                    name:
+                      type: string
+                      required: true
+                      description: 代码库名称
+                    description:
+                      type: string
+                      required: false
+                      description: 代码库描述
+                    default_branch:
+                      type: string
+                      required: false
+                      description: 代码库默认分支
+                    git_url:
+                      type: string
+                      required: true
+                      description: 代码库ssh clone地址
+                    html_url:
+                      type: string
+                      required: true
+                      description: 代码库http clone地址
+  # # 获取代码库详情
+  /repos/{owner}/{repo}:
+    get:
+      tags:
+        - repositories
+      summary: 获取代码库信息
+      description: 获取代码库信息
+      operationId: getRepository
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: "代码仓库名称。该名称不区分大小写。"
+          required: true
+      responses:
+        404:
+          description: 资源未找到
+        200:
+          description: 成功
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  private:
+                    type: boolean
+                    required: true
+                    description: 是否为私有库
+                  id:
+                    type: long
+                    required: true
+                    description: 代码库Id
+                  full_name:
+                    type: string
+                    required: true
+                    description: 代码库绝对路径
+                  name:
+                    type: string
+                    required: true
+                    description: 代码库名称
+                  description:
+                    type: string
+                    required: false
+                    description: 代码库描述
+                  default_branch:
+                    type: string
+                    required: false
+                    description: 代码库默认分支
+                  git_url:
+                    type: string
+                    required: true
+                    description: 代码库ssh clone地址
+                  html_url:
+                    type: string
+                    required: true
+                    description: 代码库http clone地址
   # # 获取仓库content
   /repos/{owner}/{repo}/contents/{path}:
     get:
@@ -2449,6 +2802,154 @@ paths:
                               type: string
                               required: true
                               description: 父提交 SHA 值
+  /repos/{owner}/{repo}/files/blame:
+    get:
+      tags:
+        - repository contents
+      summary: 获取文件blame信息
+      description: 获取文件blame信息
+      operationId: GetRepoFileBlame
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: sha
+          in: query
+          required: true
+          description: sha值，如分支名，commitId
+        - name: file_path
+          in: query
+          required: false
+          description: 待查询blame的文件路径
+      responses:
+        200:
+          description: 成功
+        403:
+          description: 禁止访问
+        404:
+          description: 资源未找到
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  start:
+                    type: integer
+                    required: true
+                    description: "commit起始行"
+                  contents:
+                    type: array
+                    required: true
+                    description: "文件内容列表"
+                    properties:
+                      content:
+                        type: string
+                        required: true
+                        description: "文件内容信息"
+                  commit:
+                    type: object
+                    description: 提交信息
+                    properties:
+                      author_email:
+                        type: string
+                        required: true
+                        description: "提交作者邮箱信息"
+                      author_name:
+                        type: string
+                        required: true
+                        description: "提交作者名称"
+                      user:
+                        type: object
+                        required: false
+                        description: commit作者关联的平台用户信息(可空)。
+                        properties:
+                          avatar_url:
+                            type: string
+                            required: true
+                            description: "用户头像地址"
+                          email:
+                            type: string
+                            required: true
+                            description: "用户邮箱信息"
+                          id:
+                            type: string
+                            required: true
+                            description: "用户平台id"
+                          username:
+                            type: string
+                            required: true
+                            description: "用户平台username"
+  /repos/{owner}/{repo}/trees/{sha}:
+    get:
+      tags:
+        - repository contents
+      summary: 获取仓库文件树
+      description: 获取仓库文件树
+      operationId: GetRepoTrees
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称。该名称不区分大小写。
+          required: true
+        - name: sha
+          in: path
+          required: true
+          description: sha值，如分支名，commitId
+        - name: recursive
+          in: query
+          required: false
+          description: 文件树查询类型，非必传，默认只查询当前路径的文件树，若传任意字符串(如1)，则递归查找当前路径下的所有文件
+        - name: file_path
+          in: query
+          required: false
+          description: 查询指定路径下的文件树，非必传，默认从根路径开始查询
+      responses:
+        200:
+          description: 成功
+        403:
+          description: 禁止访问
+        404:
+          description: 资源未找到
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  mode:
+                    type: string
+                    required: true
+                    description: "mode"
+                  path:
+                    type: string
+                    required: true
+                    description: "文件路径"
+                  sha:
+                    type: string
+                    required: true
+                    description: "对应提交 SHA 值"
+                  type:
+                    type: string
+                    required: true
+                    description: "对象类型:blob,tree,symlink,commit"
 ############ 变更请求接口（Change Requests API）############
 # 创建变更请求
   /repos/{owner}/{repo}/pulls:
