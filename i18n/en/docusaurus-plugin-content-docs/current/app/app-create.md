@@ -1,15 +1,15 @@
 ---
 id: app-create # 唯一ID
 slug: /app/create # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: App Develop # 在sidebar 中的名称
-title: App Develop # 页面标题
+sidebar_label: App Create # 在sidebar 中的名称
+title: App Create # 页面标题
 tags:
   - app
-  - App Develop
+  - App Create
 hide_title: false
 ---
 
-## Develop Applications
+## Create Applications
 
 The platform supports access to third-party applications and provides authorization for applications. The application can call OpenAPI to obtain authorized platform data, and can freely perform business data processing outside the AtomGit site through the application. It also provides a way to write back the data results and echo the processing results in the submission status and change request status to achieve expansion. Code quality, security inspection and other purposes.
 
@@ -22,7 +22,7 @@ Applications need to be connected to space, and AtomGit has two types of spaces:
 
 #### Personal Space
 
-1. Click on the avatar in the upper right corner, enter "Personal Settings", and select "Develop Application":
+1. Click on the avatar in the upper right corner, enter "Personal Settings", and select "Application Development":
 ![](./img/01.jpg)
 2. Click on "New Application" and fill out the application information form:
 ![](./img/02.jpg)

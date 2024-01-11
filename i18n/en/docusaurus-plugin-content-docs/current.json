@@ -91,6 +91,14 @@
     "message": "Application develop & Open market",
     "description": "The generated-index page description for category 应用 in sidebar docs"
   },
+  "sidebar.docs.category.安全": {
+    "message": "Security",
+    "description": "The label for category 应用 in sidebar docs"
+  },
+  "sidebar.docs.category.安全.link.generated-index.title": {
+    "message": "Security",
+    "description": "The generated-index page title for category 安全 in sidebar docs"
+  },
   "sidebar.docs.category.用户协议": {
     "message": "User Agreement",
     "description": "The label for category 用户协议 in sidebar docs"
