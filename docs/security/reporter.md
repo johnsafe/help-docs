@@ -2,12 +2,12 @@
 id: reporter
 slug: security/reporter
 title: 关于扫描结果json文件内容结构的说明 # 页面标题
-sidebar_lable: 关于扫描结果json文件内容结构的说明
+sidebar_label: 关于扫描结果json文件内容结构的说明
 hide_title: true
 ---
 
 ## 安全
-        
+
 ### 关于扫描结果json文件内容结构的说明
 
 当您的应用完成检测后，您可以将检测结果文件通过OpenAPI接口上传到平台（<a href="/openAPI/api_versioned/save-security-results" target="_blank">保存安全扫描结果</a>）。上传检测结果文件后，您可以在**对应仓库下->安全->代码扫描**页面查看检测结果。
@@ -25,7 +25,6 @@ hide_title: true
 | codeResults         | Array  | 包含有关静态代码检测结果的数组 | 否       |
 | comprehensiveReport | String | 综合报告文件的链接             | 是       |
 
-
 ### `scanInfo` 属性描述
 
 | 属性名         | 类型   | 描述                  |  是否必传 |
@@ -35,6 +34,7 @@ hide_title: true
 | sender        | Object | 触发人信息        |  是      |
 
 ### `scanInfo.sender` 属性描述
+
 | 属性名         | 类型   | 描述                  |  是否必传 |
 |---------------|--------|-----------------------|---------|
 | id     | String | 用户或组织 ID        |  是      |
@@ -51,7 +51,6 @@ hide_title: true
 | commitId      | String | 提交 ID               | 否       |
 | permit        | String | 许可证信息           | 否       |
 
-
 ### `app` 属性描述
 
 | 属性名         | 类型   | 描述                  |  是否必传 |
@@ -59,7 +58,6 @@ hide_title: true
 | id            | String | 应用程序 ID          | 是      |
 | name          | String | 应用程序名称         | 是      |
 | version       | String | 应用程序版本         | 否       |
-
 
 ### `leakResults` 属性描述
 
@@ -85,6 +83,7 @@ hide_title: true
 | `suggestions`         | Array    | 建议                                     | 否       |
 
 ### `leakResults.properties.suggestions` 属性描述
+
 | 子属性               | 类型     | 描述                                      |  是否必传 |
 |---------------------|----------|-------------------------------------------|---------|
 | `title`         | String   | 标题                                  |  是      |
@@ -124,7 +123,6 @@ hide_title: true
 | `version`       | String | 组件版本                         |  是      |
 | `fixVersion`    | String | 修复版本                         | 否       |
 | `uri`           | String | 构件位置的 URI                    |  是      |
-
 
 ### `permitResults` 属性描述
 
@@ -166,8 +164,6 @@ hide_title: true
 | `uri`                | String | LICENCE文件所在位置                  |  是      |
 | `conflictUri`       | String | 冲突LICENCE文件所在位置              | 否       |
 
-
-
 ### `maintenanceResults` 属性描述
 
 | 子属性               | 类型   | 描述                              |  是否必传 |
@@ -184,9 +180,6 @@ hide_title: true
 |-------------------|--------|------------------------|---------|
 | `description`     | String | 风险描述               | 是      |
 | `referLinks`      | Array  | 参考链接,String数组               | 否      |
-
-
-
 
 ### `codeResults` 属性描述
 
@@ -231,6 +224,7 @@ hide_title: true
 | `endColumn`      | Number | 结束列号                       |  是      |
 
 > 示例
+
 ```json
 {
 "runs":[
@@ -379,4 +373,3 @@ hide_title: true
 ]
 }
 ```
-

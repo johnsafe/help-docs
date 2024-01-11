@@ -62,7 +62,7 @@ AtomGit docs 项目的国际化方案参考 [i18n - 教程 | Docusaurus](https:/
 
 ```bash
 # 翻译文档目录，对应着 docs 目录
-i18n/en/docusaurus-plugin-content-docs/current
+i18n/en/docusaurus-plugin-content-docs/current/
 
 # sidebar 对应的 en 翻译文件
 i18n/en/docusaurus-plugin-content-docs/current.json
@@ -119,7 +119,11 @@ demo doc
 
 #### navbar 维护
 
-如果**侧边栏新增了 category 、navbar 或 footer 有调整**，可以运行 `yarn write-translations --locale en --override`，该命令会将我们上面提到的 `i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json` 重新生成，可以在执行该指令前，可以先复制一份原来的 json 文件，在新生成的 json 中，翻译完新增内容后，将原来未改动的已翻译部分拷贝回来。
+如果**侧边栏新增了 category 、navbar ，或者 footer 有调整**，需要去`i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json`，在相应文件中增加对应英文；
+
+如果侧边栏、footer 出现大量改动的话，可以运行 `yarn write-translations --locale en --override`，该命令会将我们上面提到的 `i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json` 重新生成。
+
+> 建议在执行该覆写指令前，先复制一份原来的 json 文件，在新生成的 json 中，翻译完新增内容后，将原来未改动的已翻译部分拷贝回来。
 
 #### OpenAPI维护<a name="OpenAPI"></a>
 

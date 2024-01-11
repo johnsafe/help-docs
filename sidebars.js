@@ -22,6 +22,7 @@ const sidebars = {
       items: [
         'user/2fa',
         'user/user-sshkey',
+        'user/user-gpgkey',
         'user/user-verify',
         'repo/repo-migrate',
         {
