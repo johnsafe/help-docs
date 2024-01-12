@@ -2,7 +2,7 @@ openapi: 3.0.0
 servers:
   - url: https://api.atomgit.com
     description: prod
-  - url: https://api.atomgit.com
+  - url: https://test-api.atomgit.com
     description: test
 info:
   description: |
@@ -93,6 +93,9 @@ tags:
   - name: user
     description: Operations about user
     x-displayName: 用户账号
+  - name: activity
+    description: Activity and notify
+    x-displayName: 动态通知
   - name: org
     description: Operations about org
     x-displayName: 组织相关
@@ -136,6 +139,9 @@ x-tagGroups:
   - name: User Management
     tags:
       - user
+  - name: Activity Management
+    tags:
+      - activity
   - name: Org Management
     tags:
       - org
@@ -696,7 +702,164 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: 操作成功
-
+  /notifications/threads:
+    get:
+      tags:
+        - activity
+      summary: 列出授权用户的所有通知
+      description: 根据筛选条件，分页查询用户在AtomGit上的相关通知记录
+      operationId: remindPageList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: unread
+          in: query
+          description: 是否只获取未读消息，默认：false
+          required: false
+          schema:
+            type: boolean
+        - name: type
+          in: query
+          description: 筛选指定类型的通知，all：所有，event：事件通知，referer：@ 通知,默认all
+          required: false
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 只获取在给定时间后更新的消息，要求时间格式为 ISO 8601
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: 当前的页码
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: 每页的数量，最大为100
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RemindPage"
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
+  /notifications/threads/{id}:
+    get:
+      tags:
+        - activity
+      summary: 获取用户一条通知
+      description: 根据通知的id，获取用户的通知
+      operationId: remindById
+      parameters:
+        - name: id
+          in: path
+          description: "通知的ID"
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RemindDetail"
+        "400":
+          description: id参数有误，通知记录不存在
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
+  /notifications/messages:
+    get:
+      tags:
+        - activity
+      summary: 列出授权用户的所有私信
+      description: 根据筛选条件，分页查询用户在AtomGit上的相关私信记录
+      operationId: privatePageList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: unread
+          in: query
+          description: 是否只获取未读消息，默认：false
+          required: false
+          schema:
+            type: boolean
+        - name: since
+          in: query
+          description: 只获取在给定时间后更新的消息，要求时间格式为 ISO 8601
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: 当前的页码
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: 每页的数量，最大为100
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrivatePage"
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
+  /notifications/messages/{id}:
+    get:
+      tags:
+        - activity
+      summary: 获取用户一条私信
+      description: 根据私信的id，获取用户的私信
+      operationId: privateById
+      parameters:
+        - name: id
+          in: path
+          description: "私信的ID"
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrivateDetail"
+        "400":
+          description: id参数有误，私信记录不存在
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
   /organizations:
     get:
       tags:
@@ -4562,6 +4725,450 @@ components:
           description: ssh公钥
           type: string
           example: ssh公钥
+    RemindPage:
+      type: object
+      properties:
+        total:
+          description: 总条数
+          type: Integer
+          example: 60
+        list:
+          description: 通知记录列表
+          type: array
+          properties:
+            id:
+              description: 通知的id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            content:
+              description: 通知的内容
+              type: string
+              example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+            unread:
+              description: 是否未读
+              type: boolean
+              example: false
+            updated_at:
+              description: 创建日期
+              type: string
+              example: 2024-01-10T18:04:18+08:00
+            url:
+              description: 通知详情的api地址
+              type: string
+              example: https://api.atomgit.com/notifications/threads/51662c27f70c461cb04deafad374d5f4
+            html_url:
+              description: 通知详情的html页面地址
+              type: string
+              example: https://atomgit.com/orgs/nevins_logo/discussions/15
+            type:
+              description: 通知类型
+              type: string
+              example: discuss_update_state
+            namespace:
+              type: object
+              description: 所属组织或项目的命名空间信息
+              properties:
+                id:
+                  description: 组织或项目的id
+                  type: string
+                  example: 636c4fe43f24db95beef4064
+                name:
+                  description: 组织或项目名称路径
+                  type: string
+                  example: nevins_logo
+                path:
+                  description: 组织或项目命名空间路径
+                  type: string
+                  example: nevins_logo
+                type:
+                  description: 组织或项目的类型：organization：组织；project:仓库
+                  type: string
+                  example: organization
+            actor:
+              type: object
+              description: 发送人信息
+              properties:
+                login:
+                  description: 发送人用户名
+                  type: string
+                  example: mrpuatomgit
+                id:
+                  description: 发送人用户id
+                  type: string
+                  example: 63db126c0566d2f7d2c9498c
+                avatar_url:
+                  description: 发送人用户头像
+                  type: string
+                  example: https://img-host/uploads/user/1656318880150_5104.png
+                url:
+                  description: 发送人信息api地址
+                  type: string
+                  example: https://api.atomgit.com/users/leige
+                html_url:
+                  description: 发送人主页地址
+                  type: string
+                  example: https://atomgit.com/mrpuatomgit
+                followers_url:
+                  description: 发送人的followers url
+                  type: string
+                  example:
+                followering_url:
+                  description: 发送人的followering url
+                  type: string
+                  example:
+                gists_url:
+                  description: 发送人的 gists url
+                  type: string
+                  example:
+                starred_url:
+                  description: 发送人的 starred url
+                  type: string
+                  example:
+                subscriptions_url:
+                  description: 发送人的 subscriptions url
+                  type: string
+                  example:
+                organizations_url:
+                  description: 发送人的 organizations url
+                  type: string
+                  example:
+                repos_url:
+                  description: 发送人的 repos url
+                  type: string
+                  example:
+                events_url:
+                  description: 发送人的 events url
+                  type: string
+                  example:
+                received_events_url:
+                  description: 发送人的 received events url
+                  type: string
+                  example:
+                type:
+                  description: 发送人的 user type
+                  type: string
+                  example: user
+                site_admin:
+                  description: 发送人的是否是管理员
+                  type: string
+                  example: false
+    PrivatePage:
+      type: object
+      properties:
+        total:
+          description: 总条数
+          type: Integer
+          example: 60
+        list:
+          description: 私信记录列表
+          type: array
+          properties:
+            id:
+              description: 私信的id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            content:
+              description: 私信的内容
+              type: string
+              example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+            unread:
+              description: 是否未读
+              type: boolean
+              example: false
+            updated_at:
+              description: 创建日期
+              type: string
+              example: 2024-01-10T18:04:18+08:00
+            url:
+              description: 私信详情的api地址
+              type: string
+              example: https://api.atomgit.com/notifications/messages/51662c27f70c461cb04deafad374d5f4
+            html_url:
+              description: 私信详情的html页面地址
+              type: string
+              example: https://atomgit.com/-/profile/notice/message/36f5c1f7d3f943fa6e58f7c25d921a9e
+            sender:
+              type: object
+              description: 发送人信息
+              properties:
+                login:
+                  description: 发送人用户名
+                  type: string
+                  example: mrpuatomgit
+                id:
+                  description: 发送人用户id
+                  type: string
+                  example: 63db126c0566d2f7d2c9498c
+                avatar_url:
+                  description: 发送人用户头像
+                  type: string
+                  example: https://img-host/uploads/user/1656318880150_5104.png
+                url:
+                  description: 发送人信息api地址
+                  type: string
+                  example: https://api.atomgit.com/users/leige
+                html_url:
+                  description: 发送人主页地址
+                  type: string
+                  example: https://atomgit.com/mrpuatomgit
+                followers_url:
+                  description: 发送人的followers url
+                  type: string
+                  example:
+                followering_url:
+                  description: 发送人的followering url
+                  type: string
+                  example:
+                gists_url:
+                  description: 发送人的 gists url
+                  type: string
+                  example:
+                starred_url:
+                  description: 发送人的 starred url
+                  type: string
+                  example:
+                subscriptions_url:
+                  description: 发送人的 subscriptions url
+                  type: string
+                  example:
+                organizations_url:
+                  description: 发送人的 organizations url
+                  type: string
+                  example:
+                repos_url:
+                  description: 发送人的 repos url
+                  type: string
+                  example:
+                events_url:
+                  description: 发送人的 events url
+                  type: string
+                  example:
+                received_events_url:
+                  description: 发送人的 received events url
+                  type: string
+                  example:
+                type:
+                  description: 发送人的 user type
+                  type: string
+                  example: user
+                site_admin:
+                  description: 发送人的是否是管理员
+                  type: string
+                  example: false
+    RemindDetail:
+      type: object
+      properties:
+        id:
+          description: 通知的id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        content:
+          description: 通知的内容
+          type: string
+          example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+        unread:
+          description: 是否未读
+          type: boolean
+          example: false
+        updated_at:
+          description: 创建日期
+          type: string
+          example: 2024-01-10T18:04:18+08:00
+        url:
+          description: 通知详情的api地址
+          type: string
+          example: https://api.atomgit.com/notifications/threads/51662c27f70c461cb04deafad374d5f4
+        html_url:
+          description: 通知详情的html页面地址
+          type: string
+          example: https://atomgit.com/orgs/nevins_logo/discussions/15
+        type:
+          description: 通知类型
+          type: string
+          example: discuss_update_state
+        namespace:
+          type: object
+          description: 所属组织或项目的命名空间信息
+          properties:
+            id:
+              description: 组织或项目的id
+              type: string
+              example: 636c4fe43f24db95beef4064
+            name:
+              description: 组织或项目名称路径
+              type: string
+              example: nevins_logo
+            path:
+              description: 组织或项目命名空间路径
+              type: string
+              example: nevins_logo
+            type:
+              description: 组织或项目的类型：organization：组织；project:仓库
+              type: string
+              example: organization
+        actor:
+          type: object
+          description: 发送人信息
+          properties:
+            login:
+              description: 发送人用户名
+              type: string
+              example: mrpuatomgit
+            id:
+              description: 发送人用户id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: 发送人用户头像
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: 发送人信息api地址
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: 发送人主页地址
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: 发送人的followers url
+              type: string
+              example:
+            followering_url:
+              description: 发送人的followering url
+              type: string
+              example:
+            gists_url:
+              description: 发送人的 gists url
+              type: string
+              example:
+            starred_url:
+              description: 发送人的 starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: 发送人的 subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: 发送人的 organizations url
+              type: string
+              example:
+            repos_url:
+              description: 发送人的 repos url
+              type: string
+              example:
+            events_url:
+              description: 发送人的 events url
+              type: string
+              example:
+            received_events_url:
+              description: 发送人的 received events url
+              type: string
+              example:
+            type:
+              description: 发送人的 user type
+              type: string
+              example: user
+            site_admin:
+              description: 发送人的是否是管理员
+              type: string
+              example: false
+    PrivateDetail:
+      type: object
+      properties:
+        id:
+          description: 私信的id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        content:
+          description: 私信的内容
+          type: string
+          example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+        unread:
+          description: 是否未读
+          type: boolean
+          example: false
+        updated_at:
+          description: 创建日期
+          type: string
+          example: 2024-01-10T18:04:18+08:00
+        url:
+          description: 私信详情的api地址
+          type: string
+          example: https://api.atomgit.com/notifications/messages/51662c27f70c461cb04deafad374d5f4
+        html_url:
+          description: 私信详情的html页面地址
+          type: string
+          example: https://atomgit.com/-/profile/notice/message/36f5c1f7d3f943fa6e58f7c25d921a9e
+        sender:
+          type: object
+          description: 发送人信息
+          properties:
+            login:
+              description: 发送人用户名
+              type: string
+              example: mrpuatomgit
+            id:
+              description: 发送人用户id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: 发送人用户头像
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: 发送人信息api地址
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: 发送人主页地址
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: 发送人的followers url
+              type: string
+              example:
+            followering_url:
+              description: 发送人的followering url
+              type: string
+              example:
+            gists_url:
+              description: 发送人的 gists url
+              type: string
+              example:
+            starred_url:
+              description: 发送人的 starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: 发送人的 subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: 发送人的 organizations url
+              type: string
+              example:
+            repos_url:
+              description: 发送人的 repos url
+              type: string
+              example:
+            events_url:
+              description: 发送人的 events url
+              type: string
+              example:
+            received_events_url:
+              description: 发送人的 received events url
+              type: string
+              example:
+            type:
+              description: 发送人的 user type
+              type: string
+              example: user
+            site_admin:
+              description: 发送人的是否是管理员
+              type: string
+              example: false
     OrgPage:
       type: object
       properties:
