@@ -93,6 +93,9 @@ tags:
   - name: user
     description: Operations about user
     x-displayName: User Account
+  - name: activity
+    description: Activity and notify
+    x-displayName: Activity and notify
   - name: org
     description: Operations about org
     x-displayName: Organization
@@ -127,6 +130,9 @@ x-tagGroups:
   - name: User Management
     tags:
       - user
+  - name: Activity Management
+    tags:
+      - activity
   - name: Org Management
     tags:
       - org
@@ -201,7 +207,7 @@ paths:
       operationId: getUserByUsername
       parameters:
         - name: Authorization
-          in: header 
+          in: header
           description: "Oauth2 token or private token (needs to start with Bearer plus a space)"
           required: true
         - name: username
@@ -678,7 +684,164 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: Success
-
+  /notifications/threads:
+    get:
+      tags:
+        - activity
+      summary: List all notifications for authorized users
+      description: Query the relevant notification records of users on AtomGit based on the filtering criteria and in pages
+      operationId: remindPageList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token（need Bearer+" " begin）
+          required: true
+        - name: unread
+          in: query
+          description: Whether to only obtain unread messages, default：false
+          required: false
+          schema:
+            type: boolean
+        - name: type
+          in: query
+          description: Filter notifications of specified type，all：all notifications，event：event notifications，referer：referer notifications,default all
+          required: false
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: Only retrieve messages updated after the given time. The required time format is： ISO 8601
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: current page index
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: per page size，max size is 100
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RemindPage"
+        "401":
+          description: fail，need login or invalid token
+        "403":
+          description: forbid, no permission
+  /notifications/threads/{id}:
+    get:
+      tags:
+        - activity
+      summary: Get a notification from the user
+      description: Get the user's notifications based on the notification ID
+      operationId: remindById
+      parameters:
+        - name: id
+          in: path
+          description: notifications id
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token（need Bearer+" " begin）
+          required: true
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RemindDetail"
+        "400":
+          description: Parameters id is error
+        "401":
+          description: fail，need login or invalid token
+        "403":
+          description: forbid, no permission
+  /notifications/messages:
+    get:
+      tags:
+        - activity
+      summary: List all private message for authorized users
+      description:  Query the relevant private message records of users on AtomGit based on the filtering criteria and in pages
+      operationId: privatePageList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token（need Bearer+" " begin）
+          required: true
+        - name: unread
+          in: query
+          description: Whether to only obtain unread messages, default：false
+          required: false
+          schema:
+            type: boolean
+        - name: since
+          in: query
+          description: Only retrieve messages updated after the given time. The required time format is： ISO 8601
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: current page index
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: per page size，max size is 100
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrivatePage"
+        "401":
+          description: fail，need login or invalid token
+        "403":
+          description: forbid, no permission
+  /notifications/messages/{id}:
+    get:
+      tags:
+        - activity
+      summary: Get a private message from the user
+      description: Get the user's private message based on the private message id
+      operationId: privateById
+      parameters:
+        - name: id
+          in: path
+          description: private message id
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token（need Bearer+" " begin）
+          required: true
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrivateDetail"
+        "400":
+          description: Parameters id is error
+        "401":
+          description: fail，need login or invalid token
+        "403":
+          description: forbid, no permission
   /organizations:
     get:
       tags:
@@ -4017,6 +4180,450 @@ components:
           description: ssh public key
           type: string
           example: ssh public key
+    RemindPage:
+      type: object
+      properties:
+        total:
+          description: total
+          type: Integer
+          example: 60
+        list:
+          description: notify message list
+          type: array
+          properties:
+            id:
+              description: notify message id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            content:
+              description: notify message content
+              type: string
+              example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+            unread:
+              description: notify message is unread
+              type: boolean
+              example: false
+            updated_at:
+              description: notify message update date time
+              type: string
+              example: 2024-01-10T18:04:18+08:00
+            url:
+              description: notify message api url
+              type: string
+              example: https://api.atomgit.com/notifications/threads/51662c27f70c461cb04deafad374d5f4
+            html_url:
+              description: notify message html url
+              type: string
+              example: https://atomgit.com/orgs/nevins_logo/discussions/15
+            type:
+              description: notify type
+              type: string
+              example: discuss_update_state
+            namespace:
+              type: object
+              description: belong to organization or project's namespace info
+              properties:
+                id:
+                  description: organization or project's id
+                  type: string
+                  example: 636c4fe43f24db95beef4064
+                name:
+                  description: organization or project's name
+                  type: string
+                  example: nevins_logo
+                path:
+                  description: organization or project's path
+                  type: string
+                  example: nevins_logo
+                type:
+                  description: namespace type
+                  type: string
+                  example: organization
+            actor:
+              type: object
+              description: sender info
+              properties:
+                login:
+                  description: sender's username
+                  type: string
+                  example: mrpuatomgit
+                id:
+                  description: sender's userid
+                  type: string
+                  example: 63db126c0566d2f7d2c9498c
+                avatar_url:
+                  description: sender's avatar url
+                  type: string
+                  example: https://img-host/uploads/user/1656318880150_5104.png
+                url:
+                  description: sender info api url
+                  type: string
+                  example: https://api.atomgit.com/users/leige
+                html_url:
+                  description: sender profile html url
+                  type: string
+                  example: https://atomgit.com/mrpuatomgit
+                followers_url:
+                  description: sender's followers url
+                  type: string
+                  example:
+                followering_url:
+                  description:  sender's followering url
+                  type: string
+                  example:
+                gists_url:
+                  description:  sender's gists url
+                  type: string
+                  example:
+                starred_url:
+                  description:  sender's starred url
+                  type: string
+                  example:
+                subscriptions_url:
+                  description:  sender's subscriptions url
+                  type: string
+                  example:
+                organizations_url:
+                  description:  sender's organizations url
+                  type: string
+                  example:
+                repos_url:
+                  description:  sender's repos url
+                  type: string
+                  example:
+                events_url:
+                  description:  sender's events url
+                  type: string
+                  example:
+                received_events_url:
+                  description:  sender's received events url
+                  type: string
+                  example:
+                type:
+                  description:  sender's user type
+                  type: string
+                  example: user
+                site_admin:
+                  description:  sender is a admin
+                  type: string
+                  example: false
+    PrivatePage:
+      type: object
+      properties:
+        total:
+          description: total
+          type: Integer
+          example: 60
+        list:
+          description: private message list
+          type: array
+          properties:
+            id:
+              description: private message id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            content:
+              description: private message content
+              type: string
+              example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+            unread:
+              description: private message is unread
+              type: boolean
+              example: false
+            updated_at:
+              description: private message update time
+              type: string
+              example: 2024-01-10T18:04:18+08:00
+            url:
+              description: private message api url
+              type: string
+              example: https://api.atomgit.com/notifications/messages/51662c27f70c461cb04deafad374d5f4
+            html_url:
+              description: private message html url
+              type: string
+              example: https://atomgit.com/-/profile/notice/message/36f5c1f7d3f943fa6e58f7c25d921a9e
+            sender:
+              type: object
+              description: sender info
+              properties:
+                login:
+                  description: sender's username
+                  type: string
+                  example: mrpuatomgit
+                id:
+                  description: sender's userid
+                  type: string
+                  example: 63db126c0566d2f7d2c9498c
+                avatar_url:
+                  description: sender's avatar url
+                  type: string
+                  example: https://img-host/uploads/user/1656318880150_5104.png
+                url:
+                  description: sender info api url
+                  type: string
+                  example: https://api.atomgit.com/users/leige
+                html_url:
+                  description: sender profile html url
+                  type: string
+                  example: https://atomgit.com/mrpuatomgit
+                followers_url:
+                  description: sender's followers url
+                  type: string
+                  example:
+                followering_url:
+                  description: sender's followering url
+                  type: string
+                  example:
+                gists_url:
+                  description: sender's gists url
+                  type: string
+                  example:
+                starred_url:
+                  description: sender's starred url
+                  type: string
+                  example:
+                subscriptions_url:
+                  description: sender's subscriptions url
+                  type: string
+                  example:
+                organizations_url:
+                  description: sender's organizations url
+                  type: string
+                  example:
+                repos_url:
+                  description: sender's repos url
+                  type: string
+                  example:
+                events_url:
+                  description: sender's events url
+                  type: string
+                  example:
+                received_events_url:
+                  description: sender's received events url
+                  type: string
+                  example:
+                type:
+                  description: sender's user type
+                  type: string
+                  example: user
+                site_admin:
+                  description: sender is a admin
+                  type: string
+                  example: false
+    RemindDetail:
+      type: object
+      properties:
+        id:
+          description: notify message id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        content:
+          description: notify message content
+          type: string
+          example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+        unread:
+          description: notify message is unread
+          type: boolean
+          example: false
+        updated_at:
+          description: notify message update date time
+          type: string
+          example: 2024-01-10T18:04:18+08:00
+        url:
+          description: notify message api url
+          type: string
+          example: https://api.atomgit.com/notifications/threads/51662c27f70c461cb04deafad374d5f4
+        html_url:
+          description: notify message html url
+          type: string
+          example: https://atomgit.com/orgs/nevins_logo/discussions/15
+        type:
+          description: notify type
+          type: string
+          example: discuss_update_state
+        namespace:
+          type: object
+          description: belong to organization or project's namespace info
+          properties:
+            id:
+              description: organization or project's id
+              type: string
+              example: 636c4fe43f24db95beef4064
+            name:
+              description: organization or project's name
+              type: string
+              example: nevins_logo
+            path:
+              description: organization or project's path
+              type: string
+              example: nevins_logo
+            type:
+              description: namespace type
+              type: string
+              example: organization
+        actor:
+          type: object
+          description: sender info
+          properties:
+            login:
+              description: sender's username
+              type: string
+              example: mrpuatomgit
+            id:
+              description: sender's userid
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: sender's avatar url
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: sender info api url
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: sender profile html url
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: sender's followers url
+              type: string
+              example:
+            followering_url:
+              description: sender's followering url
+              type: string
+              example:
+            gists_url:
+              description: sender's gists url
+              type: string
+              example:
+            starred_url:
+              description: sender's starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: sender's subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: sender's organizations url
+              type: string
+              example:
+            repos_url:
+              description: sender's repos url
+              type: string
+              example:
+            events_url:
+              description: sender's events url
+              type: string
+              example:
+            received_events_url:
+              description: sender's received events url
+              type: string
+              example:
+            type:
+              description: sender's user type
+              type: string
+              example: user
+            site_admin:
+              description: sender is a admin
+              type: string
+              example: false
+    PrivateDetail:
+      type: object
+      properties:
+        id:
+          description: private message id
+          type: string
+          example: 63db126c0566d2f7d2c9498c
+        content:
+          description: private message content
+          type: string
+          example: nevins35更改了讨论#15可以帮帮我吗-打不开了的状态为：重新打开
+        unread:
+          description: private message is unread
+          type: boolean
+          example: false
+        updated_at:
+          description:  private message update time
+          type: string
+          example: 2024-01-10T18:04:18+08:00
+        url:
+          description: private message api url
+          type: string
+          example: https://api.atomgit.com/notifications/messages/51662c27f70c461cb04deafad374d5f4
+        html_url:
+          description: private message html url
+          type: string
+          example: https://atomgit.com/-/profile/notice/message/36f5c1f7d3f943fa6e58f7c25d921a9e
+        sender:
+          type: object
+          description: sender info
+          properties:
+            login:
+              description: sender's username
+              type: string
+              example: mrpuatomgit
+            id:
+              description: sender's userid
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: sender's avatar url
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: sender info api url
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: sender profile html url
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: sender's followers url
+              type: string
+              example:
+            followering_url:
+              description: sender's followering url
+              type: string
+              example:
+            gists_url:
+              description: sender's gists url
+              type: string
+              example:
+            starred_url:
+              description: sender's starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: sender's subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: sender's organizations url
+              type: string
+              example:
+            repos_url:
+              description: sender's repos url
+              type: string
+              example:
+            events_url:
+              description: sender's events url
+              type: string
+              example:
+            received_events_url:
+              description: sender's received events url
+              type: string
+              example:
+            type:
+              description: sender's user type
+              type: string
+              example: user
+            site_admin:
+              description: sender is a admin
+              type: string
+              example: false
     OrgPage:
       type: object
       properties:
