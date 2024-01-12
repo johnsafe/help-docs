@@ -2,7 +2,7 @@ openapi: 3.0.0
 servers:
   - url: https://api.atomgit.com
     description: prod
-  - url: https://api.atomgit.com
+  - url: https://test-api.atomgit.com
     description: test
 info:
   description: |
