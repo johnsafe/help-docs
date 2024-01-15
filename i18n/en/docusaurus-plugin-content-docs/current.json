@@ -127,6 +127,10 @@
     "message": "Account",
     "description": "The label for category 用户账号 in sidebar api"
   },
+  "sidebar.api.category.动态通知": {
+    "message": "Activity",
+    "description": "The label for category 动态通知 in sidebar api"
+  },
   "sidebar.api.category.组织相关": {
     "message": "Organization",
     "description": "The label for category 组织相关 in sidebar api"
