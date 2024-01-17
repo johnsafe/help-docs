@@ -48,17 +48,21 @@ $ yarn build
 
 API 使用文档找到了一个 `docusaurus` 的插件项目，可参考： <https://gitcode.net/mirrors/PaloAltoNetworks/docusaurus-openapi-docs>
 
-## 国际化
+## 国际化维护
 
 ### 方案
 
 AtomGit docs 项目的国际化方案参考 [i18n - 教程 | Docusaurus](https://docusaurus-archive-october-2023.netlify.app/zh-CN/docs/2.2.0/i18n/tutorial) ，由于项目基本上都是 markdown 文档，所以采用了 [Git-i18n](https://docusaurus-archive-october-2023.netlify.app/zh-cn/docs/2.2.0/i18n/git) 的翻译方案；
 
-初始化流程已经走完，英文对应的文件都放在 `i18n/en`目录下。
+目前项目已经支持英文（en）。
 
-### 更新及维护
+项目 i18n 初始化流程已经走完，英文对应的文件放在 `i18n/en`目录下，后续需要持续的维护（**每次修改中文文档时，需同时更新对应的英文文档**）。
 
-后续维护工作，需要关注的几个文件/目录为：
+**注意：如未保持已翻译和未翻译的文件同步，则切换到英文时，展示中文 sidebar 及中文文档内容。**
+
+### 更新及维护<a name="i18nFiles"></a>
+
+后续国际化文档维护工作，需要关注的几个文件/目录为：
 
 ```bash
 # 翻译文档目录，对应着 docs 目录
@@ -97,7 +101,7 @@ sidebar_label: 新用户文档
 
 ```
 
-则需增加它的翻译文档：`i18n/en/docusaurus-plugin-content-docs/current/user/new.md`，内容为：
+则需在 i18n 英文目录下（i18n/en）增加`docs/user/new.d`对应的的英文翻译文档：`i18n/en/docusaurus-plugin-content-docs/current/user/new.md`，内容为：
 
 ```md
 ---
@@ -115,27 +119,29 @@ demo doc
 
 ```
 
-> 未增加相应的翻译文档时，切换到英文，项目会展示中文文档。
+> 未增加相应的翻译文档时，语言切换到英文时，项目会展示中文文档。
 
 #### navbar 维护
 
-如果**侧边栏新增了 category 、navbar ，或者 footer 有调整**，需要去`i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json`，在相应文件中增加对应英文；
+如果**侧边栏新增了 category 、navbar ，或者 footer 有调整**，需要去`i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json`（ [具体的文件路径](#i18nFiles)），在相应文件中进行更新；
 
-如果侧边栏、footer 出现大量改动的话，可以运行 `yarn write-translations --locale en --override`，该命令会将我们上面提到的 `i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json` 重新生成。
+侧边栏、footer 出现大量改动的话，可以运行 `yarn write-translations --locale en --override`，该命令会将我们上面提到的 `i18n/en` 目录下的`current.json`、`footer.json` 和 `navbar.json` 重新生成。
 
-> 建议在执行该覆写指令前，先复制一份原来的 json 文件，在新生成的 json 中，翻译完新增内容后，将原来未改动的已翻译部分拷贝回来。
+> 增量更新：建议在执行该覆写指令前，先复制一份原来的 json 文件，在新生成的 json 中，翻译完新增内容后，将原来未改动的已翻译部分拷贝回来。
 
-#### OpenAPI维护<a name="OpenAPI"></a>
+#### OpenAPI 维护<a name="OpenAPI"></a>
 
-`docs/openAPI` 目录下的 mdx 文档，是用 `docusaurus-plugin-openapi-docs` 插件从 `openAPI/api.yaml` 生成的，具体配置可以到 `docusaurus.config.js` 里查看；
+大家都是在 `openAPI/api.yaml`中编辑 OpenAPI，项目构建的时候，实际展示的是`docs/openAPI/api_versioned`下的 mdx 文档，这些文档是用 `docusaurus-plugin-openapi-docs` 插件基于 `openAPI/api.yaml` 生成的，具体配置可以到 `docusaurus.config.js` 里查看；
 
-我对 `openAPI/api.yaml` 文档进行了翻译，翻译后的文件在同级目录下（`openAPI/api_en.yaml`），当前`i18n/en/docusaurus-plugin-content-docs/current/openAPI` 目录下的 API 文档，是从 `openAPI/api_en.yaml` 生成的；
+我对 `openAPI/api.yaml` 文档进行了翻译，翻译后的文件在同级目录下（`openAPI/api_en.yaml`），当前`i18n/en/docusaurus-plugin-content-docs/current/openAPI` 目录下的 API 文档，是从 `openAPI/api_en.yaml` 生成的。
 
-后续 `api.yaml` 有更新的话，可以考虑按如下步骤更新或生成对应的英文 API 文档：
+**后续 `api.yaml` 有更新的话，需要及时维护 `api_en.yaml`文件**。
 
-1. 更新 `api_en.yaml`
-2. 在项目根目录下的`./docusaurus.config.js` 文件中，将 `specPath: "openAPI/api.yaml"` 临时改为 `specPath: "openAPI/api_en.yaml`
-3. 执行 `yarn gen-all-en` 命令，生成英文版本的 API 文档
+可以参考如下步骤进行维护：
+
+1. 更新 `api_en.yaml`；
+2. 在项目根目录下的`./docusaurus.config.js` 文件中，将 `specPath: "openAPI/api.yaml"` 临时改为 `specPath: "openAPI/api_en.yaml`；
+3. 执行 `yarn gen-all-en` 命令，生成英文版本的 API 文档；
 4. 将对应的 API 文档，从 `docs/openAPI/api_versioned` 目录下，拷贝到 `i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned` 目录下（**建议只调整新增、修改的文档**），如需覆盖全部的 API 英文文档，也可以执行下面的命令：
 
 ```bash
@@ -147,13 +153,15 @@ cp -rf docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/curre
 cp -Recurse -Force docs/openAPI/api_versioned/* i18n/en/docusaurus-plugin-content-docs/current/openAPI/api_versioned
 ```
 
-5. 在 `docusaurus.config.js` 中，将 `specPath: "openAPI/api_en.yaml` 配置改回 `specPath: "openAPI/api.yaml"`
+5. 在 `docusaurus.config.js` 中，将 `specPath: "openAPI/api_en.yaml` 配置改回 `specPath: "openAPI/api.yaml"`。
 
 ### 本地开发预览
 
-运行 `yarn start --locale en`，以开发模式启动英文站点。
+维护完成后，可以运行 `yarn start --locale en`，以开发模式启动英文站点。
 
-### 错误处理
+注意，**指定 locale 为英文时，无法正常查看中文**，要完整查看国际化切换效果的话，需运行`yarn build`，等中英文版本均构建完成后（构建时间相对较久），再执行`yarn serve`，查看国际化切换效果。
+
+### 常见错误及处理
 
 #### 启动失败
 
@@ -173,7 +181,7 @@ These sidebar document ids do not exist:
 
 #### API 文档生成失败
 
-`yarn gen-all-en` 失败，报错：
+运行`yarn gen-all-en` 命令，执行失败，报错：
 
 ```bash
 Loading of api failed for "xxxxx\docs\openAPI\api_en.yaml"
@@ -186,7 +194,7 @@ Loading of api failed for "xxxxx\docs\openAPI\api_en.yaml"
 
 openAPI 新增 category 时，需要配置 API 文档侧边栏一级菜单文案。
 
-举例来说，在 `api.yaml` tags 下新增了一个名为“变更请求-自动化检查相关”的分类：
+比如，在 `api.yaml` tags 下新增了一个名为“变更请求-自动化检查相关”的分类：
 
 ```bash
   - name: check-runs
@@ -194,7 +202,7 @@ openAPI 新增 category 时，需要配置 API 文档侧边栏一级菜单文案
     x-displayName: 变更请求-自动化检查相关
 ```
 
-那么，除了在`api_en.yaml`里翻译相应的 `x-displayName` 外，还需在`i18n\en\docusaurus-plugin-content-docs\current.json` 文件中，增加对应的英文侧边栏文案：
+那么，除了在`api_en.yaml`里翻译相应的 `x-displayName` 和 `tags` 外，还需在`i18n\en\docusaurus-plugin-content-docs\current.json` 文件中，增加对应的英文侧边栏文案：
 
 ```json
 "sidebar.api.category.变更请求-自动化检查相关": {
@@ -207,12 +215,10 @@ openAPI 新增 category 时，需要配置 API 文档侧边栏一级菜单文案
 
 #### API 英文介绍文档——侧边栏 label 名为 “介绍”
 
-一般是因为把`i18n\en\docusaurus-plugin-content-docs\current\openAPI\api_versioned\atomgit-openapi.info.mdx`覆盖了，可以去这个文档里，把 `sidebar_label` 改成 `Introduction` 即可。
+一般是因为把`i18n\en\docusaurus-plugin-content-docs\current\openAPI\api_versioned\atomgit-openapi.info.mdx`文档覆盖了，可以去这个文档里，把 `sidebar_label` 改成 `Introduction` 即可。
 
-### 线上效果预览
-
-运行 `yarn build`，等中英文版本均构建完成后，再执行`yarn serve`，可以预览线上效果，进行多语言切换检查。
+也可以查看 git 历史提交记录，将其恢复。
 
 ### 翻译工具
 
-可调用谷歌翻译接口（`https://translate.googleapis.com/translate_a/single`），进行翻译。
+可调用谷歌翻译接口（`https://translate.googleapis.com/translate_a/single`）或百度翻译接口（`https://api.fanyi.baidu.com/api/trans/vip/translate`），进行文本翻译。
