@@ -99,9 +99,15 @@ tags:
   - name: org
     description: Operations about org
     x-displayName: Organization
+  - name: apps
+    description: Operations about apps
+    x-displayName: Apps
   - name: branches
     description: Operations about branches
     x-displayName: Branch
+  - name: tags
+    description: Operations about tags
+    x-displayName: Tags
   - name: commits
     description: Operations about commits
     x-displayName: Commits
@@ -110,7 +116,7 @@ tags:
     x-displayName: Commit Status
   - name: repositories
     description: Operations about repositories
-    x-displayName: Repository
+    x-displayName: Repository Data
   - name: repository contents
     description: Operations about repository contents
     x-displayName: Repository Content
@@ -126,6 +132,9 @@ tags:
   - name: issues comment
     description: Operations about issue comment
     x-displayName: Issues comment
+  - name: security
+    description: Operations about security
+    x-displayName: Security
 x-tagGroups:
   - name: User Management
     tags:
@@ -136,9 +145,15 @@ x-tagGroups:
   - name: Org Management
     tags:
       - org
+  - name: apps
+    tags:
+      - apps
   - name: branches
     tags:
       - branches
+  - name: tags
+    tags:
+      - tags
   - name: commits
     tags:
       - commits
@@ -163,6 +178,9 @@ x-tagGroups:
   - name: issues comment
     tags:
       - issues comment
+  - name: security
+    tags:
+      - security
 paths:
   # 获取用户个人信息
   /user/info:
@@ -179,7 +197,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'The token is invalid, please check whether the token is correct.'
+          description: "The token is invalid, please check whether the token is correct."
           content:
             application/json:
               schema:
@@ -216,7 +234,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'The token is invalid, please check whether the token is correct.'
+          description: "The token is invalid, please check whether the token is correct."
           content:
             application/json:
               schema:
@@ -233,7 +251,7 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/User"
- # 获取当前用户的邮箱列表
+  # 获取当前用户的邮箱列表
   /user/emails:
     get:
       tags:
@@ -248,7 +266,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -269,7 +287,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/UserEmailVO"
- # 获取当前用户的粉丝列表
+  # 获取当前用户的粉丝列表
   /user/followers:
     get:
       tags:
@@ -313,7 +331,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 获取指定用户的粉丝列表
+  # 获取指定用户的粉丝列表
   /users/{username}/followers:
     get:
       tags:
@@ -361,7 +379,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 列出当前用户的关注列表
+  # 列出当前用户的关注列表
   /user/following:
     get:
       tags:
@@ -396,15 +414,15 @@ paths:
           description: Success
           content:
             application/json:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AuthenticatedUserListVO"
+              type: array
+              items:
+                $ref: "#/components/schemas/AuthenticatedUserListVO"
             application/xml:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 获取指定用户的关注列表
+  # 获取指定用户的关注列表
   /users/{username}/following:
     get:
       tags:
@@ -452,7 +470,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AuthenticatedUserListVO"
- # 关注指定用户
+  # 关注指定用户
   /user/following/{username}:
     put:
       tags:
@@ -483,7 +501,7 @@ paths:
           description: Success
         400:
           description: Cannot follow repeatedly
- # 移除某个已关注用户
+    # 移除某个已关注用户
     delete:
       tags:
         - user
@@ -511,7 +529,7 @@ paths:
                 $ref: "#/components/schemas/InvalidToken"
         200:
           description: Success
- # 检查当前用户是否关注了某个用户
+    # 检查当前用户是否关注了某个用户
     get:
       tags:
         - user
@@ -540,7 +558,7 @@ paths:
         200:
           description: true-follow,false-unfollow
 
- # 检查用户是否关注了指定用户
+  # 检查用户是否关注了指定用户
   /users/{username}/following/{targetUsername}:
     get:
       tags:
@@ -575,7 +593,7 @@ paths:
           description: Success
         400:
           description: Cannot follow repeatedly
- # 获取当前登录用户的 SSH 公钥列表
+  # 获取当前登录用户的 SSH 公钥列表
   /user/keys:
     get:
       tags:
@@ -615,7 +633,7 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/SSHKeyVO"
-  #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
+    #为当前登录用户创建一个新的 SSH 公钥（注：勾选写权限会默认选中读权限）
     post:
       tags:
         - user
@@ -655,7 +673,7 @@ paths:
               $ref: "#/components/schemas/AddSSHKeyDTO"
         description: add ssh key request body
         required: true
- # 移除指定的 SSH 公钥
+  # 移除指定的 SSH 公钥
   /user/keys/{keyId}:
     delete:
       tags:
@@ -771,7 +789,7 @@ paths:
       tags:
         - activity
       summary: List all private message for authorized users
-      description:  Query the relevant private message records of users on AtomGit based on the filtering criteria and in pages
+      description: Query the relevant private message records of users on AtomGit based on the filtering criteria and in pages
       operationId: privatePageList
       parameters:
         - name: Authorization
@@ -1106,7 +1124,7 @@ paths:
             type: string
         - name: username
           in: path
-          description:  username
+          description: username
           required: true
           schema:
             type: string
@@ -1229,6 +1247,75 @@ paths:
                 role:
                   description: set user's role:maintainer、developer、guest。
                   type: string
+  ############ 应用（apps API）############
+  # 获取atu token
+  /login/oauth/access_token:
+    post:
+      tags:
+        - apps
+      summary: get oauth access_token
+      description: get oauth access Token, based on authorization code or refresh_ Token
+      operationId: getOAuthAtuToken
+      parameters:
+        - name: Content-Type
+          in: header
+          description: application/json
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                client_id:
+                  type: string
+                  required: false
+                  description: Application Client Id
+                client_secret:
+                  type: string
+                  required: true
+                  description: Application client key
+                code:
+                  type: string
+                  required: false
+                  description: Oauth authorization code (non empty when using authorization code to obtain token)
+                grant_type:
+                  type: string
+                  required: false
+                  description: grant_type value:refresh_token(Use refresh_ Token must be passed when refreshing a token)
+                refresh_token:
+                  type: string
+                  required: false
+                  description: refresh_token(Use refresh_ Token must be passed when refreshing a token)
+      responses:
+        200:
+          description: create tokenSuccess
+        403:
+          description: Forbidden
+        404:
+          description: resouce not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  access_token:
+                    type: string
+                    required: true
+                    description: access_token。
+                  expires_in:
+                    type: long
+                    required: true
+                    description: access_token expire time(timestamp:ms)
+                  refresh_token:
+                    type: string
+                    required: true
+                    description: refresh_token
+                  refresh_token_expires_in:
+                    type: long
+                    required: true
+                    description: refresh_token expire time(timestamp:ms)
   ############ 分支接口（Branches API）############
   # 获取分支信息
   /repos/{owner}/{repo}/branches/{branch}:
@@ -1383,6 +1470,65 @@ paths:
                       type: boolean
                       required: true
                       description: is protected branch or not
+  ############ 标签接口（Tags API）############
+  /repos/{owner}/{repo}/tags:
+    get:
+      tags:
+        - tags
+      summary: getTagList
+      description: getTagList
+      operationId: getTagList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or Privatetoken(start with Bearer and a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the code repository is generally referred to as the "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: Code repository name. The name is not case sensitive.
+          required: true
+        - name: per_page
+          in: query
+          description: per_page
+          required: false
+        - name: page
+          in: query
+          description: page
+          required: false
+        - name: search
+          in: query
+          description: Label name retrieval, suppor fuzzy queries
+          required: false
+      responses:
+        200:
+          description: Success
+        404:
+          description: resouce not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      description: tag name
+                    commit:
+                      type: object
+                      required: true
+                      description: commit id
+                      properties:
+                        sha:
+                          type: string
+                          required: true
+                          description: commit SHA value
   # ############ 提交接口（Commits API）############
   # # 获取分支提交
   /repos/{owner}/{repo}/commits/{ref}:
@@ -1602,8 +1748,8 @@ paths:
                   type: string
                   required: false
                   description: |
-                            The target URL associated with this status to allow the user to easily view the source of the status.
-                            For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
+                    The target URL associated with this status to allow the user to easily view the source of the status.
+                    For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
                 description:
                   type: string
                   required: false
@@ -1649,8 +1795,8 @@ paths:
                     type: string
                     required: false
                     description: |
-                            The target URL associated with this status to allow the user to easily view the source of the status.
-                            For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
+                      The target URL associated with this status to allow the user to easily view the source of the status.
+                      For example, if your continuous integration system is publishing build status, you will want to output a similarly formatted link address for the build of this specific SHA: http://ci.example.com/user/repo/build/sha
   # ############ Check-runs接口 ############
   # # 创建自动化检查
   /repos/{owner}/{repo}/check-runs:
@@ -1700,9 +1846,9 @@ paths:
                   type: string
                   required: false
                   description: |
-                   This field is required if you pass the "completed_at" field or set the "status" field to "completed". This field expresses the final result of the automated check. ,
-                    Note: Providing the "conclusion" field will automatically set the status parameter to "completed". Also it will not be possible to change "conclusion" to "stale", only platforms can be set to this value.
-                    Enumeration values: action_required, canceled, failure, neutral, success, skip, stale, timed_out
+                    This field is required if you pass the "completed_at" field or set the "status" field to "completed". This field expresses the final result of the automated check. ,
+                     Note: Providing the "conclusion" field will automatically set the status parameter to "completed". Also it will not be possible to change "conclusion" to "stale", only platforms can be set to this value.
+                     Enumeration values: action_required, canceled, failure, neutral, success, skip, stale, timed_out
                 completed_at:
                   type: string
                   required: false
@@ -1920,7 +2066,7 @@ paths:
                 status:
                   type: string
                   required: false
-                  description:  |
+                  description: |
                     Status enumeration, the enumeration values ​​are: queued, in_progress, completed. Default value: queued
                 started_at:
                   type: string
@@ -1941,7 +2087,7 @@ paths:
                 action:
                   type: object
                   required: false
-                  description:  Automated checks can accept various types of data in "output", including titles and summaries, and can optionally provide descriptive details about the run.
+                  description: Automated checks can accept various types of data in "output", including titles and summaries, and can optionally provide descriptive details about the run.
                   properties:
                     label:
                       type: string
@@ -2099,6 +2245,219 @@ paths:
                       description:
                         type: string
                         required: true
+  # # 仓库数据相关
+  # # 获取组织下仓库列表
+  /orgs/{orgPath}/repos:
+    get:
+      tags:
+        - repositories
+      summary: getOrgRepoList
+      description: getOrgRepoList
+      operationId: getOrgRepoList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or Privatetoken(start with Bearer and a space)
+          required: true
+        - name: orgPath
+          in: path
+          description: The path of the organization to which the code repository belongs, which is not case sensitive.
+          required: true
+        - name: per_page
+          in: query
+          description: per_page
+          required: false
+        - name: page
+          in: query
+          description: page
+          required: false
+        - name: search
+          in: query
+          description: query-search,fuzzy query repo name
+          required: false
+      responses:
+        200:
+          description: Success
+        404:
+          description: resouce not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    private:
+                      type: boolean
+                      required: true
+                      description: is it a private repository
+                    id:
+                      type: long
+                      required: true
+                      description: repo id
+                    full_name:
+                      type: string
+                      required: true
+                      description: absolute path of the repo
+                    name:
+                      type: string
+                      required: true
+                      description: repo name
+                    description:
+                      type: string
+                      required: false
+                      description: repo description
+                    default_branch:
+                      type: string
+                      required: false
+                      description: repo default branch
+                    git_url:
+                      type: string
+                      required: true
+                      description: repo ssh clone url
+                    html_url:
+                      type: string
+                      required: true
+                      description: repo http clone url
+  # # 获取组织下仓库列表
+  /users/{username}/repos:
+    get:
+      tags:
+        - repositories
+      summary: getUserSpaceRepoList
+      description: getUserSpaceRepoList
+      operationId: getUserSpaceRepoList
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or Privatetoken(start with Bearer and a space)
+          required: true
+        - name: username
+          in: path
+          description: The username of the user who owns the repository, which is not case sensitive.
+          required: true
+        - name: per_page
+          in: query
+          description: per_page
+          required: false
+        - name: page
+          in: query
+          description: page
+          required: false
+        - name: search
+          in: query
+          description: query-search,fuzzy query repo name
+          required: false
+      responses:
+        200:
+          description: Success
+        404:
+          description: resouce not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    private:
+                      type: boolean
+                      required: true
+                      description: is it a private repository
+                    id:
+                      type: long
+                      required: true
+                      description: repo id
+                    full_name:
+                      type: string
+                      required: true
+                      description: absolute path of the repo
+                    name:
+                      type: string
+                      required: true
+                      description: repo name
+                    description:
+                      type: string
+                      required: false
+                      description: repo description
+                    default_branch:
+                      type: string
+                      required: false
+                      description: repo default branch
+                    git_url:
+                      type: string
+                      required: true
+                      description: repo ssh clone url
+                    html_url:
+                      type: string
+                      required: true
+                      description: repo http clone url
+  # # 获取代码库详情
+  /repos/{owner}/{repo}:
+    get:
+      tags:
+        - repositories
+      summary: getRepository
+      description: getRepository
+      operationId: getRepository
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or Privatetoken(start with Bearer and a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the code repository is generally referred to as the "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: "Code repository name. The name is not case sensitive."
+          required: true
+      responses:
+        404:
+          description: resouce not found
+        200:
+          description: Success
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  private:
+                    type: boolean
+                    required: true
+                    description: is it a private repository
+                  id:
+                    type: long
+                    required: true
+                    description: repo id
+                  full_name:
+                    type: string
+                    required: true
+                    description: absolute path of the repo
+                  name:
+                    type: string
+                    required: true
+                    description: repo name
+                  description:
+                    type: string
+                    required: false
+                    description: repo description
+                  default_branch:
+                    type: string
+                    required: false
+                    description: repo default branch
+                  git_url:
+                    type: string
+                    required: true
+                    description: repo ssh clone url
+                  html_url:
+                    type: string
+                    required: true
+                    description: repo http clone url
   # # 获取仓库content
   /repos/{owner}/{repo}/contents/{path}:
     get:
@@ -2195,7 +2554,7 @@ paths:
                           type: string
                           required: true
                           description: "File type, enumeration values: file, dir, symlink, submodule"
-# 创建或更新content
+    # 创建或更新content
     put:
       tags:
         - repository contents
@@ -2352,59 +2711,59 @@ paths:
                               required: true
                               description: "File type, enumeration values: file, dir, symlink, submodule"
                   commit:
-                      type: object
-                      properties:
-                        committer:
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "commitor. Default value -  The currently authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the commitor. If you omit this field, you will receive a 422 status code."
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: "commitor. Default value -  The currently authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the commitor. If you omit this field, you will receive a 422 status code"
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: commit message
+                      sha:
+                        type: string
+                        required: true
+                        description: "commit sha value"
+                      parents:
+                        type: array
+                        required: true
+                        description: "parent commit"
+                        items:
                           type: object
-                          required: true
-                          description: "commitor. Default value -  The currently authenticated user."
                           properties:
-                            name:
+                            sha:
                               type: string
                               required: true
-                              description: "The name of the commitor. If you omit this field, you will receive a 422 status code."
-                            email:
-                              type: string
-                              required: true
-                              description: commitor's email. If you omit the email, you will receive a 422 status code.
-                            date:
-                              type: string
-                              required: false
-                        author:
-                          type: object
-                          required: true
-                          description: "commitor. Default value -  The currently authenticated user."
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: "The name of the commitor. If you omit this field, you will receive a 422 status code"
-                            email:
-                              type: string
-                              required: true
-                              description: commitor's email. If you omit the email, you will receive a 422 status code.
-                            date:
-                              type: string
-                              required: false
-                        message:
-                          type: string
-                          required: true
-                          description: commit message
-                        sha:
-                          type: string
-                          required: true
-                          description: "commit sha value"
-                        parents:
-                          type: array
-                          required: true
-                          description: "parent commit"
-                          items:
-                            type: object
-                            properties:
-                              sha:
-                                type: string
-                                required: true
-                                description: "parent commit sha value"
+                              description: "parent commit sha value"
     # 删除content
     delete:
       tags:
@@ -2550,65 +2909,213 @@ paths:
                             size:
                               type: integer
                               required: true
-                              description:  File size, or 0 if "type" is "dir" or "submodule"
+                              description: File size, or 0 if "type" is "dir" or "submodule"
                             type:
                               type: string
                               required: true
                               description: "File type, enumeration values: file, dir, symlink, submodule"
                   commit:
-                      type: object
-                      properties:
-                        committer:
-                          type: object
-                          required: true
-                          description: "The person that committed the file. Default: the authenticated user."
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
-                            email:
-                              type: string
-                              required: true
-                              description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
-                            date:
-                                type: string
-                                required: false
-                        author:
-                          type: object
-                          required: true
-                          description: commitor. Default value -  The currently authenticated user.
-                          properties:
-                            name:
-                              type: string
-                              required: true
-                              description: The name of the commitor. If you omit this field, you will receive a 422 status code.
-                            email:
-                              type: string
-                              required: true
-                              description: commitor's email. If you omit the email, you will receive a 422 status code.
-                            date:
-                                type: string
-                                required: false
-                        message:
-                          type: string
-                          required: true
-                          description: commit message
-                        sha:
-                          type: string
-                          required: true
-                          description: commit sha value
-                        parents:
-                          type: array
-                          required: true
-                          description: 父commit sha value
-                          properties:
-                            sha:
-                              type: string
-                              required: true
-                              description: 父commit sha value
-############ 变更请求接口（Change Requests API）############
-# 创建变更请求
+                    type: object
+                    properties:
+                      committer:
+                        type: object
+                        required: true
+                        description: "The person that committed the file. Default: the authenticated user."
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: "The name of the author or committer of the commit. You'll receive a 422 status code if name is omitted."
+                          email:
+                            type: string
+                            required: true
+                            description: The email of the author or committer of the commit. You'll receive a 422 status code if email is omitted.
+                          date:
+                            type: string
+                            required: false
+                      author:
+                        type: object
+                        required: true
+                        description: commitor. Default value -  The currently authenticated user.
+                        properties:
+                          name:
+                            type: string
+                            required: true
+                            description: The name of the commitor. If you omit this field, you will receive a 422 status code.
+                          email:
+                            type: string
+                            required: true
+                            description: commitor's email. If you omit the email, you will receive a 422 status code.
+                          date:
+                            type: string
+                            required: false
+                      message:
+                        type: string
+                        required: true
+                        description: commit message
+                      sha:
+                        type: string
+                        required: true
+                        description: commit sha value
+                      parents:
+                        type: array
+                        required: true
+                        description: 父commit sha value
+                        properties:
+                          sha:
+                            type: string
+                            required: true
+                            description: 父commit sha value
+  /repos/{owner}/{repo}/files/blame:
+    get:
+      tags:
+        - repository contents
+      summary: GetRepoFileBlame
+      description: GetRepoFileBlame
+      operationId: GetRepoFileBlame
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or Privatetoken(start with Bearer and a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the code repository is generally referred to as the "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: Code repository name. The name is not case sensitive.
+          required: true
+        - name: sha
+          in: query
+          required: true
+          description: sha value，like branchname，commitId
+        - name: file_path
+          in: query
+          required: false
+          description: The file path of blame to be queried
+      responses:
+        200:
+          description: Success
+        403:
+          description: Forbidden
+        404:
+          description: resouce not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  start:
+                    type: integer
+                    required: true
+                    description: "commit start line"
+                  contents:
+                    type: array
+                    required: true
+                    description: "file content list"
+                    properties:
+                      content:
+                        type: string
+                        required: true
+                        description: "file content info"
+                  commit:
+                    type: object
+                    description: commit info
+                    properties:
+                      author_email:
+                        type: string
+                        required: true
+                        description: "commitor email information"
+                      author_name:
+                        type: string
+                        required: true
+                        description: "commitor name"
+                      user:
+                        type: object
+                        required: false
+                        description: commitor's plateform info related(not required)。
+                        properties:
+                          avatar_url:
+                            type: string
+                            required: true
+                            description: "User avatar address"
+                          email:
+                            type: string
+                            required: true
+                            description: "User email information"
+                          id:
+                            type: string
+                            required: true
+                            description: "User platform ID"
+                          username:
+                            type: string
+                            required: true
+                            description: "User Platform username"
+  /repos/{owner}/{repo}/trees/{sha}:
+    get:
+      tags:
+        - repository contents
+      summary: GetRepoTrees
+      description: GetRepoTrees
+      operationId: GetRepoTrees
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or Privatetoken(start with Bearer and a space)
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the code repository is generally referred to as the "username". The name is not case sensitive.
+          required: true
+        - name: repo
+          in: path
+          description: Code repository name. The name is not case sensitive.
+          required: true
+        - name: sha
+          in: path
+          required: true
+          description: sha value，like branchName，commitId
+        - name: recursive
+          in: query
+          required: false
+          description: File tree query type, not mandatory. By default, only the file tree in the current path is queried. If any string is passed (such as 1), all files in the current path will be recursively searched
+        - name: file_path
+          in: query
+          required: false
+          description: Query the file tree under the specified path, not mandatory, starting from the root path by default
+      responses:
+        200:
+          description: Success
+        403:
+          description: Forbidden
+        404:
+          description: resouce not found
+        responseBody:
+          content:
+            application/json:
+              schema:
+                type: json
+                properties:
+                  mode:
+                    type: string
+                    required: true
+                    description: "mode"
+                  path:
+                    type: string
+                    required: true
+                    description: "file path"
+                  sha:
+                    type: string
+                    required: true
+                    description: "commit SHA value"
+                  type:
+                    type: string
+                    required: true
+                    description: "Object type:blob,tree,symlink,commit"
+  ############ 变更请求接口（Change Requests API）############
+  # 创建变更请求
   /repos/{owner}/{repo}/pulls:
     post:
       tags:
@@ -2704,7 +3211,7 @@ paths:
                     type: boolean
                     required: true
                     description: "true means creating a draft (in-progress) change request, false means creating a published change request. Default value: false"
-# 查询变更请求详情
+  # 查询变更请求详情
   /repos/{owner}/{repo}/pulls/{pull_number}:
     get:
       tags:
@@ -2776,7 +3283,7 @@ paths:
                     required: false
                     description: |
                       The comment business ID of the change request reply.
-# 创建评论
+  # 创建评论
   /repos/{owner}/{repo}/pulls/comments:
     post:
       tags:
@@ -2862,7 +3369,7 @@ paths:
                   body:
                     type: string
                     required: true
-                    description:  comment content
+                    description: comment content
                   line:
                     type: integer
                     required: false
@@ -2878,7 +3385,7 @@ paths:
                     description: |
                       Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
 
-# 创建回复
+  # 创建回复
   /repos/{owner}/{repo}/pulls/comments/{comment_id}/replies:
     post:
       tags:
@@ -2966,7 +3473,7 @@ paths:
                     required: true
                     description: |
                       Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
-# 查询评论详情
+  # 查询评论详情
   /repos/{owner}/{repo}/pulls/comments/{comment_id}:
     get:
       tags:
@@ -3042,7 +3549,7 @@ paths:
                     required: true
                     description: |
                       Update time. Follow ISO 8601 time format: YYYY-MM-DDTHH:MM:SSZ"
-# 查询评论列表
+  # 查询评论列表
   /repos/{owner}/{repo}/pulls/{pull_number}/comments:
     get:
       tags:
@@ -3169,7 +3676,7 @@ paths:
           required: false
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3241,7 +3748,7 @@ paths:
           required: false
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3298,7 +3805,7 @@ paths:
                   description: Issue content (use markdown format to write content)
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3344,7 +3851,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3411,7 +3918,7 @@ paths:
                   description: state=closed ,optional：completed ， not_planned
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3457,7 +3964,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3498,7 +4005,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3540,7 +4047,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3588,7 +4095,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3642,7 +4149,7 @@ paths:
                   description: assignee's username
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3684,7 +4191,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3728,7 +4235,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3785,7 +4292,7 @@ paths:
                   description: Comment content (use MD format to write content)
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3828,7 +4335,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3884,7 +4391,7 @@ paths:
                   description: Comment content (use MD format to write content)
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3926,7 +4433,7 @@ paths:
           required: true
       responses:
         401:
-          description: 'Invalid token, please check if the token is correct.'
+          description: "Invalid token, please check if the token is correct."
           content:
             application/json:
               schema:
@@ -3939,6 +4446,46 @@ paths:
                 $ref: "#/components/schemas/Forbidden"
         204:
           description: Success
+  /security/results/save:
+    post:
+      tags:
+        - security
+      summary: SaveSecurityResults
+      description: json file structure, view <a href="/security/security/reporter">Description of the content structure of the scan result json file</a>
+      operationId: SaveSecurityResults
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Upload files
+      responses:
+        401:
+          description: 'Token is illegal. Please check if the token is correct'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: Permission exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: success
 components:
   schemas:
     ApiResponse:
@@ -3984,7 +4531,7 @@ components:
           type: string
           example: illegal nickname (the length cannot be less than 1 and cannot be greater than 20 characters)
         trace_id:
-          description:  trace id
+          description: trace id
           type: string
           example: trace_id
         code:
@@ -4105,16 +4652,16 @@ components:
           type: Integer
           example: 2
         owned_private_repos:
-          description:  number of private repos created by user
+          description: number of private repos created by user
           type: Integer
           example: 1
         created_at:
           description: created_at
           type: string
-          example: '2023-02-02 09:31:24'
+          example: "2023-02-02 09:31:24"
         updated_at:
           description: updated_at
-          example: '2023-02-02 09:31:24'
+          example: "2023-02-02 09:31:24"
     AuthenticatedUserListVO:
       type: object
       properties:
@@ -4268,43 +4815,43 @@ components:
                   type: string
                   example:
                 followering_url:
-                  description:  sender's followering url
+                  description: sender's followering url
                   type: string
                   example:
                 gists_url:
-                  description:  sender's gists url
+                  description: sender's gists url
                   type: string
                   example:
                 starred_url:
-                  description:  sender's starred url
+                  description: sender's starred url
                   type: string
                   example:
                 subscriptions_url:
-                  description:  sender's subscriptions url
+                  description: sender's subscriptions url
                   type: string
                   example:
                 organizations_url:
-                  description:  sender's organizations url
+                  description: sender's organizations url
                   type: string
                   example:
                 repos_url:
-                  description:  sender's repos url
+                  description: sender's repos url
                   type: string
                   example:
                 events_url:
-                  description:  sender's events url
+                  description: sender's events url
                   type: string
                   example:
                 received_events_url:
-                  description:  sender's received events url
+                  description: sender's received events url
                   type: string
                   example:
                 type:
-                  description:  sender's user type
+                  description: sender's user type
                   type: string
                   example: user
                 site_admin:
-                  description:  sender is a admin
+                  description: sender is a admin
                   type: string
                   example: false
     PrivatePage:
@@ -4545,7 +5092,7 @@ components:
           type: boolean
           example: false
         updated_at:
-          description:  private message update time
+          description: private message update time
           type: string
           example: 2024-01-10T18:04:18+08:00
         url:
@@ -5260,5 +5807,3 @@ components:
         shipDate: "2018-10-19T16:46:45Z"
         status: placed
         complete: false
-
-
