@@ -860,6 +860,68 @@ paths:
           description: fail，need login or invalid token
         "403":
           description: forbid, no permission
+  /users/{username}/events:
+    get:
+      tags:
+        - activity
+      summary: List the user's activities.
+      description: List the user's activities.
+      operationId: user_event
+      parameters:
+        - name: username
+          in: path
+          description: "username"
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (must be prefixed with 'Bearer' followed by a space).
+          required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserActivity"
+        "404":
+          description: User is not exist
+        "401":
+          description: Fail，need login or invalid token
+        "403":
+          description: No permission, operation failed.
+  /users/{username}/received_events:
+    get:
+      tags:
+        - activity
+      summary: List the activities received by a user.
+      description: List the activities received by a user.
+      operationId: user_receive_event
+      parameters:
+        - name: username
+          in: path
+          description: "username"
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (must be prefixed with 'Bearer' followed by a space).
+          required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserActivity"
+        "404":
+          description: User is not exist
+        "401":
+          description: Fail，need login or invalid token
+        "403":
+          description: No permission, operation failed.
   /organizations:
     get:
       tags:
@@ -1247,6 +1309,39 @@ paths:
                 role:
                   description: set user's role:maintainer、developer、guest。
                   type: string
+  /orgs/{org}/followers:
+    get:
+      tags:
+        - org
+      summary: List all followers of the specified organization.
+      description: List all followers of the specified organization.
+      operationId: orgFollowers
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (must be prefixed with 'Bearer' followed by a space).
+          required: true
+        - name: org
+          in: path
+          description: Organization path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrgFollowers"
+        "404":
+          description: The organization does not exist.
+        "401":
+          description: Operation failed, not logged in yet.
+        "403":
+          description: No permission, operation failed.
   ############ 应用（apps API）############
   # 获取atu token
   /login/oauth/access_token:
@@ -1529,6 +1624,44 @@ paths:
                           type: string
                           required: true
                           description: commit SHA value
+  /repos/{owner}/{repo}/labels/{name}:
+    get:
+      tags:
+        - tags
+      summary: Get a single tag based on the tag name.
+      description: Get a single tag based on the tag name.
+      operationId: getTagByName
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (must be prefixed with 'Bearer' followed by a space).
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the code repository, generally referred to as the 'username'. This name is case-insensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository path（This name is case-insensitive）
+          required: true
+        - name: name
+          in: path
+          description: tag name
+          required: true
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/LabelInfo"
+        "404":
+          description: The resource does not exist.
+        "401":
+          description: Fail，need login or invalid token
+        "403":
+          description: No permission, operation failed.
   # ############ 提交接口（Commits API）############
   # # 获取分支提交
   /repos/{owner}/{repo}/commits/{ref}:
@@ -5171,6 +5304,121 @@ components:
               description: sender is a admin
               type: string
               example: false
+    UserActivity:
+      type: object
+      properties:
+        type:
+          description: Activity type
+          type: string
+          example: push
+        actor:
+          type: object
+          description: actor info
+          properties:
+            login:
+              description: actor username
+              type: string
+              example: mrpuatomgit
+            id:
+              description: actor user id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: actor user avatar url
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: API endpoint for querying user information.
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: User profile url.
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: actor's followers url
+              type: string
+              example:
+            followering_url:
+              description: actor's followering url
+              type: string
+              example:
+            gists_url:
+              description: actor's gists url
+              type: string
+              example:
+            starred_url:
+              description: actor's starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: actor's subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: actor's organizations url
+              type: string
+              example:
+            repos_url:
+              description: actor's repos url
+              type: string
+              example:
+            events_url:
+              description: actor's events url
+              type: string
+              example:
+            received_events_url:
+              description: actor's received events url
+              type: string
+              example:
+            type:
+              description: actor's user type
+              type: string
+              example: user
+            site_admin:
+              description: Is actor a administrator
+              type: string
+              example: false
+        repo:
+          description: Repository information
+          type: object
+          properties:
+            id:
+              description: Repository id
+              type: string
+              example: 34367
+            name:
+              description: Repository name
+              type: string
+              example: feed
+            path:
+              description: Repository path
+              type: string
+              example: feed
+            name_with_namespace:
+              description: Full repository name (including namespace name)
+              type: string
+              example: feed
+            path_with_namespace:
+              description: Full repository path (including namespace path)
+              type: string
+              example: feed
+            visibility_level:
+              description: Is the repository public
+              type: int
+              example: 20
+            web_url:
+              description: repository web url
+              type: string
+              example: https://atomgit.com/miykaelxxm/feed
+        created_at:
+          description: create time
+          type: string
+          example: 2024-01-10T18:04:18+08:00
+        payload:
+          description: The relevant information included in the activity.
+          type: string
+          example: test
     OrgPage:
       type: object
       properties:
@@ -5672,6 +5920,37 @@ components:
               description: description of the organization
               type: string
               example: csdn is a goog website
+    OrgFollowers:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
+        login:
+          type: string
+          description: username
+          example: lik0914
+        url:
+          type: string
+          description:  API endpoint for querying user information.
+          example: https://api.atomgit.com/users/lik0914
+        avatar_url:
+          type: string
+          description: user avatar url
+          example: https://xxx.com/uploads/user/1657265547983_3769.png
+        html_url:
+          type: string
+          description: user profile url.
+          example: https://atomgit.com/lik0914
+        type:
+          type: string
+          description: user type is User or Bot
+          example: User
+        site_admin:
+          description: actor is the user an administrator
+          type: string
+          example: false
     Issue:
       type: object
       properties:
@@ -5729,6 +6008,37 @@ components:
           type: string
           description: updated_at
           example: 2023-07-04T17:03:05+08:00
+    LabelInfo:
+      type: object
+      properties:
+        id:
+          description: tag id
+          type: string
+          example: 655c0046df514a6764aa00b0
+        name:
+          description: tag name
+          type: string
+          example: 系统BUG
+        color:
+          description: tag color
+          type: string
+          example: '#ED4014'
+        desc:
+          description: tag description
+          type: string
+          example: 系统BUG
+        repository_id:
+          description: Repository id
+          type: string
+          example: 34309
+        created_at:
+          description: tag create time
+          type: string
+          example: 2023-11-21T08:56:39+08:00
+        updated_at:
+          description: tag update time
+          type: string
+          example: 2023-11-21T08:56:39+08:00
     Comment:
       type: object
       properties:

@@ -860,6 +860,68 @@ paths:
           description: 操作失败，暂未登录
         "403":
           description: 暂无权限，操作失败
+  /users/{username}/events:
+    get:
+      tags:
+        - activity
+      summary: 列出用户的动态
+      description: 根据用户名，获取用户的动态
+      operationId: user_event
+      parameters:
+        - name: username
+          in: path
+          description: "用户名"
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserActivity"
+        "404":
+          description: 用户名有误，用户不存在
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
+  /users/{username}/received_events:
+    get:
+      tags:
+        - activity
+      summary: 列出一个用户收到的动态
+      description: 根据用户名，获取用户收到的动态
+      operationId: user_receive_event
+      parameters:
+        - name: username
+          in: path
+          description: "用户名"
+          required: true
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserActivity"
+        "404":
+          description: 用户名有误，用户不存在
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
   /organizations:
     get:
       tags:
@@ -1247,6 +1309,39 @@ paths:
                 role:
                   description: 设定用户的角色:maintainer、developer、guest。
                   type: string
+  /orgs/{org}/followers:
+    get:
+      tags:
+        - org
+      summary: 列出指定组织的所有关注者
+      description: 列出指定组织的所有关注者
+      operationId: orgFollowers
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrgFollowers"
+        "404":
+          description: 组织不存在
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
   ############ 应用（apps API）############
   # 获取atu token
   /login/oauth/access_token:
@@ -1529,6 +1624,44 @@ paths:
                           type: string
                           required: true
                           description: 提交 SHA 值
+  /repos/{owner}/{repo}/labels/{name}:
+    get:
+      tags:
+        - tags
+      summary: 根据标签名称获取单个标签
+      description: 根据标签名称获取单个标签
+      operationId: getTagByName
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称（该名称不区分大小写）
+          required: true
+        - name: name
+          in: path
+          description: 标签名称
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/LabelInfo"
+        "404":
+          description: 资源不存在
+        "401":
+          description: 暂未登录
+        "403":
+          description: 暂无权限
   # ############ 提交接口（Commits API）############
   # # 获取分支提交
   /repos/{owner}/{repo}/commits/{ref}:
@@ -5169,6 +5302,121 @@ components:
               description: 发送人的是否是管理员
               type: string
               example: false
+    UserActivity:
+      type: object
+      properties:
+        type:
+          description: 动态类型
+          type: string
+          example: push
+        actor:
+          type: object
+          description: 触发人信息
+          properties:
+            login:
+              description: 触发人用户名
+              type: string
+              example: mrpuatomgit
+            id:
+              description: 触发人用户id
+              type: string
+              example: 63db126c0566d2f7d2c9498c
+            avatar_url:
+              description: 触发人用户头像
+              type: string
+              example: https://img-host/uploads/user/1656318880150_5104.png
+            url:
+              description: 触发人信息api地址
+              type: string
+              example: https://api.atomgit.com/users/leige
+            html_url:
+              description: 触发人主页地址
+              type: string
+              example: https://atomgit.com/mrpuatomgit
+            followers_url:
+              description: 触发人的followers url
+              type: string
+              example:
+            followering_url:
+              description: 触发人的followering url
+              type: string
+              example:
+            gists_url:
+              description: 触发人的 gists url
+              type: string
+              example:
+            starred_url:
+              description: 触发人的 starred url
+              type: string
+              example:
+            subscriptions_url:
+              description: 触发人的 subscriptions url
+              type: string
+              example:
+            organizations_url:
+              description: 触发人的 organizations url
+              type: string
+              example:
+            repos_url:
+              description: 触发人的 repos url
+              type: string
+              example:
+            events_url:
+              description: 触发人的 events url
+              type: string
+              example:
+            received_events_url:
+              description: 触发人的 received events url
+              type: string
+              example:
+            type:
+              description: 触发人的类型
+              type: string
+              example: user
+            site_admin:
+              description: 触发人的是否是管理员
+              type: string
+              example: false
+        repo:
+          description: 所属仓库信息
+          type: object
+          properties:
+            id:
+              description: 仓库id
+              type: string
+              example: 34367
+            name:
+              description: 仓库名称
+              type: string
+              example: feed
+            path:
+              description: 仓库路径
+              type: string
+              example: feed
+            name_with_namespace:
+              description: 仓库完整名称（包含命名空间名称）
+              type: string
+              example: feed
+            path_with_namespace:
+              description: 仓库完整路径（包含命名空间路径）
+              type: string
+              example: feed
+            visibility_level:
+              description: 是否私有
+              type: int
+              example: 20
+            web_url:
+              description: 仓库网页的url
+              type: string
+              example: https://atomgit.com/miykaelxxm/feed
+        created_at:
+          description: 创建日期
+          type: string
+          example: 2024-01-10T18:04:18+08:00
+        payload:
+          description: 动态包含的相关信息
+          type: string
+          example: test
     OrgPage:
       type: object
       properties:
@@ -5670,6 +5918,37 @@ components:
               description: 组织的描述
               type: string
               example: csdn is a goog website
+    OrgFollowers:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id
+          example: 62c791bede9059102516aa8f
+        login:
+          type: string
+          description: username
+          example: lik0914
+        url:
+          type: string
+          description: 用户地址
+          example: https://api.atomgit.com/users/lik0914
+        avatar_url:
+          type: string
+          description: 头像地址
+          example: https://xxx.com/uploads/user/1657265547983_3769.png
+        html_url:
+          type: string
+          description: 用户web地址
+          example: https://atomgit.com/lik0914
+        type:
+          type: string
+          description: 用户类型 User | Bot
+          example: User
+        site_admin:
+          description: 触发人的是否是管理员
+          type: string
+          example: false
     Issue:
       type: object
       properties:
@@ -5727,6 +6006,37 @@ components:
           type: string
           description: 更新时间
           example: 2023-07-04T17:03:05+08:00
+    LabelInfo:
+      type: object
+      properties:
+        id:
+          description: 标签id
+          type: string
+          example: 655c0046df514a6764aa00b0
+        name:
+          description: 标签名称
+          type: string
+          example: 系统BUG
+        color:
+          description: 标签颜色
+          type: string
+          example: '#ED4014'
+        desc:
+          description: 标签描述
+          type: string
+          example: 系统BUG
+        repository_id:
+          description: 所属仓库id
+          type: string
+          example: 34309
+        created_at:
+          description: 标签创建时间
+          type: string
+          example: 2023-11-21T08:56:39+08:00
+        updated_at:
+          description: 标签更新时间
+          type: string
+          example: 2023-11-21T08:56:39+08:00
     Comment:
       type: object
       properties:
