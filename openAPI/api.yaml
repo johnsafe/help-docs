@@ -1646,7 +1646,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          description: 应用ats token（需以Bearer加空格开头）
           required: true
         - name: owner
           in: path
@@ -1850,7 +1850,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          description: 应用ats token（需以Bearer加空格开头）
           required: true
         - name: owner
           in: path
@@ -1875,7 +1875,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          description: 应用ats token（需以Bearer加空格开头）
           required: true
         - name: owner
           in: path
