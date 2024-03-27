@@ -132,6 +132,7 @@ hide_title: true
 | `C`        | String | 机密性                |  是      |
 | `I`        | String | 完整性                |  是      |
 | `A`        | String | 可用性                |  是      |
+| `vectorString`        | String | 向量字符串，eg:AV:N/AC:L/Au:N/C:N/I:N/A:P                |  是      |
 
 ### `leakResults.NVDCVSS2Properties` 属性描述
 
@@ -146,6 +147,7 @@ hide_title: true
 | `C`        | String | 机密性                |  是      |
 | `I`        | String | 完整性                |  是      |
 | `A`        | String | 可用性                |  是      |
+| `vectorString`        | String | 向量字符串，eg:AV:N/AC:L/Au:N/C:N/I:N/A:P                |  是      |
 
 ### `leakResults.locations` 属性描述
 
