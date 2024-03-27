@@ -68,6 +68,7 @@ hide_title: true
 | `precision`    | String | 风险等级,0:未分级1:紧急2:高危3:中危4:低危                                  |  是      |
 | `properties`   | Object | 包含有关漏洞属性的对象                | 否       |
 | `NVDCVSS3Properties` | Object | 包含有关漏洞的 CVSS3 属性的对象   |  是      |
+| `NVDCVSS2Properties` | Object | 包含有关漏洞的 CVSS2 属性的对象   |  是      |
 | `locations`    | Array  | 包含有关漏洞位置的数组                |  是      |
 
 ### `leakResults.properties` 属性描述
@@ -81,6 +82,35 @@ hide_title: true
 | `mitigates`           | String   | 缓解措施文本描述                          | 否       |
 | `referLinks`          | Array    | 参考链接,String数组                                  | 否       |
 | `suggestions`         | Array    | 建议                                     | 否       |
+| `lable`         | Array    | 漏洞标签                                     | 否       |
+| `CPE`         | Array    | CPE，string数组                                     | 否       |
+| `similarLeak`         | Array    | 相似漏洞                                     | 否       |
+| `leakHistory`         | Array    | 漏洞发展历史                                    | 否       |
+
+### `leakResults.properties.lable` 属性描述
+
+| 子属性               | 类型     | 描述                                      |  是否必传 |
+|---------------------|----------|-------------------------------------------|---------|
+| `name`         | String   | 名称                                  |  是      |
+| `introduce`         | String   | 简介                                  |  否      |
+| `jumpUrl`         | String   | 点击后的跳转链接                                  |  否      |
+
+
+### `leakResults.properties.similarLeak` 属性描述
+
+| 子属性               | 类型     | 描述                                      |  是否必传 |
+|---------------------|----------|-------------------------------------------|---------|
+| `number`         | String   | 编号                                  |  是      |
+| `name`         | String   | 名称                                  |  是      |
+| `jumpUrl`         | String   | 点击后的跳转链接                                  |  否      |
+
+### `leakResults.properties.leakHistory` 属性描述
+
+| 子属性               | 类型     | 描述                                      |  是否必传 |
+|---------------------|----------|-------------------------------------------|---------|
+| `event`         | String   | 事件名称                                  |  是      |
+| `time`         | String   | 时间                                  |  是      |
+
 
 ### `leakResults.properties.suggestions` 属性描述
 
@@ -90,6 +120,20 @@ hide_title: true
 | `description`         | String   | 描述                                  |  是      |
 
 ### `leakResults.NVDCVSS3Properties` 属性描述
+
+| 子属性    | 类型   | 描述                  |  是否必传 |
+|----------|--------|-----------------------|---------|
+| `score`    | Number | 分数                  |  是      |
+| `AV`       | String | 攻击向量              |  是      |
+| `AC`       | String | 攻击复杂度            |  是      |
+| `PR`       | String | 权限要求              |  是      |
+| `UI`       | String | 用户交互              |  是      |
+| `S`        | String | 影响范围              |  是      |
+| `C`        | String | 机密性                |  是      |
+| `I`        | String | 完整性                |  是      |
+| `A`        | String | 可用性                |  是      |
+
+### `leakResults.NVDCVSS2Properties` 属性描述
 
 | 子属性    | 类型   | 描述                  |  是否必传 |
 |----------|--------|-----------------------|---------|
@@ -282,7 +326,20 @@ hide_title: true
                     "S":"影响范围",
                     "C":"机密性",
                     "I":"完整性 ",
-                    "A":"可用性"
+                    "A":"可用性",
+                    "vectorString":"AV:N/AC:L/Au:N/C:N/I:N/A:P"
+                 },
+                "NVDCVSS2Properties":{
+                    "score":75,
+                    "AV":"攻击向量",
+                    "AC":"攻击复杂度",
+                    "PR":"权限要求",
+                    "UI":"用户交互",
+                    "S":"影响范围",
+                    "C":"机密性",
+                    "I":"完整性 ",
+                    "A":"可用性",
+                    "vectorString":"AV:N/AC:L/Au:N/C:N/I:N/A:P"
                  },
                 "locations": [ 
                     {
