@@ -4617,6 +4617,74 @@ paths:
                 $ref: "#/components/schemas/Forbidden"
         200:
           description: 操作成功
+  /security/scan/status:
+    post:
+      tags:
+        - security
+      summary: 同步检测状态
+      description: 当您的安全检测服务收到AtomGit平台的检测通知后需要调用此接口将检测状态同步到AtomGit
+      operationId: SaveScanStatus
+      parameters:
+        - name: Authorization
+          in: header
+          description: 私人token | app token(ats)（需以Bearer加空格开头）
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: json
+              properties:
+                toolId:
+                  type: string
+                  required: true
+                  description: 检测应用id
+                toolName:
+                  type: string
+                  required: true
+                  description: 检测应用名称
+                toolVersion:
+                  type: string
+                  required: true
+                  description: 检测应用版本
+                repositoryId:
+                  type: string
+                  required: true
+                  description: 仓库id
+                scanType:
+                  type: string
+                  required: true
+                  description: 触发类型，eg:Webhook
+                scanNumber:
+                  type: string
+                  required: true
+                  description: 触发编号，如webhook的id:xxxxxxxxxxxxxx
+                branch:
+                  type: string
+                  required: true
+                  description: 分支名
+                commitId:
+                  type: string
+                  required: true
+                  description: commitId
+      responses:
+        401:
+          description: 'token不合法、请检查token是否正确'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/InvalidToken"
+        403:
+          description: 权限异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+        200:
+          description: 操作成功
 components:
   schemas:
     ApiResponse:
