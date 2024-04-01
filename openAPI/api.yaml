@@ -4826,6 +4826,10 @@ components:
           description: 地址
           type: string
           example: beijing
+        phone:
+          description: 手机号
+          type: string
+          example: 手机号
         email:
           description: 邮箱
           type: string
