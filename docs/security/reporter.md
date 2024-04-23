@@ -175,7 +175,7 @@ hide_title: true
 | 子属性                   | 类型   | 描述                                  |  是否必传 |
 |-------------------------|--------|---------------------------------------|---------|
 | `name`                  | String | 许可证名称                           |  是      |
-| `conflictname`                  | String | 冲突许可证名称                           |  是      |
+| `conflictName`                  | String | 冲突许可证名称                           |  是      |
 | `componentName`         | String | 组件名称                             |  是      |
 | `componentVersion`      | String | 组件版本                             |  是      |
 | `conflictComponentName` | String | 冲突组件名称                         | 否       |
