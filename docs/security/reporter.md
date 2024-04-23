@@ -132,6 +132,7 @@ hide_title: true
 | `C`        | String | 机密性                |  是      |
 | `I`        | String | 完整性                |  是      |
 | `A`        | String | 可用性                |  是      |
+| `precision`             | String | 风险等级，1:高风险2:中风险3:低风险                        |  是      |
 | `vectorString`        | String | 向量字符串，eg:AV:N/AC:L/Au:N/C:N/I:N/A:P                |  是      |
 
 ### `leakResults.NVDCVSS2Properties` 属性描述
@@ -141,12 +142,11 @@ hide_title: true
 | `score`    | Number | 分数                  |  是      |
 | `AV`       | String | 攻击向量              |  是      |
 | `AC`       | String | 攻击复杂度            |  是      |
-| `PR`       | String | 权限要求              |  是      |
-| `UI`       | String | 用户交互              |  是      |
-| `S`        | String | 影响范围              |  是      |
+| `Au`       | String | Au            |  是      |
 | `C`        | String | 机密性                |  是      |
 | `I`        | String | 完整性                |  是      |
 | `A`        | String | 可用性                |  是      |
+| `precision`             | String | 风险等级，1:高风险2:中风险3:低风险                        |  是      |
 | `vectorString`        | String | 向量字符串，eg:AV:N/AC:L/Au:N/C:N/I:N/A:P                |  是      |
 
 ### `leakResults.locations` 属性描述
@@ -175,12 +175,12 @@ hide_title: true
 | 子属性                   | 类型   | 描述                                  |  是否必传 |
 |-------------------------|--------|---------------------------------------|---------|
 | `name`                  | String | 许可证名称                           |  是      |
+| `conflictname`                  | String | 冲突许可证名称                           |  是      |
 | `componentName`         | String | 组件名称                             |  是      |
 | `componentVersion`      | String | 组件版本                             |  是      |
 | `conflictComponentName` | String | 冲突组件名称                         | 否       |
 | `conflictComponentVersion` | String | 冲突组件版本                       | 否       |
 | `conflictDescription`   | Array  | 冲突描述数组,String数组                         | 否       |
-| `precision`             | String | 风险等级，1:高风险2:中风险3:低风险                        |  是      |
 | `properties`            | Object | 包含有关许可证属性的对象              |  是      |
 | `locations`             | Array  | 包含有关许可证位置的数组              |  是      |
 
@@ -335,9 +335,7 @@ hide_title: true
                     "score":75,
                     "AV":"攻击向量",
                     "AC":"攻击复杂度",
-                    "PR":"权限要求",
-                    "UI":"用户交互",
-                    "S":"影响范围",
+                    "Au":"AU",
                     "C":"机密性",
                     "I":"完整性 ",
                     "A":"可用性",
