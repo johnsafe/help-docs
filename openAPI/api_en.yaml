@@ -6181,6 +6181,14 @@ components:
           type: boolean
           description: is show enterprise logo
           example:
+        idcard:
+          type: string
+          description: identity
+          example:
+        creditCode:
+          type: string
+          description:
+          example:
   requestBodies:
     UserArray:
       content:

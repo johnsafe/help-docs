@@ -6251,6 +6251,14 @@ components:
           type: boolean
           description: 是否显示企业认证标识
           example:
+        idcard:
+          type: string
+          description: 身份证号(局部加密)
+          example:
+        creditCode:
+          type: string
+          description: 社会统一信用代码
+          example:
   requestBodies:
     UserArray:
       content:
