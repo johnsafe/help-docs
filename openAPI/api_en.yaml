@@ -1570,8 +1570,8 @@ paths:
     get:
       tags:
         - tags
-      summary: getTagList
-      description: getTagList
+      summary: Get all tags of the repository.
+      description: Get all tags of the repository.
       operationId: getTagList
       parameters:
         - name: Authorization
@@ -1596,7 +1596,7 @@ paths:
           required: false
         - name: search
           in: query
-          description: Label name retrieval, suppor fuzzy queries
+          description: tag name retrieval, suppor fuzzy queries
           required: false
       responses:
         200:
@@ -1661,6 +1661,45 @@ paths:
         "401":
           description: Fail，need login or invalid token
         "403":
+          description: No permission, operation failed.
+  /repos/{owner}/{repo}/issues/{issue_number}/labels:
+    get:
+      tags:
+        - tags
+      summary: Get all labels for the issue of the repository.
+      description: Get all labels for the issue of the repository.
+      operationId: getAllTagOfIssue
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (must be prefixed with 'Bearer' followed by a space).
+          required: true
+        - name: owner
+          in: path
+          description: The owner of the code repository, generally referred to as the 'username'. This name is case-insensitive.
+          required: true
+        - name: repo
+          in: path
+          description: repository path（This name is case-insensitive）
+          required: true
+        - name: issue_number
+          in: path
+          description: the number of  issue
+          required: true
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LabelInfo"
+        404:
+          description: The resource does not exist.
+        401:
+          description: Fail，need login or invalid token
+        403:
           description: No permission, operation failed.
   # ############ 提交接口（Commits API）############
   # # 获取分支提交

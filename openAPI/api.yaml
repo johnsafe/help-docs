@@ -1570,8 +1570,8 @@ paths:
     get:
       tags:
         - tags
-      summary: 获取标签列表
-      description: 获取标签列表
+      summary: 获取仓库下的tag列表
+      description: 获取仓库下的tag列表
       operationId: getTagList
       parameters:
         - name: Authorization
@@ -1596,7 +1596,7 @@ paths:
           required: false
         - name: search
           in: query
-          description: 标签名称检索,支持模糊查询
+          description: tag名称检索,支持模糊查询
           required: false
       responses:
         200:
@@ -1614,7 +1614,7 @@ paths:
                     name:
                       type: string
                       required: true
-                      description: 标签名称
+                      description: tag名称
                     commit:
                       type: object
                       required: true
@@ -1661,6 +1661,45 @@ paths:
         "401":
           description: 暂未登录
         "403":
+          description: 暂无权限
+  /repos/{owner}/{repo}/issues/{issue_number}/labels:
+    get:
+      tags:
+        - tags
+      summary: 获取仓库下的issue的所有标签
+      description: 获取仓库下的issue的所有标签
+      operationId: getAllTagOfIssue
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+        - name: owner
+          in: path
+          description: 代码仓库的所有者，一般称之为"用户名（username）"。该名称不区分大小写。
+          required: true
+        - name: repo
+          in: path
+          description: 代码仓库名称（该名称不区分大小写）
+          required: true
+        - name: issue_number
+          in: path
+          description: issue的编号
+          required: true
+      responses:
+        200:
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LabelInfo"
+        404:
+          description: 资源不存在
+        401:
+          description: 暂未登录
+        403:
           description: 暂无权限
   # ############ 提交接口（Commits API）############
   # # 获取分支提交
