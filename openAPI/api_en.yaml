@@ -5636,15 +5636,15 @@ components:
       type: object
       properties:
         name:
-          description: 组织名称
+          description: name of organization
           type: string
           example: 测试组织
         org:
-          description: 组织命名空间
+          description: name space of organization
           type: string
           example: test
         description:
-          description: 组织描述
+          description: description of organization
           type: string
           example: 这是一个组织
     UpdateOrg:
