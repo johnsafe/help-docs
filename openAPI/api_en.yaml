@@ -951,6 +951,38 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/OrgPage"
+  /users/organization:
+    post:
+      tags:
+        - org
+      summary: Create organization
+      description: Create organization.
+      operationId: createOrg
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token or private token (needs to start with Bearer plus a space)
+          required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgDetail"
+        "400":
+          description: Parameter error.
+        "401":
+          description: Operation failed, not logged in yet
+        "403":
+          description: No permission yet, operation failed.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrg"
+        description: create org request body
+        required: true
   /orgs/{org}:
     get:
       tags:
@@ -5600,6 +5632,21 @@ components:
           description: type of organization
           type: string
           example: Organization
+    CreateOrg:
+      type: object
+      properties:
+        name:
+          description: 组织名称
+          type: string
+          example: 测试组织
+        org:
+          description: 组织命名空间
+          type: string
+          example: test
+        description:
+          description: 组织描述
+          type: string
+          example: 这是一个组织
     UpdateOrg:
       type: object
       properties:

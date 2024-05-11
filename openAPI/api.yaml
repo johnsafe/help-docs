@@ -951,6 +951,38 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/OrgPage"
+  /users/organization:
+    post:
+      tags:
+        - org
+      summary: 创建组织
+      description: 创建组织
+      operationId: createOrg
+      parameters:
+        - name: Authorization
+          in: header
+          description: Oauth2 token或者私人token（需以Bearer加空格开头）
+          required: true
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgDetail"
+        "400":
+          description: 参数有误
+        "401":
+          description: 操作失败，暂未登录
+        "403":
+          description: 暂无权限，操作失败
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrg"
+        description: create org request body
+        required: true
   /orgs/{org}:
     get:
       tags:
@@ -5670,6 +5702,21 @@ components:
           description: 组织的类型
           type: string
           example: Organization
+    CreateOrg:
+      type: object
+      properties:
+        name:
+          description: 组织名称
+          type: string
+          example: 测试组织
+        org:
+          description: 组织命名空间
+          type: string
+          example: test
+        description:
+          description: 组织描述
+          type: string
+          example: 这是一个组织
     UpdateOrg:
       type: object
       properties:
