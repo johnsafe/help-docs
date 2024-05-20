@@ -215,7 +215,7 @@ const config = {
             ],
           },*/
           // {to: '/oauth/', label: '第三方接入', position: 'left'},
-          // {to: '/blog', label: '博客', position: 'left'},
+          // {to: 'changeLog-index', label: '更新日志', position: 'left'},
           {
             type: 'localeDropdown',
             position: 'right'

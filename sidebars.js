@@ -195,6 +195,21 @@ const sidebars = {
         'agreements/privacy',
       ],
     },
+    {
+      type: 'category',
+      label: '更新日志',
+      link: {
+        type: 'generated-index',
+        title: '更新日志',
+        slug: 'changelogs',
+        description:
+          "AtomGit 平台更新日志",
+        keywords: ['change log'],
+      },
+      items: [
+        'changelogs/v0.9.0'
+      ],
+    },
   ],
   api: [
     {

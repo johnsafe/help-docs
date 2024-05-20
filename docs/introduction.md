@@ -55,4 +55,14 @@ AtomGit 帮助文档有助于你全面了解 AtomGit 社区，并快速开始代
         </p>
     </a>
   </article>
+    <article className="col col--6 margin-bottom--lg">
+    <a className="card padding--lg cardContainer" href="terms">
+      <h2 className="text--truncate cardTitle" title="更新日志">
+        📝 更新日志
+      </h2>
+        <p>
+        AtomGit 平台服务更新日志
+        </p>
+    </a>
+  </article>
 </section>
