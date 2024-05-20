@@ -1374,6 +1374,60 @@ paths:
           description: 操作失败，暂未登录
         "403":
           description: 暂无权限，操作失败
+  /enterprise/org/{org}/info:
+    get:
+      tags:
+        - org
+      summary: 根据组织获取企业认证信息
+      description: 根据组织获取企业认证信息
+      operationId: enterpriseInfoByOrgCode
+      parameters:
+        - name: org
+          in: path
+          description: 组织命名空间
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enterprise"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
+  /enterprise/credit/{credit_code}/info:
+    get:
+      tags:
+        - org
+      summary: 根据统一社会信用代码获取企业认证信息
+      description: 根据统一社会信用代码获取企业认证信息
+      operationId: enterpriseInfoByCreditCode
+      parameters:
+        - name: credit_code
+          in: path
+          description: 统一社会信用代码
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enterprise"
+          "400":
+            description: 参数有误
+          "401":
+            description: 操作失败，暂未登录
+          "403":
+            description: 操作失败，当前操作人非组织管理员
   ############ 应用（apps API）############
   # 获取atu token
   /login/oauth/access_token:
@@ -6256,6 +6310,41 @@ components:
           type: string
           description: 用户类型 User | Bot
           example: User
+    Enterprise:
+      type: object
+      properties:
+        enterpriseName:
+          type: string
+          description: 企业名称
+          example: 企业名称
+        orgCode:
+          type: string
+          description: orgCode
+          example:
+        orgId:
+          type: string
+          description: orgId
+          example:
+        corporation:
+          type: string
+          description: 法人
+          example:
+        attestationStatus:
+          type: int
+          description: 认证状态
+          example:
+        isShow:
+          type: boolean
+          description: 是否显示企业认证标识
+          example:
+        idcard:
+          type: string
+          description: 身份证号(局部加密)
+          example:
+        creditCode:
+          type: string
+          description: 社会统一信用代码
+          example:
   requestBodies:
     UserArray:
       content:

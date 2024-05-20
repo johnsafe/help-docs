@@ -1374,6 +1374,60 @@ paths:
           description: Operation failed, not logged in yet.
         "403":
           description: No permission, operation failed.
+  /enterprise/org/{org}/info:
+    get:
+      tags:
+        - org
+      summary: enterpriseInfoByOrgCode
+      description: enterpriseInfoByOrgCode
+      operationId: enterpriseInfoByOrgCode
+      parameters:
+        - name: org
+          in: path
+          description: organization namespace
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enterprise"
+          "400":
+            description: Wrong parameters
+          "401":
+            description: Operation failed, not logged in yet
+          "403":
+            description: The operation failed. The current operator is not an maintainer of the organization.
+  /enterprise/credit/{credit_code}/info:
+    get:
+      tags:
+        - org
+      summary: enterpriseInfoByCreditCode
+      description: enterpriseInfoByCreditCode
+      operationId: enterpriseInfoByCreditCode
+      parameters:
+        - name: credit_code
+          in: path
+          description: credit code
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enterprise"
+          "400":
+            description: Wrong parameters
+          "401":
+            description: Operation failed, not logged in yet
+          "403":
+            description: The operation failed. The current operator is not an maintainer of the organization.
   ############ 应用（apps API）############
   # 获取atu token
   /login/oauth/access_token:
@@ -6186,6 +6240,41 @@ components:
           type: string
           description: user type - User | Bot
           example: User
+    Enterprise:
+      type: object
+      properties:
+        enterpriseName:
+          type: string
+          description: name
+          example: name
+        orgCode:
+          type: string
+          description: orgCode
+          example:
+        orgId:
+          type: string
+          description: orgId
+          example:
+        corporation:
+          type: string
+          description: corporation
+          example:
+        attestationStatus:
+          type: int
+          description: status
+          example:
+        isShow:
+          type: boolean
+          description: is show enterprise logo
+          example:
+        idcard:
+          type: string
+          description: identity
+          example:
+        creditCode:
+          type: string
+          description:
+          example:
   requestBodies:
     UserArray:
       content:
