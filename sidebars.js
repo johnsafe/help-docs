@@ -175,6 +175,7 @@ const sidebars = {
           keywords: ['securitys'],
         },
         items: [
+          'security/securityUse',
           'security/reporter',
         ],
       },
