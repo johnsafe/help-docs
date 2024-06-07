@@ -196,6 +196,21 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'AI',
+      link: {
+        type: 'generated-index',
+        title: 'AI',
+        slug: 'ai',
+        description:
+          "关于AtomGit Ai的使用说明",
+        keywords: ['ais'],
+      },
+      items: [
+        'ai/aiUse',
+      ],
+    },
+    {
+      type: 'category',
       label: '用户协议',
       link: {
         type: 'generated-index',
