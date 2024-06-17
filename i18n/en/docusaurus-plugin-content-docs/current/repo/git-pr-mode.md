@@ -14,12 +14,13 @@ The platform supports pr-mode. Executing git push in this mode will automaticall
 
 ### pr-mode and its advantages
 
-##### pr-mode can bring users a new and efficient code review experience
+pr-mode can bring users a new and efficient code review experience
 
 From a developer's perspective, initiating a code review no longer requires creating a new branch, nor does it require switching to the browser to create a code review after development is completed. You can directly execute git push to initiate a review with one click;
 From the perspective of managers, it can be set up so that when developers push code to the warehouse, they no longer directly update the code of the branch, but automatically create a code review to ensure code quality through review;
 
 Comparison between pr-mode and existing branch mode:
+
 |     | Branch mode  |pr-mode  |
 |  ----  | ----  |----  |
 | commit  | commit in feature branch |commit in main branch directly |
@@ -28,7 +29,7 @@ Comparison between pr-mode and existing branch mode:
 |push permission| develop and higher |viewer and higher |
 |code quality| Only protected branches |all branch |
 
-##### Advantage of pr-mode
+Advantage of pr-mode:
 
 * Contribute code to the warehouse and initiate code review. You no longer need to create a new branch. You can just modify and submit it directly on the trunk, avoiding redundant branch management costs;
 
@@ -43,7 +44,7 @@ Comparison between pr-mode and existing branch mode:
 ## Open pr-mode
 
 In the warehouse settings - push rule settings, you can see the pr-mode switch. Click this switch to turn on/off the pr-mode function:
-![](./img/66.jpg)
+![demo](./img/66.jpg)
 
 > Important
 > After turning on pr-mode, the behavior of git push will be changed. Please know and understand it before turning on pr-mode:
@@ -86,7 +87,7 @@ Date:   Tue Oct 11 10:09:39 2022 +0800
 
 then, push the commit to remote,excute git push：
 
-```
+```bash
 $ git push
 enuming: 4, done.
 counting: 100% (4/4), done.
@@ -109,7 +110,7 @@ It can be seen that after pr-mode is turned on, git push does not directly updat
 The source of this code review is the latest local commit, and the target is the current branch.
 
 We can confirm this through the details of the code review:
-![](./img/67.jpg)
+![demo](./img/67.jpg)
 
 This way, you no longer need to create feature branches or switch to the browser to create reviews, simplifying the steps of creating code reviews.
 
@@ -121,7 +122,7 @@ In the process of code review, it is often necessary to modify the code multiple
 
 Based on 27e76f58, we modified some code based on review comments and added a commit e00db452.
 
-```
+```bash
 $ git log
 commit e00db4522f2d6ca5b42377ca76c7b3a7e12db8a5 (HEAD -> master)
 Author: Code User <code.user@example.com>
@@ -148,7 +149,7 @@ Date:   Tue Oct 11 10:09:39 2022 +0800
 
 then, excute `git push` again：
 
-```
+```bash
 $ git push
 enuming: 4, done.
 counting: 100% (4/4), done.
@@ -169,7 +170,7 @@ To https://xxx.com/demo.git
 It can be seen from the prompt information that this push updates the code review with ID 31620.
 
 Looking at the review details, we see that the source version of the code review has changed to e00db4522, and the submission history has also changed to 2.
-![](./img/68.jpg)
+![demo](./img/68.jpg)
 
 If the code still needs to be modified, just repeat the above process.
 
@@ -178,7 +179,7 @@ If the code still needs to be modified, just repeat the above process.
 Executing the `git push` command repeatedly will automatically update existing reviews. What if we don't want to update the review, but want to create a new one? This can be achieved by adding the `push option` to the push command. Specifically, execute `git push -o review=new` to create a new code review.
 Change some code locally, execute `git push -o review=new` again, and successfully create a code review with ID 31626.
 
-```
+```bash
 $ git push -o review=new
 enuming: 4, done.
 counting: 100% (4/4), done.
@@ -198,7 +199,7 @@ To https://xxx.com/demo.git
 
 It should be noted that if a review with exactly the same source and target already exists when pushing, then you will not be able to create a new review.
 
-```
+```bash
 $ git push -o review=new
 Total 0 (difference 0), multiplex 0 (difference 0), packet multiplex 0
 remote: +-----------------------------------------------------------------------------------+
@@ -216,7 +217,7 @@ error: cannot push some refs to 'https://xxx.com/demo.git'
 
 When there are multiple open code reviews at the same time, when executing `git push`, it will fail because it cannot determine which review you want to update.
 
-```
+```bash
 $ git push
 enuming: 5, done.
 counting: 100% (5/5), done.
@@ -252,7 +253,7 @@ The prompt information given shows that there are two reviews pointing to the sa
 The first method has been demonstrated in the section on creating a new review. Let's look at how to update a specified review.
 If we want to update the review 31626 at this time, the specific command is: `git push -o review=31626`.
 
-```
+```bash
 $ git push -o review=31626
 enuming: 5, done.
 counting: 100% (5/5), done.
@@ -276,7 +277,7 @@ In this way, the code review with ID 31626 is updated.
 
 Sometimes, when we want to update a code review, we find that the review may have been updated by another user. At this time, in order to avoid other users' updates being overwritten, the update will fail. Assume that we want to update the review 31644 at this time, execute: `git push -o review=31644`
 
-```
+```bash
 $ git push -o review=31644
 enuming: 4, done.
 counting: 100% (4/4), done.
@@ -303,7 +304,7 @@ Let’s look at the first way first. Pull updates and resolve them locally befor
 
 First, we need to execute `git fetch origin refs/change-requests/{mr-id}/head`, where mr-id is 31644, so the command we need to execute is: `git fetch origin refs/change-requests/31644 /head`
 
-```
+```bash
 $ git fetch origin refs/change-requests/31644/head
 from https://xxx.com/demo
  * branch                  refs/change-requests/31644/head -> FETCH_HEAD
@@ -311,14 +312,14 @@ from https://xxx.com/demo
 
 Then, we rebase the local changes to the reference corresponding to the review. Execute `git rebase FETCH_HEAD`. There may be conflicts in the rebase operation, please resolve them based on the actual situation.
 
-```
+```bash
 $ git rebase FETCH_HEAD
 rebase success and update refs/heads/master。
 ```
 
 In this way, the local has the remote code, and then the push is executed again.
 
-```
+```bash
 $ git push -o review=31644
 enuming: 4, done.
 counting: 100% (4/4), done.
@@ -346,7 +347,7 @@ At this point, we need to know two values.
 One is the code review ID, which is the last number of the code review URL. For example, if the URL of the code review is <https://xxxx.com/demo/change_request/31644>, then the ID of this review is 31644.
 
 The other is the source version for code review. Available on the code review details page. The corresponding source version here is 8da076fb.
-![](./img/69.jpg)
+![demo](./img/69.jpg)
 
 then, we can execute `git push -o review={mr-id} -o old-oid={old-oid}`，for this example，command is `git push -o review=31644 -o old-oid=8da076fb`。
 
@@ -374,7 +375,7 @@ Sometimes, we may only make some minor submissions, such as changing typos in co
 
 To update a review, you need to be the reviewer or the author of the review, otherwise the update will fail.
 
-```
+```bash
 remote: +---------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                          |
 remote: +---------------------------------------------------------------------+
