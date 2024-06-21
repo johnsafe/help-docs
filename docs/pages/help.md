@@ -41,7 +41,7 @@ AtomGit Pages 是一个免费的静态网页托管服务，您可以使用 AtomG
      baseurl: "/test_pages" # the subpath of your site, e.g. /test_pages  
 
 
-### AtomGit Pages搭建教程
+### 部署教程
 1.首先点击主页的[开放市场](https://atomgit.com/marketplace)，跳转到应用市场如下：
 ![点击开放市场](./img/click_market.png)
 2.找到Atomgit Pages的应用：
@@ -81,5 +81,5 @@ AtomGit Pages 是一个免费的静态网页托管服务，您可以使用 AtomG
 
 ![配置pages分支](./img/pages_result.png)
 
-### Atomgit Pages提供demo示例
+### 官方示例
 Atomgit还提供详细的部署教程和demo，请点击[这里](https://openatom.atomgit.com/explore/journalism/detail/313608476846854144)
