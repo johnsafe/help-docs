@@ -49,16 +49,16 @@ AtomGit Pages 是一个免费的静态网页托管服务，您可以使用 AtomG
 
    ![找到AtomgitPages的App](./img/atomgit_pages_app.png)
 
-3. 点击免费使用，
+3. 点击免费使用：
 
    ![点击免费试用](./img/click_use.png)
 
-4. 选择Aotmgit Pages应用要安装的命名空间
+4. 选择Aotmgit Pages应用要安装的命名空间：
 
    ![点击免费试用](./img/choice_name_space.png)
    >注：如果选择个人命名空间，则个人命名空间下的仓库有使用Atomgit Pages的能力，如果选择组织命名空间，则选择的组织命名空间下有使用Atomgit Pages的能力。
 
-5. 此时会自动跳转到安装页面，需要按照issue模板填写申请信息：
+5. 选择好要安装的命名空间，点击免费试用，会自动跳转到issue申请页面(申请安装Aotmgit Pages App),需要按照issue模板填写申请信息：
    ![按issue模板填写申请信息](./img/apply_info.png)
    >注：请按照模板如实填写您的申请信息，以便运营人员更加快速处理您的申请。
 6. 运营人员审核完毕以后，您会在站内信-通知中看到此条issue的动态，内容如下：
