@@ -13,7 +13,11 @@
   },
   "item.label.Api文档": {
     "message": "API Docs",
-    "description": "Navbar item with label Api文档"
+    "description": "Atomgit open Api doc"
+  },
+  "item.label.Pages文档": {
+    "message": "Pages Docs",
+    "description": "Atomgit Pages help Docs"
   },
   "item.label.反馈": {
     "message": "Feedback",
