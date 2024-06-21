@@ -81,4 +81,5 @@ AtomGit Pages 是一个免费的静态网页托管服务，您可以使用 AtomG
 
 ![配置pages分支](./img/pages_result.png)
 
-#### Atomgit官方还提供详细的部署教程和demo，请点击[这里](https://openatom.atomgit.com/explore/journalism/detail/313608476846854144)
+### Atomgit Pages提供demo示例
+Atomgit还提供详细的部署教程和demo，请点击[这里](https://openatom.atomgit.com/explore/journalism/detail/313608476846854144)
