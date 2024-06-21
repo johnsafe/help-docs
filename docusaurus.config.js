@@ -194,7 +194,7 @@ const config = {
           },
           {to: '/oauth/', label: 'OAuth2', position: 'left'},
           {to: '/category/api', label: 'Api文档', position: 'left'},
-          {to: '/pages/', label: 'Pages文档', position: 'left'},
+          {to: '/pages/help', label: 'Pages文档', position: 'left'},
           // {
           //   to: '/api/',
           //   label: 'API文档',
