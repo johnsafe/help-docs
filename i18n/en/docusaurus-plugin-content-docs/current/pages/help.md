@@ -24,14 +24,19 @@ AtomGit Pages is a free static web hosting service that you can use to host blog
   
     Answer: If some resources return a 404 error after the project is deployed, you need to check if the project's configuration is correct. For example, if the generated pages URL is https://test.atomgit.net/test_pages/ and the resource being accessed results in a 404 error, such as https://test.atomgit.net/style.css, this is likely due to an issue with the relative paths in the corresponding configuration file. The correct resource URL should be https://test.atomgit.net/test_pages/style.css. For different static resource generators, the configurations should be as follows:
     
-  - For Hugo, modify the baseURL in the config.toml file as follows:
-    baseURL = "https://test.atomgit.net/test_pages"
-  - For Hexo, modify the url and root in the _config.yml file as follows:
-    url: https://test.atomgit.net/test_pages
-    root: /test_pages
-  - For Jekyll, modify the baseurl in the _config.yml file as follows:
-    baseurl: "/test_pages" # the subpath of your site, e.g. /test_pages
-
+    - For Hugo, modify the baseURL in the config.toml file as follows:
+    
+      baseURL = "https://test.atomgit.net/test_pages"
+    
+    - For Hexo, modify the url and root in the _config.yml file as follows:
+    
+      url: https://test.atomgit.net/test_pages
+    
+      root: /test_pages
+    
+    - For Jekyll, modify the baseurl in the _config.yml file as follows:
+    
+      baseurl: "/test_pages" # the subpath of your site, e.g. /test_pages
 ### Deployment Guide
 1. First, click on the [Marketplaces](https://atomgit.com/marketplace) on the homepage to navigate to the app marketplace as shown below：
 
