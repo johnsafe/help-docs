@@ -19,24 +19,27 @@ AtomGit Pages 是一个免费的静态网页托管服务，您可以使用 AtomG
 
 ### 常见问题
 1. 如何创建一个首页访问地址不带二级目录的 pages，如test.atomgit.net？
->答：AtomGit Pages目前还不支持不带二级目录的pages。
+
+   答：AtomGit Pages目前还不支持不带二级目录的pages。
+
 2. 当项目部署完成后存在一些资源访问404？
->答：当项目部署完成后存在一些资源访问404时，需要查看项目相关配置是否正确，如：https://atomgit.com/test/test_pages ，生成的pages url 为 https://test.atomgit.net/test_pages/ ，而访问的资源404，如 https://test.atomgit.net/style.css 。这是因为相应配置文件的相对路径存在问题导致的，生成的资源 url 应该为 https://test.atomgit.net/test_pages/style.css 才对。对于不同的静态资源生成器，配置如下：
->
->- Hugo 配置文件config.toml的baseURL修改如下:
->
->  baseURL = "https://test.atomgit.net/test_pages"
->
->- Hexo 配置文件_config.yml的url和root修改如下：
->
->  url: https://test.atomgit.net/test_pages 
->
->  root: /test_pages
->
->- Jekyll 配置文件_config.yml的 baseurl修改如下：
->
->  baseurl: "/test_pages" # the subpath of your site, e.g. /test_pages  
->
+
+   答：当项目部署完成后存在一些资源访问404时，需要查看项目相关配置是否正确，如：https://atomgit.com/test/test_pages ，生成的pages url 为 https://test.atomgit.net/test_pages/ ，而访问的资源404，如 https://test.atomgit.net/style.css 。这是因为相应配置文件的相对路径存在问题导致的，生成的资源 url 应该为 https://test.atomgit.net/test_pages/style.css 才对。对于不同的静态资源生成器，配置如下：
+
+   - Hugo 配置文件config.toml的baseURL修改如下:
+
+     baseURL = "https://test.atomgit.net/test_pages"
+
+   - Hexo 配置文件_config.yml的url和root修改如下：
+
+     url: https://test.atomgit.net/test_pages 
+
+     root: /test_pages
+
+   - Jekyll 配置文件_config.yml的 baseurl修改如下：
+
+     baseurl: "/test_pages" # the subpath of your site, e.g. /test_pages  
+
 
 ### AtomGit Pages搭建教程
 1.首先点击主页的[开放市场](https://atomgit.com/marketplace)，跳转到应用市场如下：
