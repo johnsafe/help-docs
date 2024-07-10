@@ -4913,18 +4913,6 @@ components:
           description: total number of repositories
           type: Integer
           example: 3
-        public_repos:
-          description: number of public repositories
-          type: Integer
-          example: 3
-        total_private_repos:
-          description: number of private repositories
-          type: Integer
-          example: 2
-        owned_private_repos:
-          description: number of private repositories created by user
-          type: Integer
-          example: 1
         created_at:
           description: created_at
           type: string

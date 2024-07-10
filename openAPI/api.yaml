@@ -4983,18 +4983,6 @@ components:
           description: 总仓库数量
           type: Integer
           example: 3
-        public_repos:
-          description: 公开仓库数量
-          type: Integer
-          example: 3
-        total_private_repos:
-          description: 私有仓库总数量
-          type: Integer
-          example: 2
-        owned_private_repos:
-          description: 本人创建的私有仓库数量
-          type: Integer
-          example: 1
         created_at:
           description: 注册时间
           type: string
