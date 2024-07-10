@@ -4901,16 +4901,28 @@ components:
           description: home_url
           type: string
           example: https://atomgit.com/mrpuatomgit
+        followers:
+          description: number of followers
+          type: Integer
+          example: 6
+        following:
+          description: number of followings
+          type: Integer
+          example: 5
+        total_repos:
+          description: total number of repositories
+          type: Integer
+          example: 3
         public_repos:
-          description: public_repos count
+          description: number of public repositories
           type: Integer
           example: 3
         total_private_repos:
-          description: private_repos count
+          description: number of private repositories
           type: Integer
           example: 2
         owned_private_repos:
-          description: number of private repos created by user
+          description: number of private repositories created by user
           type: Integer
           example: 1
         created_at:

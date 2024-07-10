@@ -4971,6 +4971,18 @@ components:
           description: 主页地址
           type: string
           example: https://atomgit.com/mrpuatomgit
+        followers:
+          description: 粉丝数量
+          type: Integer
+          example: 6
+        following:
+          description: 关注数量
+          type: Integer
+          example: 5
+        total_repos:
+          description: 总仓库数量
+          type: Integer
+          example: 3
         public_repos:
           description: 公开仓库数量
           type: Integer
