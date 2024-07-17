@@ -103,7 +103,7 @@ remote: | Code review #31620 has been created, please visit:                    
 remote: | https://xxx.com/demo/changes/31620       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
- * [new reference]         master -> refs/change-requests/31620/head
+ * [new reference]         master -> refs/changes/31620/head
 ```
 
 可以看到，开启了推送评审模式后，git push 没有直接更新远端的代码，而是创建了一个代码评审，ID 是31620。
@@ -165,7 +165,7 @@ remote: | Code review #31620 has been updated, please visit:                    
 remote: | https://xxx.com/demo/changes/31620       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
-   27e76f582c..e00db4522f  master -> refs/change-requests/31620/head
+   27e76f582c..e00db4522f  master -> refs/changes/31620/head
 ```
 
 提示信息中可以看出，这次推送更新了 ID为31620的代码评审。
@@ -196,7 +196,7 @@ remote: | Code review #31626 has been created, please visit:                    
 remote: | https://xxx.com/demo/changes/31626       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
- * [new reference]         master -> refs/change-requests/31626/head
+ * [new reference]         master -> refs/changes/31626/head
 ```
 
 需要注意的是，如果推送时已经存在源与目标完全相同的评审，那么将无法创建新的评审。
@@ -271,7 +271,7 @@ remote: | Code review #31626 has been updated, please visit:                    
 remote: | https://xxx.com/demo/changes/31626       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
-   0ba010f2ff..037578c634  master -> refs/change-requests/31626/head
+   0ba010f2ff..037578c634  master -> refs/changes/31626/head
 ```
 
 这样，就更新了ID为31626的代码评审。
@@ -305,12 +305,12 @@ error: 无法推送一些引用到 'https://xxx/demo.git'
 
 先来看第一种方式。拉取更新在本地解决后再更新评审。
 
-首先，我们需要执行 `git fetch origin refs/change-requests/{mr-id}/head`，这里mr-id为31644，所以我们需要执行的命令是：`git fetch origin refs/change-requests/31644/head`
+首先，我们需要执行 `git fetch origin refs/changes/{mr-id}/head`，这里mr-id为31644，所以我们需要执行的命令是：`git fetch origin refs/changes/31644/head`
 
 ```bash
-$ git fetch origin refs/change-requests/31644/head
+$ git fetch origin refs/changes/31644/head
 来自 https://xxx.com/demo
- * branch                  refs/change-requests/31644/head -> FETCH_HEAD
+ * branch                  refs/changes/31644/head -> FETCH_HEAD
 ```
 
 然后，我们rebase本地的改动到评审对应的引用上。执行`git rebase FETCH_HEAD`。rebase操作可能会出现冲突，请根据实际情况解决。
@@ -337,7 +337,7 @@ remote: | Code review #31644 has been updated, please visit:                    
 remote: | https://xxx.com/demo/changes/31644       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
-   a4a2cad45c..8da076fb44  master -> refs/change-requests/31644/head
+   a4a2cad45c..8da076fb44  master -> refs/changes/31644/head
 ```
 
 这样，就更新了31644这个代码评审。
@@ -367,7 +367,7 @@ remote: | Code review #31644 has been updated, please visit:                    
 remote: | https://xxx.com/demo/changes/31644       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
-   8da076fb44..8da076fb44  master -> refs/change-requests/31644/head
+   8da076fb44..8da076fb44  master -> refs/changes/31644/head
 ```
 
 ### 跳过评审，直接更新代码
