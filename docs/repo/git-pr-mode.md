@@ -92,8 +92,8 @@ $ git push
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
-remote: | change request #31620 has been created, please visit:                              |
-remote: | https://xxx.com/demo/change_request/31620       |
+remote: | Code review #31620 has been created, please visit:                              |
+remote: | https://xxx.com/demo/changes/31620       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
  * [new reference]         master -> refs/change-requests/31620/head
@@ -151,8 +151,8 @@ $ git push
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
-remote: | change request #31620 has been updated, please visit:                              |
-remote: | https://xxx.com/demo/change_request/31620       |
+remote: | Code review #31620 has been updated, please visit:                              |
+remote: | https://xxx.com/demo/changes/31620       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
    27e76f582c..e00db4522f  master -> refs/change-requests/31620/head
@@ -180,8 +180,8 @@ $ git push -o review=new
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
-remote: | change request #31626 has been created, please visit:                              |
-remote: | https://xxx.com/demo/change_request/31626       |
+remote: | Code review #31626 has been created, please visit:                              |
+remote: | https://xxx.com/demo/changes/31626       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
  * [new reference]         master -> refs/change-requests/31626/head
@@ -193,8 +193,8 @@ $ git push -o review=new
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
-remote: | change request create failed. There exists a same change request in progress:       |
-remote: | https://xxx.com/demo/change_request/31620       |
+remote: | Code review create failed. There exists a same Code review in progress:       |
+remote: | https://xxx.com/demo/changes/31620       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
  ! [remote rejected]       master -> master (create CR failed)
@@ -214,13 +214,13 @@ $ git push
 remote: +-------------------------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                                      |
 remote: +-------------------------------------------------------------------------------------------------+
-remote: | You need to manually specify the change request to update because there are already              |
-remote: | multiple change requests that you created earlier for the same target branch:                    |
+remote: | You need to manually specify the Code review to update because there are already              |
+remote: | multiple Code review that you created earlier for the same target branch:                    |
 remote: |                                                                                                 |
-remote: | * [ID: 31626] https://xxx.com/demo/change_request/31626       |
-remote: | * [ID: 31620] https://xxx.com/demo/change_request/31620       |
+remote: | * [ID: 31626] https://xxx.com/demo/changes/31626       |
+remote: | * [ID: 31620] https://xxx.com/demo/changes/31620       |
 remote: |                                                                                                 |
-remote: | Then, update specific change request based on it's ID (CR-ID):                                   |
+remote: | Then, update specific Code review based on it's ID (CR-ID):                                   |
 remote: |     git push -o review=<CR-ID>                                                                  |
 remote: |                                                                                                 |
 remote: | Or you can create a new one:                                                                    |
@@ -249,8 +249,8 @@ $ git push -o review=31626
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
-remote: | change request #31626 has been updated, please visit:                              |
-remote: | https://xxx.com/demo/change_request/31626       |
+remote: | Code review #31626 has been updated, please visit:                              |
+remote: | https://xxx.com/demo/changes/31626       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
    0ba010f2ff..037578c634  master -> refs/change-requests/31626/head
@@ -306,8 +306,8 @@ $ git push -o review=31644
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
-remote: | change request #31644 has been updated, please visit:                              |
-remote: | https://xxx.com/demo/change_request/31644       |
+remote: | Code review #31644 has been updated, please visit:                              |
+remote: | https://xxx.com/demo/changes/31644       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
    a4a2cad45c..8da076fb44  master -> refs/change-requests/31644/head
@@ -319,7 +319,7 @@ To https://xxx.com/demo.git
 
 此时，我们需要知道两个值。
 
-一个是代码评审的ID，即代码评审URL的最后一段数字。例如，代码评审的URL是 https://xxxx.com/demo/change_request/31644，那么这个评审的ID即为31644。
+一个是代码评审的ID，即代码评审URL的最后一段数字。例如，代码评审的URL是 https://xxxx.com/demo/changes/31644，那么这个评审的ID即为31644。
 
 另一个是代码评审的源版本。在代码评审的详情页可获得。这里对应的源版本即为8da076fb。
 ![](./img/69.jpg)
@@ -333,8 +333,8 @@ $ git push -o review=31644 -o old-oid=8da076fb
 remote: +-----------------------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                                        |
 remote: +-----------------------------------------------------------------------------------+
-remote: | change request #31644 has been updated, please visit:                              |
-remote: | https://xxx.com/demo/change_request/31644       |
+remote: | Code review #31644 has been updated, please visit:                              |
+remote: | https://xxx.com/demo/changes/31644       |
 remote: +-----------------------------------------------------------------------------------+
 To https://xxx.com/demo.git
    8da076fb44..8da076fb44  master -> refs/change-requests/31644/head
@@ -349,7 +349,7 @@ To https://xxx.com/demo.git
 remote: +---------------------------------------------------------------------+
 remote: | The following tips are provided by Code:                          |
 remote: +---------------------------------------------------------------------+
-remote: | change request #31644 update failed.                                 |
-remote: | You need to be the author or reviewer to update this change request. |
+remote: | Code review #31644 update failed.                                 |
+remote: | You need to be the author or reviewer to update this Code review. |
 remote: +---------------------------------------------------------------------+
 ```
