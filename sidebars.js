@@ -144,6 +144,7 @@ const sidebars = {
         'org/org-settings',
         'org/org-relation',
         'org/cla',
+        'org/org-enterprise',
       ],
     },
     {
