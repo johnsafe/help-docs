@@ -3541,7 +3541,7 @@ paths:
                     description: |
                       变更请求回复的评论业务ID。
 # 创建评论
-  /repos/{owner}/{repo}/pulls/comments:
+  /repos/{repoOwner}/{repo}/pulls/{pull_number}/comments:
     post:
       tags:
         - change requests
