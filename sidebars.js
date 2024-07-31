@@ -186,7 +186,7 @@ const sidebars = {
               },
               items: [
                 'app/app-pages',
-                'pages/app-help'
+                'app/app-pageshelp'
               ],
             },
           ],
