@@ -1,8 +1,8 @@
 ---
 id: app-pages # 唯一ID
 slug: /app/pages # URL(最多三级结构，便于seo 和理解，遵循doc/资源/具体说明项 的原则)
-sidebar_label: AtomGit Pages # 在sidebar 中的名称
-title: AtomGit Pages # 页面标题
+sidebar_label: 介绍 # 在sidebar 中的名称
+title: AtomGit Pages 介绍 # 页面标题
 tags:
   - app
   - AtomGit Pages
