@@ -167,14 +167,29 @@ const sidebars = {
           label: '平台应用',
           link: {
             type: 'generated-index',
-            title: 'Atomgit Pages',
-            slug: 'AtomGit Pages',
+            title: '平台应用',
+            slug: 'platform-applications',
             description:
-              "Pages介绍",
-            keywords: ['atomgitpages'],
+              "所有关于平台应用的信息",
+            keywords: ['platform', 'applications'],
           },
           items: [
-            'app/app-pages'
+            {
+              type: 'category',
+              label: 'Pages',
+              link: {
+                type: 'generated-index',
+                title: 'Pages',
+                slug: 'pages',
+                description:
+                  "所有关于Pages的信息",
+                keywords: ['pages'],
+              },
+              items: [
+                'app/app-pages',
+                'pages/app-help'
+              ],
+            },
           ],
         },
       ],

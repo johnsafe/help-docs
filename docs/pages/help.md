@@ -1,8 +1,12 @@
 ---
+id: app-help # 唯一ID
 slug: /pages/help
-title: 'pages帮助文档'
+title: '教程'
 sidebar_position: 1
 hide_title: true
+tags:
+  - app
+  - AtomGit Pages
 ---
 
 ## AtomGit Pages
