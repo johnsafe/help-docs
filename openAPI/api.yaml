@@ -4955,6 +4955,10 @@ components:
           description: 手机号
           type: string
           example: 手机号
+        hide_email:
+          description: 是否隐藏邮箱,1-隐藏/0-显示
+          type: int
+          example: example@atomgit.com
         email:
           description: 邮箱
           type: string

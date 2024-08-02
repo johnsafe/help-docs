@@ -4885,6 +4885,10 @@ components:
           description: location
           type: string
           example: beijing
+        hide_email:
+          description: 是否隐藏邮箱,1-隐藏/0-显示
+          type: int
+          example: example@atomgit.com
         email:
           description: email
           type: string
